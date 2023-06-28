@@ -57,6 +57,8 @@ endpoints.forEach(async (endpoint) => {
 });
 
 fastify.get('/', (request, reply) => {
+  console.log('Returning data for /');
+
   reply.header('Access-Control-Allow-Origin', '*');
   reply.send(data);
 })
@@ -82,6 +84,8 @@ fastify.get('/:path', (request, reply) => {
     reply.send('Not found');
     return;
   }
+
+  console.log(`Returning data for ${path}`)
 
   reply.header('Access-Control-Allow-Origin', '*');
   reply.send(dataToReturn);
