@@ -1,0 +1,7 @@
+{
+  "name": "Amtraker",
+  "script": "index.js",
+  "interval": 30000,
+  "apiVersion": 3,
+  "configVersion": 0
+}
