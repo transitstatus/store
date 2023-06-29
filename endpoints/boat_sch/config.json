@@ -1,7 +1,7 @@
 {
   "name": "Boat Schedule",
   "script": "index.js",
-  "interval": 300000,
+  "interval": 900000,
   "apiVersion": 3,
   "configVersion": 0
 }
