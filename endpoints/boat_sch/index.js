@@ -70,7 +70,10 @@ const update = (async () => {
     return final;
   })
 
-  return outData;
+  return {
+    data: outData,
+    lastUpdated: new Date().toISOString(),
+  }
 })
 
 exports.update = update;
