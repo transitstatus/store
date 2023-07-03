@@ -50,29 +50,40 @@ const update = (async () => {
     "method": "GET",
   });
 
-  const text = await res.text();
-  const parsed = parser.parse(text.split('<table class="table table-sm table-striped table-bordered table-hover text-center">')[1].split('</table>')[0]);
+  try {
 
-  const outData = parsed.tbody.tr.map((row) => {
-    const final = {
-      boatLocation: row.td[0],
-      boat: row.td[1],
-      tourType: row.td[2],
-      occupancy: row.td[3],
-      departureDock: row.td[4],
-      departureTime: row.td[5],
-      arrivalTime: row.td[6],
-      arrivalDock: row.td[7],
-      specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
-      groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
+
+
+    const text = await res.text();
+    const parsed = parser.parse(text.split('<table class="table table-sm table-striped table-bordered table-hover text-center">')[1].split('</table>')[0]);
+
+    const outData = parsed.tbody.tr.map((row) => {
+      const final = {
+        boatLocation: row.td[0],
+        boat: row.td[1],
+        tourType: row.td[2],
+        occupancy: row.td[3],
+        departureDock: row.td[4],
+        departureTime: row.td[5],
+        arrivalTime: row.td[6],
+        arrivalDock: row.td[7],
+        specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
+        groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
+      }
+      //console.log(final)
+      return final;
+    })
+
+    return {
+      data: outData,
+      lastUpdated: new Date().toISOString(),
     }
-    //console.log(final)
-    return final;
-  })
-
-  return {
-    data: outData,
-    lastUpdated: new Date().toISOString(),
+  } catch (e) {
+    console.log(e)
+    return {
+      data: [],
+      lastUpdated: new Date().toISOString(),
+    }
   }
 })
 
