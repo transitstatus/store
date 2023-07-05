@@ -57,7 +57,11 @@ const update = (async () => {
     const text = await res.text();
     const parsed = parser.parse(text.split('<table class="table table-sm table-striped table-bordered table-hover text-center">')[1].split('</table>')[0]);
 
-    const outData = parsed.tbody.tr.map((row) => {
+    const outData = parsed.tbody.tr.map((row, i, arr) => {
+      const previousElements = arr.slice(0, i);
+      const previousBoats = previousElements.filter((x) => x.td[1] === row.td[1]);
+      const previousBoat = previousBoats[previousBoats.length - 1] ?? null;
+
       const final = {
         boatLocation: row.td[0],
         boat: row.td[1],
@@ -65,6 +69,7 @@ const update = (async () => {
         occupancy: row.td[3],
         departureDock: row.td[4],
         departureTime: row.td[5],
+        previousArrivalTime: previousBoat?.td[6] ?? null,
         arrivalTime: row.td[6],
         arrivalDock: row.td[7],
         specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
