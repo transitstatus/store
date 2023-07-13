@@ -2,6 +2,11 @@ const fetch = require('node-fetch');
 const { XMLParser } = require("fast-xml-parser");
 
 const endpoint = 'https://schedule.wendellaboats.com/';
+const regularTourTypes = [
+  '45-min River',
+  '90-min River',
+  'Lake & River'
+];
 
 const parser = new XMLParser();
 
@@ -9,6 +14,11 @@ const recursivelyParseObjectValuesIntoString = (obj) => {
   if (typeof obj === 'string') {
     if (obj === '') {
       return [];
+    }
+
+    const tempArr = obj.split('. ');
+    if (tempArr.length > 1) {
+      return tempArr;
     }
 
     return [obj];
@@ -31,7 +41,15 @@ const recursivelyParseObjectValuesIntoString = (obj) => {
   }
 
   return final;
-}
+};
+
+const parseDateFrom24HourTime = (time) => {
+  const date = new Date();
+  const [hours, minutes] = time.split(':');
+  date.setHours(hours);
+  date.setMinutes(minutes);
+  return date;
+};
 
 const update = (async () => {
   const res = await fetch(endpoint, {
@@ -51,27 +69,39 @@ const update = (async () => {
   });
 
   try {
-
-
-
     const text = await res.text();
     const parsed = parser.parse(text.split('<table class="table table-sm table-striped table-bordered table-hover text-center">')[1].split('</table>')[0]);
+
+    let todayInHistory = [];
 
     const outData = parsed.tbody.tr.map((row, i, arr) => {
       const previousElements = arr.slice(0, i);
       const previousBoats = previousElements.filter((x) => x.td[1] === row.td[1]);
       const previousBoat = previousBoats[previousBoats.length - 1] ?? null;
 
+      if (!row.td[1] && !row.td[2] && !row.td[4] && !row.td[5]) {
+        todayInHistory.push(recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x));
+        return null;
+      }
+
       const final = {
         boatLocation: row.td[0],
         boat: row.td[1],
         tourType: row.td[2],
         occupancy: row.td[3],
+        departure: {
+          dock: row.td[4].length > 0 ? row.td[4] : row.td[7],
+          time: parseDateFrom24HourTime(row.td[5].length > 0 ? row.td[5] : row.td[6]),
+        },
         departureDock: row.td[4].length > 0 ? row.td[4] : row.td[7],
         departureTime: row.td[5].length > 0 ? row.td[5] : row.td[6],
         previousArrivalTime: previousBoat?.td[6] ?? previousBoat?.td[5] ?? null,
         arrivalTime: row.td[6].length > 0 ? row.td[6] : row.td[5],
         arrivalDock: row.td[7].length > 0 ? row.td[7] : row.td[4],
+        arrival: {
+          dock: row.td[7].length > 0 ? row.td[7] : row.td[4],
+          time: parseDateFrom24HourTime(row.td[6].length > 0 ? row.td[6] : row.td[5]),
+        },
         specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
         groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
       }
@@ -80,13 +110,17 @@ const update = (async () => {
     })
 
     return {
-      data: outData,
+      data: outData.filter(n => n),
+      boats: outData.filter(n => n),
+      todayInHistory: todayInHistory,
       lastUpdated: new Date().toISOString(),
     }
   } catch (e) {
     console.log(e)
     return {
       data: [],
+      boats: [],
+      todayInHistory: [],
       lastUpdated: new Date().toISOString(),
     }
   }
