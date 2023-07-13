@@ -43,18 +43,6 @@ const recursivelyParseObjectValuesIntoString = (obj) => {
   return final;
 };
 
-const parseDateFrom24HourTime = (time) => {
-  if (!time) {
-    return null;
-  }
-
-  const date = new Date();
-  const [hours, minutes] = time.split(':');
-  date.setHours(hours);
-  date.setMinutes(minutes);
-  return date;
-};
-
 const update = (async () => {
   const res = await fetch(endpoint, {
     "credentials": "include",
