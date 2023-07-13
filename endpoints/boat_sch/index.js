@@ -95,8 +95,7 @@ const update = (async () => {
         occupancy: row.td[3],
         departure: {
           dock: row.td[4].length > 0 ? row.td[4] : row.td[7],
-          time: parseDateFrom24HourTime(row.td[5].length > 0 ? row.td[5] : row.td[6]),
-          rawTime: row.td[5].length > 0 ? row.td[5] : row.td[6],
+          time: row.td[5].length > 0 ? row.td[5] : row.td[6],
         },
         departureDock: row.td[4].length > 0 ? row.td[4] : row.td[7],
         departureTime: row.td[5].length > 0 ? row.td[5] : row.td[6],
@@ -105,13 +104,11 @@ const update = (async () => {
         arrivalDock: row.td[7].length > 0 ? row.td[7] : row.td[4],
         arrival: {
           dock: row.td[7].length > 0 ? row.td[7] : row.td[4],
-          time: parseDateFrom24HourTime(row.td[6].length > 0 ? row.td[6] : row.td[5]),
-          rawTime: row.td[6].length > 0 ? row.td[6] : row.td[5],
+          time: row.td[6].length > 0 ? row.td[6] : row.td[5],
         },
         previousArrival: {
           dock: previousBoat?.td[7] ?? previousBoat?.td[4] ?? null,
-          time: parseDateFrom24HourTime(previousBoat?.td[6] ?? previousBoat?.td[5] ?? null),
-          rawTime: previousBoat?.td[6] ?? previousBoat?.td[5] ?? null,
+          time: previousBoat?.td[6] ?? previousBoat?.td[5] ?? null,
         },
         specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
         groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
