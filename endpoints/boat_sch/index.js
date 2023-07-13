@@ -108,7 +108,7 @@ const update = (async () => {
           time: parseDateFrom24HourTime(row.td[6].length > 0 ? row.td[6] : row.td[5]),
           rawTime: row.td[6].length > 0 ? row.td[6] : row.td[5],
         },
-        previousArrial: {
+        previousArrival: {
           dock: previousBoat?.td[7] ?? previousBoat?.td[4] ?? null,
           time: parseDateFrom24HourTime(previousBoat?.td[6] ?? previousBoat?.td[5] ?? null),
           rawTime: previousBoat?.td[6] ?? previousBoat?.td[5] ?? null,
