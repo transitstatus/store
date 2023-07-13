@@ -44,6 +44,10 @@ const recursivelyParseObjectValuesIntoString = (obj) => {
 };
 
 const parseDateFrom24HourTime = (time) => {
+  if (!time) {
+    return null;
+  }
+
   const date = new Date();
   const [hours, minutes] = time.split(':');
   date.setHours(hours);
@@ -106,8 +110,8 @@ const update = (async () => {
         },
         previousArrial: {
           dock: previousBoat?.td[7] ?? previousBoat?.td[4] ?? null,
-          time: previousBoat?.td[6].length > 0 ? parseDateFrom24HourTime(previousBoat?.td[6]) : parseDateFrom24HourTime(previousBoat?.td[5]),
-          rawTime: previousBoat?.td[6].length > 0 ? previousBoat?.td[6] : previousBoat?.td[5],
+          time: parseDateFrom24HourTime(previousBoat?.td[6] ?? previousBoat?.td[5] ?? null),
+          rawTime: previousBoat?.td[6] ?? previousBoat?.td[5] ?? null,
         },
         specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
         groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
