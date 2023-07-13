@@ -104,6 +104,11 @@ const update = (async () => {
           time: parseDateFrom24HourTime(row.td[6].length > 0 ? row.td[6] : row.td[5]),
           rawTime: row.td[6].length > 0 ? row.td[6] : row.td[5],
         },
+        previousArrial: {
+          dock: previousBoat?.td[7] ?? previousBoat?.td[4] ?? null,
+          time: previousBoat?.td[6].length > 0 ? parseDateFrom24HourTime(previousBoat?.td[6]) : parseDateFrom24HourTime(previousBoat?.td[5]),
+          rawTime: previousBoat?.td[6].length > 0 ? previousBoat?.td[6] : previousBoat?.td[5],
+        },
         specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
         groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
       }
