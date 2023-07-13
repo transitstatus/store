@@ -92,6 +92,7 @@ const update = (async () => {
         departure: {
           dock: row.td[4].length > 0 ? row.td[4] : row.td[7],
           time: parseDateFrom24HourTime(row.td[5].length > 0 ? row.td[5] : row.td[6]),
+          rawTime: row.td[5].length > 0 ? row.td[5] : row.td[6],
         },
         departureDock: row.td[4].length > 0 ? row.td[4] : row.td[7],
         departureTime: row.td[5].length > 0 ? row.td[5] : row.td[6],
@@ -101,6 +102,7 @@ const update = (async () => {
         arrival: {
           dock: row.td[7].length > 0 ? row.td[7] : row.td[4],
           time: parseDateFrom24HourTime(row.td[6].length > 0 ? row.td[6] : row.td[5]),
+          rawTime: row.td[6].length > 0 ? row.td[6] : row.td[5],
         },
         specialInstructions: recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x),
         groups: recursivelyParseObjectValuesIntoString(row.td[9]).flatMap((x) => x),
