@@ -80,7 +80,7 @@ const update = (async () => {
       const previousBoat = previousBoats[previousBoats.length - 1] ?? null;
 
       if (!row.td[1] && !row.td[2] && !row.td[4] && !row.td[5]) {
-        todayInHistory.push(recursivelyParseObjectValuesIntoString(row.td[8]).flatMap((x) => x));
+        todayInHistory.push(row.td[8]);
         return null;
       }
 
