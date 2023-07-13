@@ -85,11 +85,6 @@ const update = (async () => {
           dock: row.td[4].length > 0 ? row.td[4] : row.td[7],
           time: row.td[5].length > 0 ? row.td[5] : row.td[6],
         },
-        departureDock: row.td[4].length > 0 ? row.td[4] : row.td[7],
-        departureTime: row.td[5].length > 0 ? row.td[5] : row.td[6],
-        previousArrivalTime: previousBoat?.td[6] ?? previousBoat?.td[5] ?? null,
-        arrivalTime: row.td[6].length > 0 ? row.td[6] : row.td[5],
-        arrivalDock: row.td[7].length > 0 ? row.td[7] : row.td[4],
         arrival: {
           dock: row.td[7].length > 0 ? row.td[7] : row.td[4],
           time: row.td[6].length > 0 ? row.td[6] : row.td[5],
@@ -106,7 +101,6 @@ const update = (async () => {
     })
 
     return {
-      data: outData.filter(n => n),
       boats: outData.filter(n => n),
       todayInHistory: todayInHistory,
       lastUpdated: new Date().toISOString(),
@@ -114,7 +108,6 @@ const update = (async () => {
   } catch (e) {
     console.log(e)
     return {
-      data: [],
       boats: [],
       todayInHistory: [],
       lastUpdated: new Date().toISOString(),
