@@ -91,6 +91,35 @@ fastify.get('/:path', (request, reply) => {
   reply.send(dataToReturn);
 });
 
+fastify.get('*', (request, reply) => {
+  //get path
+  const path = request.url;
+
+  //remove leading slash first
+  const pathArray = path.substring(1).split('/');
+  let dataToReturn = data;
+
+  try {
+    pathArray.forEach((path) => {
+      dataToReturn = dataToReturn[path];
+
+      if (dataToReturn === undefined) {
+        throw new Error('Not found');
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    reply.code(404);
+    reply.send('Not found');
+    return;
+  }
+
+  console.log(`Returning data for ${path}`)
+
+  reply.header('Access-Control-Allow-Origin', '*');
+  reply.send(dataToReturn);
+});
+
 fastify.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
   if (err) throw err
   console.log(`Server is now listening on ${address}`);
