@@ -64,8 +64,9 @@ fastify.get('/', (request, reply) => {
 })
 
 fastify.get('*', (request, reply) => {
-  console.log(`Returning data for ${path}`)
   const path = request.url;
+
+  console.log(`Returning data for ${path}`)
 
   //remove leading slash first
   const pathArray = path.substring(1).split('/');
