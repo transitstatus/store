@@ -63,36 +63,8 @@ fastify.get('/', (request, reply) => {
   reply.send(data);
 })
 
-fastify.get('/:path', (request, reply) => {
-  const { path } = request.params;
-
-  //use path to traverse object recursively and return data
-  const pathArray = path.split('/');
-  let dataToReturn = data;
-
-  try {
-    pathArray.forEach((path) => {
-      dataToReturn = dataToReturn[path];
-
-      if (dataToReturn === undefined) {
-        throw new Error('Not found');
-      }
-    });
-  } catch (e) {
-    console.log(e);
-    reply.code(404);
-    reply.send('Not found');
-    return;
-  }
-
-  console.log(`Returning data for ${path}`)
-
-  reply.header('Access-Control-Allow-Origin', '*');
-  reply.send(dataToReturn);
-});
-
 fastify.get('*', (request, reply) => {
-  //get path
+  console.log(`Returning data for ${path}`)
   const path = request.url;
 
   //remove leading slash first
@@ -113,8 +85,6 @@ fastify.get('*', (request, reply) => {
     reply.send('Not found');
     return;
   }
-
-  console.log(`Returning data for ${path}`)
 
   reply.header('Access-Control-Allow-Origin', '*');
   reply.send(dataToReturn);
