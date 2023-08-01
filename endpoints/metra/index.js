@@ -97,6 +97,7 @@ const update = (async () => {
         lon: train.trip_update?.position?.vehicle?.position?.longitude,
         heading: train.trip_update?.position?.vehicle?.position?.bearing,
         line: actualLines[train.trip_update?.trip?.route_id],
+        lineCode: train.trip_update?.trip?.route_id,
         predictions: [],
       }
 
@@ -138,6 +139,7 @@ const update = (async () => {
           eta: finalStation.eta,
           actualETA: finalStation.actualETA,
           line: finalTrain.line,
+          lineCode: finalTrain.lineCode,
         });
       });
 

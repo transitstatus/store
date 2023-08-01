@@ -78,6 +78,7 @@ const processData = (data) => {
         lon: train.Position.Lng,
         heading: train.Direction,
         line: actualLines[line.Line],
+        lineCode: line.Line,
         predictions: [],
       };
 
@@ -181,6 +182,7 @@ const processData = (data) => {
           eta: eta,
           actualETA: actualETA,
           line: actualLines[line.Line],
+          lineCode: line.Line,
         });
       });
     });
