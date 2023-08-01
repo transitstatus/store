@@ -1,7 +1,5 @@
 const fetch = require('node-fetch');
 
-const endpoint = 'https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=200';
-
 const actualLines = {
   'R': 'Red',
   'P': "Purple",
@@ -40,7 +38,11 @@ const additionalStops = {
 
 const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
 
-const processData = (data) => {
+const processData = async () => {
+  const req = await fetch('https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=200');
+  const raw = await req.text();
+  const data = JSON.parse(raw);
+
   if (data?.status !== 'OK') return {};
 
   let processedData = {
@@ -245,9 +247,4 @@ const processData = (data) => {
   return processedData;
 };
 
-exports.update = async () => {
-  const req = await fetch(endpoint);
-  const data = await req.text();
-  const parsed = JSON.parse(data);
-  return processData(parsed);
-};
+exports.update = processData;

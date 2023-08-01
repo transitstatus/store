@@ -68,8 +68,11 @@ const update = (async () => {
     "mode": "cors"
   });
 
-  const staticRes = await fetch('https://gtfs.piemadd.com/data/metra/stops.json');
-  const staticData = await staticRes.json();
+  const staticStopsRes = await fetch('https://gtfs.piemadd.com/data/metra/stops.json');
+  const staticStopsData = await staticStopsRes.json();
+
+  const staticRoutesRes = await fetch('https://gtfs.piemadd.com/data/metra/routes.json');
+  const staticRoutesData = await staticRoutesRes.json();
 
   try {
     const data = await res.json();
@@ -111,7 +114,7 @@ const update = (async () => {
 
         finalTrain.predictions.push({
           stationID: stop.stop_id,
-          stationName: staticData[stop.stop_id].stopName,
+          stationName: staticStopsData[stop.stop_id].stopName,
           eta: eta,
           actualETA: time,
         });
@@ -120,30 +123,53 @@ const update = (async () => {
         if (!transitStatus.stations[stop.stop_id]) {
           transitStatus.stations[stop.stop_id] = {
             stationID: stop.stop_id,
-            stationName: staticData[stop.stop_id].stopName,
+            stationName: staticStopsData[stop.stop_id].stopName,
             destinations: {},
           };
         }
 
-        const finalStation = finalTrain.predictions[finalTrain.predictions.length - 1];
+        const finalStation = staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id].headsign;
 
         //adding destinations to transitStatus object
-        if (!transitStatus.stations[stop.stop_id].destinations[finalStation.stationName]) {
-          transitStatus.stations[stop.stop_id].destinations[finalStation.stationName] = {
+        if (!transitStatus.stations[stop.stop_id].destinations[finalStation]) {
+          transitStatus.stations[stop.stop_id].destinations[finalStation] = {
             trains: [],
           };
         };
 
-        transitStatus.stations[stop.stop_id].destinations[finalStation.stationName].trains.push({
+        transitStatus.stations[stop.stop_id].destinations[finalStation].trains.push({
           runNumber: finalTrain.runNum,
-          eta: finalStation.eta,
-          actualETA: finalStation.actualETA,
+          eta: eta,
+          actualETA: time,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
         });
       });
 
       transitStatus.trains[runNumber] = finalTrain;
+    });
+
+    //adding any stations without trains to transitStatus object
+    Object.keys(staticRoutesData).forEach((routeID) => {
+      const route = staticRoutesData[routeID];
+
+      route.routeStations.forEach((stationID) => {
+        if (!transitStatus.stations[stationID]) {
+          transitStatus.stations[stationID] = {
+            stationID: stationID,
+            stationName: staticStopsData[stationID].stopName,
+            destinations: {},
+          };
+        }
+
+        route.destinations.forEach((destination) => {
+          if (!transitStatus.stations[stationID].destinations[destination]) {
+            transitStatus.stations[stationID].destinations[destination] = {
+              trains: [],
+            };
+          }
+        })
+      });
     });
 
     const lastUpdated = new Date().toISOString();
