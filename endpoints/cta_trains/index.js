@@ -260,7 +260,7 @@ const processData = async () => {
     const lineData = routesData[lineCode];
 
     processedData.transitStatus.lines[validLines[lineCode]] = {
-      lineCode: lineCode,
+      lineCode: validLines[lineCode],
       lineNameShort: lineData.routeShortName,
       lineNameLong: lineData.routeLongName,
       routeColor: lineData.routeColor,
