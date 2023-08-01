@@ -146,6 +146,8 @@ const update = (async () => {
           actualETA: time,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
+          lineColor: finalTrain.lineColor,
+          lineTextColor: finalTrain.lineTextColor,
         });
       });
 
