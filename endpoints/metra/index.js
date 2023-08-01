@@ -102,6 +102,8 @@ const update = (async () => {
         heading: train.trip_update?.position?.vehicle?.position?.bearing,
         line: actualLines[train.trip_update?.trip?.route_id],
         lineCode: train.trip_update?.trip?.route_id,
+        lineColor: staticRoutesData[train.trip_update?.trip?.route_id].routeColor,
+        lineTextColor: staticRoutesData[train.trip_update?.trip?.route_id].routeTextColor,
         predictions: [],
       }
 
