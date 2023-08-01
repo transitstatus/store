@@ -89,6 +89,7 @@ const update = (async () => {
     let transitStatus = {
       trains: {},
       stations: {},
+      lines: {},
     };
 
     //adding trains to transitStatus object
@@ -152,6 +153,15 @@ const update = (async () => {
     //adding any stations without trains to transitStatus object
     Object.keys(staticRoutesData).forEach((routeID) => {
       const route = staticRoutesData[routeID];
+
+      transitStatus.lines[routeID] = {
+        lineCode: routeID,
+        lineNameShort: route.routeShortName,
+        lineNameLong: route.routeLongName,
+        routeColor: route.routeColor,
+        routeTextColor: route.routeTextColor,
+        stations: route.routeStations,
+      };
 
       route.routeStations.forEach((stationID) => {
         if (!transitStatus.stations[stationID]) {
