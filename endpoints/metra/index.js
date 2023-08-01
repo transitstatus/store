@@ -141,7 +141,7 @@ const update = (async () => {
         };
 
         transitStatus.stations[stop.stop_id].destinations[finalStation].trains.push({
-          runNumber: finalTrain.runNum,
+          runNumber: runNumber,
           eta: eta,
           actualETA: time,
           line: finalTrain.line,
