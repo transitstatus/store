@@ -47,6 +47,10 @@ const processData = (data) => {
     lines: {},
     stations: {},
     trains: {},
+    transitStatus: {
+      trains: {},
+      stations: {}
+    },
     interval: 30000,
   };
 
@@ -60,6 +64,8 @@ const processData = (data) => {
 
       let stationPastLoop = false;
 
+      //console.log(train)
+
       processedData.trains[train.RunNumber] = {
         lat: train.Position.Lat,
         lon: train.Position.Lng,
@@ -67,9 +73,20 @@ const processData = (data) => {
         line: actualLines[line.Line],
       };
 
+      processedData.transitStatus.trains[train.RunNumber] = {
+        lat: train.Position.Lat,
+        lon: train.Position.Lng,
+        heading: train.Direction,
+        line: actualLines[line.Line],
+        predictions: [],
+      };
+
       train.Predictions.forEach((prediction, i, arr) => {
         let dest = train.DestName.split('&')[0];
         const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
+
+        const now = new Date().valueOf();
+        const actualETA = now + (eta * 60000);
 
         if (!isNaN(eta)) {
           //setting up station if it doesn't exist
@@ -135,6 +152,36 @@ const processData = (data) => {
         if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
           stationPastLoop = true;
         };
+
+        //adding prediction to train
+        processedData.transitStatus.trains[train.RunNumber].predictions.push({
+          stationID: prediction[0],
+          stationName: prediction[1],
+          eta: eta,
+          actualETA: actualETA,
+        });
+
+        //adding train to stations
+        if (!processedData.transitStatus.stations[prediction[0]]) {
+          processedData.transitStatus.stations[prediction[0]] = {
+            stationID: prediction[0],
+            stationName: prediction[1],
+            destinations: {},
+          }
+        }
+
+        if (!processedData.transitStatus.stations[prediction[0]].destinations[dest]) {
+          processedData.transitStatus.stations[prediction[0]].destinations[dest] = {
+            trains: [],
+          }
+        }
+
+        processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
+          runNumber: train.RunNumber,
+          eta: eta,
+          actualETA: actualETA,
+          line: actualLines[line.Line],
+        });
       });
     });
 
@@ -187,8 +234,11 @@ const processData = (data) => {
     console.log('Data updated!')
   })
 
-  processedData.lastUpdated = new Date().toISOString();
-  processedData.versionNumberAPI = '1.4.0'
+  const updated = new Date().toISOString();
+
+  processedData.lastUpdated = updated;
+  processedData.transitStatus.lastUpdated = updated;
+  processedData.versionNumberAPI = '2.0.0'
 
   return processedData;
 };

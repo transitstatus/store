@@ -2,6 +2,20 @@ const fetch = require('node-fetch');
 
 require('dotenv').config();
 
+const actualLines = {
+  'BNSF': 'BNSF',
+  'HC': 'Heritage Corridor',
+  'MD-N': 'Milwaukee District North',
+  'MD-W': 'Milwaukee District West',
+  'ME': 'Metra Electric',
+  'NCS': 'North Central Service',
+  'RI': 'Rock Island',
+  'SWS': 'Southwest Service',
+  'UP-N': 'Union Pacific North',
+  'UP-NW': 'Union Pacific Northwest',
+  'UP-W': 'Union Pacific West',
+}
+
 const recursivelyParseObjectValuesIntoString = (obj) => {
   if (typeof obj === 'string') {
     if (obj === '') {
@@ -54,6 +68,9 @@ const update = (async () => {
     "mode": "cors"
   });
 
+  const staticRes = await fetch('https://gtfs.piemadd.com/data/metra/stops.json');
+  const staticData = await staticRes.json();
+
   try {
     const data = await res.json();
 
@@ -66,14 +83,84 @@ const update = (async () => {
       }
     });
 
+    let transitStatus = {
+      trains: {},
+      stations: {},
+    };
+
+    //adding trains to transitStatus object
+    data.forEach((train) => {
+      const runNumber = train.trip_update?.vehicle?.label;
+
+      let finalTrain = {
+        lat: train.trip_update?.position?.vehicle?.position?.latitude,
+        lon: train.trip_update?.position?.vehicle?.position?.longitude,
+        heading: train.trip_update?.position?.vehicle?.position?.bearing,
+        line: actualLines[train.trip_update?.trip?.route_id],
+        predictions: [],
+      }
+
+      //adding predictions to transitStatus object
+      train.trip_update?.stop_time_update?.forEach((stop) => {
+        const arr = new Date(stop.arrival?.time?.low).valueOf();
+        const dep = new Date(stop.departure?.time?.low).valueOf();
+        const time = Math.max(arr, dep);
+        const now = new Date().valueOf();
+        const eta = Math.round((time - now) / 60000);
+
+        finalTrain.predictions.push({
+          stationID: stop.stop_id,
+          stationName: staticData[stop.stop_id].stopName,
+          eta: eta,
+          actualETA: new Date(eta).toISOString(),
+        });
+
+        //adding stations to transitStatus object
+        if (!transitStatus.stations[stop.stop_id]) {
+          transitStatus.stations[stop.stop_id] = {
+            stationID: stop.stop_id,
+            stationName: staticData[stop.stop_id].stopName,
+            destinations: {},
+          };
+        }
+
+        const finalStation = finalTrain.predictions[finalTrain.predictions.length - 1];
+
+        //adding destinations to transitStatus object
+        if (!transitStatus.stations[stop.stop_id].destinations[finalStation.stationName]) {
+          transitStatus.stations[stop.stop_id].destinations[finalStation.stationName] = {
+            trains: [],
+          };
+        };
+
+        transitStatus.stations[stop.stop_id].destinations[finalStation.stationName].trains.push({
+          runNumber: finalTrain.runNum,
+          eta: finalStation.eta,
+          actualETA: finalStation.actualETA,
+          line: finalTrain.line,
+        });
+      });
+
+      transitStatus.trains[runNumber] = finalTrain;
+    });
+
+    const lastUpdated = new Date().toISOString();
+
+    transitStatus.lastUpdated = lastUpdated;
+
     return {
       trains: processedData,
-      lastUpdated: new Date().toISOString(),
+      transitStatus,
+      lastUpdated: lastUpdated,
     }
   } catch (e) {
     console.log(e)
     return {
       trains: [],
+      transitStatus: {
+        trains: [],
+        stations: [],
+      },
       lastUpdated: new Date().toISOString(),
     }
   }
