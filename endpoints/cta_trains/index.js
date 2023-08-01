@@ -11,7 +11,7 @@ const actualLines = {
   'G': 'Green',
   'T': 'Brown',
   'O': 'Orange',
-}
+};
 
 const lineMeta = {
   'P': {
