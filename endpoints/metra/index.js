@@ -112,7 +112,7 @@ const update = (async () => {
           stationID: stop.stop_id,
           stationName: staticData[stop.stop_id].stopName,
           eta: eta,
-          actualETA: new Date(eta).toISOString(),
+          actualETA: time,
         });
 
         //adding stations to transitStatus object
