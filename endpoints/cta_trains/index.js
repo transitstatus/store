@@ -11,6 +11,17 @@ const actualLines = {
   'O': 'Orange',
 };
 
+const validLines = {
+  'Red': 'R',
+  'P': 'P',
+  'Y': 'Y',
+  'Blue': 'B',
+  'Pink': 'V',
+  'G': 'G',
+  'Brn': 'T',
+  'Org': 'O',
+};
+
 const lineMeta = {
   'P': {
     loopLimit: 40460.0,
@@ -45,13 +56,20 @@ const processData = async () => {
 
   if (data?.status !== 'OK') return {};
 
+  const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
+  const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
+
+  const routesData = await routesReq.json();
+  const stationsData = await stationsReq.json();
+
   let processedData = {
     lines: {},
     stations: {},
     trains: {},
     transitStatus: {
       trains: {},
-      stations: {}
+      stations: {},
+      lines: {}
     },
     interval: 30000,
   };
@@ -237,6 +255,21 @@ const processData = async () => {
     processedData.lines[actualLines[line.Line]] = headways;
     console.log('Data updated!')
   })
+
+  Object.keys(validLines).forEach((lineCode) => {
+    const lineData = routesData[lineCode];
+
+    processedData.transitStatus.lines[validLines[lineCode]] = {
+      lineCode: lineCode,
+      lineNameShort: lineData.routeShortName,
+      lineNameLong: lineData.routeLongName,
+      routeColor: lineData.routeColor,
+      routeTextColor: lineData.routeTextColor,
+      stations: lineData.routeStations
+    };
+  });
+
+  //console.log(processedData)
 
   const updated = new Date().toISOString();
 
