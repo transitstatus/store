@@ -249,6 +249,5 @@ exports.update = async () => {
   const req = await fetch(endpoint);
   const data = await req.text();
   const parsed = JSON.parse(data);
-
   return processData(parsed);
 };
