@@ -269,6 +269,34 @@ const processData = async () => {
     };
   });
 
+  //adding stations not in the tracking data
+  Object.keys(stationsData).forEach((stationID) => {
+    if (stationID < 40000 || stationID >= 50000) return;
+
+    if (!processedData.transitStatus.stations[stationID]) {
+      processedData.transitStatus.stations[stationID] = {
+        stationID: stationID,
+        stationName: stationsData[stationID].stopName,
+        destinations: {},
+      };
+    }
+
+    //adding destinations
+    Object.keys(routesData).forEach((lineCode) => {
+      if (!routesData[lineCode].routeStations.includes(stationID)) return;
+
+      const lineDestinations = routesData[lineCode].destinations;
+
+      lineDestinations.forEach((destination) => {
+        if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
+          processedData.transitStatus.stations[stationID].destinations[destination] = {
+            trains: [],
+          };
+        }
+      });
+    });
+  });
+
   //console.log(processedData)
 
   const updated = new Date().toISOString();
