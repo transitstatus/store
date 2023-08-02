@@ -22,6 +22,17 @@ const validLines = {
   'Org': 'O',
 };
 
+const validLinesReverse = {
+  'R': 'Red',
+  'P': 'P',
+  'Y': 'Y',
+  'B': 'Blue',
+  'V': 'Pink',
+  'G': 'G',
+  'T': 'Brn',
+  'O': 'Org',
+};
+
 const lineMeta = {
   'P': {
     loopLimit: 40460.0,
@@ -99,6 +110,8 @@ const processData = async () => {
         heading: train.Direction,
         line: actualLines[line.Line],
         lineCode: line.Line,
+        lineColor: routesData[validLinesReverse[line.Line]].routeColor,
+        lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
         predictions: [],
       };
 
