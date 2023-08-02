@@ -33,6 +33,24 @@ const validLinesReverse = {
   'O': 'Org',
 };
 
+const regularDestinations = [
+  'Howard',
+  '95th/Dan Ryan',
+  'Linden',
+  '54th/Cermak',
+  'Kimball',
+  'Midway',
+  'Loop',
+  'Harlem/Lake',
+  'Ashland/63rd',
+  'Cottage Grove',
+  'Forest Park',
+  'O\'Hare',
+  'UIC-Halsted',
+  'Dempster-Skokie',
+  'Skokie'
+]
+
 const lineMeta = {
   'P': {
     loopLimit: 40460.0,
@@ -303,9 +321,11 @@ const processData = async () => {
 
       lineDestinations.forEach((destination) => {
         if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
-          processedData.transitStatus.stations[stationID].destinations[destination] = {
-            trains: [],
-          };
+          if (regularDestinations.includes(destination)) {
+            processedData.transitStatus.stations[stationID].destinations[destination] = {
+              trains: [],
+            };
+          }
         }
       });
     });
