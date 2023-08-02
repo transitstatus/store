@@ -95,8 +95,6 @@ const processData = async () => {
 
       let stationPastLoop = false;
 
-      //console.log(train)
-
       processedData.trains[train.RunNumber] = {
         lat: train.Position.Lat,
         lon: train.Position.Lng,
@@ -112,6 +110,7 @@ const processData = async () => {
         lineCode: line.Line,
         lineColor: routesData[validLinesReverse[line.Line]].routeColor,
         lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
+        dest: train.DestName,
         predictions: [],
       };
 
