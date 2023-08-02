@@ -216,6 +216,8 @@ const processData = async () => {
           actualETA: actualETA,
           line: actualLines[line.Line],
           lineCode: line.Line,
+          lineColor: routesData[validLinesReverse[line.Line]].routeColor,
+          lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
         });
       });
     });
