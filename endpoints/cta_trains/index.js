@@ -51,6 +51,17 @@ const regularDestinations = [
   'Skokie'
 ]
 
+const inTheLoop = [
+  40040,
+  40160,
+  40260,
+  40380,
+  40680,
+  40730,
+  40850,
+  41700,
+]
+
 const lineMeta = {
   'P': {
     loopLimit: 40460.0,
@@ -128,7 +139,7 @@ const processData = async () => {
         lineCode: line.Line,
         lineColor: routesData[validLinesReverse[line.Line]].routeColor,
         lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
-        dest: train.DestName,
+        dest: train.DestName.split('&')[0],
         predictions: [],
       };
 
@@ -322,6 +333,7 @@ const processData = async () => {
       lineDestinations.forEach((destination) => {
         if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
           if (regularDestinations.includes(destination)) {
+            if (inTheLoop.includes(stationID) && destination === 'Loop') return;
             processedData.transitStatus.stations[stationID].destinations[destination] = {
               trains: [],
             };
