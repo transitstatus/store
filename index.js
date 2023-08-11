@@ -34,16 +34,26 @@ endpoints.forEach(async (endpoint) => {
 
         const { update } = require(`./endpoints/${endpoint}/${config.script}`);
 
-        update()
-          .then((result) => {
-            data[endpoint] = result;
-          })
-
-        setInterval(() => {
+        try {
           update()
             .then((result) => {
               data[endpoint] = result;
             })
+        } catch (e) {
+          console.log(`error updating data for ${endpoint}`);
+          console.log(e);
+        }
+
+        setInterval(() => {
+          try {
+            update()
+              .then((result) => {
+                data[endpoint] = result;
+              })
+          } catch (e) {
+            console.log(`error updating data for ${endpoint}`);
+            console.log(e);
+          }
         }, config.interval);
 
         break;
