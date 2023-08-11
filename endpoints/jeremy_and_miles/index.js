@@ -48,11 +48,12 @@ const buses = [
 const update = async () => {
   let finalBuses = [];
 
-  await Promise.all(buses.map(async (bus) => {
+  for (let i = 0; i < buses.length; i++) {
+    const bus = buses[i];
     const res = await fetch(`https://coachusa.origin.utrack.com/api/public-trip-by-local-departure-time-v1/${bus.year}-${bus.month}-${bus.day}/${bus.routeNum}/${bus.direction}/${bus.time}?api_key=${key}&debug=false&only_service_classes=CUSA,MBUS`);
     const data = await res.json();
     finalBuses.push(data);
-  }));
+  }
 
   return finalBuses;
 }
