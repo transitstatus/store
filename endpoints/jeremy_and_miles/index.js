@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const key = process.env.MEGABUSKEY ?? 'PUBLICNQ9YIAYC3O2UPC5GKTDR5DQLT0';
 
 const buses = [
