@@ -2,48 +2,7 @@ const fetch = require('node-fetch');
 
 const key = process.env.MEGABUSKEY ?? 'PUBLICNQ9YIAYC3O2UPC5GKTDR5DQLT0';
 
-const buses = [
-  {
-    routeNum: 'M21',
-    year: '2023',
-    month: '08',
-    day: '11',
-    time: '0200',
-    direction: 'O',
-  },
-  {
-    routeNum: 'M37',
-    year: '2023',
-    month: '08',
-    day: '11',
-    time: '0805',
-    direction: 'O',
-  },
-  {
-    routeNum: 'M93',
-    year: '2023',
-    month: '08',
-    day: '12',
-    time: '1430',
-    direction: 'O',
-  },
-  {
-    routeNum: 'M7',
-    year: '2023',
-    month: '08',
-    day: '12',
-    time: '2230',
-    direction: 'O',
-  },
-  {
-    routeNum: 'M72',
-    year: '2023',
-    month: '08',
-    day: '13',
-    time: '0845',
-    direction: 'O',
-  }
-]
+const buses = [];
 
 const update = async () => {
   let finalBuses = [];
