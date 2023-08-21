@@ -128,6 +128,8 @@ const update = (async () => {
           transitStatus.stations[stop.stop_id] = {
             stationID: stop.stop_id,
             stationName: staticStopsData[stop.stop_id].stopName,
+            lat: staticStopsData[stop.stop_id].stopLat,
+            lon: staticStopsData[stop.stop_id].stopLon,
             destinations: {},
           };
         }
@@ -173,6 +175,8 @@ const update = (async () => {
           transitStatus.stations[stationID] = {
             stationID: stationID,
             stationName: staticStopsData[stationID].stopName,
+            lat: staticStopsData[stationID].stopLat,
+            lon: staticStopsData[stationID].stopLon,
             destinations: {},
           };
         }

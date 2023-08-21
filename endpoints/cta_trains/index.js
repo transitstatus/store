@@ -144,6 +144,7 @@ const processData = async () => {
       };
 
       train.Predictions.forEach((prediction, i, arr) => {
+
         let dest = train.DestName.split('&')[0];
         const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
 
@@ -323,6 +324,9 @@ const processData = async () => {
         destinations: {},
       };
     }
+
+    processedData.transitStatus.stations[stationID].lat = stationsData[stationID].stopLat;
+    processedData.transitStatus.stations[stationID].lon = stationsData[stationID].stopLon;
 
     //adding destinations
     Object.keys(routesData).forEach((lineCode) => {
