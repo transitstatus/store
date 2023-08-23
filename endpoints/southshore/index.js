@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const otherStopData = require('./stops').otherStopData;
 
 const update = async () => {
   const trackingRes = await fetch('https://southshore.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING');
@@ -149,13 +150,7 @@ const update = async () => {
   });
 
   trackingData.get_vehicles.forEach((train) => {
-    let upcomingStopIDs = [];
-    const minStopNum = Number(train.nextStopExtID.replace('s', ''));
-    const maxStopID = Number(train.lastStopExtID.replace('s', ''));
-
-    for (let i = minStopNum; i <= maxStopID; i++) {
-      upcomingStopIDs.push(`s${i}`);
-    }
+    console.log(transitStatusResponse.stations)
 
     transitStatusResponse.trains[train.tripID] = {
       lat: train.lat,
@@ -167,9 +162,11 @@ const update = async () => {
       lineTextColor: transitStatusResponse.lines['so_shore'].routeTextColor,
       dest: routes['so_shore'].routeTrips[train.tripID].headsign,
       predictions: train.minutesToNextStops.map((stop, i) => {
+        const stationMeta = transitStatusResponse.stations[`s${stop.stopID}`];
+
         return {
-          stationID: upcomingStopIDs[i],
-          stationName: transitStatusResponse.stations[upcomingStopIDs[i]].stationName,
+          stationID: stationMeta.stationID,
+          stationName: stationMeta.stationName,
           eta: stop.minutes,
           actualETA: new Date(lastUpdated).getTime() + (stop.minutes * 60 * 1000),
         }
