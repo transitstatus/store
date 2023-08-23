@@ -1,5 +1,5 @@
 {
-  "name": "CTA Trains",
+  "name": "South Shore Line",
   "script": "index.js",
   "interval": 30000,
   "apiVersion": 3,

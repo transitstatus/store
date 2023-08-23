@@ -3,6 +3,8 @@ const fastify = require('fastify')({
   logger: false
 });
 
+const only_testing = ''
+
 let data = {};
 
 // getting folders within scripts folder
@@ -10,6 +12,8 @@ const endpoints = fs.readdirSync('./endpoints');
 
 // going through endpoints and setting up update jobs
 endpoints.forEach(async (endpoint) => {
+  if (only_testing !== undefined && only_testing !== null && only_testing !== '' && endpoint !== only_testing) return;
+
   console.log(`Loading endpoint: ${endpoint}`);
   if (fs.lstatSync(`./endpoints/${endpoint}`).isDirectory()) {
     console.log(`${endpoint} is a directory`);
