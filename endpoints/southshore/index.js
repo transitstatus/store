@@ -169,6 +169,7 @@ const update = async () => {
       predictions: train.minutesToNextStops.map((stop, i) => {
         return {
           stationID: upcomingStopIDs[i],
+          stationName: transitStatusResponse.stations[upcomingStopIDs[i]].stationName,
           eta: stop.minutes,
           actualETA: new Date(lastUpdated).getTime() + (stop.minutes * 60 * 1000),
         }
