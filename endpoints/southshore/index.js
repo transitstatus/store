@@ -192,7 +192,9 @@ const update = async () => {
     })
   })
 
-  return transitStatusResponse;
+  return {
+    transitStatus: transitStatusResponse,
+  };
 };
 
 exports.update = update;
