@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 
 const update = async () => {
-  //const trackingRes = await fetch('https://southshore.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING');
-  //const trackingData = await trackingRes.json();
+  const trackingRes = await fetch('https://southshore.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING');
+  const trackingData = await trackingRes.json();
 
   const stationsReq = await fetch('https://gtfs.piemadd.com/data/southshore/stops.json');
   const routesReq = await fetch('https://gtfs.piemadd.com/data/southshore/routes.json');
@@ -104,7 +104,7 @@ const update = async () => {
     ]
   }
 
-  const trackingData = sampleData;
+  //const trackingData = sampleData;
 
   const lastUpdated = new Date().toISOString();
 
