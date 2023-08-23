@@ -150,7 +150,6 @@ const update = async () => {
   });
 
   trackingData.get_vehicles.forEach((train) => {
-    console.log(transitStatusResponse.stations)
 
     transitStatusResponse.trains[train.tripID] = {
       lat: train.lat,
