@@ -42,7 +42,7 @@ const update = (async () => {
     const onlyDoThese = ['rutgers', 'chicago'];
     if (!onlyDoThese.includes(feedKey)) continue;
 
-    //if (feedKey !== 'rutgers') continue;
+    //if (feedKey !== 'chicago') continue;
 
     console.log(`Starting feed ${feedKey}`)
 
@@ -105,6 +105,7 @@ const update = (async () => {
     });
 
     let tripVehicles = {};
+    let allTrips = [];
 
     vehiclePositions.entity.forEach((entity) => {
       transitStatus.trains[entity.vehicle.vehicle.label] = {
@@ -117,12 +118,24 @@ const update = (async () => {
     })
 
     tripUpdates.entity.forEach((entity) => {
+      allTrips.push(entity.tripUpdate.trip.tripId);
+
       const tripId = entity.tripUpdate.trip.tripId;
-      const vehicleId = tripVehicles[tripId];
+      let vehicleId = tripVehicles[tripId];
 
       const route = Object.values(staticRoutes).find((route) => Object.keys(route.routeTrips).includes(entity.tripUpdate.trip.tripId));
 
       if (!route) return;
+
+      if (vehicleId === undefined) {
+        vehicleId = tripId;
+
+        transitStatus.trains[vehicleId] = {
+          lat: 0,
+          lon: 0,
+          heading: 0,
+        }
+      }
 
       transitStatus.trains[vehicleId] = {
         ...transitStatus.trains[vehicleId],
