@@ -1,0 +1,4 @@
+https://passio3.com/rutgers/passioTransit/gtfs/realtime/vehiclePositions
+https://passio3.com/rutgers/passioTransit/gtfs/realtime/tripUpdates
+https://passio3.com/rutgers/passioTransit/gtfs/realtime/serviceAlerts
+https://passio3.com/rutgers/passioTransit/gtfs/google_transit.zip

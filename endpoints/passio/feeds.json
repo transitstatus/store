@@ -1,0 +1,526 @@
+{
+  "peachtree": {
+    "url": "https://passio3.com/peachtree/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "cardinal5025": {
+    "url": "https://passio3.com/cardinal5025/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "725ponce": {
+    "url": "https://passio3.com/725ponce/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "9town": {
+    "url": "https://passio3.com/9town/passioTransit/gtfs/google_transit.zip"
+  },
+  "ascott": {
+    "url": "https://passio3.com/ascott/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "aamu": {
+    "url": "https://passio3.com/aamu/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "AnneC": {
+    "url": "https://passio3.com/AnneC/passioTransit/gtfs/google_transit.zip"
+  },
+  "rwwl": {
+    "url": "https://passio3.com/rwwl/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "Audible": {
+    "url": "https://passio3.com/Audible/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "gru": {
+    "url": "https://passio3.com/gru/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "bayonne": {
+    "url": "https://passio3.com/bayonne/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "BeaconCollege11": {
+    "url": "https://passio3.com/BeaconCollege11/passioTransit/gtfs/google_transit.zip"
+  },
+  "beaconprop": {
+    "url": "https://passio3.com/beaconprop/passioTransit/gtfs/google_transit.zip"
+  },
+  "beloit": {
+    "url": "https://passio3.com/beloit/passioTransit/gtfs/google_transit.zip"
+  },
+  "brockton": {
+    "url": "https://passio3.com/brockton/passioTransit/gtfs/google_transit.zip"
+  },
+  "usf": {
+    "url": "https://passio3.com/usf/passioTransit/gtfs/google_transit.zip"
+  },
+  "sundiego": {
+    "url": "https://passio3.com/sundiego/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "canbyTransit": {
+    "url": "https://passio3.com/canbyTransit/passioTransit/gtfs/google_transit.zip"
+  },
+  "cet": {
+    "url": "https://passio3.com/cet/passioTransit/gtfs/google_transit.zip"
+  },
+  "century": {
+    "url": "https://passio3.com/century/passioTransit/gtfs/google_transit.zip"
+  },
+  "chapman": {
+    "url": "https://passio3.com/chapman/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "charmcity": {
+    "url": "https://passio3.com/charmcity/passioTransit/gtfs/google_transit.zip"
+  },
+  "choa": {
+    "url": "https://passio3.com/choa/passioTransit/gtfs/google_transit.zip"
+  },
+  "citrusconn": {
+    "url": "https://passio3.com/citrusconn/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "ArcadiaCity": {
+    "url": "https://passio3.com/ArcadiaCity/passioTransit/gtfs/google_transit.zip"
+  },
+  "beckley": {
+    "url": "https://passio3.com/beckley/passioTransit/gtfs/google_transit.zip"
+  },
+  "billings": {
+    "url": "https://passio3.com/billings/passioTransit/gtfs/google_transit.zip"
+  },
+  "cerritos": {
+    "url": "https://passio3.com/cerritos/passioTransit/gtfs/google_transit.zip"
+  },
+  "detroitemp": {
+    "url": "https://passio3.com/detroitemp/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "harrisonburg": {
+    "url": "https://passio3.com/harrisonburg/passioTransit/gtfs/google_transit.zip"
+  },
+  "hoboken": {
+    "url": "https://passio3.com/hoboken/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "jtran": {
+    "url": "https://passio3.com/jtran/passioTransit/gtfs/google_transit.zip"
+  },
+  "jacksonville": {
+    "url": "https://passio3.com/jacksonville/passioTransit/gtfs/google_transit.zip"
+  },
+  "montereyp": {
+    "url": "https://passio3.com/montereyp/passioTransit/gtfs/google_transit.zip"
+  },
+  "oats": {
+    "url": "https://passio3.com/oats/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "rosemead": {
+    "url": "https://passio3.com/rosemead/passioTransit/gtfs/google_transit.zip"
+  },
+  "sandyor": {
+    "url": "https://passio3.com/sandyor/passioTransit/gtfs/google_transit.zip"
+  },
+  "CityofTracy": {
+    "url": "https://passio3.com/CityofTracy/passioTransit/gtfs/google_transit.zip"
+  },
+  "tylertx": {
+    "url": "https://passio3.com/tylertx/passioTransit/gtfs/google_transit.zip"
+  },
+  "watertown": {
+    "url": "https://passio3.com/watertown/passioTransit/gtfs/google_transit.zip"
+  },
+  "kootenai": {
+    "url": "https://passio3.com/kootenai/passioTransit/gtfs/google_transit.zip"
+  },
+  "citylinkrural": {
+    "url": "https://passio3.com/citylinkrural/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "clackamas": {
+    "url": "https://passio3.com/clackamas/passioTransit/gtfs/google_transit.zip"
+  },
+  "Clemson2": {
+    "url": "https://passio3.com/Clemson2/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "cnrl": {
+    "url": "https://passio3.com/cnrl/passioTransit/gtfs/google_transit.zip"
+  },
+  "coke": {
+    "url": "https://passio3.com/coke/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "security@colby.edu": {
+    "url": "https://passio3.com/security@colby.edu/passioTransit/gtfs/google_transit.zip"
+  },
+  "columbia": {
+    "url": "https://passio3.com/columbia/passioTransit/gtfs/google_transit.zip"
+  },
+  "conchoVT": {
+    "url": "https://passio3.com/conchoVT/passioTransit/gtfs/google_transit.zip"
+  },
+  "concordk": {
+    "url": "https://passio3.com/concordk/passioTransit/gtfs/google_transit.zip"
+  },
+  "Concourse": {
+    "url": "https://passio3.com/Concourse/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "douglas": {
+    "url": "https://passio3.com/douglas/passioTransit/gtfs/google_transit.zip"
+  },
+  "coast": {
+    "url": "https://passio3.com/coast/passioTransit/gtfs/google_transit.zip"
+  },
+  "cgables": {
+    "url": "https://passio3.com/cgables/passioTransit/gtfs/google_transit.zip"
+  },
+  "CoryD": {
+    "url": "https://passio3.com/CoryD/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "countyconn": {
+    "url": "https://passio3.com/countyconn/passioTransit/gtfs/google_transit.zip"
+  },
+  "reefdoc": {
+    "url": "https://passio3.com/reefdoc/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "easternken": {
+    "url": "https://passio3.com/easternken/passioTransit/gtfs/google_transit.zip"
+  },
+  "epta": {
+    "url": "https://passio3.com/epta/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "EVMS": {
+    "url": "https://passio3.com/EVMS/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "emory": {
+    "url": "https://passio3.com/emory/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "endicott": {
+    "url": "https://passio3.com/endicott/passioTransit/gtfs/google_transit.zip"
+  },
+  "epsteins": {
+    "url": "https://passio3.com/epsteins/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "ecat": {
+    "url": "https://passio3.com/ecat/passioTransit/gtfs/google_transit.zip"
+  },
+  "uniteda": {
+    "url": "https://passio3.com/uniteda/passioTransit/gtfs/google_transit.zip"
+  },
+  "ewrpanynj": {
+    "url": "https://passio3.com/ewrpanynj/passioTransit/gtfs/google_transit.zip"
+  },
+  "fitnewyork": {
+    "url": "https://passio3.com/fitnewyork/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "floridabus": {
+    "url": "https://passio3.com/floridabus/passioTransit/gtfs/google_transit.zip"
+  },
+  "fgcu": {
+    "url": "https://passio3.com/fgcu/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "avenel": {
+    "url": "https://passio3.com/avenel/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "fortsask": {
+    "url": "https://passio3.com/fortsask/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "frta": {
+    "url": "https://passio3.com/frta/passioTransit/gtfs/google_transit.zip"
+  },
+  "franklint": {
+    "url": "https://passio3.com/franklint/passioTransit/gtfs/google_transit.zip"
+  },
+  "fresno": {
+    "url": "https://passio3.com/fresno/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "gatewayjfk": {
+    "url": "https://passio3.com/gatewayjfk/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "gcsu": {
+    "url": "https://passio3.com/gcsu/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "GASO": {
+    "url": "https://passio3.com/GASO/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "georgiast": {
+    "url": "https://passio3.com/georgiast/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "gatech": {
+    "url": "https://passio3.com/gatech/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "miller": {
+    "url": "https://passio3.com/miller/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "hart": {
+    "url": "https://passio3.com/hart/passioTransit/gtfs/google_transit.zip"
+  },
+  "harvard": {
+    "url": "https://passio3.com/harvard/passioTransit/gtfs/google_transit.zip"
+  },
+  "hendrycounty": {
+    "url": "https://passio3.com/hendrycounty/passioTransit/gtfs/google_transit.zip"
+  },
+  "highlandhos": {
+    "url": "https://passio3.com/highlandhos/passioTransit/gtfs/google_transit.zip"
+  },
+  "hillplace": {
+    "url": "https://passio3.com/hillplace/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "hollinsshuttle": {
+    "url": "https://passio3.com/hollinsshuttle/passioTransit/gtfs/google_transit.zip"
+  },
+  "simonedev": {
+    "url": "https://passio3.com/simonedev/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "jfkpanynj": {
+    "url": "https://passio3.com/jfkpanynj/passioTransit/gtfs/google_transit.zip"
+  },
+  "kfoothills": {
+    "url": "https://passio3.com/kfoothills/passioTransit/gtfs/google_transit.zip"
+  },
+  "lehigh": {
+    "url": "https://passio3.com/lehigh/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "lax": {
+    "url": "https://passio3.com/lax/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "puertoricotec": {
+    "url": "https://passio3.com/puertoricotec/passioTransit/gtfs/google_transit.zip"
+  },
+  "mktrail": {
+    "url": "https://passio3.com/mktrail/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "mercy": {
+    "url": "https://passio3.com/mercy/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "mizzst": {
+    "url": "https://passio3.com/mizzst/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "mit": {
+    "url": "https://passio3.com/mit/passioTransit/gtfs/google_transit.zip"
+  },
+  "montachusett": {
+    "url": "https://passio3.com/montachusett/passioTransit/gtfs/google_transit.zip"
+  },
+  "NCI": {
+    "url": "https://passio3.com/NCI/passioTransit/gtfs/google_transit.zip"
+  },
+  "ncstateuni": {
+    "url": "https://passio3.com/ncstateuni/passioTransit/gtfs/google_transit.zip"
+  },
+  "newyork": {
+    "url": "https://passio3.com/newyork/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "ncat": {
+    "url": "https://passio3.com/ncat/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "northfork": {
+    "url": "https://passio3.com/northfork/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "otterbus": {
+    "url": "https://passio3.com/otterbus/passioTransit/gtfs/google_transit.zip"
+  },
+  "ozark": {
+    "url": "https://passio3.com/ozark/passioTransit/gtfs/google_transit.zip"
+  },
+  "wpbair": {
+    "url": "https://passio3.com/wpbair/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "pepperdine": {
+    "url": "https://passio3.com/pepperdine/passioTransit/gtfs/google_transit.zip"
+  },
+  "pittair": {
+    "url": "https://passio3.com/pittair/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "Port775": {
+    "url": "https://passio3.com/Port775/passioTransit/gtfs/google_transit.zip"
+  },
+  "parta": {
+    "url": "https://passio3.com/parta/passioTransit/gtfs/google_transit.zip"
+  },
+  "quinnUni": {
+    "url": "https://passio3.com/quinnUni/passioTransit/gtfs/google_transit.zip"
+  },
+  "radford": {
+    "url": "https://passio3.com/radford/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "ravinia": {
+    "url": "https://passio3.com/ravinia/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "rogerwu": {
+    "url": "https://passio3.com/rogerwu/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "rutgers": {
+    "url": "https://passio3.com/rutgers/passioTransit/gtfs/google_transit.zip"
+  },
+  "sacair": {
+    "url": "https://passio3.com/sacair/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "spuniv": {
+    "url": "https://passio3.com/spuniv/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "salve": {
+    "url": "https://passio3.com/salve/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "senecanation": {
+    "url": "https://passio3.com/senecanation/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "scsu": {
+    "url": "https://passio3.com/scsu/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "stvincent": {
+    "url": "https://passio3.com/stvincent/passioTransit/gtfs/google_transit.zip"
+  },
+  "onyx": {
+    "url": "https://passio3.com/onyx/passioTransit/gtfs/google_transit.zip"
+  },
+  "chickfila": {
+    "url": "https://passio3.com/chickfila/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "centraltrans": {
+    "url": "https://passio3.com/centraltrans/passioTransit/gtfs/google_transit.zip"
+  },
+  "tntech": {
+    "url": "https://passio3.com/tntech/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "Terraces": {
+    "url": "https://passio3.com/Terraces/passioTransit/gtfs/google_transit.zip"
+  },
+  "concordtrolley": {
+    "url": "https://passio3.com/concordtrolley/passioTransit/gtfs/google_transit.zip"
+  },
+  "retreatlt": {
+    "url": "https://passio3.com/retreatlt/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "cardgroup": {
+    "url": "https://passio3.com/cardgroup/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "westorange": {
+    "url": "https://passio3.com/westorange/passioTransit/gtfs/google_transit.zip"
+  },
+  "towson": {
+    "url": "https://passio3.com/towson/passioTransit/gtfs/google_transit.zip"
+  },
+  "tulaneshuttles": {
+    "url": "https://passio3.com/tulaneshuttles/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "uconn": {
+    "url": "https://passio3.com/uconn/passioTransit/gtfs/google_transit.zip"
+  },
+  "uncc": {
+    "url": "https://passio3.com/uncc/passioTransit/gtfs/google_transit.zip"
+  },
+  "uncg": {
+    "url": "https://passio3.com/uncg/passioTransit/gtfs/google_transit.zip"
+  },
+  "bamabama": {
+    "url": "https://passio3.com/bamabama/passioTransit/gtfs/google_transit.zip"
+  },
+  "UofArkansas": {
+    "url": "https://passio3.com/UofArkansas/passioTransit/gtfs/google_transit.zip"
+  },
+  "chicago": {
+    "url": "https://passio3.com/chicago/passioTransit/gtfs/google_transit.zip"
+  },
+  "HartfordAmerica": {
+    "url": "https://passio3.com/HartfordAmerica/passioTransit/gtfs/google_transit.zip"
+  },
+  "umdearborn": {
+    "url": "https://passio3.com/umdearborn/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "unm": {
+    "url": "https://passio3.com/unm/passioTransit/gtfs/google_transit.zip"
+  },
+  "northga": {
+    "url": "https://passio3.com/northga/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "UofSanDTram": {
+    "url": "https://passio3.com/UofSanDTram/passioTransit/gtfs/google_transit.zip"
+  },
+  "utep": {
+    "url": "https://passio3.com/utep/passioTransit/gtfs/google_transit.zip"
+  },
+  "milwaukee": {
+    "url": "https://passio3.com/milwaukee/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "uchra": {
+    "url": "https://passio3.com/uchra/passioTransit/gtfs/google_transit.zip"
+  },
+  "utahstate": {
+    "url": "https://passio3.com/utahstate/passioTransit/gtfs/google_transit.zip"
+  },
+  "vandy": {
+    "url": "https://passio3.com/vandy/passioTransit/gtfs/google_transit.zip"
+  },
+  "vandyhealth": {
+    "url": "https://passio3.com/vandyhealth/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "wakeforest": {
+    "url": "https://passio3.com/wakeforest/passioTransit/gtfs/google_transit.zip"
+  },
+  "westmar": {
+    "url": "https://passio3.com/westmar/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "woodbridge": {
+    "url": "https://passio3.com/woodbridge/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  },
+  "xchange": {
+    "url": "https://passio3.com/xchange/passioTransit/gtfs/google_transit.zip",
+    "invalid": true
+  }
+}
