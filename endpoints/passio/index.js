@@ -123,14 +123,14 @@ const update = (async () => {
       const route = Object.values(staticRoutes).find((route) => Object.keys(route.routeTrips).includes(entity.tripUpdate.trip.tripId));
 
       if (!route) return;
-
+      
       transitStatus.trains[vehicleId] = {
         ...transitStatus.trains[vehicleId],
         line: route.routeLongName,
         lineCode: route.routeID,
         lineColor: route.routeColor,
         lineTextColor: route.routeTextColor,
-        dest: route.routeTrips[tripId].tripHeadsign,
+        dest: route.routeTrips[tripId].headsign,
         predictions: entity.tripUpdate.stopTimeUpdate.map((stop) => {
           const arrivalTimestamp = Math.max(stop.arrival.time.low, stop.arrival.time.high) * 1000;
           const staticStop = staticStops[stop.stopId] ?? {
