@@ -85,10 +85,10 @@ const update = (async () => {
       const route = staticRoutes[routeId];
 
       route.routeStations.forEach((station) => {
-        if (!transitStatus.stations[station.stopID]) return;
+        if (!transitStatus.stations[station]) return;
 
         route.destinations.forEach((destination) => {
-          transitStatus.stations[station.stopID].destinations[destination] = {
+          transitStatus.stations[station].destinations[destination] = {
             trains: []
           }
         })
@@ -123,7 +123,7 @@ const update = (async () => {
       const route = Object.values(staticRoutes).find((route) => Object.keys(route.routeTrips).includes(entity.tripUpdate.trip.tripId));
 
       if (!route) return;
-      
+
       transitStatus.trains[vehicleId] = {
         ...transitStatus.trains[vehicleId],
         line: route.routeLongName,
@@ -139,6 +139,16 @@ const update = (async () => {
             stopLat: 0,
             stopLon: 0
           }
+
+          transitStatus.stations[stop.stopId].destinations[route.routeTrips[tripId].headsign].trains.push({
+            runNumber: vehicleId,
+            eta: Math.floor((arrivalTimestamp - now.valueOf()) / (1000 * 60)),
+            actualETA: arrivalTimestamp,
+            line: route.routeLongName,
+            lineCode: route.routeID,
+            lineColor: route.routeColor,
+            lineTextColor: route.routeTextColor,
+          });
 
           return {
             stationID: stop.stopId,
