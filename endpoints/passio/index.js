@@ -1,5 +1,6 @@
 const fs = require('fs');
 const protobuf = require('protobufjs');
+const fetch = require('node-fetch');
 
 const arrayBufferToBase64 = (buffer) => {
   var binary = '';
