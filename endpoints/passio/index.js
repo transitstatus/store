@@ -39,7 +39,8 @@ const update = (async () => {
       continue;
     }
 
-    //if (feedKey !== 'AnneC') continue;
+    const onlyDoThese = ['rutgers', 'chicago'];
+    if (!onlyDoThese.includes(feedKey)) continue;
 
     console.log(`Starting feed ${feedKey}`)
 
