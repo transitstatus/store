@@ -42,6 +42,8 @@ const update = (async () => {
     const onlyDoThese = ['rutgers', 'chicago'];
     if (!onlyDoThese.includes(feedKey)) continue;
 
+    //if (feedKey !== 'rutgers') continue;
+
     console.log(`Starting feed ${feedKey}`)
 
     const tripUpdatesReq = await fetch(`https://passio3.com/${feedKey}/passioTransit/gtfs/realtime/tripUpdates`);
@@ -98,7 +100,7 @@ const update = (async () => {
         lineNameLong: route.routeLongName,
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
-        stations: route.routeStations.map((station) => station.stopID)
+        stations: route.routeStations.map((station) => station)
       }
     });
 
