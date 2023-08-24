@@ -140,15 +140,17 @@ const update = (async () => {
             stopLon: 0
           }
 
-          transitStatus.stations[stop.stopId].destinations[route.routeTrips[tripId].headsign].trains.push({
-            runNumber: vehicleId,
-            eta: Math.floor((arrivalTimestamp - now.valueOf()) / (1000 * 60)),
-            actualETA: arrivalTimestamp,
-            line: route.routeLongName,
-            lineCode: route.routeID,
-            lineColor: route.routeColor,
-            lineTextColor: route.routeTextColor,
-          });
+          if (transitStatus.stations[stop.stopId]) {
+            transitStatus.stations[stop.stopId].destinations[route.routeTrips[tripId].headsign].trains.push({
+              runNumber: vehicleId,
+              eta: Math.floor((arrivalTimestamp - now.valueOf()) / (1000 * 60)),
+              actualETA: arrivalTimestamp,
+              line: route.routeLongName,
+              lineCode: route.routeID,
+              lineColor: route.routeColor,
+              lineTextColor: route.routeTextColor,
+            });
+          }
 
           return {
             stationID: stop.stopId,
