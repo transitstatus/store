@@ -146,6 +146,7 @@ const update = async () => {
       routeColor: route.routeColor,
       routeTextColor: route.routeTextColor,
       stations: route.routeStations,
+      hasActiveTrains: false
     }
   });
 
@@ -187,6 +188,8 @@ const update = async () => {
         lineTextColor: train.lineTextColor,
       })
     })
+
+    transitStatusResponse.lines[train.lineCode].hasActiveTrains = true;
   })
 
   return {

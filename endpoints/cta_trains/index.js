@@ -309,7 +309,8 @@ const processData = async () => {
       lineNameLong: lineData.routeLongName,
       routeColor: lineData.routeColor,
       routeTextColor: lineData.routeTextColor,
-      stations: lineData.routeStations
+      stations: lineData.routeStations,
+      hasActiveTrains: false
     };
   });
 
@@ -348,6 +349,12 @@ const processData = async () => {
   });
 
   //console.log(processedData)
+
+  Object.keys(processedData.transitStatus.trains).forEach((train) => {
+    const trainData = processedData.transitStatus.trains[train];
+
+    processedData.transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+  });
 
   const updated = new Date().toISOString();
 

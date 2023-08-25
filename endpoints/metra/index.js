@@ -168,6 +168,7 @@ const update = (async () => {
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
         stations: route.routeStations,
+        hasActiveTrains: false
       };
 
       route.routeStations.forEach((stationID) => {
@@ -189,6 +190,12 @@ const update = (async () => {
           }
         })
       });
+    });
+
+    Object.keys(transitStatus.trains).forEach((train) => {
+      const trainData = transitStatus.trains[train];
+
+      transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
 
     const lastUpdated = new Date().toISOString();

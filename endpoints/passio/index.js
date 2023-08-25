@@ -100,7 +100,8 @@ const update = (async () => {
         lineNameLong: route.routeLongName,
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
-        stations: route.routeStations.map((station) => station)
+        stations: route.routeStations.map((station) => station),
+        hasActiveTrains: false
       }
     });
 
@@ -136,6 +137,8 @@ const update = (async () => {
           heading: 0,
         }
       }
+
+      transitStatus.lines[route.routeID].hasActiveTrains = true;
 
       transitStatus.trains[vehicleId] = {
         ...transitStatus.trains[vehicleId],
