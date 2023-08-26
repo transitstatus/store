@@ -151,7 +151,7 @@ const update = (async () => {
           const arrivalTimestamp = Math.max(stop.arrival.time.low, stop.arrival.time.high) * 1000;
           const staticStop = staticStops[stop.stopId] ?? {
             stopID: stop.stopId,
-            stopName: 'Unknown',
+            stopName: 'Unknown Stop Name',
             stopLat: 0,
             stopLon: 0
           }
