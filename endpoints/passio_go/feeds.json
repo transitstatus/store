@@ -2,6 +2,7 @@
   "all": [
     {
       "fullname": "University of Chicago",
+      "black": [],
       "username": "chicago",
       "goAgencyName": null,
       "name2": "0",
@@ -25,6 +26,7 @@
     },
     {
       "fullname": "3630 Peachtree",
+      "black": [],
       "username": "peachtree",
       "goAgencyName": null,
       "id": "951",
@@ -41,6 +43,7 @@
     },
     {
       "fullname": "5025 Apartments",
+      "black": [],
       "username": "cardinal5025",
       "goAgencyName": null,
       "id": "1634",
@@ -57,6 +60,7 @@
     },
     {
       "fullname": "725 Ponce",
+      "black": [],
       "username": "725ponce",
       "goAgencyName": null,
       "id": "1832",
@@ -73,6 +77,7 @@
     },
     {
       "fullname": "9 Town Transit",
+      "black": [],
       "username": "9town",
       "goAgencyName": "9 Town Transit",
       "id": "1726",
@@ -89,6 +94,7 @@
     },
     {
       "fullname": "Agnes Scott College",
+      "black": [],
       "username": "ascott",
       "goAgencyName": null,
       "id": "1471",
@@ -105,6 +111,7 @@
     },
     {
       "fullname": "Alabama A&M University",
+      "black": [],
       "username": "aamu",
       "goAgencyName": "Alabama A&M University",
       "id": "2456",
@@ -121,6 +128,7 @@
     },
     {
       "fullname": "Anne Arundel County Office of Transportation",
+      "black": [],
       "username": "AnneC",
       "goAgencyName": null,
       "id": "3469",
@@ -137,6 +145,7 @@
     },
     {
       "fullname": "Atlantic Station",
+      "black": [],
       "username": "atlstation",
       "goAgencyName": "Atlantic Station",
       "id": "2136",
@@ -153,6 +162,7 @@
     },
     {
       "fullname": "AUC",
+      "black": [],
       "username": "rwwl",
       "goAgencyName": "AUC",
       "id": "67",
@@ -169,6 +179,7 @@
     },
     {
       "fullname": "Audible",
+      "black": [],
       "username": "Audible",
       "goAgencyName": null,
       "id": "876",
@@ -185,6 +196,7 @@
     },
     {
       "fullname": "Augusta University",
+      "black": [],
       "username": "gru",
       "goAgencyName": null,
       "id": "553",
@@ -201,6 +213,7 @@
     },
     {
       "fullname": "Bayonne Bay",
+      "black": [],
       "username": "bayonne",
       "goAgencyName": null,
       "id": "1808",
@@ -217,6 +230,7 @@
     },
     {
       "fullname": "Beacon College",
+      "black": [],
       "username": "BeaconCollege11",
       "goAgencyName": null,
       "id": "3389",
@@ -233,6 +247,7 @@
     },
     {
       "fullname": "Beacon Shuttle",
+      "black": [],
       "username": "beaconprop",
       "goAgencyName": "Beacon Shuttle",
       "id": "3561",
@@ -249,6 +264,7 @@
     },
     {
       "fullname": "Beloit Transit",
+      "black": [],
       "username": "beloit",
       "goAgencyName": null,
       "id": "3655",
@@ -265,6 +281,7 @@
     },
     {
       "fullname": "Bowie State University",
+      "black": [],
       "username": "bowie",
       "goAgencyName": null,
       "id": "3001",
@@ -281,6 +298,7 @@
     },
     {
       "fullname": "Brockton Area Transit Authority (BAT)",
+      "black": [],
       "username": "brockton",
       "goAgencyName": null,
       "id": "2046",
@@ -297,6 +315,7 @@
     },
     {
       "fullname": "Bull Runner at USF",
+      "black": [],
       "username": "usf",
       "goAgencyName": "Bull Runner at USF",
       "id": "2343",
@@ -313,6 +332,7 @@
     },
     {
       "fullname": "Cal State San Bernardino",
+      "black": [],
       "username": "sundiego",
       "goAgencyName": null,
       "id": "1187",
@@ -329,6 +349,7 @@
     },
     {
       "fullname": "Canby Area Transit",
+      "black": [],
       "username": "canbyTransit",
       "goAgencyName": null,
       "id": "3274",
@@ -345,6 +366,7 @@
     },
     {
       "fullname": "Cascades East Transit",
+      "black": [],
       "username": "cet",
       "goAgencyName": "Cascades East Transit",
       "id": "2460",
@@ -361,6 +383,7 @@
     },
     {
       "fullname": "Century Village (FT)",
+      "black": [],
       "username": "century",
       "goAgencyName": null,
       "id": "444",
@@ -377,6 +400,7 @@
     },
     {
       "fullname": "Chapman University",
+      "black": [],
       "username": "chapman",
       "goAgencyName": null,
       "id": "263",
@@ -393,6 +417,7 @@
     },
     {
       "fullname": "Charm City Circulator (Baltimore City)",
+      "black": [],
       "username": "charmcity",
       "goAgencyName": null,
       "id": "3554",
@@ -409,6 +434,7 @@
     },
     {
       "fullname": "CHOA",
+      "black": [],
       "username": "choa",
       "goAgencyName": "CHOA",
       "id": "3489",
@@ -425,6 +451,7 @@
     },
     {
       "fullname": "Citrus Connection",
+      "black": [],
       "username": "citrusconn",
       "goAgencyName": null,
       "id": "1752",
@@ -441,6 +468,7 @@
     },
     {
       "fullname": "City of Arcadia",
+      "black": [],
       "username": "ArcadiaCity",
       "goAgencyName": null,
       "id": "3304",
@@ -457,6 +485,7 @@
     },
     {
       "fullname": "City of Beckley (New River Transit)",
+      "black": [],
       "username": "beckley",
       "goAgencyName": null,
       "id": "3362",
@@ -1353,6 +1382,9 @@
     },
     {
       "fullname": "Georgia State University",
+      "black": [
+        "44772"
+      ],
       "username": "georgiast",
       "goAgencyName": "Georgia State University",
       "id": "480",
@@ -1370,6 +1402,10 @@
     {
       "fullname": "Georgia Tech",
       "username": "gatech",
+      "black": [
+        "6926",
+        "6218"
+      ],
       "goAgencyName": "Georgia Tech",
       "id": "76",
       "email": "aaron.fowler@gatech.edu",
@@ -1946,6 +1982,11 @@
     {
       "fullname": "Rutgers University",
       "username": "rutgers",
+      "black": [
+        "31961",
+        "41540",
+        "36874"
+      ],
       "goAgencyName": "Rutgers University",
       "id": "1268",
       "email": "support@passiogo.com",
@@ -2330,6 +2371,9 @@
     {
       "fullname": "University of Chicago",
       "username": "chicago",
+      "black": [
+        "38732"
+      ],
       "goAgencyName": null,
       "id": "1068",
       "email": "bus@uchicago.edu",
@@ -2647,16 +2691,5 @@
       "goSharedCode": null,
       "goAuthenticationType": "0"
     }
-  ],
-  "lat": 41.84,
-  "lng": -87.66,
-  "IPcoords": {
-    "lat": 41.8482,
-    "lng": -87.6521,
-    "comment": "cache",
-    "IP": "98.213.161.252"
-  },
-  "debug": {
-    "knownMine": []
-  }
+  ]
 }
