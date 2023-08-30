@@ -115,7 +115,7 @@ const updateFeed = async (feed) => {
   routes.forEach((route) => {
     transitStatus.lines[route.myid] = {
       lineCode: route.myid,
-      lineNameShort: route.shortName,
+      lineNameShort: route.shortName ?? '',
       lineNameLong: route.nameOrig,
       routeColor: route.color.replace('#', ''),
       routeTextColor: 'FFFFFF',
