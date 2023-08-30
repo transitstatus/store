@@ -161,7 +161,9 @@ const updateFeed = async (feed) => {
         trains: [],
       };
 
-      transitStatus.lines[routeKey].stations.push(stop[1]);
+      if (!transitStatus.lines[routeKey].stations.includes(stop[1])) {
+        transitStatus.lines[routeKey].stations.push(stop[1]);
+      }
     });
   });
 
