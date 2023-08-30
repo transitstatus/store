@@ -90,279 +90,299 @@ const additionalStops = {
 const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
 
 const processData = async () => {
-  const req = await fetch('https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=200');
-  const raw = await req.text();
-  const data = JSON.parse(raw);
+  try {
+    const req = await fetch('https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=200');
+    const raw = await req.text();
+    const data = JSON.parse(raw);
 
-  if (data?.status !== 'OK') return {};
+    if (data?.status !== 'OK') return {};
 
-  const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
-  const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
+    const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
+    const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
 
-  const routesData = await routesReq.json();
-  const stationsData = await stationsReq.json();
+    const routesData = await routesReq.json();
+    const stationsData = await stationsReq.json();
 
-  let processedData = {
-    lines: {},
-    stations: {},
-    trains: {},
-    transitStatus: {
-      trains: {},
+    let processedData = {
+      lines: {},
       stations: {},
-      lines: {}
-    },
-    interval: 30000,
-  };
+      trains: {},
+      transitStatus: {
+        trains: {},
+        stations: {},
+        lines: {}
+      },
+      interval: 30000,
+    };
 
-  data.dataObject.forEach((line) => {
-    let stations = {};
-    let headways = {};
-    let trains = {};
+    data.dataObject.forEach((line) => {
+      let stations = {};
+      let headways = {};
+      let trains = {};
 
-    line.Markers.forEach((train) => {
-      if (train.IsSched) return;
+      line.Markers.forEach((train) => {
+        if (train.IsSched) return;
 
-      let stationPastLoop = false;
+        let stationPastLoop = false;
 
-      processedData.trains[train.RunNumber] = {
-        lat: train.Position.Lat,
-        lon: train.Position.Lng,
-        heading: train.Direction,
-        line: actualLines[line.Line],
-      };
-
-      processedData.transitStatus.trains[train.RunNumber] = {
-        lat: train.Position.Lat,
-        lon: train.Position.Lng,
-        heading: train.Direction,
-        line: actualLines[line.Line],
-        lineCode: line.Line,
-        lineColor: routesData[validLinesReverse[line.Line]].routeColor,
-        lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
-        dest: train.DestName.split('&')[0],
-        predictions: [],
-      };
-
-      train.Predictions.forEach((prediction, i, arr) => {
-
-        let dest = train.DestName.split('&')[0];
-        const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
-
-        const now = new Date().valueOf();
-        const actualETA = now + (eta * 60000);
-
-        if (!isNaN(eta)) {
-          //setting up station if it doesn't exist
-          if (!stations[parseInt(prediction[0])]) {
-            stations[parseInt(prediction[0])] = {
-              dest: {},
-              stationName: prediction[1],
-            };
-          };
-
-          // changing destination if past station before loop
-          if (stationPastLoop) {
-            dest = lineMeta[line.Line].postLoopAlt;
-          }
-
-          //setting up destination if it doesn't exist
-          if (!stations[parseInt(prediction[0])]['dest'][dest]) {
-            stations[parseInt(prediction[0])]['dest'][dest] = {
-              etas: [],
-              headways: [],
-              avgHeadway: 0,
-              runNumbers: [],
-            };
-          };
-
-          //adding headway to station
-          stations[parseInt(prediction[0])]['dest'][dest].etas.push(eta);
-
-          //adding run number to station
-          stations[parseInt(prediction[0])]['dest'][dest].runNumbers.push(train.RunNumber);
-
-          //if final station, adding headway to line
-          if (i === arr.length - 1 || (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit)) {
-            if (!headways[dest]) {
-              headways[dest] = {
-                etas: [],
-                headways: [],
-                avgHeadway: 0,
-                runNumbers: [],
-              };
-            };
-
-            headways[dest].etas.push(eta);
-            headways[dest].runNumbers.push(train.RunNumber);
-          }
-
-          if (additionalStops[line.Line] && additionalStops[line.Line][prediction[1]]) {
-            if (!headways[additionalStops[line.Line][prediction[1]]]) {
-              headways[additionalStops[line.Line][prediction[1]]] = {
-                etas: [],
-                headways: [],
-                avgHeadway: 0,
-                runNumbers: [],
-              };
-            }
-
-            headways[additionalStops[line.Line][prediction[1]]].etas.push(eta);
-            headways[additionalStops[line.Line][prediction[1]]].runNumbers.push(train.RunNumber);
-          }
-        }
-
-        //checking if train is past loop
-        if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
-          stationPastLoop = true;
+        processedData.trains[train.RunNumber] = {
+          lat: train.Position.Lat,
+          lon: train.Position.Lng,
+          heading: train.Direction,
+          line: actualLines[line.Line],
         };
 
-        //adding prediction to train
-        processedData.transitStatus.trains[train.RunNumber].predictions.push({
-          stationID: prediction[0],
-          stationName: prediction[1],
-          eta: eta,
-          actualETA: actualETA,
-        });
-
-        //adding train to stations
-        if (!processedData.transitStatus.stations[prediction[0]]) {
-          processedData.transitStatus.stations[prediction[0]] = {
-            stationID: prediction[0],
-            stationName: prediction[1],
-            destinations: {},
-          }
-        }
-
-        if (!processedData.transitStatus.stations[prediction[0]].destinations[dest]) {
-          processedData.transitStatus.stations[prediction[0]].destinations[dest] = {
-            trains: [],
-          }
-        }
-
-        processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
-          runNumber: train.RunNumber,
-          eta: eta,
-          actualETA: actualETA,
+        processedData.transitStatus.trains[train.RunNumber] = {
+          lat: train.Position.Lat,
+          lon: train.Position.Lng,
+          heading: train.Direction,
           line: actualLines[line.Line],
           lineCode: line.Line,
           lineColor: routesData[validLinesReverse[line.Line]].routeColor,
           lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
+          dest: train.DestName.split('&')[0],
+          predictions: [],
+        };
+
+        train.Predictions.forEach((prediction, i, arr) => {
+
+          let dest = train.DestName.split('&')[0];
+          const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
+
+          const now = new Date().valueOf();
+          const actualETA = now + (eta * 60000);
+
+          if (!isNaN(eta)) {
+            //setting up station if it doesn't exist
+            if (!stations[parseInt(prediction[0])]) {
+              stations[parseInt(prediction[0])] = {
+                dest: {},
+                stationName: prediction[1],
+              };
+            };
+
+            // changing destination if past station before loop
+            if (stationPastLoop) {
+              dest = lineMeta[line.Line].postLoopAlt;
+            }
+
+            //setting up destination if it doesn't exist
+            if (!stations[parseInt(prediction[0])]['dest'][dest]) {
+              stations[parseInt(prediction[0])]['dest'][dest] = {
+                etas: [],
+                headways: [],
+                avgHeadway: 0,
+                runNumbers: [],
+              };
+            };
+
+            //adding headway to station
+            stations[parseInt(prediction[0])]['dest'][dest].etas.push(eta);
+
+            //adding run number to station
+            stations[parseInt(prediction[0])]['dest'][dest].runNumbers.push(train.RunNumber);
+
+            //if final station, adding headway to line
+            if (i === arr.length - 1 || (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit)) {
+              if (!headways[dest]) {
+                headways[dest] = {
+                  etas: [],
+                  headways: [],
+                  avgHeadway: 0,
+                  runNumbers: [],
+                };
+              };
+
+              headways[dest].etas.push(eta);
+              headways[dest].runNumbers.push(train.RunNumber);
+            }
+
+            if (additionalStops[line.Line] && additionalStops[line.Line][prediction[1]]) {
+              if (!headways[additionalStops[line.Line][prediction[1]]]) {
+                headways[additionalStops[line.Line][prediction[1]]] = {
+                  etas: [],
+                  headways: [],
+                  avgHeadway: 0,
+                  runNumbers: [],
+                };
+              }
+
+              headways[additionalStops[line.Line][prediction[1]]].etas.push(eta);
+              headways[additionalStops[line.Line][prediction[1]]].runNumbers.push(train.RunNumber);
+            }
+          }
+
+          //checking if train is past loop
+          if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
+            stationPastLoop = true;
+          };
+
+          //adding prediction to train
+          processedData.transitStatus.trains[train.RunNumber].predictions.push({
+            stationID: prediction[0],
+            stationName: prediction[1],
+            eta: eta,
+            actualETA: actualETA,
+          });
+
+          //adding train to stations
+          if (!processedData.transitStatus.stations[prediction[0]]) {
+            processedData.transitStatus.stations[prediction[0]] = {
+              stationID: prediction[0],
+              stationName: prediction[1],
+              destinations: {},
+            }
+          }
+
+          if (!processedData.transitStatus.stations[prediction[0]].destinations[dest]) {
+            processedData.transitStatus.stations[prediction[0]].destinations[dest] = {
+              trains: [],
+            }
+          }
+
+          processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
+            runNumber: train.RunNumber,
+            eta: eta,
+            actualETA: actualETA,
+            line: actualLines[line.Line],
+            lineCode: line.Line,
+            lineColor: routesData[validLinesReverse[line.Line]].routeColor,
+            lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
+          });
         });
       });
-    });
 
-    //looping through stations
-    Object.keys(stations).forEach((station) => {
-      Object.keys(stations[station]['dest']).forEach((dest) => {
+      //looping through stations
+      Object.keys(stations).forEach((station) => {
+        Object.keys(stations[station]['dest']).forEach((dest) => {
+          //sorting ETAs
+          stations[station]['dest'][dest].etas.sort((a, b) => a - b);
+
+          //calculating headways
+          stations[station]['dest'][dest].etas.forEach((eta, i, arr) => {
+            if (i === 0) stations[station]['dest'][dest].headways.push(eta);
+            else stations[station]['dest'][dest].headways.push(eta - arr[i - 1]);
+          });
+
+          //calculating average headway
+          stations[station]['dest'][dest].avgHeadway = calcAvgHeadway(stations[station]['dest'][dest].headways);
+        });
+      });
+
+      //looping through headways
+      Object.keys(headways).forEach((dest) => {
         //sorting ETAs
-        stations[station]['dest'][dest].etas.sort((a, b) => a - b);
+        headways[dest].etas.sort((a, b) => a - b);
 
         //calculating headways
-        stations[station]['dest'][dest].etas.forEach((eta, i, arr) => {
-          if (i === 0) stations[station]['dest'][dest].headways.push(eta);
-          else stations[station]['dest'][dest].headways.push(eta - arr[i - 1]);
+        headways[dest].etas.forEach((eta, i, arr) => {
+          if (i === 0) headways[dest].headways.push(eta);
+          else headways[dest].headways.push(eta - arr[i - 1]);
         });
 
         //calculating average headway
-        stations[station]['dest'][dest].avgHeadway = calcAvgHeadway(stations[station]['dest'][dest].headways);
-      });
-    });
-
-    //looping through headways
-    Object.keys(headways).forEach((dest) => {
-      //sorting ETAs
-      headways[dest].etas.sort((a, b) => a - b);
-
-      //calculating headways
-      headways[dest].etas.forEach((eta, i, arr) => {
-        if (i === 0) headways[dest].headways.push(eta);
-        else headways[dest].headways.push(eta - arr[i - 1]);
+        headways[dest].avgHeadway = calcAvgHeadway(headways[dest].headways);
       });
 
-      //calculating average headway
-      headways[dest].avgHeadway = calcAvgHeadway(headways[dest].headways);
-    });
-
-    //adding stations to processedData
-    Object.keys(stations).forEach((station) => {
-      if (!processedData.stations[station]) {
-        processedData.stations[station] = {
-          stationName: stations[station].stationName,
-          lines: {},
+      //adding stations to processedData
+      Object.keys(stations).forEach((station) => {
+        if (!processedData.stations[station]) {
+          processedData.stations[station] = {
+            stationName: stations[station].stationName,
+            lines: {},
+          };
         };
-      };
 
-      processedData.stations[station].lines[actualLines[line.Line]] = stations[station].dest;
+        processedData.stations[station].lines[actualLines[line.Line]] = stations[station].dest;
+      });
+
+      //adding headways to processedData
+      processedData.lines[actualLines[line.Line]] = headways;
+      console.log('Data updated!')
+    })
+
+    Object.keys(validLines).forEach((lineCode) => {
+      const lineData = routesData[lineCode];
+
+      processedData.transitStatus.lines[validLines[lineCode]] = {
+        lineCode: validLines[lineCode],
+        lineNameShort: lineData.routeShortName,
+        lineNameLong: lineData.routeLongName,
+        routeColor: lineData.routeColor,
+        routeTextColor: lineData.routeTextColor,
+        stations: lineData.routeStations,
+        hasActiveTrains: false
+      };
     });
 
-    //adding headways to processedData
-    processedData.lines[actualLines[line.Line]] = headways;
-    console.log('Data updated!')
-  })
+    //adding stations not in the tracking data
+    Object.keys(stationsData).forEach((stationID) => {
+      if (stationID < 40000 || stationID >= 50000) return;
 
-  Object.keys(validLines).forEach((lineCode) => {
-    const lineData = routesData[lineCode];
+      if (!processedData.transitStatus.stations[stationID]) {
+        processedData.transitStatus.stations[stationID] = {
+          stationID: stationID,
+          stationName: stationsData[stationID].stopName,
+          destinations: {},
+        };
+      }
 
-    processedData.transitStatus.lines[validLines[lineCode]] = {
-      lineCode: validLines[lineCode],
-      lineNameShort: lineData.routeShortName,
-      lineNameLong: lineData.routeLongName,
-      routeColor: lineData.routeColor,
-      routeTextColor: lineData.routeTextColor,
-      stations: lineData.routeStations,
-      hasActiveTrains: false
-    };
-  });
+      processedData.transitStatus.stations[stationID].lat = stationsData[stationID].stopLat;
+      processedData.transitStatus.stations[stationID].lon = stationsData[stationID].stopLon;
 
-  //adding stations not in the tracking data
-  Object.keys(stationsData).forEach((stationID) => {
-    if (stationID < 40000 || stationID >= 50000) return;
+      //adding destinations
+      Object.keys(routesData).forEach((lineCode) => {
+        if (!routesData[lineCode].routeStations.includes(stationID)) return;
 
-    if (!processedData.transitStatus.stations[stationID]) {
-      processedData.transitStatus.stations[stationID] = {
-        stationID: stationID,
-        stationName: stationsData[stationID].stopName,
-        destinations: {},
-      };
-    }
+        const lineDestinations = routesData[lineCode].destinations;
 
-    processedData.transitStatus.stations[stationID].lat = stationsData[stationID].stopLat;
-    processedData.transitStatus.stations[stationID].lon = stationsData[stationID].stopLon;
-
-    //adding destinations
-    Object.keys(routesData).forEach((lineCode) => {
-      if (!routesData[lineCode].routeStations.includes(stationID)) return;
-
-      const lineDestinations = routesData[lineCode].destinations;
-
-      lineDestinations.forEach((destination) => {
-        if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
-          if (regularDestinations.includes(destination)) {
-            if (inTheLoop.includes(stationID) && destination === 'Loop') return;
-            processedData.transitStatus.stations[stationID].destinations[destination] = {
-              trains: [],
-            };
+        lineDestinations.forEach((destination) => {
+          if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
+            if (regularDestinations.includes(destination)) {
+              if (inTheLoop.includes(stationID) && destination === 'Loop') return;
+              processedData.transitStatus.stations[stationID].destinations[destination] = {
+                trains: [],
+              };
+            }
           }
-        }
+        });
       });
     });
-  });
 
-  //console.log(processedData)
+    //console.log(processedData)
 
-  Object.keys(processedData.transitStatus.trains).forEach((train) => {
-    const trainData = processedData.transitStatus.trains[train];
+    Object.keys(processedData.transitStatus.trains).forEach((train) => {
+      const trainData = processedData.transitStatus.trains[train];
 
-    processedData.transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
-  });
+      processedData.transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+    });
 
-  const updated = new Date().toISOString();
+    const updated = new Date().toISOString();
 
-  processedData.lastUpdated = updated;
-  processedData.transitStatus.lastUpdated = updated;
-  processedData.versionNumberAPI = '2.0.0'
+    processedData.lastUpdated = updated;
+    processedData.transitStatus.lastUpdated = updated;
+    processedData.versionNumberAPI = '2.0.0'
 
-  return processedData;
+    return processedData;
+  } catch (e) {
+    console.log(e);
+
+    const updated = new Date().toISOString();
+
+    return {
+      lines: {},
+      stations: {},
+      trains: {},
+      transitStatus: {
+        trains: {},
+        stations: {},
+        lines: {}
+      },
+      interval: 30000,
+      lastUpdated: updated,
+      versionNumberAPI: "2.0.0"
+    };
+  }
 };
 
 exports.update = processData;

@@ -46,9 +46,11 @@ const update = (async () => {
 
     console.log(`Starting feed ${feedKey}`)
 
+    console.log(`Fetching feed ${feedKey} from passio`)
     const tripUpdatesReq = await fetch(`https://passio3.com/${feedKey}/passioTransit/gtfs/realtime/tripUpdates`);
     const vehiclePositionsReq = await fetch(`https://passio3.com/${feedKey}/passioTransit/gtfs/realtime/vehiclePositions`);
 
+    console.log(`Fetching feed ${feedKey} from gtfs schedule data`)
     const staticStopsReq = await fetch(`https://gtfs.piemadd.com/data/${feedKey}/stops.json`)
     const staticRoutesReq = await fetch(`https://gtfs.piemadd.com/data/${feedKey}/routes.json`)
 
