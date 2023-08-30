@@ -1,7 +1,0 @@
-{
-  "name": "Passio",
-  "script": "index.js",
-  "interval": 60000,
-  "apiVersion": 3,
-  "configVersion": 0
-}
