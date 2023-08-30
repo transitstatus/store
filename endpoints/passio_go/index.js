@@ -183,6 +183,8 @@ const updateFeed = async (feed) => {
       dest: transitStatus.stations[stops.routes[bus.routeId][stops.routes[bus.routeId].length - 1][1]].stationName,
       predictions: []
     };
+
+    transitStatus.lines[bus.routeId].hasActiveTrains = true;
   });
 
   const predictionsRes = await fetch(`https://passio3.com/www/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`, {
