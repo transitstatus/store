@@ -183,7 +183,11 @@ const updateFeed = async (feed) => {
       lineColor: busLine.routeColor,
       lineTextColor: busLine.routeTextColor,
       dest: transitStatus.stations[stops.routes[bus.routeId][stops.routes[bus.routeId].length - 1][1]].stationName,
-      predictions: []
+      predictions: [],
+      extra: {
+        load: bus.paxLoad,
+        cap: bus.totalCap,
+      }
     };
 
     transitStatus.lines[bus.routeId].hasActiveTrains = true;
