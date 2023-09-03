@@ -216,13 +216,15 @@ const updateFeed = async (feed) => {
       const stop = predictions.ETAs[stopKey];
 
       stop.forEach((bus) => {
+        console.log(bus)
+
         if (!bus.busName) return;
 
         let actETA = '';
-        const busETARaw = bus.eta.replace(' min ', '');
+        const busETARaw = bus.eta.replace('min', '').trim();
 
         if (busETARaw.includes('-')) { // range
-          actETA = average(busETARaw.split('-').map((n) => Number(n)));
+          actETA = Number(busETARaw.split('-')[0]);
         } else if (busETARaw.includes('arriving')) { // now
           actETA = 0;
         } else { //hopefully a number
@@ -289,6 +291,7 @@ const updateFeeds = async () => {
     const feed = feeds[i];
 
     if (!onlyThese.includes(feed.username)) continue;
+    if (feed.username !== 'rutgers') continue;
 
     const feedData = await updateFeed(feed);
 
