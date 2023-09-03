@@ -291,7 +291,7 @@ const updateFeeds = async () => {
     const feed = feeds[i];
 
     if (!onlyThese.includes(feed.username)) continue;
-    if (feed.username !== 'rutgers') continue;
+    //if (feed.username !== 'rutgers') continue;
 
     const feedData = await updateFeed(feed);
 
