@@ -211,13 +211,14 @@ const updateFeed = async (feed) => {
     });
     const predictions = await predictionsRes.json();
 
+    //if (feed.username === 'rutgers') fs.writeFileSync('./predictions.json', JSON.stringify(predictions, null, 2));
+    //console.log(`https://passio3.com/www/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`)
+
     const now = new Date().valueOf();
     Object.keys(predictions.ETAs).forEach((stopKey) => {
       const stop = predictions.ETAs[stopKey];
 
       stop.forEach((bus) => {
-        console.log(bus)
-
         if (!bus.busName) return;
 
         let actETA = '';
@@ -227,6 +228,8 @@ const updateFeed = async (feed) => {
           actETA = Number(busETARaw.split('-')[0]);
         } else if (busETARaw.includes('arriving')) { // now
           actETA = 0;
+        } else if (busETARaw.includes('arrived')) {
+          actETA = 0; // now
         } else if (busETARaw.includes('due')) { // now
           actETA = 0;
         } else if (busETARaw.includes('less than')) { // now
@@ -236,6 +239,7 @@ const updateFeed = async (feed) => {
         }
 
         if (isNaN(actETA)) return;
+        if (bus.eta === '--') return;
 
         if (!transitStatus.trains[bus.busName]) return;
 
