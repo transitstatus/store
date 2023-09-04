@@ -243,7 +243,7 @@ const updateFeed = async (feed) => {
           stationID: stopKey,
           stationName: transitStatus.stations[stopKey].stationName,
           eta: actETA,
-          busETARaw: busETARaw,
+          busETARaw: bus.eta,
           actualETA: new Date(now + (actETA * 60000)).valueOf(),
         });
       })
