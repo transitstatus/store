@@ -227,6 +227,10 @@ const updateFeed = async (feed) => {
           actETA = Number(busETARaw.split('-')[0]);
         } else if (busETARaw.includes('arriving')) { // now
           actETA = 0;
+        } else if (busETARaw.includes('due')) { // now
+          actETA = 0;
+        } else if (busETARaw.includes('less than')) { // now
+          actETA = 0;
         } else { //hopefully a number
           actETA = Number(busETARaw);
         }
@@ -239,6 +243,7 @@ const updateFeed = async (feed) => {
           stationID: stopKey,
           stationName: transitStatus.stations[stopKey].stationName,
           eta: actETA,
+          busETARaw: busETARaw,
           actualETA: new Date(now + (actETA * 60000)).valueOf(),
         });
       })
