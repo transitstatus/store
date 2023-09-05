@@ -222,6 +222,7 @@ const updateFeed = async (feed) => {
         if (!bus.busName) return;
 
         let actETA = '';
+        let noETA = false;
         const busETARaw = bus.eta.replace('min', '').trim();
 
         if (busETARaw.includes('-')) { // range
@@ -239,7 +240,7 @@ const updateFeed = async (feed) => {
         }
 
         if (isNaN(actETA)) return;
-        if (bus.eta === '--') return;
+        if (bus.eta === '--') noETA = true;
 
         if (!transitStatus.trains[bus.busName]) return;
 
@@ -249,6 +250,7 @@ const updateFeed = async (feed) => {
           eta: actETA,
           busETARaw: bus.eta,
           actualETA: new Date(now + (actETA * 60000)).valueOf(),
+          noETA,
         });
       })
     });
