@@ -278,16 +278,24 @@ const updateFeed = async (feed) => {
       });
     })
 
-    return transitStatus;
+    return {
+      ...transitStatus,
+      shitsFucked: {
+        shitIsFucked: false,
+        message: '',
+      }
+    }
   } catch (e) {
     console.log(e);
     return {
-      transitStatus: {
-        trains: {},
-        stations: {},
-        lines: {},
-        lastUpdated: new Date().toISOString(),
-      },
+      trains: {},
+      stations: {},
+      lines: {},
+      lastUpdated: new Date().toISOString(),
+      shitsFucked: {
+        shitIsFucked: true,
+        message: 'Passio\'s system broke so that means I can\'t get any data. Sowwy 🥺'
+      }
     };
   }
 };
