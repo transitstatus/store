@@ -272,6 +272,7 @@ const updateFeed = async (feed) => {
           runNumber: trainKey,
           eta: prediction.eta,
           actualETA: prediction.actualETA,
+          noEta: prediction.noETA,
           line: train.line,
           lineCode: train.lineCode,
           lineColor: train.lineColor,
