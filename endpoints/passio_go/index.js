@@ -277,6 +277,7 @@ const updateFeed = async (feed) => {
           lineCode: train.lineCode,
           lineColor: train.lineColor,
           lineTextColor: train.lineTextColor,
+          extra: train.extra,
         });
       });
     })
