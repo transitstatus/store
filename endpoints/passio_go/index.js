@@ -118,7 +118,7 @@ const updateFeed = async (feed) => {
         lineCode: route.myid,
         lineNameShort: route.shortName ?? '',
         lineNameLong: route.nameOrig,
-        routeColor: route.color.replace('#', ''),
+        routeColor: route.color.replace('#', '').toUpperCase(),
         routeTextColor: feed.black && feed.black.includes(route.myid) ? '000000' : 'FFFFFF',
         stations: [],
         hasActiveTrains: false,
