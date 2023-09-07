@@ -14,7 +14,7 @@ const updateFeed = async (feed) => {
   try {
     const key = keyGen();
 
-    const deviceIdReq = await fetch(`https://rutgers.passiogo.com/goServices.php?register=1&deviceId=0&token=${key}&platform=web&buildNo=undefined&oldToken=`, {
+    const deviceIdReq = await fetch(`https://passiogo.com/goServices.php?register=1&deviceId=0&token=${key}&platform=web&buildNo=undefined&oldToken=`, {
       "headers": {
         'Host': 'rutgers.passiogo.com',
         'User-Agent': 'Mozilla/ 5.0(Windows NT 10.0; Win64; x64; rv: 109.0) Gecko / 20100101 Firefox / 116.0',
@@ -37,7 +37,7 @@ const updateFeed = async (feed) => {
     const stopsForm = `json=%7B%22s0%22%3A%22${feed.id}%22%2C%22sA%22%3A1%7D`;
     const busesForm = `json=%7B%22s0%22%3A%22${feed.id}%22%2C%22sA%22%3A1%7D`
 
-    const routesReq = await fetch(`https://passio3.com/www/mapGetData.php?getRoutes=1&deviceId=${deviceId}&wTransloc=1`, {
+    const routesReq = await fetch(`https://passiogo.com/www/mapGetData.php?getRoutes=1&deviceId=${deviceId}&wTransloc=1`, {
       "credentials": "omit",
       "headers": {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
@@ -55,7 +55,7 @@ const updateFeed = async (feed) => {
       "mode": "cors"
     });
 
-    const stopsReq = await fetch(`https://passio3.com/www/mapGetData.php?getStops=2&deviceId=${deviceId}&withOutdated=1&wBounds=1&showBusInOos=0&lat=undefined&lng=undefined&wTransloc=1`, {
+    const stopsReq = await fetch(`https://passiogo.com/www/mapGetData.php?getStops=2&deviceId=${deviceId}&withOutdated=1&wBounds=1&showBusInOos=0&lat=undefined&lng=undefined&wTransloc=1`, {
       "credentials": "omit",
       "headers": {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
@@ -73,7 +73,7 @@ const updateFeed = async (feed) => {
       "mode": "cors"
     });
 
-    const busesReq = await fetch(`https://passio3.com/www/mapGetData.php?getBuses=1&deviceId=${deviceId}&wTransloc=1`, {
+    const busesReq = await fetch(`https://passiogo.com/www/mapGetData.php?getBuses=1&deviceId=${deviceId}&wTransloc=1`, {
       "credentials": "omit",
       "headers": {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
@@ -194,7 +194,7 @@ const updateFeed = async (feed) => {
       transitStatus.lines[bus.routeId].hasActiveTrains = true;
     });
 
-    const predictionsRes = await fetch(`https://passio3.com/www/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`, {
+    const predictionsRes = await fetch(`https://passiogo.com/www/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`, {
       "credentials": "omit",
       "headers": {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
