@@ -302,8 +302,10 @@ const updateFeed = async (feed) => {
 
       //adding predictions to each station
       train.predictions.forEach((prediction, i) => {
+        const hasReplacement = headsignReplacements[feed.username] && headsignReplacements[feed.username][train.lineCode];
+
         if (i === 0) {
-          if (headsignReplacements[feed.username] && headsignReplacements[feed.username][train.lineCode]) {
+          if (hasReplacement) {
             const replacement = headsignReplacements[feed.username][train.lineCode].replacements[prediction.stationID];
 
             if (replacement) {
@@ -312,13 +314,14 @@ const updateFeed = async (feed) => {
           }
         }
 
-        if (!transitStatus.stations[prediction.stationID].destinations[train.dest]) {
-          transitStatus.stations[prediction.stationID].destinations[train.dest] = {
+        const realDest = hasReplacement ? headsignReplacements[feed.username][train.lineCode].replacements[prediction.stationID] : train.dest;
+        if (!transitStatus.stations[prediction.stationID].destinations[realDest]) {
+          transitStatus.stations[prediction.stationID].destinations[realDest] = {
             trains: [],
           };
         }
 
-        transitStatus.stations[prediction.stationID].destinations[train.dest].trains.push({
+        transitStatus.stations[prediction.stationID].destinations[realDest].trains.push({
           runNumber: trainKey,
           eta: prediction.eta,
           actualETA: prediction.actualETA,
