@@ -1,5 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
+const headsignReplacements = require('./headsignReplacements');
+const stopReplacements = require('./stopReplacements');
 
 const feeds = JSON.parse(fs.readFileSync('./endpoints/passio_go/feeds.json', 'utf8')).all;
 
@@ -131,15 +133,21 @@ const updateFeed = async (feed) => {
 
     //adding stops to transitStatus
     Object.values(stops.stops).forEach((stop) => {
-      allStopIDs.push(stop.id);
+      if (stopReplacements[feed.username] && stopReplacements[feed.username][stop.id]) {
+        stop.id = stopReplacements[feed.username][stop.id];
 
-      transitStatus.stations[stop.id] = {
-        stationID: stop.id,
-        stationName: stop.name,
-        destinations: {},
-        lat: stop.latitude,
-        lon: stop.longitude,
-      };
+        //not actually doing anything, just dont want dupes or anything
+      } else {
+        allStopIDs.push(stop.id);
+
+        transitStatus.stations[stop.id] = {
+          stationID: stop.id,
+          stationName: stop.name,
+          destinations: {},
+          lat: stop.latitude,
+          lon: stop.longitude,
+        };
+      }
     });
 
     let routeStations = {};
@@ -153,12 +161,34 @@ const updateFeed = async (feed) => {
       route.shift();
       route.shift();
 
-      routeStations[routeKey] = [...route.map((stop) => stop[1])];
+      routeStations[routeKey] = [...route.map((stop) => stop[1])].map((stationID) => {
+        if (stopReplacements[feed.username] && stopReplacements[feed.username][stationID]) {
+          return stopReplacements[feed.username][stationID];
+        } else {
+          return stationID;
+        }
+      })
 
       const finalStopName = transitStatus.stations[route[route.length - 1][1]].stationName;
 
       route.forEach((stop) => {
-        transitStatus.stations[stop[1]].destinations[finalStopName] = {
+        if (stopReplacements[feed.username] && stopReplacements[feed.username][stop[1]]) {
+          stop[1] = stopReplacements[feed.username][stop[1]];
+        }
+
+        let thisStopFinalStopName = finalStopName;
+
+        if (headsignReplacements[feed.username] && headsignReplacements[feed.username][routeKey]) {
+          const replacement = headsignReplacements[feed.username][routeKey].replacements[stop[1]];
+
+          if (replacement) {
+            thisStopFinalStopName = replacement;
+          } else {
+            console.log(`No replacement for ${routeKey} ${stop[1]}`)
+          }
+        };
+
+        transitStatus.stations[stop[1]].destinations[thisStopFinalStopName] = {
           trains: [],
         };
 
@@ -183,13 +213,21 @@ const updateFeed = async (feed) => {
         lineCode: bus.routeId,
         lineColor: busLine.routeColor,
         lineTextColor: busLine.routeTextColor,
-        dest: transitStatus.stations[stops.routes[bus.routeId][stops.routes[bus.routeId].length - 1][1]].stationName,
+        dest: transitStatus.stations[stops.routes[bus.routeId][0][1]].stationName,
         predictions: [],
         extra: {
           load: bus.paxLoad,
           cap: bus.totalCap,
         }
       };
+
+      if (headsignReplacements[feed.username] && headsignReplacements[feed.username][bus.routeId]) {
+        const replacement = headsignReplacements[feed.username][bus.routeId].replacements[stops.routes[bus.routeId][0][1]];
+
+        if (replacement) {
+          transitStatus.trains[bus.bus].dest = replacement;
+        }
+      }
 
       transitStatus.lines[bus.routeId].hasActiveTrains = true;
     });
@@ -218,6 +256,8 @@ const updateFeed = async (feed) => {
     Object.keys(predictions.ETAs).forEach((stopKey) => {
       const stop = predictions.ETAs[stopKey];
 
+      const actualStopKey = stopReplacements[feed.username] && stopReplacements[feed.username][stopKey] ? stopReplacements[feed.username][stopKey] : stopKey;
+
       stop.forEach((bus) => {
         if (!bus.busName) return;
 
@@ -245,8 +285,8 @@ const updateFeed = async (feed) => {
         if (!transitStatus.trains[bus.busName]) return;
 
         transitStatus.trains[bus.busName].predictions.push({
-          stationID: stopKey,
-          stationName: transitStatus.stations[stopKey].stationName,
+          stationID: actualStopKey,
+          stationName: transitStatus.stations[actualStopKey].stationName,
           eta: actETA,
           busETARaw: bus.eta,
           actualETA: new Date(now + (actETA * 60000)).valueOf(),
@@ -261,7 +301,17 @@ const updateFeed = async (feed) => {
       transitStatus.trains[trainKey].predictions = train.predictions.sort((a, b) => a.actualETA - b.actualETA);
 
       //adding predictions to each station
-      train.predictions.forEach((prediction) => {
+      train.predictions.forEach((prediction, i) => {
+        if (i === 0) {
+          if (headsignReplacements[feed.username] && headsignReplacements[feed.username][train.lineCode]) {
+            const replacement = headsignReplacements[feed.username][train.lineCode].replacements[prediction.stationID];
+
+            if (replacement) {
+              transitStatus.trains[trainKey].dest = replacement;
+            }
+          }
+        }
+
         if (!transitStatus.stations[prediction.stationID].destinations[train.dest]) {
           transitStatus.stations[prediction.stationID].destinations[train.dest] = {
             trains: [],
