@@ -35,8 +35,8 @@ const headsignReplacements = {
       replacements: {
         '10039': 'Stadium West Lot',
         '21050': 'Stadium West Lot',
-        '10060': 'Busch Campus',
-        '10034': 'Busch Campus',
+        '10060': 'Allison Road Classrooms',
+        '10034': 'Allison Road Classrooms',
       }
     },
     "4088": {
