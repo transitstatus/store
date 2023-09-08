@@ -184,7 +184,7 @@ const headsignReplacements = {
         '10052': 'Livingston Campus',
         '10039': 'Livingston Campus',
         '10034': 'Livingston Campus',
-        '10071': 'College Ave Campus',
+        '10071': 'Busch Campus',
       }
     },
     "43398": {
@@ -246,8 +246,8 @@ const headsignReplacements = {
         '10037': 'Livingston Campus',
         '10059': 'Livingston Campus',
         '10036': 'Livingston Campus',
-        '10071': 'College Ave Campus',
-        '10029': 'College Ave Campus',
+        '10071': 'Cook/Douglass Campus',
+        '10029': 'Cook/Douglass Campus',
       }
     },
     "43711": {
