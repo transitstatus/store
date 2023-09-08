@@ -2,6 +2,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const headsignReplacements = require('./headsignReplacements');
 const stopReplacements = require('./stopReplacements');
+const extraBusInfo = require('./extraBusInfo');
 
 const feeds = JSON.parse(fs.readFileSync('./endpoints/passio_go/feeds.json', 'utf8')).all;
 
@@ -218,6 +219,7 @@ const updateFeed = async (feed) => {
         extra: {
           load: bus.paxLoad,
           cap: bus.totalCap,
+          info: extraBusInfo[feed.username] && extraBusInfo[feed.username][bus.bus] ? extraBusInfo[feed.username][bus.bus] : null,
         }
       };
 
