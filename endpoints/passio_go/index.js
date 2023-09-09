@@ -135,12 +135,8 @@ const updateFeed = async (feed) => {
     //adding stops to transitStatus
     Object.values(stops.stops).forEach((stop) => {
       if (stopReplacements[feed.username] && stopReplacements[feed.username][stop.id]) {
-        stop.id = stopReplacements[feed.username][stop.id];
-
         //not actually doing anything, just dont want dupes or anything
       } else {
-        allStopIDs.push(stop.id);
-
         transitStatus.stations[stop.id] = {
           stationID: stop.id,
           stationName: stop.name,
@@ -149,6 +145,7 @@ const updateFeed = async (feed) => {
           lon: stop.longitude,
         };
       }
+      allStopIDs.push(stop.id);
     });
 
     let routeStations = {};
@@ -165,6 +162,7 @@ const updateFeed = async (feed) => {
       routeStations[routeKey] = [...route.map((stop) => stop[1])].map((stationID) => {
         if (stopReplacements[feed.username] && stopReplacements[feed.username][stationID]) {
           return stopReplacements[feed.username][stationID];
+          //return stationID;
         } else {
           return stationID;
         }
@@ -177,24 +175,31 @@ const updateFeed = async (feed) => {
           stop[1] = stopReplacements[feed.username][stop[1]];
         }
 
+        let stopID = stop[1];
+        if (stopReplacements[feed.username] && stopReplacements[feed.username][stop[1]]) {
+          stopID = stopReplacements[feed.username][stop[1]];
+        }
+
         let thisStopFinalStopName = finalStopName;
 
         if (headsignReplacements[feed.username] && headsignReplacements[feed.username][routeKey]) {
-          const replacement = headsignReplacements[feed.username][routeKey].replacements[stop[1]];
+          const replacement = headsignReplacements[feed.username][routeKey].replacements[stopID];
 
           if (replacement) {
             thisStopFinalStopName = replacement;
           } else {
-            console.log(`No replacement for ${routeKey} ${stop[1]}`)
+            console.log(`No replacement for ${routeKey} ${stopID}`)
           }
         };
 
-        transitStatus.stations[stop[1]].destinations[thisStopFinalStopName] = {
-          trains: [],
-        };
+        if (!transitStatus.stations[stopID].destinations[thisStopFinalStopName]) {
+          transitStatus.stations[stopID].destinations[thisStopFinalStopName] = {
+            trains: [],
+          };
+        }
 
-        if (!transitStatus.lines[routeKey].stations.includes(stop[1])) {
-          transitStatus.lines[routeKey].stations.push(stop[1]);
+        if (!transitStatus.lines[routeKey].stations.includes(stopID)) {
+          transitStatus.lines[routeKey].stations.push(stopID);
         }
       });
     });
@@ -259,9 +264,14 @@ const updateFeed = async (feed) => {
       const stop = predictions.ETAs[stopKey];
 
       const actualStopKey = stopReplacements[feed.username] && stopReplacements[feed.username][stopKey] ? stopReplacements[feed.username][stopKey] : stopKey;
+      //const actualStopKey = stopKey;
 
       stop.forEach((bus) => {
         if (!bus.busName) return;
+
+        if (bus.theStop.shortName === 'a') {
+          console.log(bus.theStop.stopId, actualStopKey)
+        }
 
         let actETA = '';
         let noETA = false;
@@ -337,6 +347,7 @@ const updateFeed = async (feed) => {
       });
     })
 
+    console.log(`Finished updating ${feed.username}`)
     return {
       ...transitStatus,
       shitsFucked: {

@@ -147,6 +147,7 @@ const headsignReplacements = {
       replacements: {
         '10035': 'Busch Campus',
         '27767': 'Busch Campus',
+        '10075': 'Busch Campus',
         '10038': 'Busch Campus',
         '10034': 'Livingston Campus',
         '10041': 'Livingston Campus',
