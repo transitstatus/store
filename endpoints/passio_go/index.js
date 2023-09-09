@@ -5,6 +5,7 @@ const stopReplacements = require('./stopReplacements');
 const extraBusInfo = require('./extraBusInfo');
 
 const feeds = JSON.parse(fs.readFileSync('./endpoints/passio_go/feeds.json', 'utf8')).all;
+const extraConfig = JSON.parse(fs.readFileSync('./endpoints/passio_go/extraconfig.json'));
 
 const keyGen = () => "pseudo101_" + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
   var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -371,11 +372,18 @@ const updateFeed = async (feed) => {
 };
 
 const updateFeeds = async () => {
-  const onlyThese = ['rutgers', 'chicago', 'gcsu', 'georgiast', 'gatech', 'sundiego', 'columbia', 'elonedu', 'emory', 'GASO', 'mit', 'newyork'];
+  const onlyThese = ['rutgers', 'chicago', 'gcsu', 'georgiast', 'gatech', 'GASO', 'mit', 'newyork', 'uncc', 'uncg', 'uncw', 'bamabama'];
   let finalFeeds = {};
 
   for (let i = 0; i < feeds.length; i++) {
-    const feed = feeds[i];
+    let feed = feeds[i];
+
+    if (extraConfig[feed.username]) {
+      feed = {
+        ...feed,
+        ...extraConfig[feed.username]
+      }
+    }
 
     if (!onlyThese.includes(feed.username)) continue;
     //if (feed.username !== 'rutgers') continue;
