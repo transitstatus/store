@@ -118,6 +118,14 @@ const updateFeed = async (feed) => {
 
     //adding routes to transitStatus
     routes.forEach((route) => {
+      let lineNameLong = route.nameOrig;
+
+      if (feed.textReplacements) {
+        feed.textReplacements.forEach((replacement) => {
+          lineNameLong = lineNameLong.replace(replacement[0], replacement[1]);
+        })
+      }
+
       transitStatus.lines[route.myid] = {
         lineCode: route.myid,
         lineNameShort: route.shortName ?? '',
