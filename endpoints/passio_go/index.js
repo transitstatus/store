@@ -121,15 +121,17 @@ const updateFeed = async (feed) => {
       let lineNameLong = route.nameOrig;
 
       if (feed.textReplacements) {
+        console.log(feed.username, feed.textReplacements)
         feed.textReplacements.forEach((replacement) => {
           lineNameLong = lineNameLong.replace(replacement[0], replacement[1]);
         })
+        console.log(lineNameLong)
       }
 
       transitStatus.lines[route.myid] = {
         lineCode: route.myid,
         lineNameShort: route.shortName ?? '',
-        lineNameLong: route.nameOrig,
+        lineNameLong: lineNameLong,
         routeColor: route.color.replace('#', '').toUpperCase(),
         routeTextColor: feed.black && feed.black.includes(route.myid) ? '000000' : 'FFFFFF',
         stations: [],
