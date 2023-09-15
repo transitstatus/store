@@ -223,9 +223,9 @@ const updateFeed = async (feed) => {
       if (bus['-1'] && bus['-1'].length === 0) return;
 
       transitStatus.trains[bus.bus] = {
-        lat: bus.latitude,
-        lon: bus.longitude,
-        heading: bus.calculatedCourse,
+        lat: Number(bus.latitude),
+        lon: Number(bus.longitude),
+        heading: Number(bus.calculatedCourse),
         line: busLine.lineNameLong,
         lineCode: bus.routeId,
         lineColor: busLine.routeColor,
