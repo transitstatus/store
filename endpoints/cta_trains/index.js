@@ -223,6 +223,7 @@ const processData = async () => {
             stationName: prediction[1],
             //eta: eta,
             actualETA: actualETA,
+            noETA: isNaN(eta),
           });
 
           //adding train to stations
@@ -244,6 +245,7 @@ const processData = async () => {
             runNumber: train.RunNumber,
             //eta: eta,
             actualETA: actualETA,
+            noETA: isNaN(eta),
             line: actualLines[line.Line],
             lineCode: line.Line,
             lineColor: routesData[validLinesReverse[line.Line]].routeColor,

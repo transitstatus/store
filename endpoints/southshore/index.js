@@ -74,6 +74,7 @@ const update = async () => {
             stationName: stationMeta.stationName,
             //eta: stop.minutes,
             actualETA: new Date(lastUpdated).getTime() + (stop.minutes * 60 * 1000),
+            noETA: false,
           }
         }),
       }
@@ -87,6 +88,7 @@ const update = async () => {
           runNumber: trainID,
           //eta: prediction.eta,
           actualETA: prediction.actualETA,
+          noETA: prediction.noETA,
           line: train.line,
           lineCode: train.lineCode,
           lineColor: train.lineColor,

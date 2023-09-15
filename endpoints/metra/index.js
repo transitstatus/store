@@ -121,6 +121,7 @@ const update = (async () => {
           stationName: staticStopsData[stop.stop_id].stopName,
           //eta: eta,
           actualETA: time,
+          noETA: false,
         });
 
         //adding stations to transitStatus object
@@ -147,6 +148,7 @@ const update = (async () => {
           runNumber: runNumber,
           //eta: eta,
           actualETA: time,
+          noETA: false,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
