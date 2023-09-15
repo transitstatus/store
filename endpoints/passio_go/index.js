@@ -7,6 +7,11 @@ const extraBusInfo = require('./extraBusInfo');
 const feeds = JSON.parse(fs.readFileSync('./endpoints/passio_go/feeds.json', 'utf8')).all;
 const extraConfig = JSON.parse(fs.readFileSync('./endpoints/passio_go/extraconfig.json'));
 
+let feedsDict = {};
+feeds.forEach((feed) => {
+  feedsDict[feed.username] = feed;
+})
+
 const keyGen = () => "pseudo101_" + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
   var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
   return v.toString(16);
@@ -121,11 +126,11 @@ const updateFeed = async (feed) => {
       let lineNameLong = route.nameOrig;
 
       if (feed.textReplacements) {
-        console.log(feed.username, feed.textReplacements)
+        //console.log(feed.username, feed.textReplacements)
         feed.textReplacements.forEach((replacement) => {
           lineNameLong = lineNameLong.replace(replacement[0], replacement[1]);
         })
-        console.log(lineNameLong)
+        //console.log(lineNameLong)
       }
 
       transitStatus.lines[route.myid] = {
@@ -222,6 +227,8 @@ const updateFeed = async (feed) => {
 
       if (bus['-1'] && bus['-1'].length === 0) return;
 
+      if (!busLine) return;
+
       transitStatus.trains[bus.bus] = {
         lat: Number(bus.latitude),
         lon: Number(bus.longitude),
@@ -281,7 +288,7 @@ const updateFeed = async (feed) => {
         if (!bus.busName) return;
 
         if (bus.theStop.shortName === 'a') {
-          console.log(bus.theStop.stopId, actualStopKey)
+          //console.log(bus.theStop.stopId, actualStopKey)
         }
 
         let actETA = '';
@@ -396,7 +403,6 @@ const updateFeeds = async () => {
     }
 
     if (!onlyThese.includes(feed.username)) continue;
-    //if (feed.username !== 'rutgers') continue;
 
     const feedData = await updateFeed(feed);
 
@@ -406,4 +412,21 @@ const updateFeeds = async () => {
   return finalFeeds;
 };
 
-exports.update = updateFeeds;
+const updateFeedInd = async (feedKey) => {
+  let feed = feedsDict[feedKey];
+
+  if (extraConfig[feed.username]) {
+    feed = {
+      ...feed,
+      ...extraConfig[feed.username]
+    }
+  }
+
+  const feedData = await updateFeed(feed);
+
+  console.log(`Finished updating ${feed.username}`)
+
+  return feedData;
+}
+
+exports.update = updateFeedInd;

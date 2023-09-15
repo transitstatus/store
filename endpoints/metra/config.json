@@ -3,5 +3,13 @@
   "script": "index.js",
   "interval": 60000,
   "apiVersion": 3,
-  "configVersion": 0
+  "configVersion": 0,
+  "default": {
+    "trains": [],
+    "transitStatus": {
+      "trains": [],
+      "stations": []
+    },
+    "lastUpdated": "1970-01-01T00:00:00.000Z"
+  }
 }

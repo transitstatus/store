@@ -107,6 +107,7 @@ const update = (async () => {
     }
   } catch (e) {
     console.log(e)
+    return false;
     return {
       boats: [],
       todayInHistory: [],

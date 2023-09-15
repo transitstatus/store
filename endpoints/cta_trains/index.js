@@ -371,6 +371,7 @@ const processData = async () => {
 
     const updated = new Date().toISOString();
 
+    return false;
     return {
       lines: {},
       stations: {},

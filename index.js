@@ -36,12 +36,18 @@ endpoints.forEach(async (endpoint) => {
       case 0:
         console.log(`Config version 0 detected for ${endpoint}`);
 
-        const { update } = require(`./endpoints/${endpoint}/${config.script}`);
+        const updateV0 = require(`./endpoints/${endpoint}/${config.script}`).update;
+
+        data[endpoint] = config.default
 
         try {
-          update()
+          updateV0()
             .then((result) => {
-              data[endpoint] = result;
+              if (result === false) {
+                data[endpoint] = config.default
+              } else {
+                data[endpoint] = result;
+              }
             })
         } catch (e) {
           console.log(`error updating data for ${endpoint}`);
@@ -50,10 +56,48 @@ endpoints.forEach(async (endpoint) => {
 
         setInterval(() => {
           try {
-            update()
+            updateV0()
               .then((result) => {
+                if (result === false) return;
+
                 data[endpoint] = result;
               })
+          } catch (e) {
+            console.log(`error updating data for ${endpoint}`);
+            console.log(e);
+          }
+        }, config.interval);
+
+        break;
+      case 1:
+        console.log(`Config version 1 detected for ${endpoint}`);
+
+        const updateV1 = require(`./endpoints/${endpoint}/${config.script}`).update;
+        const variables = config.variables;
+
+        data[endpoint] = config.default
+
+        try {
+          variables.forEach((variableSet) => updateV1(...variableSet)
+            .then((result) => {
+              if (result === false) return;
+
+              data[endpoint][variableSet[0]] = result;
+            }))
+
+        } catch (e) {
+          console.log(`error updating data for ${endpoint}`);
+          console.log(e);
+        }
+
+        setInterval(() => {
+          try {
+            variables.forEach((variableSet) => updateV1(...variableSet)
+              .then((result) => {
+                if (result === false) return;
+
+                data[endpoint][variableSet[0]] = result;
+              }))
           } catch (e) {
             console.log(`error updating data for ${endpoint}`);
             console.log(e);
@@ -95,7 +139,9 @@ fastify.get('*', (request, reply) => {
       }
     });
   } catch (e) {
-    console.log(e);
+    //console.log(e);
+    console.log('Not found:', path)
+    reply.header('Access-Control-Allow-Origin', '*');
     reply.code(404);
     reply.send('Not found');
     return;

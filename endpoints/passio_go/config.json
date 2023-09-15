@@ -3,5 +3,61 @@
   "script": "index.js",
   "interval": 60000,
   "apiVersion": 3,
-  "configVersion": 0
+  "configVersion": 1,
+  "default": {
+    "chicago": {},
+    "gcsu": {},
+    "GASO": {},
+    "georgiast": {},
+    "gatech": {},
+    "mit": {},
+    "ncstateuni": {},
+    "newyork": {},
+    "rutgers": {},
+    "uncc": {},
+    "uncg": {},
+    "uncw": {},
+    "bamabama": {}
+  },
+  "variables": [
+    [
+      "rutgers"
+    ],
+    [
+      "chicago"
+    ],
+    [
+      "gcsu"
+    ],
+    [
+      "georgiast"
+    ],
+    [
+      "gatech"
+    ],
+    [
+      "GASO"
+    ],
+    [
+      "mit"
+    ],
+    [
+      "newyork"
+    ],
+    [
+      "uncc"
+    ],
+    [
+      "uncg"
+    ],
+    [
+      "uncw"
+    ],
+    [
+      "bamabama"
+    ],
+    [
+      "ncstateuni"
+    ]
+  ]
 }
