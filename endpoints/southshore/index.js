@@ -72,7 +72,7 @@ const update = async () => {
           return {
             stationID: stationMeta.stationID,
             stationName: stationMeta.stationName,
-            eta: stop.minutes,
+            //eta: stop.minutes,
             actualETA: new Date(lastUpdated).getTime() + (stop.minutes * 60 * 1000),
           }
         }),
@@ -85,7 +85,7 @@ const update = async () => {
       train.predictions.forEach((prediction) => {
         transitStatusResponse.stations[prediction.stationID].destinations[train.dest].trains.push({
           runNumber: trainID,
-          eta: prediction.eta,
+          //eta: prediction.eta,
           actualETA: prediction.actualETA,
           line: train.line,
           lineCode: train.lineCode,

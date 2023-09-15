@@ -310,8 +310,8 @@ const updateFeed = async (feed) => {
         transitStatus.trains[bus.busName].predictions.push({
           stationID: actualStopKey,
           stationName: transitStatus.stations[actualStopKey].stationName,
-          eta: actETA,
-          busETARaw: bus.eta,
+          //eta: actETA,
+          //busETARaw: bus.eta,
           actualETA: new Date(now + (actETA * 60000)).valueOf(),
           noETA,
         });
@@ -346,7 +346,7 @@ const updateFeed = async (feed) => {
 
         transitStatus.stations[prediction.stationID].destinations[realDest].trains.push({
           runNumber: trainKey,
-          eta: prediction.eta,
+          //eta: prediction.eta,
           actualETA: prediction.actualETA,
           noETA: prediction.noETA,
           line: train.line,

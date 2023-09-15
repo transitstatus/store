@@ -119,7 +119,7 @@ const update = (async () => {
         finalTrain.predictions.push({
           stationID: stop.stop_id,
           stationName: staticStopsData[stop.stop_id].stopName,
-          eta: eta,
+          //eta: eta,
           actualETA: time,
         });
 
@@ -145,7 +145,7 @@ const update = (async () => {
 
         transitStatus.stations[stop.stop_id].destinations[finalStation].trains.push({
           runNumber: runNumber,
-          eta: eta,
+          //eta: eta,
           actualETA: time,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,

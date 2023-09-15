@@ -221,7 +221,7 @@ const processData = async () => {
           processedData.transitStatus.trains[train.RunNumber].predictions.push({
             stationID: prediction[0],
             stationName: prediction[1],
-            eta: eta,
+            //eta: eta,
             actualETA: actualETA,
           });
 
@@ -242,7 +242,7 @@ const processData = async () => {
 
           processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
             runNumber: train.RunNumber,
-            eta: eta,
+            //eta: eta,
             actualETA: actualETA,
             line: actualLines[line.Line],
             lineCode: line.Line,
