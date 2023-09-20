@@ -93,15 +93,6 @@ fastify.after(() => {
                   if (result === false) return;
 
                   data[endpoint] = result;
-
-                  const keys = getAllKeysWithParents(config.default);
-
-                  console.log(`Destroying /${endpoint}GET`)
-                  fastify.lcache.reset(`/${endpoint}GET`)
-                  keys.forEach((key) => {
-                    console.log(`Destroying /${endpoint}/${key}GET`)
-                    fastify.lcache.reset(`/${endpoint}/${key}GET`)
-                  })
                 })
             } catch (e) {
               console.log(`error updating data for ${endpoint}`);
@@ -141,16 +132,6 @@ fastify.after(() => {
                   if (result === false) return;
 
                   data[endpoint][variableSet[0]] = result;
-
-                  console.log(`Destroying /${endpoint}/${variableSet[0]}GET`)
-                  fastify.lcache.reset(`/${endpoint}/${variableSet[0]}GET`);
-
-                  //also destroying first layer of keys
-                  const keys = Object.keys(result);
-                  keys.forEach((key) => {
-                    console.log(`Destroying /${endpoint}/${variableSet[0]}/${key}GET`)
-                    fastify.lcache.reset(`/${endpoint}/${variableSet[0]}/${key}GET`);
-                  })
                 }))
             } catch (e) {
               console.log(`error updating data for ${endpoint}`);
@@ -204,6 +185,15 @@ fastify.after(() => {
     reply.header('Access-Control-Allow-Origin', '*');
     reply.send(dataToReturn);
   });
+
+  //killing the cache's default state every 5 seconds for the first minute just in case the updates didn't go through above
+  //this isnt needed, but tbh i dont trust this cache implementation
+  for (let i = 5; i <= 60; i += 5) {
+    setTimeout(() => {
+      console.log('YEET')
+      fastify.lcache.reset();
+    }, i * 1000)
+  }
 });
 
 fastify.listen({ port: 3000, host: '0.0.0.0', }, (err, address) => {
