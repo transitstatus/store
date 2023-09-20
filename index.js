@@ -2,156 +2,211 @@ const fs = require('fs');
 const fastify = require('fastify')({
   logger: false
 });
+const lcache = require('fastify-lcache');
 
-const only_testing = ''
+fastify.register(lcache, {
+  ttlInMinutes: 0.5, // set cached data lifetime to 10 minutes
+});
 
-let data = {};
+const getAllKeysWithParents = (obj, parentKey = '') => {
+  let keys = [];
 
-// getting folders within scripts folder
-const endpoints = fs.readdirSync('./endpoints');
-
-// going through endpoints and setting up update jobs
-endpoints.forEach(async (endpoint) => {
-  if (only_testing !== undefined && only_testing !== null && only_testing !== '' && endpoint !== only_testing) return;
-
-  console.log(`Loading endpoint: ${endpoint}`);
-  if (fs.lstatSync(`./endpoints/${endpoint}`).isDirectory()) {
-    console.log(`${endpoint} is a directory`);
-    console.log(`Reading ${endpoint} config file`)
-
-    if (!fs.existsSync(`./endpoints/${endpoint}/config.json`)) {
-      console.log(`No config file found for ${endpoint}, not continuing`);
-      return;
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const currentKey = parentKey ? `${parentKey}/${key}` : key;
+      keys.push(currentKey);
+      if (typeof obj[key] === 'object') {
+        keys = keys.concat(getAllKeysWithParents(obj[key], currentKey));
+      }
     }
+  }
 
-    const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
+  return keys;
+}
 
-    if (config.configVersion === undefined || config.configVersion === null) {
-      console.log(`No config version found for ${endpoint}, not continuing`);
-      return;
-    }
+//ensuring the plugin(s) load before we start registering endpoints
+fastify.after(() => {
+  const only_testing = ''
 
-    // included for possible future variations in config versions
-    switch (config.configVersion) {
-      case 0:
-        console.log(`Config version 0 detected for ${endpoint}`);
+  let data = {};
 
-        const updateV0 = require(`./endpoints/${endpoint}/${config.script}`).update;
+  // getting folders within scripts folder
+  const endpoints = fs.readdirSync('./endpoints');
 
-        data[endpoint] = config.default
+  // going through endpoints and setting up update jobs
+  endpoints.forEach(async (endpoint) => {
+    if (only_testing !== undefined && only_testing !== null && only_testing !== '' && endpoint !== only_testing) return;
 
-        try {
-          updateV0()
-            .then((result) => {
-              if (result === false) {
-                data[endpoint] = config.default
-              } else {
-                data[endpoint] = result;
-              }
-            })
-        } catch (e) {
-          console.log(`error updating data for ${endpoint}`);
-          console.log(e);
-        }
+    console.log(`Loading endpoint: ${endpoint}`);
+    if (fs.lstatSync(`./endpoints/${endpoint}`).isDirectory()) {
+      console.log(`${endpoint} is a directory`);
+      console.log(`Reading ${endpoint} config file`)
 
-        setInterval(() => {
+      if (!fs.existsSync(`./endpoints/${endpoint}/config.json`)) {
+        console.log(`No config file found for ${endpoint}, not continuing`);
+        return;
+      }
+
+      const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
+
+      if (config.configVersion === undefined || config.configVersion === null) {
+        console.log(`No config version found for ${endpoint}, not continuing`);
+        return;
+      }
+
+      // included for possible future variations in config versions
+      switch (config.configVersion) {
+        case 0:
+          console.log(`Config version 0 detected for ${endpoint}`);
+
+          const updateV0 = require(`./endpoints/${endpoint}/${config.script}`).update;
+
+          data[endpoint] = config.default
+
           try {
             updateV0()
               .then((result) => {
-                if (result === false) return;
+                if (result === false) {
+                  data[endpoint] = config.default
+                } else {
+                  data[endpoint] = result;
 
-                data[endpoint] = result;
+                  const keys = getAllKeysWithParents(config.default);
+
+                  console.log(`Destroying /${endpoint}GET`)
+                  fastify.lcache.reset(`/${endpoint}GET`)
+                  keys.forEach((key) => {
+                    console.log(`Destroying /${endpoint}/${key}GET`)
+                    fastify.lcache.reset(`/${endpoint}/${key}GET`)
+                  })
+                }
               })
           } catch (e) {
             console.log(`error updating data for ${endpoint}`);
             console.log(e);
           }
-        }, config.interval);
 
-        break;
-      case 1:
-        console.log(`Config version 1 detected for ${endpoint}`);
+          setInterval(() => {
+            try {
+              updateV0()
+                .then((result) => {
+                  if (result === false) return;
 
-        const updateV1 = require(`./endpoints/${endpoint}/${config.script}`).update;
-        const variables = config.variables;
+                  data[endpoint] = result;
 
-        data[endpoint] = config.default
+                  const keys = getAllKeysWithParents(config.default);
 
-        try {
-          variables.forEach((variableSet) => updateV1(...variableSet)
-            .then((result) => {
-              if (result === false) return;
+                  console.log(`Destroying /${endpoint}GET`)
+                  fastify.lcache.reset(`/${endpoint}GET`)
+                  keys.forEach((key) => {
+                    console.log(`Destroying /${endpoint}/${key}GET`)
+                    fastify.lcache.reset(`/${endpoint}/${key}GET`)
+                  })
+                })
+            } catch (e) {
+              console.log(`error updating data for ${endpoint}`);
+              console.log(e);
+            }
+          }, config.interval);
 
-              data[endpoint][variableSet[0]] = result;
-            }))
+          break;
+        case 1:
+          console.log(`Config version 1 detected for ${endpoint}`);
 
-        } catch (e) {
-          console.log(`error updating data for ${endpoint}`);
-          console.log(e);
-        }
+          const updateV1 = require(`./endpoints/${endpoint}/${config.script}`).update;
+          const variables = config.variables;
 
-        setInterval(() => {
+          data[endpoint] = config.default
+
           try {
             variables.forEach((variableSet) => updateV1(...variableSet)
               .then((result) => {
                 if (result === false) return;
 
                 data[endpoint][variableSet[0]] = result;
+
+                console.log(`Destroying /${endpoint}/${variableSet[0]}GET`)
+                fastify.lcache.reset(`/${endpoint}/${variableSet[0]}GET`);
               }))
+
           } catch (e) {
             console.log(`error updating data for ${endpoint}`);
             console.log(e);
           }
-        }, config.interval);
 
-        break;
-      default:
-        console.log(`No known config version detected for ${endpoint}`);
-        break;
-    }
-  } else {
-    console.log(`${endpoint} is a file, not continuing`);
-  }
-});
+          setInterval(() => {
+            try {
+              variables.forEach((variableSet) => updateV1(...variableSet)
+                .then((result) => {
+                  if (result === false) return;
 
-fastify.get('/', (request, reply) => {
-  console.log('Returning data for /');
+                  data[endpoint][variableSet[0]] = result;
 
-  reply.header('Access-Control-Allow-Origin', '*');
-  reply.send(data);
-})
+                  console.log(`Destroying /${endpoint}/${variableSet[0]}GET`)
+                  fastify.lcache.reset(`/${endpoint}/${variableSet[0]}GET`);
 
-fastify.get('*', (request, reply) => {
-  const path = request.url;
+                  //also destroying first layer of keys
+                  const keys = Object.keys(result);
+                  keys.forEach((key) => {
+                    console.log(`Destroying /${endpoint}/${variableSet[0]}/${key}GET`)
+                    fastify.lcache.reset(`/${endpoint}/${variableSet[0]}/${key}GET`);
+                  })
+                }))
+            } catch (e) {
+              console.log(`error updating data for ${endpoint}`);
+              console.log(e);
+            }
+          }, config.interval);
 
-  console.log(`Returning data for ${path}`)
-
-  //remove leading slash first
-  const pathArray = path.substring(1).split('/');
-  let dataToReturn = data;
-
-  try {
-    pathArray.forEach((path) => {
-      dataToReturn = dataToReturn[path];
-
-      if (dataToReturn === undefined) {
-        throw new Error('Not found');
+          break;
+        default:
+          console.log(`No known config version detected for ${endpoint}`);
+          break;
       }
-    });
-  } catch (e) {
-    //console.log(e);
-    console.log('Not found:', path)
-    reply.header('Access-Control-Allow-Origin', '*');
-    reply.code(404);
-    reply.send('Not found');
-    return;
-  }
+    } else {
+      console.log(`${endpoint} is a file, not continuing`);
+    }
+  });
 
-  reply.header('Access-Control-Allow-Origin', '*');
-  reply.send(dataToReturn);
+  fastify.get('/', (request, reply) => {
+    console.log('Returning data for /');
+
+    reply.header('Access-Control-Allow-Origin', '*');
+    reply.send(data);
+  })
+
+  fastify.get('*', (request, reply) => {
+    const path = request.url;
+
+    console.log(`Returning data for ${path}`)
+
+    //remove leading slash first
+    const pathArray = path.substring(1).split('/');
+    let dataToReturn = data;
+
+    try {
+      pathArray.forEach((path) => {
+        dataToReturn = dataToReturn[path];
+
+        if (dataToReturn === undefined) {
+          throw new Error('Not found');
+        }
+      });
+    } catch (e) {
+      //console.log(e);
+      console.log('Not found:', path)
+      reply.header('Access-Control-Allow-Origin', '*');
+      reply.code(404);
+      reply.send('Not found');
+      return;
+    }
+
+    reply.header('Access-Control-Allow-Origin', '*');
+    reply.send(dataToReturn);
+  });
 });
 
-fastify.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
+fastify.listen({ port: 3000, host: '0.0.0.0', }, (err, address) => {
   if (err) throw err
   console.log(`Server is now listening on ${address}`);
 })
