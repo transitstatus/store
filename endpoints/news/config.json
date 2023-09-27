@@ -1,0 +1,8 @@
+{
+  "name": "Chicago News",
+  "script": "index.js",
+  "interval": 180000,
+  "apiVersion": 0,
+  "configVersion": 0,
+  "default": []
+}
