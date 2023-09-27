@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
-const htmlparser2 = require("htmlparser2");
 const fs = require('fs');
+const Parser = require('rss-parser');
+const parser = new Parser();
 
 const urls = [
   "https://www.chicagotribune.com/arcio/rss/category/news/",
@@ -13,15 +14,11 @@ const options = {};
 const update = async () => {
   try {
     const requests = urls.map((url) =>
-      fetch(url).then((response) => response.text())
+      parser.parseURL(url)
     );
 
     const res = await Promise.all(requests)
-      .then((data) => {
-        const parsedFeeds = data.map((feed) => htmlparser2.parseFeed(feed, options))
-
-        return parsedFeeds;
-      })
+      .then(data => data)
       .catch((error) => {
         console.error(error);
       });
