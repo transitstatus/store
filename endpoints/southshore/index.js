@@ -65,7 +65,7 @@ const update = async () => {
         lineCode: 'so_shore',
         lineColor: transitStatusResponse.lines['so_shore'].routeColor,
         lineTextColor: transitStatusResponse.lines['so_shore'].routeTextColor,
-        dest: routes['so_shore'].routeTrips[train.tripID].headsign,
+        dest: routes['so_shore'].routeTrips[train.tripID] ? routes['so_shore'].routeTrips[train.tripID].headsign : 'Unknown Destination',
         predictions: train.minutesToNextStops.map((stop, i) => {
           const stationMeta = transitStatusResponse.stations[`s${stop.stopID}`];
 
@@ -77,6 +77,11 @@ const update = async () => {
             noETA: false,
           }
         }),
+      }
+
+      if (transitStatusResponse.trains[train.tripID].dest === 'Unknown Destination') {
+        const predictions = transitStatusResponse.trains[train.tripID].predictions;
+        transitStatusResponse.trains[train.tripID].dest = predictions[predictions.length - 1].stationName;
       }
     })
 

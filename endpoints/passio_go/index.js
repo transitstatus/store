@@ -237,7 +237,7 @@ const updateFeed = async (feed) => {
         lineCode: bus.routeId,
         lineColor: busLine.routeColor,
         lineTextColor: busLine.routeTextColor,
-        dest: transitStatus.stations[stops.routes[bus.routeId][0][1]].stationName,
+        dest: stops.routes[bus.routeId] ? transitStatus.stations[stops.routes[bus.routeId][0][1]].stationName : 'Unknown Destination',
         predictions: [],
         extra: {
           load: bus.paxLoad,
@@ -284,7 +284,9 @@ const updateFeed = async (feed) => {
       const actualStopKey = stopReplacements[feed.username] && stopReplacements[feed.username][stopKey] ? stopReplacements[feed.username][stopKey] : stopKey;
       //const actualStopKey = stopKey;
 
-      stop.forEach((bus) => {
+      const iteratableStop = Array.isArray(stop) ? stop : Object.values(stop);
+
+      iteratableStop.forEach((bus) => {
         if (!bus.busName) return;
 
         if (bus.theStop.shortName === 'a') {
