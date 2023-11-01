@@ -18,7 +18,8 @@
       "36874",
       "4067",
       "43973"
-    ]
+    ],
+    "rtfallback": "https://passio3.com/rutgers/passioTransit/gtfs/realtime/tripUpdates"
   },
   "uchicago": {
     "black": [

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
+const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 const headsignReplacements = require('./headsignReplacements');
 const stopReplacements = require('./stopReplacements');
 const extraBusInfo = require('./extraBusInfo');
@@ -18,6 +19,28 @@ const keyGen = () => "pseudo101_" + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.repla
 })
 
 const average = array => array.reduce((a, b) => a + b) / array.length;
+
+const parseTheStupidGodDamnFuckingPassioGoETAs = (raw) => {
+  let actETA = '';
+
+  const busETARaw = raw.replace('min', '').trim();
+
+  if (busETARaw.includes('-')) { // range
+    actETA = Number(busETARaw.split('-')[0]);
+  } else if (busETARaw.includes('arriving')) { // now
+    actETA = 0;
+  } else if (busETARaw.includes('arrived')) {
+    actETA = 0; // now
+  } else if (busETARaw.includes('due')) { // now
+    actETA = 0;
+  } else if (busETARaw.includes('less than')) { // now
+    actETA = 0;
+  } else { //hopefully a number
+    actETA = busETARaw.match(/\d+/)[0];
+  }
+
+  return actETA;
+}
 
 const updateFeed = async (feed) => {
   try {
@@ -274,8 +297,52 @@ const updateFeed = async (feed) => {
     });
     const predictions = await predictionsRes.json();
 
+    let fallbackData = null;
+
+    if (feed.rtfallback) {
+      const fallbackRes = await fetch("https://passio3.com/rutgers/passioTransit/gtfs/realtime/tripUpdates", {
+        "credentials": "omit",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.5",
+          "Upgrade-Insecure-Requests": "1",
+          "Sec-Fetch-Dest": "document",
+          "Sec-Fetch-Mode": "navigate",
+          "Sec-Fetch-Site": "none",
+          "Sec-Fetch-User": "?1"
+        },
+        "method": "GET",
+        "mode": "cors"
+      });
+
+      if (!fallbackRes.ok) {
+        console.log(`Fallback shitted for ${feed.username}, fuck it lmao`)
+      } else {
+        const buffer = await fallbackRes.arrayBuffer();
+        const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(buffer));
+
+        let finalFeed = {};
+
+        feed.entity.forEach((update) => {
+          if (update.tripUpdate) {
+            finalFeed[update.tripUpdate.trip.tripId] = {};
+
+            update.tripUpdate.stopTimeUpdate.forEach((time) => {
+              finalFeed[update.tripUpdate.trip.tripId][time.stopId] = Math.max(time.arrival.time.low * 1000, time.arrival.time.high * 1000);
+            })
+          }
+        });
+
+        fallbackData = finalFeed;
+      }
+    }
+
     //if (feed.username === 'rutgers') fs.writeFileSync('./predictions.json', JSON.stringify(predictions, null, 2));
     //console.log(`https://passio3.com/www/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`)
+
+    //if (feed.username === 'rutgers' && fallbackData === null) process.exit(1);
+    //if (feed.username === 'rutgers') console.log(fallbackData.entity.map(x => x.tripUpdate));
 
     const now = new Date().valueOf();
     Object.keys(predictions.ETAs).forEach((stopKey) => {
@@ -289,40 +356,54 @@ const updateFeed = async (feed) => {
       iteratableStop.forEach((bus) => {
         if (!bus.busName) return;
 
-        if (bus.theStop.shortName === 'a') {
-          //console.log(bus.theStop.stopId, actualStopKey)
+        let rawETA = bus.etaR;
+
+        if (!rawETA) rawETA = parseTheStupidGodDamnFuckingPassioGoETAs(bus.eta);
+
+        if (!rawETA) {
+          const res = parseTheStupidGodDamnFuckingPassioGoETAs(bus.eta); //fallback
+
+          if (isNaN(res)) {
+            if (!transitStatus.trains[bus.busName]) return;
+
+            transitStatus.trains[bus.busName].predictions.push({
+              stationID: actualStopKey,
+              stationName: transitStatus.stations[actualStopKey].stationName,
+              actualETA: 0,
+              noETA: true,
+            });
+            return; //exiting loop
+          } else {
+            rawETA = res; //putting in fallback if valid
+          }
         }
 
-        let actETA = '';
-        let noETA = false;
-        const busETARaw = bus.eta.replace('min', '').trim();
+        if (!isNaN(rawETA)) rawETA = rawETA.toString(); //in case its already a number
+        const rawArr = rawETA.split(':').map(n => parseInt(n)); //ensuring all parts of the ETA as numbers
 
-        if (busETARaw.includes('-')) { // range
-          actETA = Number(busETARaw.split('-')[0]);
-        } else if (busETARaw.includes('arriving')) { // now
-          actETA = 0;
-        } else if (busETARaw.includes('arrived')) {
-          actETA = 0; // now
-        } else if (busETARaw.includes('due')) { // now
-          actETA = 0;
-        } else if (busETARaw.includes('less than')) { // now
-          actETA = 0;
-        } else { //hopefully a number
-          actETA = Number(busETARaw);
+        let finalETA = rawArr[0]; //assuming only minutes
+        if (rawArr.length > 1) finalETA = (rawArr[0] * 60) + rawArr[1]; //if an hours figure exists
+
+        if (!transitStatus.trains[bus.busName]) return; //cant assign an ETA to a bus that doesnt exist
+
+        let finalETAVal = new Date(now + (finalETA * 60000)).valueOf(); //adding minutes offset to current date
+
+        //trying gtfs-rt override
+        if (fallbackData) { //do we have data to override with?
+          if (bus.tripId) { //do we have a trip id?
+            if (fallbackData[bus.tripId]) { //does our trip have better estimates?
+              if (fallbackData[bus.tripId][bus.theStop.stopId]) { //do we have a better eta?
+                finalETAVal = fallbackData[bus.tripId][bus.theStop.stopId] //replace it
+              }
+            }
+          }
         }
-
-        if (isNaN(actETA)) return;
-        if (bus.eta === '--') noETA = true;
-
-        if (!transitStatus.trains[bus.busName]) return;
 
         transitStatus.trains[bus.busName].predictions.push({
           stationID: actualStopKey,
           stationName: transitStatus.stations[actualStopKey].stationName,
-          //eta: actETA,
-          //busETARaw: bus.eta,
-          actualETA: new Date(now + (actETA * 60000)).valueOf(),
-          noETA,
+          actualETA: finalETAVal,
+          noETA: false,
         });
       })
     });
@@ -388,30 +469,6 @@ const updateFeed = async (feed) => {
       }
     };
   }
-};
-
-const updateFeeds = async () => {
-  const onlyThese = ['rutgers', 'chicago', 'gcsu', 'georgiast', 'gatech', 'GASO', 'mit', 'newyork', 'uncc', 'uncg', 'uncw', 'bamabama', 'ncstateuni'];
-  let finalFeeds = {};
-
-  for (let i = 0; i < feeds.length; i++) {
-    let feed = feeds[i];
-
-    if (extraConfig[feed.username]) {
-      feed = {
-        ...feed,
-        ...extraConfig[feed.username]
-      }
-    }
-
-    if (!onlyThese.includes(feed.username)) continue;
-
-    const feedData = await updateFeed(feed);
-
-    finalFeeds[feed.username] = feedData;
-  }
-
-  return finalFeeds;
 };
 
 const updateFeedInd = async (feedKey) => {
