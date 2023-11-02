@@ -18,6 +18,8 @@ const keyGen = () => "pseudo101_" + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.repla
   return v.toString(16);
 })
 
+const idGen = (len = 8) => Math.random().toString().slice(2, 2 + len);
+
 const average = array => array.reduce((a, b) => a + b) / array.length;
 
 const parseTheStupidGodDamnFuckingPassioGoETAs = (raw) => {
@@ -285,11 +287,11 @@ const updateFeed = async (feed) => {
     let fullPredictions = {};
 
     const chunkSize = 10;
-    for (let i = 0; i < allStopIDs.length; i += chunkSize) {
-      const chunk = allStopIDs.slice(i, i + chunkSize);
+    for (let j = 0; j < allStopIDs.length; j += chunkSize) {
+      const chunk = allStopIDs.slice(j, j + chunkSize);
       const chunkString = chunk.join(',');
 
-      const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&userId=${deviceId + 32}`, {
+      const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${idGen()}&stopIds=${chunkString}`, {
         "credentials": "omit",
         "headers": {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
@@ -418,6 +420,8 @@ const updateFeed = async (feed) => {
       })
     });
 
+    let totalBefore = 0;
+    let totalAfter = 0;
     Object.keys(transitStatus.trains).forEach((trainKey) => {
       let train = transitStatus.trains[trainKey];
 
@@ -428,6 +432,8 @@ const updateFeed = async (feed) => {
         predictionStopKeys.push(stop.stationID);
         predictionsDict[stop.stationID] = stop;
       })
+
+      totalBefore += predictionStopKeys.length;
 
       //trying gtfs-rt override
       if (fallbackData) { //do we have data to override with?
@@ -450,6 +456,8 @@ const updateFeed = async (feed) => {
           }
         }
       }
+
+      totalAfter += Object.keys(predictionsDict).length;
 
       train.predictions = Object.values(predictionsDict);
 
@@ -489,6 +497,8 @@ const updateFeed = async (feed) => {
         });
       });
     })
+
+    console.log(totalBefore, totalAfter)
 
     console.log(`Finished updating ${feed.username}`)
     return {
