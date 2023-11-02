@@ -44,6 +44,8 @@ const parseTheStupidGodDamnFuckingPassioGoETAs = (raw) => {
 
 const updateFeed = async (feed) => {
   try {
+    let vidToTripDict = {};
+
     const key = keyGen();
 
     const deviceIdReq = await fetch(`https://passiogo.com/goServices.php?register=1&deviceId=0&token=${key}&platform=web&buildNo=undefined&oldToken=`, {
@@ -280,22 +282,34 @@ const updateFeed = async (feed) => {
       transitStatus.lines[bus.routeId].hasActiveTrains = true;
     });
 
-    const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`, {
-      "credentials": "omit",
-      "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
-        "Accept-Language": "en-US,en;q=0.5",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "cross-site"
-      },
-      "method": "GET",
-      "mode": "cors"
-    });
-    const predictions = await predictionsRes.json();
+    let fullPredictions = {};
+
+    for (let i = 0; i < routes.length; i++) {
+      const route = routes[i];
+
+      const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${allStopIDs.join(',')}&userId=${deviceId + 32}&routeId=${route.myid}`, {
+        "credentials": "omit",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+          'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+          "Accept-Language": "en-US,en;q=0.5",
+          "Upgrade-Insecure-Requests": "1",
+          "Sec-Fetch-Dest": "document",
+          "Sec-Fetch-Mode": "navigate",
+          "Sec-Fetch-Site": "cross-site"
+        },
+        "method": "GET",
+        "mode": "cors"
+      });
+      const predictions = await predictionsRes.json();
+
+      Object.keys(predictions.ETAs).forEach((stopKey) => {
+        if (!fullPredictions[stopKey]) fullPredictions[stopKey] = [];
+
+        fullPredictions[stopKey].push(...predictions.ETAs[stopKey]);
+      });
+    }
 
     let fallbackData = null;
 
@@ -320,16 +334,19 @@ const updateFeed = async (feed) => {
         console.log(`Fallback shitted for ${feed.username}, fuck it lmao`)
       } else {
         const buffer = await fallbackRes.arrayBuffer();
-        const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(buffer));
+        const trackingFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(buffer));
 
         let finalFeed = {};
 
-        feed.entity.forEach((update) => {
+        trackingFeed.entity.forEach((update) => {
           if (update.tripUpdate) {
             finalFeed[update.tripUpdate.trip.tripId] = {};
 
             update.tripUpdate.stopTimeUpdate.forEach((time) => {
-              finalFeed[update.tripUpdate.trip.tripId][time.stopId] = Math.max(time.arrival.time.low * 1000, time.arrival.time.high * 1000);
+              //stop replacements
+              const stopId = stopReplacements[feed.username] && stopReplacements[feed.username][time.stopId] ? stopReplacements[feed.username][time.stopId] : time.stopId;
+
+              finalFeed[update.tripUpdate.trip.tripId][stopId] = Math.max(time.arrival.time.low * 1000, time.arrival.time.high * 1000);
             })
           }
         });
@@ -345,8 +362,8 @@ const updateFeed = async (feed) => {
     //if (feed.username === 'rutgers') console.log(fallbackData.entity.map(x => x.tripUpdate));
 
     const now = new Date().valueOf();
-    Object.keys(predictions.ETAs).forEach((stopKey) => {
-      const stop = predictions.ETAs[stopKey];
+    Object.keys(fullPredictions).forEach((stopKey) => {
+      const stop = fullPredictions[stopKey];
 
       const actualStopKey = stopReplacements[feed.username] && stopReplacements[feed.username][stopKey] ? stopReplacements[feed.username][stopKey] : stopKey;
       //const actualStopKey = stopKey;
@@ -388,16 +405,7 @@ const updateFeed = async (feed) => {
 
         let finalETAVal = new Date(now + (finalETA * 60000)).valueOf(); //adding minutes offset to current date
 
-        //trying gtfs-rt override
-        if (fallbackData) { //do we have data to override with?
-          if (bus.tripId) { //do we have a trip id?
-            if (fallbackData[bus.tripId]) { //does our trip have better estimates?
-              if (fallbackData[bus.tripId][bus.theStop.stopId]) { //do we have a better eta?
-                finalETAVal = fallbackData[bus.tripId][bus.theStop.stopId] //replace it
-              }
-            }
-          }
-        }
+        vidToTripDict[bus.busName] = bus.tripId;
 
         transitStatus.trains[bus.busName].predictions.push({
           stationID: actualStopKey,
@@ -409,7 +417,39 @@ const updateFeed = async (feed) => {
     });
 
     Object.keys(transitStatus.trains).forEach((trainKey) => {
-      const train = transitStatus.trains[trainKey];
+      let train = transitStatus.trains[trainKey];
+
+      let predictionStopKeys = [];
+      let predictionsDict = {};
+
+      train.predictions.forEach((stop) => {
+        predictionStopKeys.push(stop.stationID);
+        predictionsDict[stop.stationID] = stop;
+      })
+
+      //trying gtfs-rt override
+      if (fallbackData) { //do we have data to override with?
+        if (vidToTripDict[trainKey]) { //do we have a trip ID?
+          if (fallbackData[vidToTripDict[trainKey]]) { //does our trip have better estimates?
+            Object.keys(fallbackData[vidToTripDict[trainKey]]).forEach((stopKey) => {
+              if (!predictionsDict[stopKey]) { //seeing if the prediction exists
+                if (!transitStatus.stations[stopKey]) return;
+
+                predictionsDict[stopKey] = {
+                  stationID: stopKey,
+                  stationName: transitStatus.stations[stopKey].stationName,
+                  actualETA: fallbackData[vidToTripDict[trainKey]][stopKey],
+                  noETA: false,
+                }
+              } else {
+                predictionsDict[stopKey].actualETA = fallbackData[vidToTripDict[trainKey]][stopKey]
+              }
+            })
+          }
+        }
+      }
+
+      train.predictions = Object.values(predictionsDict);
 
       transitStatus.trains[trainKey].predictions = train.predictions.sort((a, b) => a.actualETA - b.actualETA);
 
