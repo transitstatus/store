@@ -284,39 +284,33 @@ const updateFeed = async (feed) => {
 
     let fullPredictions = {};
 
-    for (let i = 0; i < routes.length; i++) {
-      const route = routes[i];
+    const chunkSize = 10;
+    for (let i = 0; i < allStopIDs.length; i += chunkSize) {
+      const chunk = allStopIDs.slice(i, i + chunkSize);
+      const chunkString = chunk.join(',');
 
-      const stopIDs = routeStations[route.myid] ?? allStopIDs;
+      const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&userId=${deviceId + 32}`, {
+        "credentials": "omit",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+          'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+          "Accept-Language": "en-US,en;q=0.5",
+          "Upgrade-Insecure-Requests": "1",
+          "Sec-Fetch-Dest": "document",
+          "Sec-Fetch-Mode": "navigate",
+          "Sec-Fetch-Site": "cross-site"
+        },
+        "method": "GET",
+        "mode": "cors"
+      });
+      const predictions = await predictionsRes.json();
 
-      const chunkSize = 10;
-      for (let i = 0; i < stopIDs.length; i += chunkSize) {
-        const chunk = stopIDs.slice(i, i + chunkSize);
-        const chunkString = chunk.join(',');
+      Object.keys(predictions.ETAs).forEach((stopKey) => {
+        if (!fullPredictions[stopKey]) fullPredictions[stopKey] = [];
 
-        const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&userId=${deviceId + 32}&routeId=${route.myid}`, {
-          "credentials": "omit",
-          "headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
-            "Accept-Language": "en-US,en;q=0.5",
-            "Upgrade-Insecure-Requests": "1",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "cross-site"
-          },
-          "method": "GET",
-          "mode": "cors"
-        });
-        const predictions = await predictionsRes.json();
-
-        Object.keys(predictions.ETAs).forEach((stopKey) => {
-          if (!fullPredictions[stopKey]) fullPredictions[stopKey] = [];
-
-          fullPredictions[stopKey].push(...predictions.ETAs[stopKey]);
-        });
-      }
+        fullPredictions[stopKey].push(...predictions.ETAs[stopKey]);
+      });
     }
 
     let fallbackData = null;
