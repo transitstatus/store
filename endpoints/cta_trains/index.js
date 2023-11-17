@@ -128,14 +128,14 @@ const processData = async () => {
         processedData.trains[train.RunNumber] = {
           lat: train.Position.Lat,
           lon: train.Position.Lng,
-          heading: train.Direction,
+          heading: ((train.Direction / (2 * Math.PI)) * 360 + 90) * -1,
           line: actualLines[line.Line],
         };
 
         processedData.transitStatus.trains[train.RunNumber] = {
           lat: train.Position.Lat,
           lon: train.Position.Lng,
-          heading: (train.Direction / (2 * Math.PI)) * 360 + 90,
+          heading: ((train.Direction / (2 * Math.PI)) * 360 + 90) * -1,
           line: actualLines[line.Line],
           lineCode: line.Line,
           lineColor: routesData[validLinesReverse[line.Line]].routeColor,
