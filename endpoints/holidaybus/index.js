@@ -59,7 +59,7 @@ const update = async () => {
 
     //882b2b
 
-    transitStatusObject[vehicleDataActual.rt] = {
+    transitStatusObject.lines[vehicleDataActual.rt] = {
       lineCode: vehicleDataActual.rt,
       lineNameShort: '',
       lineNameLong: vehicleDataActual.rt,
