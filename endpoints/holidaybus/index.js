@@ -57,11 +57,13 @@ const update = async () => {
       lines: {}
     };
 
+    //882b2b
+
     transitStatusObject[vehicleDataActual.rt] = {
       lineCode: vehicleDataActual.rt,
       lineNameShort: '',
       lineNameLong: vehicleDataActual.rt,
-      routeColor: '882b2b',
+      routeColor: 'b02727',
       routeTextColor: 'ffffff',
       hasActiveTrains: true,
       stations: routesData[vehicleDataActual.rt].routeStations,
@@ -86,7 +88,7 @@ const update = async () => {
             noETA: false,
             line: prediction.rt,
             lineCode: prediction.rt,
-            lineColor: '882b2b',
+            lineColor: 'b02727',
             lineTextColor: 'ffffff',
           }
         ]
@@ -99,7 +101,7 @@ const update = async () => {
       heading: vehicleDataActual.hdg,
       line: vehicleDataActual.rt,
       lineCode: vehicleDataActual.rt,
-      lineColor: '882b2b',
+      lineColor: 'b02727',
       lineTextColor: 'ffffff',
       dest: vehicleDataActual.des,
       predictions: predictionsDataActual.map((prediction) => {
