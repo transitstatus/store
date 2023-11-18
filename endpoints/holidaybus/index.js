@@ -80,6 +80,17 @@ const update = async () => {
     })
 
     predictionsDataActual.forEach((prediction) => {
+      //this sometimes happens ig?
+      if (!transitStatusObject.stations[prediction.stpid]) {
+        transitStatusObject.stations[prediction.stpid] = {
+          stationID: prediction.stpid,
+          statioonName: prediction.stpnm,
+          lat: stopsData[prediction.stpid] ? stopsData[prediction.stpid].stopLat : 0,
+          lon: stopsData[prediction.stpid] ? stopsData[prediction.stpid].stopLon : 0,
+          destinations: {},
+        }
+      }
+
       transitStatusObject.stations[prediction.stpid].destinations[prediction.des] = {
         trains: [
           {

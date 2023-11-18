@@ -26,7 +26,7 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
-  const only_testing = ''
+  const only_testing = 'holidaybus'
 
   let data = {};
 
