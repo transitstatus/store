@@ -62,7 +62,7 @@ const update = async () => {
     transitStatusObject.lines[vehicleDataActual.rt] = {
       lineCode: vehicleDataActual.rt,
       lineNameShort: '',
-      lineNameLong: vehicleDataActual.rt,
+      lineNameLong: `${vehicleDataActual.rt} Bus`,
       routeColor: '2eb712',
       routeTextColor: 'ffffff',
       hasActiveTrains: true,
@@ -110,7 +110,7 @@ const update = async () => {
       lat: Number(vehicleDataActual.lat),
       lon: Number(vehicleDataActual.lon),
       heading: Number(vehicleDataActual.hdg),
-      line: vehicleDataActual.rt,
+      line: `${vehicleDataActual.rt} Bus`,
       lineCode: vehicleDataActual.rt,
       lineColor: '2eb712',
       lineTextColor: 'ffffff',
