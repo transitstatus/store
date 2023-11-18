@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 require('dotenv').config();
 
-let busNum = 8252;
+let busNum = 4374;
 
 const isDST = (date) => {
   const dstStart = new Date(date.getFullYear(), 2, 8, 2, 0, 0); // Spring forward
