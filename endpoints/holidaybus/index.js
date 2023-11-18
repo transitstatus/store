@@ -73,8 +73,8 @@ const update = async () => {
       transitStatusObject.stations[stationID] = {
         stationID,
         stationName: stopsData[stationID].stopName,
-        lat: stopsData[stationID].stopLat,
-        lon: stopsData[stationID].stopLon,
+        lat: Number(stopsData[stationID].stopLat),
+        lon: Number(stopsData[stationID].stopLon),
         destinations: {}
       }
     })
@@ -85,8 +85,8 @@ const update = async () => {
         transitStatusObject.stations[prediction.stpid] = {
           stationID: prediction.stpid,
           statioonName: prediction.stpnm,
-          lat: stopsData[prediction.stpid] ? stopsData[prediction.stpid].stopLat : 0,
-          lon: stopsData[prediction.stpid] ? stopsData[prediction.stpid].stopLon : 0,
+          lat: Number(stopsData[prediction.stpid] ? stopsData[prediction.stpid].stopLat : 0),
+          lon: Number(stopsData[prediction.stpid] ? stopsData[prediction.stpid].stopLon : 0),
           destinations: {},
         }
       }
@@ -107,9 +107,9 @@ const update = async () => {
     })
 
     transitStatusObject.trains[busNum] = {
-      lat: vehicleDataActual.lat,
-      lon: vehicleDataActual.lon,
-      heading: vehicleDataActual.hdg,
+      lat: Number(vehicleDataActual.lat),
+      lon: Number(vehicleDataActual.lon),
+      heading: Number(vehicleDataActual.hdg),
       line: vehicleDataActual.rt,
       lineCode: vehicleDataActual.rt,
       lineColor: '2eb712',
