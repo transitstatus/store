@@ -128,7 +128,12 @@ const update = async () => {
     return transitStatusObject;
   } catch (e) {
     console.log("Error updating holiday bus:", e)
-    return false;
+    return {
+      "trains": {},
+      "stations": {},
+      "lines": {},
+      "lastUpdated": new Date().toISOString(),
+    };
   }
 
 };
