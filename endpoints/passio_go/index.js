@@ -335,7 +335,7 @@ const updateFeed = async (feed) => {
       });
 
       if (!fallbackRes.ok) {
-        console.log(`Fallback shitted for ${feed.username}, fuck it lmao`)
+        console.log(`Fallback died for ${feed.username}, welp`)
       } else {
         const buffer = await fallbackRes.arrayBuffer();
         const trackingFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(buffer));
