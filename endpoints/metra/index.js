@@ -94,8 +94,8 @@ const update = (async () => {
     };
 
     //adding trains to transitStatus object
-    data.forEach((train) => {
-      const runNumber = train.trip_update?.vehicle?.label;
+    data.forEach((train, i) => {
+      const runNumber = `${train.trip_update?.trip?.route_id.replaceAll('-', '')}${train.trip_update?.vehicle?.label}`;
 
       let finalTrain = {
         lat: train.trip_update?.position?.vehicle?.position?.latitude,
