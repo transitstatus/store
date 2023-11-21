@@ -37,6 +37,8 @@ const update = async () => {
   try {
     const now = new Date();
 
+    if (!process.env.cta_bus_auth) return false;
+
     const vehicleReq = await fetch(`https://ctabustracker.com/bustime/api/v3/getvehicles?key=${process.env.cta_bus_auth}&format=json&vid=${busNum}`);
     const predictionsReq = await fetch(`https://ctabustracker.com/bustime/api/v3/getpredictions?key=${process.env.cta_bus_auth}&format=json&vid=${busNum}&tmres=s`);
     const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');

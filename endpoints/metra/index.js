@@ -50,6 +50,8 @@ const recursivelyParseObjectValuesIntoString = (obj) => {
 };
 
 const update = (async () => {
+  if (!process.env.metra_authorization) return false;
+
   try {
     const res = await fetch('https://gtfsapi.metrarail.com/gtfs/tripUpdates', {
       "credentials": "include",

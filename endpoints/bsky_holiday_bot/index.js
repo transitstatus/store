@@ -51,6 +51,9 @@ ${data.predictions.slice(0, 3).map((prediction) => `• ${prediction.stationName
 const update = async () => {
   const now = new Date();
 
+  //exiting without variables
+  if (!process.env.bsky_holiday_bot_handle || !process.env.bsky_holiday_bot_password) return false;
+
   try {
     const sessReq = await fetch("https://bsky.social/xrpc/com.atproto.server.createSession", {
       method: 'POST',
