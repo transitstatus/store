@@ -50,7 +50,7 @@ const update = async () => {
     const stopsData = await stopsReq.json();
 
     const vehicleDataActual = vehicleData['bustime-response']['vehicle'][0];
-    const predictionsDataActual = predictionsData['bustime-response']['prd'];
+    const predictionsDataActual = predictionsData['bustime-response']['prd'] ?? [];
 
     let transitStatusObject = {
       lastUpdated: now.toISOString(),
@@ -80,6 +80,8 @@ const update = async () => {
         destinations: {}
       }
     })
+
+    console.log(predictionsDataActual)
 
     predictionsDataActual.forEach((prediction) => {
       //this sometimes happens ig?
