@@ -33,6 +33,17 @@ const validLinesReverse = {
   'O': 'Org',
 };
 
+const lineShortNames = {
+  'Red': 'Red',
+  'P': 'Pur',
+  'Y': 'Yel',
+  'Blue': 'Blu',
+  'Pink': 'Pnk',
+  'G': 'Grn',
+  'Brn': 'Brn',
+  'Org': 'Org',
+}
+
 const regularDestinations = [
   'Howard',
   '95th/Dan Ryan',
@@ -308,7 +319,7 @@ const processData = async () => {
 
       processedData.transitStatus.lines[validLines[lineCode]] = {
         lineCode: validLines[lineCode],
-        lineNameShort: lineData.routeShortName,
+        lineNameShort: lineShortNames[lineCode],
         lineNameLong: lineData.routeLongName,
         routeColor: lineData.routeColor,
         routeTextColor: lineData.routeTextColor,

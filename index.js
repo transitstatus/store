@@ -49,6 +49,11 @@ fastify.after(() => {
 
       const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
 
+      if (config.disabled) {
+        console.log(`Endpoint ${endpoint} is disabled, skipping`)
+        return;
+      }
+
       if (config.configVersion === undefined || config.configVersion === null) {
         console.log(`No config version found for ${endpoint}, not continuing`);
         return;
