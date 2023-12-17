@@ -1,0 +1,42 @@
+{
+  "name": "Cloudflare Analytics",
+  "script": "index.js",
+  "interval": 3600000,
+  "apiVersion": 3,
+  "configVersion": 1,
+  "default": {},
+  "variables": [
+    [
+      "amtraker.com",
+      "21c6cdbe52329c7f3d84433250f2d2f1"
+    ],
+    [
+      "nearmeon.wiki",
+      "334de0c8feb74758877baa401832a4cc"
+    ],
+    [
+      "pgm.sh",
+      "652156cd3bec1ee750b4aa2c85f8e5a5"
+    ],
+    [
+      "piemadd.com",
+      "92f4d80c03e6464449ecb98248f71385"
+    ],
+    [
+      "ruscrewed.org",
+      "bdd5fb84e3a037dcd8a43d31f1d55f11"
+    ],
+    [
+      "transitstat.us",
+      "898110ef3099c9474978aa0e77e2954f"
+    ],
+    [
+      "wheresjeremyandmiles.com",
+      "264cec2b3f91fcbec90c7bcc9828acf1"
+    ],
+    [
+      "windycityherald.com",
+      "8afca1feb55bfb5f8cdb08fa1c89280f"
+    ]
+  ]
+}
