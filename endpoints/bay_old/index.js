@@ -4,6 +4,8 @@ const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
 require('dotenv').config();
 
+const feeds = JSON.parse(fs.readFileSync('./endpoints/bay/feeds.json', 'utf8'));
+
 const interpolatePosition = (stationA, stationB, line, segmentsData) => {
   const segmentKey = segmentsData.segmentKeyDict[`${line}_${stationA}_${stationB}`];
 
@@ -20,7 +22,7 @@ const interpolatePosition = (stationA, stationB, line, segmentsData) => {
   }
 };
 
-const updateFeed = async () => {
+const updateFeed = async (feedKey) => {
   try {
     if (!process.env.bay_511) return false;
 
@@ -31,19 +33,15 @@ const updateFeed = async () => {
       stations: {},
       lines: {},
       lastUpdated: now.toISOString(),
-      shitsFucked: {
-        shitIsFucked: false,
-        message: '',
-      }
     };
 
     //fetching gtfs-rt data
-    const tripUpdatesRes = await fetch(`http://api.511.org/transit/tripupdates?api_key=${process.env.bay_511}&agency=RG`, {
+    const tripUpdatesRes = await fetch(`http://api.511.org/transit/tripupdates?api_key=${process.env.bay_511}&agency=${feedKey}`, {
       headers: {
         Accept: 'application/x-google-protobuf'
       },
     });
-    const vehiclePositionsRes = await fetch(`http://api.511.org/transit/vehiclepositions?api_key=${process.env.bay_511}&agency=RG`, {
+    const vehiclePositionsRes = await fetch(`http://api.511.org/transit/vehiclepositions?api_key=${process.env.bay_511}&agency=${feedKey}`, {
       headers: {
         Accept: 'application/x-google-protobuf'
       },
@@ -63,23 +61,30 @@ const updateFeed = async () => {
     }
     //finished GTFS-RT request error catching
 
-    //fetching static data
-    const routesReq = await fetch('https://gtfs.piemadd.com/data/RG/routes.json');
-    const stopsReq = await fetch('https://gtfs.piemadd.com/data/RG/stops.json');
-    const segmentsReq = await fetch('https://gtfs.piemadd.com/data/RG/segments.json');
+    //fetching static routes and stops
+    const routesReq = await fetch(`https://gtfs.piemadd.com/data/${feedKey}/routes.json`);
+    const stopsReq = await fetch(`https://gtfs.piemadd.com/data/${feedKey}/stops.json`);
+    const segmentsReq = await fetch(`https://gtfs.piemadd.com/data/${feedKey}/segments.json`);
 
     const routesData = await routesReq.json();
     const stopsData = await stopsReq.json();
     const segmentsData = await segmentsReq.json();
-    //finished fetching static data
+    //finished fetching static routes and stops
 
     //processing GTFS-RT feed to usable format
     const tripUpdateBuffer = await tripUpdatesRes.arrayBuffer();
     const vehiclePositionsBuffer = await vehiclePositionsRes.arrayBuffer();
 
-    const tripUpdateFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(tripUpdateBuffer));
-    const vehiclePositionsFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(vehiclePositionsBuffer));
+    const tripUpdateFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
+      new Uint8Array(tripUpdateBuffer)
+    );
+    const vehiclePositionsFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
+      new Uint8Array(vehiclePositionsBuffer)
+    );
     //finished processing GTFS-RT
+
+    fs.writeFileSync('./testData/tripUpdates.json', JSON.stringify(tripUpdateFeed), { encoding: 'utf8' });
+    fs.writeFileSync('./testData/vehiclePositions.json', JSON.stringify(vehiclePositionsFeed), { encoding: 'utf8' });
 
     //pushing routes into transitstatus object
     Object.keys(routesData).forEach((routeKey) => {
@@ -111,7 +116,7 @@ const updateFeed = async () => {
       //console.log('trip:', position.vehicle.trip)
       //console.log('tripid:', position.vehicle.trip.tripId)
 
-      //console.log(position)
+      console.log(position)
 
       if (position.vehicle.vehicle) {
         positions['vehicle_' + position.vehicle.vehicle.id] = position.vehicle.position;
@@ -121,6 +126,10 @@ const updateFeed = async () => {
       }
     })
 
+    console.log(positions)
+    fs.writeFileSync('./testData/savedPositions.json', JSON.stringify(positions), { encoding: 'utf8' });
+
+    //console.log(positions)
 
     tripUpdateFeed.entity.forEach((tripUpdate) => {
       if (tripUpdate.tripUpdate.stopTimeUpdate.length < 1) return;
@@ -136,17 +145,7 @@ const updateFeed = async () => {
       let positionMeta = positions[`vehicle_${vehicle.id}`] ?? positions[`trip_${tripMeta.tripId}`];
 
       if (!positionMeta) {
-        if (stopTimes.length < 1) { //no data, go to null island i guess lol
-          positionMeta = {
-            latitude: 0,
-            longitude: 0,
-            heading: 0,
-          }
-        } else if (stopTimes.length < 2) { //approaching last stop
-          positionMeta = interpolatePosition(stopTimes[0].stopId, undefined, tripMeta.routeId, segmentsData);
-        } else {
-          positionMeta = interpolatePosition(stopTimes[0].stopId, stopTimes[1].stopId, tripMeta.routeId, segmentsData);
-        }
+        positionMeta = interpolatePosition(stopTimes[0].stopId, stopTimes[1].stopId, tripMeta.routeId, segmentsData);
       }
 
       if (!positionMeta) {
@@ -156,6 +155,7 @@ const updateFeed = async () => {
         console.log(stopTimes.length)
       }
 
+      /*
       transitStatus.trains[vehicle.id] = {
         lat: positionMeta.latitude,
         lon: positionMeta.longitude,
@@ -174,15 +174,20 @@ const updateFeed = async () => {
           };
         })
       }
-
-      //making it active
-      transitStatus.lines[tripMeta.routeId].hasActiveTrains = true;
+      */
 
       //console.log(transitStatus.trains[vehicle.id])
     })
 
-    console.log(`Finished updating Bay Area`)
-    return transitStatus;
+
+    console.log(`Finished updating ${feedKey}`)
+    return {
+      ...transitStatus,
+      shitsFucked: {
+        shitIsFucked: false,
+        message: '',
+      }
+    }
   } catch (e) {
     console.log(e);
     return {
@@ -198,4 +203,14 @@ const updateFeed = async () => {
   }
 };
 
-exports.update = updateFeed;
+const updateFeedInd = async (feedKey) => {
+  if (feedKey !== 'AC') return false;
+
+  const feedData = await updateFeed(feedKey);
+
+  console.log(`Finished updating ${feedKey}`)
+
+  return feedData;
+}
+
+exports.update = updateFeedInd;
