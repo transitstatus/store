@@ -153,6 +153,7 @@ const processData = async () => {
           lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
           dest: train.DestName.split('&')[0],
           predictions: [],
+          type: 'train',
         };
 
         train.Predictions.forEach((prediction, i, arr) => {

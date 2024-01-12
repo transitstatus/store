@@ -109,6 +109,7 @@ const update = (async () => {
         lineTextColor: staticRoutesData[train.trip_update?.trip?.route_id].routeTextColor,
         dest: staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id].headsign,
         predictions: [],
+        type: 'train',
       }
 
       //adding predictions to transitStatus object

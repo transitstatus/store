@@ -77,6 +77,7 @@ const update = async () => {
             noETA: false,
           }
         }),
+        type: 'train',
       }
 
       if (transitStatusResponse.trains[train.tripID].dest === 'Unknown Destination') {

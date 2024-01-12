@@ -266,6 +266,7 @@ const updateFeed = async (feed) => {
         lineTextColor: busLine.routeTextColor,
         dest: stops.routes[bus.routeId] ? transitStatus.stations[stops.routes[bus.routeId][0][1]].stationName : 'Unknown Destination',
         predictions: [],
+        type: 'bus',
         extra: {
           load: bus.paxLoad,
           cap: bus.totalCap,
