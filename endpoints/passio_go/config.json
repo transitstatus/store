@@ -17,7 +17,8 @@
     "uncc": {},
     "uncg": {},
     "uncw": {},
-    "bamabama": {}
+    "bamabama": {},
+    "columbia": {}
   },
   "variables": [
     [
@@ -58,6 +59,9 @@
     ],
     [
       "ncstateuni"
+    ],
+    [
+      "columbia"
     ]
   ]
 }
