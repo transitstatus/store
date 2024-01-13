@@ -264,7 +264,7 @@ const updateFeed = async (feed) => {
       if (bus['-1'] && bus['-1'].length === 0) return;
 
       if (!busLine) return;
-      
+
       transitStatus.trains[bus.bus] = {
         lat: Number(bus.latitude),
         lon: Number(bus.longitude),
@@ -536,7 +536,7 @@ const updateFeed = async (feed) => {
 const updateFeedInd = async (feedKey) => {
   let feed = feedsDict[feedKey];
 
-  if (feed.username !== 'columbia') return false;
+  //if (feed.username !== 'columbia') return false;
 
   if (extraConfig[feed.username]) {
     feed = {
