@@ -205,9 +205,6 @@ const updateFeed = async (feed) => {
       const route = stops.routes[routeKey];
       const betterRouteKey = feed.combineBasedOnName ? lineCodeReplacements[routeKey] : routeKey;
 
-      console.log(routeKey)
-      console.log(route)
-
       //remove first 3 items from route array
       route.shift();
       route.shift();
@@ -267,7 +264,7 @@ const updateFeed = async (feed) => {
       if (bus['-1'] && bus['-1'].length === 0) return;
 
       if (!busLine) return;
-
+      
       transitStatus.trains[bus.bus] = {
         lat: Number(bus.latitude),
         lon: Number(bus.longitude),
@@ -276,7 +273,7 @@ const updateFeed = async (feed) => {
         lineCode: busLineCode,
         lineColor: busLine.routeColor,
         lineTextColor: busLine.routeTextColor,
-        dest: stops.routes[busLineCode] ? transitStatus.stations[stops.routes[busLineCode][0][1]].stationName : 'Unknown Destination',
+        dest: stops.routes[bus.routeId] ? transitStatus.stations[stops.routes[bus.routeId][0][1]].stationName : 'Unknown Destination',
         predictions: [],
         type: 'bus',
         extra: {
@@ -539,7 +536,7 @@ const updateFeed = async (feed) => {
 const updateFeedInd = async (feedKey) => {
   let feed = feedsDict[feedKey];
 
-  //if (feed.username !== 'columbia') return false;
+  if (feed.username !== 'columbia') return false;
 
   if (extraConfig[feed.username]) {
     feed = {
