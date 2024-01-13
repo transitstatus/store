@@ -26,6 +26,9 @@
       "38732"
     ]
   },
+  "columbia": {
+    "combineBasedOnName": true
+  },
   "ncstateuni": {
     "black": [
       "44364"

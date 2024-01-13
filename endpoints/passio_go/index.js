@@ -59,7 +59,7 @@ const updateFeed = async (feed) => {
         'Accept-Encoding': 'gzip, deflate, br',
         'X-Requested-With': 'XMLHttpRequest',
         'Connection': 'keep-alive',
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         'Referer': 'https://passiogo.com/',
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
@@ -80,7 +80,7 @@ const updateFeed = async (feed) => {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site"
@@ -98,7 +98,7 @@ const updateFeed = async (feed) => {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site"
@@ -116,7 +116,7 @@ const updateFeed = async (feed) => {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site"
@@ -141,6 +141,7 @@ const updateFeed = async (feed) => {
 
     const lastUpdated = new Date().toISOString();
 
+    let lineCodeReplacements = {};
     let transitStatus = {
       trains: {},
       stations: {},
@@ -151,6 +152,7 @@ const updateFeed = async (feed) => {
     //adding routes to transitStatus
     routes.forEach((route) => {
       let lineNameLong = route.nameOrig;
+      let lineCode = route.myid;
 
       if (feed.textReplacements) {
         //console.log(feed.username, feed.textReplacements)
@@ -160,8 +162,13 @@ const updateFeed = async (feed) => {
         //console.log(lineNameLong)
       }
 
-      transitStatus.lines[route.myid] = {
-        lineCode: route.myid,
+      if (feed.combineBasedOnName) {
+        lineCode = route.shortName.length > 0 ? route.shortName : lineNameLong;
+        lineCodeReplacements[route.myid] = lineCode;
+      }
+
+      transitStatus.lines[lineCode] = {
+        lineCode: lineCode,
         lineNameShort: route.shortName ?? '',
         lineNameLong: lineNameLong,
         routeColor: route.color.replace('#', '').toUpperCase(),
@@ -196,13 +203,17 @@ const updateFeed = async (feed) => {
     //adding lines and destinations to transitstatus
     Object.keys(stops.routes).forEach((routeKey) => {
       const route = stops.routes[routeKey];
+      const betterRouteKey = feed.combineBasedOnName ? lineCodeReplacements[routeKey] : routeKey;
+
+      console.log(routeKey)
+      console.log(route)
 
       //remove first 3 items from route array
       route.shift();
       route.shift();
       route.shift();
 
-      routeStations[routeKey] = [...route.map((stop) => stop[1])].map((stationID) => {
+      routeStations[betterRouteKey] = [...route.map((stop) => stop[1])].map((stationID) => {
         if (stopReplacements[feed.username] && stopReplacements[feed.username][stationID]) {
           return stopReplacements[feed.username][stationID];
           //return stationID;
@@ -225,13 +236,13 @@ const updateFeed = async (feed) => {
 
         let thisStopFinalStopName = finalStopName;
 
-        if (headsignReplacements[feed.username] && headsignReplacements[feed.username][routeKey]) {
-          const replacement = headsignReplacements[feed.username][routeKey].replacements[stopID];
+        if (headsignReplacements[feed.username] && headsignReplacements[feed.username][betterRouteKey]) {
+          const replacement = headsignReplacements[feed.username][betterRouteKey].replacements[stopID];
 
           if (replacement) {
             thisStopFinalStopName = replacement;
           } else {
-            console.log(`No replacement for ${routeKey} ${stopID}`)
+            console.log(`No replacement for ${betterRouteKey} ${stopID}`)
           }
         };
 
@@ -241,8 +252,8 @@ const updateFeed = async (feed) => {
           };
         }
 
-        if (!transitStatus.lines[routeKey].stations.includes(stopID)) {
-          transitStatus.lines[routeKey].stations.push(stopID);
+        if (!transitStatus.lines[betterRouteKey].stations.includes(stopID)) {
+          transitStatus.lines[betterRouteKey].stations.push(stopID);
         }
       });
     });
@@ -250,7 +261,8 @@ const updateFeed = async (feed) => {
     //adding buses to transitStatus
     Object.values(buses.buses).forEach((busArr) => {
       const bus = busArr[0];
-      const busLine = transitStatus.lines[bus.routeId];
+      const busLineCode = feed.combineBasedOnName ? lineCodeReplacements[bus.routeId] : bus.routeId;
+      const busLine = transitStatus.lines[busLineCode];
 
       if (bus['-1'] && bus['-1'].length === 0) return;
 
@@ -261,10 +273,10 @@ const updateFeed = async (feed) => {
         lon: Number(bus.longitude),
         heading: Number(bus.calculatedCourse),
         line: busLine.lineNameLong,
-        lineCode: bus.routeId,
+        lineCode: busLineCode,
         lineColor: busLine.routeColor,
         lineTextColor: busLine.routeTextColor,
-        dest: stops.routes[bus.routeId] ? transitStatus.stations[stops.routes[bus.routeId][0][1]].stationName : 'Unknown Destination',
+        dest: stops.routes[busLineCode] ? transitStatus.stations[stops.routes[busLineCode][0][1]].stationName : 'Unknown Destination',
         predictions: [],
         type: 'bus',
         extra: {
@@ -274,15 +286,15 @@ const updateFeed = async (feed) => {
         }
       };
 
-      if (headsignReplacements[feed.username] && headsignReplacements[feed.username][bus.routeId]) {
-        const replacement = headsignReplacements[feed.username][bus.routeId].replacements[stops.routes[bus.routeId][0][1]];
+      if (headsignReplacements[feed.username] && headsignReplacements[feed.username][busLineCode]) {
+        const replacement = headsignReplacements[feed.username][busLineCode].replacements[stops.routes[busLineCode][0][1]];
 
         if (replacement) {
           transitStatus.trains[bus.bus].dest = replacement;
         }
       }
 
-      transitStatus.lines[bus.routeId].hasActiveTrains = true;
+      transitStatus.lines[busLineCode].hasActiveTrains = true;
     });
 
     let fullPredictions = {};
@@ -526,6 +538,8 @@ const updateFeed = async (feed) => {
 
 const updateFeedInd = async (feedKey) => {
   let feed = feedsDict[feedKey];
+
+  //if (feed.username !== 'columbia') return false;
 
   if (extraConfig[feed.username]) {
     feed = {
