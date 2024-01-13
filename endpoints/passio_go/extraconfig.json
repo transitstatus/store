@@ -27,7 +27,12 @@
     ]
   },
   "columbia": {
-    "combineBasedOnName": true
+    "combineBasedOnName": true,
+    "black": [
+      "Manhattanville",
+      "Manhattanville AM Start",
+      "Manhattanville PM"
+    ]
   },
   "ncstateuni": {
     "black": [
