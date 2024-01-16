@@ -527,7 +527,7 @@ const updateFeed = async (feed) => {
       lastUpdated: new Date().toISOString(),
       shitsFucked: {
         shitIsFucked: true,
-        message: 'Passio\'s system broke so that means I can\'t get any data. Sowwy 🥺'
+        message: 'Passio\'s system broke so that means I can\'t get any data. Please try again in a few minutes.'
       }
     };
   }
