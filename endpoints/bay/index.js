@@ -164,7 +164,7 @@ const updateFeed = async () => {
         lineCode: tripMeta.routeId,
         lineColor: route.routeColor,
         lineTextColor: route.routeTextColor,
-        dest: route.routeTrips[tripMeta.tripId].headsign ?? stopsData[stopTimes[stopTimes.length - 1].stopId].stopName,
+        dest: route.routeTrips[tripMeta.tripId] ? route.routeTrips[tripMeta.tripId].headsign : stopsData[stopTimes[stopTimes.length - 1].stopId].stopName,
         predictions: stopTimes.map((stopTime) => {
           return {
             stationID: stopTime.stopId,
