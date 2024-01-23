@@ -50,11 +50,11 @@ const updateFeed = async (feed) => {
 
     const key = keyGen();
 
+    /*
     const deviceIdReq = await fetch(`https://passiogo.com/goServices.php?register=1&deviceId=0&token=${key}&platform=web&buildNo=undefined&oldToken=`, {
       "headers": {
         'Host': 'rutgers.passiogo.com',
         'User-Agent': 'Mozilla/ 5.0(Windows NT 10.0; Win64; x64; rv: 109.0) Gecko / 20100101 Firefox / 116.0',
-        'Accept': 'application / json, text / javascript, */*; q=0.01',
         'Accept-Language': 'en-US,en;q=0.5',
         'Accept-Encoding': 'gzip, deflate, br',
         'X-Requested-With': 'XMLHttpRequest',
@@ -68,6 +68,9 @@ const updateFeed = async (feed) => {
       "method": "GET",
     });
     const { deviceId } = await deviceIdReq.json();
+    */
+
+    const deviceId = 64638265; //cheeky bastard moment
 
     const routesForm = `json=%7B%22systemSelected0%22%3A%22${feed.id}%22%2C%22amount%22%3A1%7D`;
     const stopsForm = `json=%7B%22s0%22%3A%22${feed.id}%22%2C%22sA%22%3A1%7D`;
@@ -76,14 +79,15 @@ const updateFeed = async (feed) => {
     const routesReq = await fetch(`https://passiogo.com/mapGetData.php?getRoutes=1&deviceId=${deviceId}&wTransloc=1`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site"
+        "Sec-Fetch-Site": "cross-site",
+        "X-Requested-With": "XMLHttpRequest"
       },
       "referrer": "https://passiogo.com/",
       "body": routesForm,
@@ -94,14 +98,15 @@ const updateFeed = async (feed) => {
     const stopsReq = await fetch(`https://passiogo.com/mapGetData.php?getStops=2&deviceId=${deviceId}&withOutdated=1&wBounds=1&showBusInOos=0&lat=undefined&lng=undefined&wTransloc=1`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site"
+        "Sec-Fetch-Site": "cross-site",
+        "X-Requested-With": "XMLHttpRequest"
       },
       "referrer": "https://passiogo.com/",
       "body": stopsForm,
@@ -112,14 +117,15 @@ const updateFeed = async (feed) => {
     const busesReq = await fetch(`https://passiogo.com/mapGetData.php?getBuses=1&deviceId=${deviceId}&wTransloc=1`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site"
+        "Sec-Fetch-Site": "cross-site",
+        "X-Requested-With": "XMLHttpRequest"
       },
       "referrer": "https://passiogo.com/",
       "body": busesForm,
@@ -130,6 +136,8 @@ const updateFeed = async (feed) => {
     const routes = await routesReq.json();
     const stops = await stopsReq.json();
     const buses = await busesReq.json();
+
+    console.log(stops)
 
     //console.log(routes)
     //console.log(stops)
@@ -304,7 +312,7 @@ const updateFeed = async (feed) => {
       const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${idGen()}&stopIds=${chunkString}`, {
         "credentials": "omit",
         "headers": {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
           'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
           "Accept-Language": "en-US,en;q=0.5",

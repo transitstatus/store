@@ -1,0 +1,104 @@
+{
+	"bustime-response": {
+		"routes": [
+			{
+				"rt": "BRZ",
+				"rtnm": "METRO BREEZ",
+				"rtclr": "#008eaa",
+				"rtdd": "BRZ",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "HSK",
+				"rtnm": "Husky Line",
+				"rtclr": "#6633cc",
+				"rtdd": "HSK",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "1",
+				"rtnm": "Congress Street",
+				"rtclr": "#3f3fbf",
+				"rtdd": "1",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "2",
+				"rtnm": "Riverton",
+				"rtclr": "#f1c400",
+				"rtdd": "2",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "3",
+				"rtnm": "Route 3",
+				"rtclr": "#9fc5e8",
+				"rtdd": "3",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "4",
+				"rtnm": "Westbrook",
+				"rtclr": "#3fbf7f",
+				"rtdd": "4",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "5",
+				"rtnm": "Maine Mall",
+				"rtclr": "#008c6b",
+				"rtdd": "5",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "7",
+				"rtnm": "Falmouth",
+				"rtclr": "#ed1f24",
+				"rtdd": "7",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "8",
+				"rtnm": "Peninsula Loop",
+				"rtclr": "#ef7ab0",
+				"rtdd": "8",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "9A",
+				"rtnm": "North Deering via Stevens Ave",
+				"rtclr": "#fe5000",
+				"rtdd": "9A",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "9B",
+				"rtnm": "North Deering via Washington Ave",
+				"rtclr": "#440099",
+				"rtdd": "9B",
+				"rtpidatafeed": "Metro"
+			},
+			{
+				"rt": "21",
+				"rtnm": "Willard Square",
+				"rtclr": "#1f4f26",
+				"rtdd": "21",
+				"rtpidatafeed": "South Portland"
+			},
+			{
+				"rt": "24A",
+				"rtnm": "Maine Mall via Main Street",
+				"rtclr": "#a61d21",
+				"rtdd": "24A",
+				"rtpidatafeed": "South Portland"
+			},
+			{
+				"rt": "24B",
+				"rtnm": "Maine Mall via Community Center",
+				"rtclr": "#f37720",
+				"rtdd": "24B",
+				"rtpidatafeed": "South Portland"
+			}
+		]
+	}
+}
