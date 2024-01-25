@@ -137,8 +137,6 @@ const updateFeed = async (feed) => {
     const stops = await stopsReq.json();
     const buses = await busesReq.json();
 
-    console.log(stops)
-
     //console.log(routes)
     //console.log(stops)
     //console.log(buses)
@@ -515,8 +513,6 @@ const updateFeed = async (feed) => {
         });
       });
     })
-
-    console.log(totalBefore, totalAfter)
 
     console.log(`Finished updating ${feed.username}`)
     return {
