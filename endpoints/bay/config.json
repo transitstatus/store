@@ -4,6 +4,7 @@
   "interval": 121000,
   "apiVersion": 3,
   "configVersion": 0,
+  "disabled": true,
   "default": {
     "trains": {},
     "stations": {},
