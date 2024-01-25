@@ -149,12 +149,21 @@ const updateFeed = async () => {
         }
       }
 
+      /*
       if (!positionMeta) {
         console.log('vid:', positions[`vehicle_${vehicle.id}`])
         console.log('tid:', positions[`trip_${tripMeta.tripId}`])
         console.log(tripMeta)
         console.log(stopTimes.length)
       }
+
+      if (!route) {
+        console.log(route)
+        console.log(tripMeta)
+        console.log(tripMeta.routeId)
+        console.log(Object.keys(routesData).filter((n) => n.startsWith('EM')).join(','))
+      }
+      */
 
       transitStatus.trains[vehicle.id] = {
         lat: positionMeta.latitude,
