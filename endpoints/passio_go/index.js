@@ -13,6 +13,20 @@ feeds.forEach((feed) => {
   feedsDict[feed.username] = feed;
 })
 
+const recursivelyTryFetching = async (url, options, attempts = 5) => {
+  if (attempts === 0) return {}; //default value
+
+  const res = await fetch(url, options);
+
+  if (!res.ok) {
+    await new Promise(r => setTimeout(r, 500));
+    return await recursivelyTryFetching(url, options, attempts - 1)
+  }
+
+  const data = await res.json();
+  return data;
+}
+
 const keyGen = () => "pseudo101_" + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
   var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
   return v.toString(16);
@@ -63,7 +77,7 @@ const updateFeed = async (feed) => {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
+        //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site",
@@ -82,7 +96,7 @@ const updateFeed = async (feed) => {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
+        //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site",
@@ -101,7 +115,7 @@ const updateFeed = async (feed) => {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
+        //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site",
@@ -286,14 +300,13 @@ const updateFeed = async (feed) => {
     for (let j = 0; j < allStopIDs.length; j += chunkSize) {
       const chunk = allStopIDs.slice(j, j + chunkSize);
       const chunkString = chunk.join(',');
-      await new Promise(r => setTimeout(r, 100));
 
-      const predictionsRes = await fetch(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&position=0&userId=${userId}`, {
+      let predictions = await recursivelyTryFetching(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&position=0&userId=${userId}`, {
         "credentials": "omit",
         "headers": {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-          'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+          //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
           "Accept-Language": "en-US,en;q=0.5",
           "Upgrade-Insecure-Requests": "1",
           "Sec-Fetch-Dest": "document",
@@ -303,7 +316,12 @@ const updateFeed = async (feed) => {
         "method": "GET",
         "mode": "cors"
       });
-      const predictions = await predictionsRes.json();
+
+      if (Object.keys(predictions).length === 0) {
+        predictions = {
+          ETAs: {},
+        }
+      }
 
       Object.keys(predictions.ETAs).forEach((stopKey) => {
         if (!fullPredictions[stopKey]) fullPredictions[stopKey] = [];
