@@ -2,6 +2,9 @@ const fetch = require('node-fetch');
 const otherStopData = require('./stops').otherStopData;
 
 const update = async () => {
+  //cheeky cheeky, kinda dangerous tho
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
   try {
     const trackingRes = await fetch('https://southshore.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING');
     const trackingData = await trackingRes.json();
