@@ -13,24 +13,21 @@ const trainHeadings = {
 
 exports.update = async () => {
   console.log('updating amtraker')
-
   const now = new Date().valueOf();
 
   const trainsReq = await fetch('https://api-v3.amtraker.com/v3/trains');
   const staleReq = await fetch('https://api-v3.amtraker.com/v3/stale');
   const stationsReq = await fetch('https://gtfs.piemadd.com/data/amtrak/stops.json');
-  const routesReq = await fetch('https://gtfs.piemadd.com/data/amtrak/routes.json');
 
   const trainsData = await trainsReq.json();
   const staleData = await staleReq.json();
   const stationsData = await stationsReq.json();
-  const routesData = await routesReq.json();
 
   let transitStatusObject = {
     "trains": {},
     "stations": {},
     "lines": {},
-    "lastUpdated": "1970-01-01T00:00:00.000Z",
+    "lastUpdated": new Date(now).toISOString(),
     "shitsFucked": {
       "shitIsFucked": false,
       "message": ""
@@ -47,21 +44,6 @@ exports.update = async () => {
       destinations: {}
     }
   })
-
-  //iterating through routes
-  /* removed due to weird naming in the GTFS, trains are almost always gonna be running anyways
-  Object.values(routesData).forEach((route) => {
-    if (route.routeType !== '2') return; //only trains
-
-    route.routeStations.forEach((stationCode) => {
-      route.destinations.forEach((destination) => {
-        transitStatusObject.stations[stationCode].destinations[destination] = {
-          trains: [],
-        }
-      })
-    })
-  })
-  */
 
   //iterating through all trains
   Object.values(trainsData).flat().forEach((train) => {
@@ -122,6 +104,6 @@ exports.update = async () => {
   })
 
   return {
-    transitStatusObject,
+    ts: transitStatusObject,
   }
 };
