@@ -53,7 +53,7 @@ exports.update = async () => {
       lon: train.lon,
       heading: trainHeadings[train.heading],
       line: train.routeName,
-      lineCode: train.trainNum,
+      lineCode: train.routeName,
       lineColor: "5366c9",
       lineTextColor: "F7F7F7",
       dest: train.destName,
@@ -72,7 +72,7 @@ exports.update = async () => {
 
     //creating lines
     transitStatusObject.lines[train.routeName] = {
-      lineCode: train.trainNum,
+      lineCode: train.routeName,
       lineNameShort: train.trainNum,
       lineNameLong: train.routeName,
       routeColor: "5366c9",
@@ -96,7 +96,7 @@ exports.update = async () => {
         actualETA: prediction.actualETA,
         noETA: false,
         line: train.routeName,
-        lineCode: train.trainNum,
+        lineCode: train.routeName,
         lineColor: "5366c9",
         lineTextColor: "F7F7F7"
       })
