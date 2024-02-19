@@ -72,7 +72,7 @@ exports.update = async () => {
       heading: trainHeadings[train.heading],
       line: train.routeName,
       lineCode: train.trainNum,
-      lineColor: "024D77",
+      lineColor: "5366c9",
       lineTextColor: "F7F7F7",
       dest: train.destName,
       predictions: train.stations.map((station) => {
@@ -93,7 +93,7 @@ exports.update = async () => {
       lineCode: train.trainNum,
       lineNameShort: train.trainNum,
       lineNameLong: train.routeName,
-      routeColor: "024D77",
+      routeColor: "5366c9",
       routeTextColor: "F7F7F7",
       stations: train.stations.map((station) => station.code),
       hasActiveTrains: true
@@ -115,7 +115,7 @@ exports.update = async () => {
         noETA: false,
         line: train.routeName,
         lineCode: train.trainNum,
-        lineColor: "024D77",
+        lineColor: "5366c9",
         lineTextColor: "F7F7F7"
       })
     })
