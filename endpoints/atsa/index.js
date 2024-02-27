@@ -17,7 +17,7 @@ exports.update = async () => {
 
   const trainsReq = await fetch('https://api-v3.amtraker.com/v3/trains');
   const staleReq = await fetch('https://api-v3.amtraker.com/v3/stale');
-  const stationsReq = await fetch('https://gtfs.piemadd.com/data/amtrak/stops.json');
+  const stationsReq = await fetch('https://api-v3.amtraker.com/v3/stations');
 
   const trainsData = await trainsReq.json();
   const staleData = await staleReq.json();
@@ -36,11 +36,11 @@ exports.update = async () => {
 
   //iterating through stations
   Object.values(stationsData).forEach((station) => {
-    transitStatusObject.stations[station.stopID] = {
-      stationID: station.stopID,
-      stationName: station.stopName,
-      lat: station.stopLat,
-      lon: station.stopLon,
+    transitStatusObject.stations[station.code] = {
+      stationID: station.code,
+      stationName: station.name,
+      lat: station.lat,
+      lon: station.lon,
       destinations: {}
     }
   })
