@@ -9,7 +9,7 @@ const snowPiercerShape = require('./snowPiercer.json');
 const snowPiercerShapeLength = length(snowPiercerShape);
 
 const calculateSnowPiercerPosition = (time) => {
-  const timesAround = Math.abs(Number(((time.valueOf() - new Date('2024-04-01T00:00:00-05:00').valueOf()) / (1000 * 60 * 60 * 6) % 1).toFixed(4)));
+  const timesAround = Math.abs(Number(((time.valueOf() - new Date(new Date().toISOString().split("T")[0]).getTime()) / (1000 * 60 * 60 * 6) % 1).toFixed(4)));
   const distanceOnShape = snowPiercerShapeLength * timesAround;
 
   const point = along(snowPiercerShape, distanceOnShape);
