@@ -1,0 +1,16 @@
+{
+  "name": "MARTA Trains",
+  "script": "index.js",
+  "interval": 30000,
+  "disabled": true,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "default": {
+    "transitStatus": {
+      "trains": {},
+      "stations": {},
+      "lines": {},
+      "lastUpdated": "1970-01-01T00:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+https://developerservices.itsmarta.com:18096/railrealtimearrivals?apiKey=
+https://gtfs.piemadd.com/data/marta/stops.json
+https://gtfs.piemadd.com/data/marta/routes.json
