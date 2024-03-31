@@ -93,7 +93,7 @@ const update = async () => {
         {
           stationID: 'EARTH',
           stationName: "Earth",
-          actualETA: new Date("2024-04-01T00:00:00-05:00").getTime(),
+          actualETA: new Date("2024-04-01T23:59:59-05:00").getTime(),
           noETA: false,
         }
       ],
