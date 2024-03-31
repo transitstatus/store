@@ -39,7 +39,8 @@ const calculateSnowPiercerAngle = (point) => {
       "id": 0
     }
   )
-
+  
+  return bearing;
   return 360 - (bearing + 180); //going from -180 -> 180 to 0-360
 }
 
