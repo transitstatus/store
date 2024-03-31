@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 
 const length = require('@turf/length').default;
 const along = require('@turf/along').default;
+const nearestPointOnLine = require('@turf/nearest-point-on-line').default;
+const rhumbBearing = require('@turf/rhumb-bearing').default;
 
 const snowPiercerShape = require('./snowPiercer.json');
 const snowPiercerShapeLength = length(snowPiercerShape);
@@ -15,11 +17,38 @@ const calculateSnowPiercerPosition = (time) => {
   return point;
 }
 
+const calculateSnowPiercerAngle = (point) => {
+  const nearestPoint = nearestPointOnLine(snowPiercerShape, point); // this is going to be the same 
+  const bearing = rhumbBearing(
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": snowPiercerShape.geometry.coordinates[nearestPoint.properties.index],
+        "type": "Point"
+      },
+      "id": 0
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": snowPiercerShape.geometry.coordinates[nearestPoint.properties.index + 1],
+        "type": "Point"
+      },
+      "id": 0
+    }
+  )
+
+  return bearing + 180;
+}
+
 const update = async () => {
   try {
     const lastUpdated = new Date().toISOString();
 
     const snowPiercerPosition = calculateSnowPiercerPosition(new Date(lastUpdated));
+    const snowPiercerHeading = calculateSnowPiercerAngle(snowPiercerPosition)
 
     let transitStatusResponse = {
       trains: {},
@@ -53,7 +82,7 @@ const update = async () => {
     transitStatusResponse.trains['PRCR'] = {
       lat: snowPiercerPosition.geometry.coordinates[1],
       lon: snowPiercerPosition.geometry.coordinates[0],
-      heading: 0,
+      heading: snowPiercerHeading,
       line: 'Snowpiercer',
       lineCode: 'PRCR',
       lineColor: "a5c9d7",
