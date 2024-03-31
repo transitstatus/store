@@ -40,7 +40,7 @@ const calculateSnowPiercerAngle = (point) => {
     }
   )
 
-  return Math.abs(bearing - 180); //going from -180 -> 180 to 0-360
+  return 360 - (bearing + 180); //going from -180 -> 180 to 0-360
 }
 
 const update = async () => {
