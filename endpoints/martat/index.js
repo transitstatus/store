@@ -18,6 +18,13 @@ const getAngleFromFeatureAndPoint = (point, line) => {
   return snappedPoint;
 };
 
+const routeKeys = ['BLUE', 'GREEN', 'GOLD', 'RED']
+const routeCodes = {
+  '1': "BLUE",
+  '2': "GREEN",
+  '3': "GOLD",
+  '4': "RED",
+}
 const hardCoded = {
   BLUE: {
     routeColor: '0075B2',
@@ -58,12 +65,16 @@ const hardCoded = {
 }
 
 const update = async () => {
-  //cheeky cheeky, kinda dangerous tho
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-
   try {
-    const trackingRes = await fetch(`https://developerservices.itsmarta.com:18096/railrealtimearrivals?apiKey=${process.env.marta}`);
+    //const trackingRes = await fetch(`https://developerservices.itsmarta.com:18096/railrealtimearrivals?apiKey=${process.env.marta}`);
+    const trackingRes = await fetch(`https://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=${process.env.marta}`);
     const trackingData = await trackingRes.json();
+
+    const trainsRes = await fetch('http://labs.itsmarta.com/signpost/trains');
+    const trainsData = await trainsRes.json();
+
+    const predictionsRes = await fetch('http://labs.itsmarta.com/signpost/predictions');
+    const predictionsData = await predictionsRes.json();
 
     const shapeRes = await fetch('https://gtfs.piemadd.com/data/marta/shapes/type_1.geojson');
     const shapeData = await shapeRes.json();
@@ -86,14 +97,12 @@ const update = async () => {
       lastUpdated,
     };
 
-    Object.keys(stations).forEach((stationKey) => {
-      //if (stationKey.length > 3) return; //bus stop
-      const station = stations[stationKey];
-      const actualStationID = (additionalConfig.stopNameReplacements[station.stopName] ?? station.stopName).replace(' STATION', '');
+    Object.keys(additionalConfig.stationKeys).forEach((key) => {
+      const station = stations[additionalConfig.stationKeys[key]['gtfs_code']];
 
-      transitStatusResponse.stations[actualStationID] = {
-        stationID: actualStationID,
-        stationName: titleCase(actualStationID),
+      transitStatusResponse.stations[key] = {
+        stationID: key,
+        stationName: titleCase(station.stopName),
         destinations: {},
         lat: station.stopLat,
         lon: station.stopLon,
@@ -105,22 +114,12 @@ const update = async () => {
       const actualRouteKey = route.routeShortName;
 
       //probably a bus route
-      if (!hardCoded[actualRouteKey]) return;
+      if (!routeKeys.includes(actualRouteKey)) return;
 
-      // stop replacements and removing STATION
-      const fixedRouteStations = route.routeStations.map((stationID) => {
-        return (additionalConfig.stopNameReplacements[stations[stationID].stopName] ?? stations[stationID].stopName).replace(' STATION', '')
-      })
-
-      fixedRouteStations.forEach((routeStation) => {
-        hardCoded[actualRouteKey].destinations.forEach((destination) => {
-          if (!transitStatusResponse.stations[routeStation]) {
-            console.log(transitStatusResponse.stations)
-            console.log(routeStation)
-            require('fs').writeFileSync('./stations.json', JSON.stringify(transitStatusResponse.stations));
-          }
-
-          transitStatusResponse.stations[routeStation].destinations[destination] = {
+      additionalConfig.routeStations[actualRouteKey].forEach((routeStation) => {
+        route.destinations.forEach((destination) => {
+          if (destination.includes(' TO ')) return; //we dont want these destinations
+          transitStatusResponse.stations[routeStation].destinations[titleCase(destination)] = {
             trains: [],
           }
         })
@@ -132,65 +131,43 @@ const update = async () => {
         lineNameLong: titleCase(route.routeLongName),
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
-        stations: route.routeStations.map((stationID) => stations[stationID].stopName.replace(' STATION', '')),
+        stations: additionalConfig.routeStations[actualRouteKey],
         hasActiveTrains: false
       }
     });
 
-    //since the API response is just an array of ETAs (multiple for each time a train is stopping at a station) we need to deduplicate
-    let trainETAs = {};
-    trackingData.RailArrivals.forEach((arrival) => {
-      const trainStopID = `${arrival.TRAIN_ID}_${arrival.STATION}`;
-      const modArrival = {
-        ...arrival,
-        EVENT_TIME: new Date(arrival.EVENT_TIME).valueOf(),
-        NEXT_ARR: new Date(arrival.NEXT_ARR).valueOf(),
-        RESPONSETIMESTAMP: new Date(arrival.RESPONSETIMESTAMP).valueOf(),
+    trainsData.forEach((train) => {
+      const destination = stations[additionalConfig.stationKeys[train.destination]['gtfs_code']];
+
+      transitStatusResponse.trains[train.trainId] = {
+        lat: train.lastPosition[0],
+        lon: train.lastPosition[1],
+        heading: 0,
+        line: titleCase(routeCodes[train.lineCode]),
+        lineCode: routeCodes[train.lineCode],
+        lineColor: transitStatusResponse.lines[routeCodes[train.lineCode]].routeColor,
+        lineTextColor: transitStatusResponse.lines[routeCodes[train.lineCode]].routeTextColor,
+        dest: titleCase(destination.stopName),
+        predictions: [],
+        type: 'train',
       }
-
-      //initializing the train if we dont have anythign to compare to
-      if (!trainETAs[trainStopID]) trainETAs[trainStopID] = modArrival;
-
-      //if the stop update we have is more recent, replace it
-      if (modArrival.EVENT_TIME > trainETAs[trainStopID]) trainETAs[trainStopID] = modArrival;
     })
 
-    Object.values(trainETAs)
-      .forEach((arrival) => {
-        //initializing the train if it doesn't exist
-        if (!transitStatusResponse.trains[arrival.TRAIN_ID]) {
-          transitStatusResponse.trains[arrival.TRAIN_ID] = {
-            lat: arrival.VEHICLELATITUDE,
-            lon: arrival.VEHICLELONGITUDE,
-            heading: 0,
-            line: titleCase(arrival.LINE),
-            lineCode: arrival.LINE,
-            lineColor: hardCoded[arrival.LINE].routeColor,
-            lineTextColor: hardCoded[arrival.LINE].routeTextColor,
-            dest: titleCase(arrival.HEAD_SIGN),
-            predictions: [],
-            type: 'train',
-          }
-        }
+    predictionsData.forEach((prediction) => {
+      const station = stations[additionalConfig.stationKeys[prediction.station]['gtfs_code']];
 
-        transitStatusResponse.trains[arrival.TRAIN_ID].predictions.push({
-          stationID: arrival.STATION.replace(' STATION', ''),
-          stationName: titleCase(arrival.STATION.replace(' STATION', '')),
-          actualETA: arrival.NEXT_ARR,
-          noETA: false,
-        })
+      transitStatusResponse.trains[prediction.internalId].predictions.push({
+        stationID: prediction.station,
+        stationName: titleCase(station.stopName),
+        actualETA: new Date(prediction.nextArr).valueOf(),
+        noETA: false,
       })
+    })
 
     Object.keys(transitStatusResponse.trains).forEach((trainID) => {
       const train = transitStatusResponse.trains[trainID];
 
       train.predictions.forEach((prediction) => {
-        if (!transitStatusResponse.stations[prediction.stationID]) {
-          console.log(transitStatusResponse.stations)
-          console.log(prediction)
-        }
-
-
         if (!transitStatusResponse.stations[prediction.stationID].destinations[train.dest]) {
           transitStatusResponse.stations[prediction.stationID].destinations[train.dest] = {
             trains: []

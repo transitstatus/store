@@ -2,7 +2,7 @@
   "name": "MARTA Trains",
   "script": "index.js",
   "interval": 30000,
-  "disabled": true,
+  "disabled": false,
   "apiVersion": 3,
   "configVersion": 0,
   "default": {

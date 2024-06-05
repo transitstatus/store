@@ -1,11 +1,189 @@
 {
-  "stopNameReplacements": {
-    "EDGEWOOD-CANDLER PARK STATION": "CANDLER PARK STATION",
-    "EDGEWOOD-CANDLER PARK": "CANDLER PARK",
-    "INMAN PARK-REYNOLDSTOWN STATION": "INMAN PARK STATION",
-    "INMAN PARK-REYNOLDSTOWN": "INMAN PARK"
+  "stationKeys": {
+    "N1": {
+      "gtfs_code": "812"
+    },
+    "N2": {
+      "gtfs_code": "429"
+    },
+    "N3": {
+      "gtfs_code": "280"
+    },
+    "N4": {
+      "gtfs_code": "133"
+    },
+    "N5": {
+      "gtfs_code": "111"
+    },
+    "N6": {
+      "gtfs_code": "57"
+    },
+    "N7": {
+      "gtfs_code": "244"
+    },
+    "N8": {
+      "gtfs_code": "394"
+    },
+    "N9": {
+      "gtfs_code": "53"
+    },
+    "N10": {
+      "gtfs_code": "822"
+    },
+    "N11": {
+      "gtfs_code": "730"
+    },
+    "NE7": {
+      "gtfs_code": "243"
+    },
+    "NE8": {
+      "gtfs_code": "83"
+    },
+    "NE9": {
+      "gtfs_code": "814"
+    },
+    "NE10": {
+      "gtfs_code": "375"
+    },
+    "W0": {
+      "gtfs_code": "797"
+    },
+    "S1": {
+      "gtfs_code": "810"
+    },
+    "S2": {
+      "gtfs_code": "219"
+    },
+    "S3": {
+      "gtfs_code": "693"
+    },
+    "S4": {
+      "gtfs_code": "218"
+    },
+    "S5": {
+      "gtfs_code": "217"
+    },
+    "S6": {
+      "gtfs_code": "809"
+    },
+    "S7": {
+      "gtfs_code": "808"
+    },
+    "E1": {
+      "gtfs_code": "198"
+    },
+    "E2": {
+      "gtfs_code": "798"
+    },
+    "E3": {
+      "gtfs_code": "799"
+    },
+    "E4": {
+      "gtfs_code": "195"
+    },
+    "E5": {
+      "gtfs_code": "185"
+    },
+    "E6": {
+      "gtfs_code": "193"
+    },
+    "E7": {
+      "gtfs_code": "800"
+    },
+    "E8": {
+      "gtfs_code": "224"
+    },
+    "E9": {
+      "gtfs_code": "801"
+    },
+    "W1": {
+      "gtfs_code": "796"
+    },
+    "W2": {
+      "gtfs_code": "470"
+    },
+    "W3": {
+      "gtfs_code": "485"
+    },
+    "W4": {
+      "gtfs_code": "28"
+    },
+    "W5": {
+      "gtfs_code": "27"
+    },
+    "P4": {
+      "gtfs_code": "269"
+    }
   },
-  "trainStopNameReplacements": {
-    "DOME STATION": "GWCC-CNN CENTER STATION"
+  "routeStations": {
+    "RED": [
+      "W0",
+      "N1",
+      "N2",
+      "N3",
+      "N4",
+      "N5",
+      "N6",
+      "N7",
+      "N8",
+      "N9",
+      "N10",
+      "N11",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7"
+    ],
+    "GOLD": [
+      "W0",
+      "N1",
+      "N2",
+      "N3",
+      "N4",
+      "N5",
+      "N6",
+      "NE7",
+      "NE8",
+      "NE9",
+      "NE10",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7"
+    ],
+    "GREEN": [
+      "W0",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "W1",
+      "W2",
+      "W3",
+      "P4"
+    ],
+    "BLUE": [
+      "W0",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7",
+      "E8",
+      "E9",
+      "W1",
+      "W2",
+      "W3",
+      "W4",
+      "W5"
+    ]
   }
 }
