@@ -18,7 +18,8 @@
     "uncg": {},
     "uncw": {},
     "bamabama": {},
-    "columbia": {}
+    "columbia": {},
+    "miller": {}
   },
   "variables": [
     [
@@ -62,6 +63,9 @@
     ],
     [
       "columbia"
+    ],
+    [
+      "miller"
     ]
   ]
 }
