@@ -180,6 +180,8 @@ fastify.after(() => {
       pathArray.forEach((path) => {
         dataToReturn = dataToReturn[path];
 
+        if (domainReplacements[request.hostname]) console.log(dataToReturn)
+
         if (dataToReturn === undefined) {
           throw new Error('Not found');
         }
