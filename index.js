@@ -5,7 +5,8 @@ const fastify = require('fastify')({
 const lcache = require('fastify-lcache');
 
 fastify.register(lcache, {
-  ttlInMinutes: 0.5, // set cached data lifetime to 10 minutes
+  ttlInMinutes: 0.5, // set cached data lifetime to 30 seconds
+  //excludeRoutes: ['/']
 });
 
 const domainReplacements = require('./domainReplacements.json');
@@ -175,9 +176,9 @@ fastify.after(() => {
 
     try {
       pathArray.forEach((path) => {
+        if (path === '') return; //trailing slash
+        
         dataToReturn = dataToReturn[path];
-
-        if (domainReplacements[request.hostname]) console.log(dataToReturn)
 
         if (dataToReturn === undefined) {
           throw new Error('Not found');
