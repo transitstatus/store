@@ -156,13 +156,6 @@ fastify.after(() => {
     }
   });
 
-  fastify.get('/', (request, reply) => {
-    console.log('Returning data for /');
-
-    reply.header('Access-Control-Allow-Origin', '*');
-    reply.send(data);
-  })
-
   fastify.get('*', (request, reply) => {
     let path = request.url;
 
@@ -170,11 +163,15 @@ fastify.after(() => {
 
     console.log(`Returning data for ${path}`)
 
+    if (path === '/') {
+      reply.header('Access-Control-Allow-Origin', '*');
+      reply.send(data);
+      return;
+    }
+
     //remove leading slash first
     const pathArray = path.substring(1).split('/');
     let dataToReturn = data;
-
-    console.log(request.hostname, domainReplacements[request.hostname], pathArray)
 
     try {
       pathArray.forEach((path) => {
