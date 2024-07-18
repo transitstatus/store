@@ -167,6 +167,7 @@ fastify.after(() => {
     let path = request.url;
 
     if (domainReplacements[request.hostname]) path = domainReplacements[request.hostname]; 
+    console.log(request.hostname, domainReplacements[request.hostname])
 
     console.log(`Returning data for ${path}`)
 
