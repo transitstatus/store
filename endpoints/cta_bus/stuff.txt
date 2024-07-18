@@ -1,0 +1,15 @@
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/12/alerts
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/746/predictions/?list=mult:746:40080&areaId=746&limit=600000
+
+loop:
+https://mapi.prod.ventra.cloud.onecubic.com/v1/journey/740/locations?type=s&lat=41.87939383935714&lon=-87.63028291985393&limit=30
+https://mapi.prod.ventra.cloud.onecubic.com/v1/journey/744/locations?type=undefined&list=mult%3A749%3Aa3a4203a-a135-11e9-9cda-0a87ae2ba916%2Cmult%3A749%3Aa3a42fa7-a135-11e9-9cda-0a87ae2ba916%2Cmult%3A749%3Aa3a9d00a-a135-11e9-9cda-0a87ae2ba916%2Cmult%3A749%3Aa3a45e3b-a135-11e9-9cda-0a87ae2ba916%2Cmult%3A743%3Adp3wjzzz
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/748/predictions/?list=mult%3A748%3A1869%2Cmult%3A748%3A17046%2Cmult%3A748%3A1880%2Cmult%3A748%3A70%2Cmult%3A748%3A14061%2Cmult%3A748%3A14508%2Cmult%3A748%3A4970%2Cmult%3A748%3A4732%2Cmult%3A748%3A1881%2Cmult%3A748%3A1115%2Cmult%3A748%3A1429%2Cmult%3A748%3A71%2Cmult%3A748%3A1427%2Cmult%3A748%3A69%2Cmult%3A748%3A17432%2Cmult%3A748%3A4635%2Cmult%3A748%3A1882&areaId=748&endTime=2024-07-04T17%3A19%3A58-05%3A00&startTime=2024-07-04T11%3A19%3A58-05%3A00&limit=6
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/746/predictions/?list=mult%3A746%3A40070%2Cmult%3A746%3A40790%2Cmult%3A746%3A41090%2Cmult%3A746%3A40560%2Cmult%3A746%3A40040&areaId=746&endTime=2024-07-04T17%3A19%3A58-05%3A00&startTime=2024-07-04T11%3A19%3A58-05%3A00&limit=6
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/741/predictions/?list=mult%3A741%3A855e0019%2Cmult%3A741%3A855e0021%2Cmult%3A741%3A855e0018&areaId=741&endTime=2024-07-04T17%3A19%3A58-05%3A00&startTime=2024-07-04T11%3A19%3A58-05%3A00&limit=6
+
+rosemont:
+https://mapi.prod.ventra.cloud.onecubic.com/v1/journey/740/locations?type=s&lat=41.98333633833438&lon=-87.87302820011973&limit=30
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/741/predictions/?list=mult:741:811e0005,mult:741:326e0155,mult:741:326e0165,mult:741:330s0497,mult:741:332s0010,mult:741:330n0486,mult:741:811e0010,mult:741:332n0425,mult:741:332s0015,mult:741:811e0015,mult:741:332s0005,mult:741:332s0020,mult:741:332n0420,mult:741:606w0005,mult:741:223e0165,mult:741:223e0140,mult:741:606w0040,mult:741:606w0020,mult:741:223e0150,mult:741:101n0001,mult:741:230s0395,mult:741:606w0010,mult:741:330n0501,mult:741:230n0030,mult:741:332s0025,mult:741:230s0400,mult:741:332n0415&areaId=741&endTime=2024-07-04T17:24:10-05:00&startTime=2024-07-04T11:24:10-05:00&limit=6
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/746/predictions/?list=mult:746:40820&areaId=746&endTime=2024-07-04T17:24:10-05:00&startTime=2024-07-04T11:24:10-05:00&limit=6
+https://mapi.prod.ventra.cloud.onecubic.com/v1/transittracker/742/predictions/?list=mult:742:ROSEMONT,mult:742:OHARE&areaId=742&endTime=2024-07-04T17:24:10-05:00&startTime=2024-07-04T11:24:10-05:00&limit=6

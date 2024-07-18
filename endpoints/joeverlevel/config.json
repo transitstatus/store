@@ -1,0 +1,8 @@
+{
+  "name": "JoeverLevel",
+  "script": "index.js",
+  "interval": 3600000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "default": {}
+}
