@@ -8,6 +8,8 @@ fastify.register(lcache, {
   ttlInMinutes: 0.5, // set cached data lifetime to 10 minutes
 });
 
+const domainReplacements = require('./domainReplacements.json');
+
 const getAllKeysWithParents = (obj, parentKey = '') => {
   let keys = [];
 
@@ -163,6 +165,8 @@ fastify.after(() => {
 
   fastify.get('*', (request, reply) => {
     const path = request.url;
+
+    console.log(request.hostname)
 
     console.log(`Returning data for ${path}`)
 

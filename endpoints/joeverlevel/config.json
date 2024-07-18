@@ -1,8 +1,14 @@
 {
   "name": "JoeverLevel",
   "script": "index.js",
-  "interval": 3600000,
+  "interval": 300000,
   "apiVersion": 3,
   "configVersion": 0,
-  "default": {}
+  "default": {
+    "sources": [],
+    "overall": {
+      "weigthed": 1,
+      "unweighted": 1
+    }
+  }
 }
