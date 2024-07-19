@@ -1,12 +1,13 @@
 const fs = require('fs');
 const fastify = require('fastify')({
   logger: false,
-  rewriteUrl: ((request) => {
-    if (domainReplacements[request.hostname]) {
-      return domainReplacements[request.hostname] + request.url;
+  rewriteUrl: (request) => {
+    if (domainReplacements[request.headers.host]) {
+      return domainReplacements[request.headers.host] + request.url;
     }
+
     return request.url;
-  })
+  }
 });
 const lcache = require('fastify-lcache');
 
