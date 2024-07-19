@@ -1,6 +1,12 @@
 const fs = require('fs');
 const fastify = require('fastify')({
-  logger: false
+  logger: false,
+  rewriteUrl: ((request) => {
+    if (domainReplacements[request.hostname]) {
+      return domainReplacements[request.hostname] + request.url;
+    }
+    return request.url;
+  })
 });
 const lcache = require('fastify-lcache');
 
@@ -10,14 +16,6 @@ fastify.register(lcache, {
 });
 
 const domainReplacements = require('./domainReplacements.json');
-
-fastify.addHook('onRequest', (request, reply, done) => {
-  if (domainReplacements[request.hostname]) request.url = domainReplacements[request.hostname] + request.url;
-  
-  console.log(request.hostname, domainReplacements[request.hostname], request.url)
-  
-  done();
-})
 
 const getAllKeysWithParents = (obj, parentKey = '') => {
   let keys = [];
