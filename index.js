@@ -11,6 +11,11 @@ fastify.register(lcache, {
 
 const domainReplacements = require('./domainReplacements.json');
 
+fastify.addHook('onRequest', (request, reply, done) => {
+  if (domainReplacements[request.hostname]) request.url = domainReplacements[request.hostname] + request.url;
+  done();
+})
+
 const getAllKeysWithParents = (obj, parentKey = '') => {
   let keys = [];
 
@@ -159,8 +164,6 @@ fastify.after(() => {
 
   fastify.get('*', (request, reply) => {
     let path = request.url;
-
-    if (domainReplacements[request.hostname]) path = domainReplacements[request.hostname] + path; 
 
     console.log(`Returning data for ${path}`)
 
