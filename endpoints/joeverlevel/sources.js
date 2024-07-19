@@ -1,11 +1,20 @@
 const manifold = async () => {
-  const res = await fetch('https://api.manifold.markets/v0/slug/will-biden-be-the-2024-democratic-n')
+  const res = await fetch('https://api.manifold.markets/v0/slug/who-will-win-the-2024-democratic-pr-47576e90fa38')
   const data = await res.json();
+
+  let probabilityBiden = 0;
+  let probabilityKamala = 0;
+
+  data.answers.forEach((answer) => {
+    if (answer.text === 'Joe Biden') probabilityBiden = answer.probability;
+    if (answer.text === 'Kamala Harris') probabilityKamala = answer.probability;
+  })
 
   return {
     title: 'Manifold Markets',
-    source: 'https://manifold.markets/NathanpmYoung/will-biden-be-the-2024-democratic-n',
-    probability: Number((1 - data.probability).toFixed(4)),
+    source: 'https://manifold.markets/ManifoldPolitics/who-will-win-the-2024-democratic-pr-47576e90fa38',
+    probabilityBiden: Number((probabilityBiden).toFixed(4)),
+    probabilityKamala: Number((probabilityKamala).toFixed(4)),
     volume24: data.volume24Hours,
     storeUpdated: new Date().toISOString(),
   }
@@ -13,48 +22,57 @@ const manifold = async () => {
 
 const predictit = async () => {
   const volumeRes = await fetch("https://www.predictit.org/api/Public/GetMarketChartData/7057?timespan=24&isTimespanInHours=true");
-  const metaRes = await fetch("https://www.predictit.org/api/Market/7057/Contracts");
+  const metaRes = await fetch("https://www.predictit.org/api/Market/7057/Contracts", { headers: { 'Accept': "application/json, text/plain, */*" } });
 
   const volumeData = await volumeRes.json();
   const metaData = await metaRes.json();
 
   let volume24 = 0;
-  let lastPrice = 0;
+  let lastPriceBiden = 0;
+  let lastPriceKamala = 0;
 
   volumeData.forEach((candidate) => {
     volume24 += candidate.tradeVolume;
   });
 
-  metaData.every((candidate) => {
-    if (candidate.contractName != 'Joe Biden') return true;
-
-    lastPrice = candidate.lastTradePrice;
-    return false;
+  metaData.forEach((candidate) => {
+    if (candidate.contractName == 'Joe Biden') lastPriceBiden = candidate.lastTradePrice;
+    if (candidate.contractName == 'Kamala Harris') lastPriceKamala = candidate.lastTradePrice;
   })
 
   return {
     title: 'Predictit',
     source: 'https://www.predictit.org/markets/detail/7057/Who-will-win-the-2024-Democratic-presidential-nomination',
-    probability: Number((1 - lastPrice).toFixed(4)),
+    probabilityBiden: Number((lastPriceBiden).toFixed(4)),
+    probabilityKamala: Number(lastPriceKamala.toFixed(4)),
     volume24: volume24,
     storeUpdated: new Date().toISOString(),
   }
 };
 
 const polymarket = async () => {
-  const res = await fetch('https://clob.polymarket.com/rewards/markets/0x653483009043f1663360bc35ed8fb542d3f9453916082d20ff025adaa2fe7032');
-  const data = await res.json();
+  const resBiden = await fetch('https://clob.polymarket.com/rewards/markets/0x653483009043f1663360bc35ed8fb542d3f9453916082d20ff025adaa2fe7032');
+  const dataBiden = await resBiden.json();
 
-  let probability = 1;
+  const resKamala = await fetch('https://clob.polymarket.com/rewards/markets/0x9e9071636d176562592a98dfede865385ba0cff7864cfa01f0479ca6e9e26e1b');
+  const dataKamala = await resKamala.json();
 
-  data.data[0].tokens.forEach((token) => {
-    if (token.outcome === 'No') probability = token.price;
+  let probabilityBiden = 1;
+  let probabilityKamala = 1;
+
+  dataBiden.data[0].tokens.forEach((token) => {
+    if (token.outcome === 'Yes') probabilityBiden = token.price;
+  })
+
+  dataKamala.data[0].tokens.forEach((token) => {
+    if (token.outcome === 'Yes') probabilityKamala = token.price;
   })
 
   return {
     title: 'Polymarket',
     source: 'https://polymarket.com/event/democratic-nominee-2024',
-    probability: Number(probability.toFixed(4)),
+    probabilityBiden: Number(probabilityBiden.toFixed(4)),
+    probabilityKamala: Number(probabilityKamala.toFixed(4)),
     volume24: null,
     storeUpdated: new Date().toISOString(),
   }
@@ -82,17 +100,15 @@ const smarkets = async () => {
     "Robert F. Kennedy Jr.": "125329894",
   };
 
-  let candidatesRev = {};
-  Object.keys(candidates).forEach((candidate) => candidatesRev[candidates[candidate]] = candidate);
-
   const now = Date.now();
   const nowStr = new Date(now).toISOString();
   const dayAgoStr = new Date(now - (1000 * 60 * 60 * 24)).toISOString();
 
   let volume24 = 0;
-  let probability = 0;
+  let probabilityBiden = 0;
+  let probabilityKamala = 0;
 
-  const res = await fetch(`https://api.smarkets.com/v3/events/41936389/markets/11445805/contracts/${Object.keys(candidatesRev).join(',')}/executions_time_series/?data_points=24&timestamp_max=${nowStr}&timestamp_min=${dayAgoStr}`)
+  const res = await fetch(`https://api.smarkets.com/v3/events/41936389/markets/11445805/contracts/${Object.values(candidates).join(',')}/executions_time_series/?data_points=24&timestamp_max=${nowStr}&timestamp_min=${dayAgoStr}`)
   const data = await res.json();
 
   data.contracts.forEach((contract) => {
@@ -100,17 +116,23 @@ const smarkets = async () => {
       volume24 += bucket.volume_qty;
 
       if (contract.contract_id === candidates["Joe Biden"]) {
-        probability = bucket.ohlc[bucket.ohlc.length - 1];
+        probabilityBiden = bucket.ohlc[bucket.ohlc.length - 1];
+      }
+
+      if (contract.contract_id === candidates["Kamala Harris"]) {
+        probabilityKamala = bucket.ohlc[bucket.ohlc.length - 1];
       }
     })
   })
 
-  probability = (10000 - probability) / 10000; //adjusting the percent win to percent joever
+  probabilityBiden = probabilityBiden / 10000;
+  probabilityKamala = probabilityKamala / 10000;
 
   return {
     title: 'Smarkets',
     source: 'https://smarkets.com/event/41936389/politics/us/2024-presidential-election/2024-democratic-presidential-nominee',
-    probability: Number(probability.toFixed(4)),
+    probabilityBiden: Number(probabilityBiden.toFixed(4)),
+    probabilityKamala: Number(probabilityKamala.toFixed(4)),
     volume24: volume24,
     storeUpdated: new Date().toISOString(),
   }

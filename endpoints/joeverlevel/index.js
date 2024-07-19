@@ -1,27 +1,40 @@
 const { sources } = require('./sources');
 
 const weightedAverage = (sources) => {
-  let totalVolume = 0;
-  let totalPercent = 0;
+  let totalVolumeBiden = 0;
+  let totalPercentBiden = 0;
+  let totalVolumeKamala = 0;
+  let totalPercentKamala = 0;
 
   sources.forEach((source) => {
     if (!source.volume24) return; //cant weight if we dont have the volume
 
-    totalVolume += source.volume24;
-    totalPercent += source.probability * source.volume24;
+    totalVolumeBiden += source.volume24;
+    totalPercentBiden += source.probabilityBiden * source.volume24;
+
+    totalVolumeKamala += source.volume24;
+    totalPercentKamala += source.probabilityKamala * source.volume24;
   })
 
-  return Number((totalPercent / totalVolume).toFixed(4));
+  return {
+    biden: Number((totalPercentBiden / totalVolumeBiden).toFixed(4)),
+    kamala: Number((totalPercentKamala / totalVolumeKamala).toFixed(4)),
+  }
 };
 
 const unweightedAverage = (sources) => {
-  let totalPercent = 0;
+  let totalPercentBiden = 0;
+  let totalPercentKamala = 0;
 
   sources.forEach((source) => {
-    totalPercent += source.probability;
+    totalPercentBiden += source.probabilityBiden;
+    totalPercentKamala += source.probabilityKamala;
   })
 
-  return Number((totalPercent / sources.length).toFixed(4));
+  return {
+    biden: Number((totalPercentBiden / sources.length).toFixed(4)),
+    kamala: Number((totalPercentKamala / sources.length).toFixed(4)),
+  }
 }
 
 const updateFeed = (async () => {
