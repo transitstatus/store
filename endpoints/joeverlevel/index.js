@@ -48,8 +48,13 @@ const updateFeed = (async () => {
     };
 
     for (let i = 0; i < sources.length; i++) {
-      const res = await sources[i]();
-      finalData.sources.push(res);
+      try {
+        const res = await sources[i]();
+        finalData.sources.push(res);
+      } catch (e) {
+        console.log(e)
+      }
+
     }
 
     finalData.overall.weigthed = weightedAverage(finalData.sources);
