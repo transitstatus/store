@@ -13,6 +13,9 @@ const domainReplacements = require('./domainReplacements.json');
 
 fastify.addHook('onRequest', (request, reply, done) => {
   if (domainReplacements[request.hostname]) request.url = domainReplacements[request.hostname] + request.url;
+  
+  console.log(request.hostname, domainReplacements[request.hostname], request.url)
+  
   done();
 })
 
