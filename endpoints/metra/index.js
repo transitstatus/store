@@ -139,7 +139,7 @@ const update = (async () => {
           };
         }
 
-        const finalStation = staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id].headsign;
+        const finalStation = staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id]?.headsign ?? "Unknown Dest";
 
         //adding destinations to transitStatus object
         if (!transitStatus.stations[stop.stop_id].destinations[finalStation]) {
