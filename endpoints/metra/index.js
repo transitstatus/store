@@ -107,7 +107,7 @@ const update = (async () => {
         lineCode: train.trip_update?.trip?.route_id,
         lineColor: staticRoutesData[train.trip_update?.trip?.route_id].routeColor,
         lineTextColor: staticRoutesData[train.trip_update?.trip?.route_id].routeTextColor,
-        dest: staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id].headsign,
+        dest: staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id]?.headsign ?? "Unknown Dest",
         predictions: [],
         type: 'train',
       }
