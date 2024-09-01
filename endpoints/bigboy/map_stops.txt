@@ -1,0 +1,12 @@
+
+<input type='hidden' name='type2' id='type2' value='LATLON' />
+<input type='hidden' name='title2' id='title2' value='Scheduled Stop' />
+<input type='hidden' name='stations2' id='stations2' value='41.139,-100.7574,41.55489,-95.88783,41.23905,-103.6616,41.12351,-101.7187,41.18416,-104.0682,41.42881,-96.49643,40.85716,-99.98609,41.42792,-97.35833,40.98532,-102.2631,42.01058,-95.35534,42.06535,-94.87241,41.79341,-93.52648,40.69485,-99.08181,41.59125,-93.58168,41.73829,-92.70795,41.57085,-91.26727,41.51529,-90.41354' />
+<input type='hidden' name='symbol2' id='symbol2' value='DIAMOND' />
+<input type='hidden' name='color2' id='color2' value='WHITE' />
+<input type='hidden' name='size2' id='size2' value='8' />
+<input type='hidden' name='name21' id='name21' value='Location' />
+<input type='hidden' name='value21' id='value21' value='North Platte%2c%20NE,Missouri Valley%2c%20IA,Kimball%2c%20NE,Ogallala%2c%20NE,Pine Bluffs%2c%20WY,Fremont%2c%20NE,Cozad%2c%20NE,Columbus%2c%20NE,Julesburg%2c%20CO,Denison%2c%20IA,Carroll%2c%20IA,Elkhart%2c%20IA,Kearney%2c%20NE,Des Moines%2c%20IA,Grinnell%2c%20IA,West Liberty%2c%20IA,Silvis%2c%20IL ' />
+<input type='hidden' name='name22' id='name22' value='Address' />
+<input type='hidden' name='value22' id='value22' value=' Downtown on E. Front St.<br/>Between N. Chestnut and N. Poplar Sts., 6th Street Crossing, E. 1st St. & S. Walnut St., S. Spruce St. Crossing, Main St. Crossing, 10 S. Main St., Meridian & Hwy 30, 26th Avenue Crossing,Julesburg Depot Museum<br/>201 W. 1st St., Main Street Crossing,Old CNW Depot<br/>407 W. 5th St., Main St. Crossing, Central Ave. Crossing, Dean Ave. Crossing,Old Depot<br/>Penrose St. Crossing,Old Depot<br/>407 N. Elm St.,Railroading Heritage of Midwest America Shops<br/>300 9th St ' />
+<!-- Updated at Tuesday, November 8, 2022 06:05:13 --> 

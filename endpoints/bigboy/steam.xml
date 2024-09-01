@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+<equipment>
+  <id>UP4014</id>
+  <updated>Fri Jul 26 19:50:07 MDT 2024</updated>
+  <gpsLon>-104.81277465820312</gpsLon>
+  <gpsLat>41.130001068115234</gpsLat>
+  <location>WX510</location>
+  <city>CHEYENNE</city>
+  <state>WY</state>
+  <fuel>-99</fuel>
+  <speed>0</speed>
+  <heading>-999</heading>
+</equipment>
+<view>
+  <cLon>-104.81277465820312</cLon>
+  <cLat>41.130001068115234</cLat>
+  <extLon>0.1</extLon>
+  <extLat>0.1</extLat>
+</view>
+</info>

@@ -1,0 +1,9 @@
+{
+  "name": "Big Boy Adapter?",
+  "disabled": true,
+  "script": "index.js",
+  "interval": 180000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "default": []
+}

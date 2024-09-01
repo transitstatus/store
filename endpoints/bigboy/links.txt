@@ -1,0 +1,3 @@
+https://www.up.com/dynamic/coldfusion/steam_map_stops.txt
+https://www.up.com/dynamic/coldfusion/unp/up-steam/steam.xml
+https://www.up.com/cs/groups/public/@uprr/@corprel/documents/up_pdf_nativedocs/xml_up_steam_track_gps_status.xml

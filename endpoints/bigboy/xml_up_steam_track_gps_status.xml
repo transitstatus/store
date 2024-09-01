@@ -1,0 +1,13 @@
+<gps>
+	<active>True</active>
+	<reportAs>UP 4014</reportAs>
+	<tracking>Big Boy #UP4014</tracking>
+	<override>
+		<gpsLon>-104.81405</gpsLon>
+		<gpsLat>41.1301</gpsLat>
+		<city>CHEYENNE</city>
+		<state>WY</state>
+		<speed>0</speed>
+		<heading>0</heading>
+	</override>
+</gps>

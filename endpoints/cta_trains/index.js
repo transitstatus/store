@@ -118,6 +118,11 @@ const processData = async () => {
       lines: {},
       stations: {},
       trains: {},
+      headways: {
+        lines: {},
+        stations: {},
+        trains: {},
+      },
       transitStatus: {
         trains: {},
         stations: {},
