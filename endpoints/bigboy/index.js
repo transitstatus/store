@@ -1,20 +1,92 @@
 const fetch = require('node-fetch');
+const { JSDOM } = require("jsdom");
+const { XMLParser } = require("fast-xml-parser");
+const fs = require('fs');
+const schedule = require('./schedule.json');
 
-const key = process.env.MEGABUSKEY ?? 'PUBLICNQ9YIAYC3O2UPC5GKTDR5DQLT0';
-
-const buses = [];
+const parseUPDate = (rawDate) => {
+  return new Date(rawDate); //might have to change this later, but JS likes their format of // Mon Sep 02 18:27:38 CDT 2024
+}
 
 const update = async () => {
-  let finalBuses = [];
+  const parser = new XMLParser();
 
-  for (let i = 0; i < buses.length; i++) {
-    const bus = buses[i];
-    const res = await fetch(`https://coachusa.origin.utrack.com/api/public-trip-by-local-departure-time-v1/${bus.year}-${bus.month}-${bus.day}/${bus.routeNum}/${bus.direction}/${bus.time}?api_key=${key}&debug=false&only_service_classes=CUSA,MBUS`);
-    const data = await res.json();
-    finalBuses.push(data);
+  const posReq = await fetch('https://www.up.com/dynamic/coldfusion/unp/up-steam/steam.xml');
+  const posRaw = await posReq.text();
+  const posData = parser.parse(posRaw);
+
+  let transitStatusObject = {
+    trains: {
+      "4014": {
+        lat: posData.info.equipment.gpsLat,
+        lon: posData.info.equipment.gpsLon,
+        heading: posData.info.equipment.heading,
+        line: "Big Boy",
+        lineCode: "BigBoy",
+        lineColor: "feca00",
+        lineTextColor: "000000",
+        dest: "Heartland of America",
+        predictions: [],
+        type: "train"
+      }
+    },
+    stations: {},
+    lines: {
+      BigBoy: {
+        lineCode: "BigBoy",
+        lineNameShort: "Big Boy",
+        lineNameLong: "UP Big Boy",
+        routeColor: "feca00",
+        routeTextColor: "000000",
+        stations: schedule.map((station) => station.code),
+        hasActiveTrains: true
+      }
+    },
+    lastUpdated: parseUPDate(posData.info.equipment.updated)
   }
 
-  return finalBuses;
+  schedule.forEach((station) => {
+    const now = Date.now();
+    const schArr = new Date(station.schArr).valueOf();
+    const schDep = new Date(station.schDep).valueOf();
+
+    let etaToUse = schArr;
+
+    if (schArr < now && schDep >= now) etaToUse = schDep; // has arrived, not departed
+    if (schArr < now && schDep < now) return; // has departed
+    if (schArr >= now) etaToUse = schArr; // has not arrived yet
+
+    transitStatusObject.stations[station.code] = {
+      "stationID": station.code,
+      "stationName": station.name,
+      "destinations": {
+        "Heartland of America": {
+          "trains": [
+            {
+              "runNumber": "4014",
+              "actualETA": etaToUse,
+              "noETA": false,
+              "line": "Big Boy",
+              "lineCode": "BigBoy",
+              "lineColor": "feca00",
+              "lineTextColor": "000000"
+            }
+          ]
+        }
+      },
+      "lat": station.coords[0],
+      "lon": station.coords[1]
+    }
+
+    transitStatusObject.trains[4014].predictions.push({
+      "stationID": station.code,
+      "stationName": station.name,
+      "actualETA": etaToUse,
+      "noETA": false
+    })
+  })
+
+  return transitStatusObject
 }
 
 exports.update = update;

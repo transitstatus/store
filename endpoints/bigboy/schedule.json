@@ -3,8 +3,7 @@
     "name": "UP Cheyenne",
     "code": "UPCHY",
     "tz": "America/Denver",
-    "lat": 41.13206182626891,
-    "lon": -104.81364702809864,
+    "coords": [41.13206182626891, -104.81364702809864],
     "schArr": "2024-08-28T09:00:00-06:00",
     "schDep": "2024-08-28T09:00:00-06:00"
   },
@@ -12,8 +11,7 @@
     "name": "UP Kimball",
     "code": "UPKBL",
     "tz": "America/Denver",
-    "lat": 41.23860376301435,
-    "lon": -103.66152576413516,
+    "coords": [41.23860376301435, -103.66152576413516],
     "schArr": "2024-08-28T12:00:00-06:00",
     "schDep": "2024-08-28T12:30:00-06:00"
   },
@@ -21,8 +19,7 @@
     "name": "UP Sidney",
     "code": "UPSNY",
     "tz": "America/Denver",
-    "lat": 41.14581595616576, 
-    "lon": -102.97679461363317,
+    "coords": [41.14581595616576, -102.97679461363317],
     "schArr": "2024-08-28T16:00:00-06:00",
     "schDep": "2024-08-29T09:00:00-06:00"
   },
@@ -30,9 +27,279 @@
     "name": "UP Ogallala",
     "code": "UPOGA",
     "tz": "America/Denver",
-    "lat": 41.12349011558719, 
-    "lon": -101.7187771305,
+    "coords": [41.12349011558719, -101.7187771305],
     "schArr": "2024-08-29T12:00:00-06:00",
     "schDep": "2024-08-29T12:30:00-06:00"
   },
+  {
+    "name": "UP North Platte",
+    "code": "UPNPL",
+    "tz": "America/Chicago",
+    "coords": [41.13996693669455, -100.7631709724125],
+    "schArr": "2024-08-29T15:30:00-05:00",
+    "schDep": "2024-09-01T09:00:00-05:00"
+  },
+  {
+    "name": "UP Overton",
+    "code": "UPOVR",
+    "tz": "America/Chicago",
+    "coords": [40.73891066874036, -99.53749749689933],
+    "schArr": "2024-09-01T12:00:00-05:00",
+    "schDep": "2024-09-01T12:30:00-05:00"
+  },
+  {
+    "name": "UP Grand Island",
+    "code": "UPGIL",
+    "tz": "America/Chicago",
+    "coords": [40.926488735160454, -98.34389769198054],
+    "schArr": "2024-09-01T16:00:00-05:00",
+    "schDep": "2024-09-02T09:00:00-05:00"
+  },
+  {
+    "name": "UP Columbus",
+    "code": "UPCON",
+    "tz": "America/Chicago",
+    "coords": [41.43065031111702, -97.35985655301769],
+    "schArr": "2024-09-02T11:00:00-05:00",
+    "schDep": "2024-09-02T11:30:00-05:00"
+  },
+  {
+    "name": "UP Omaha",
+    "code": "UPOMA",
+    "tz": "America/Chicago",
+    "coords": [41.25666252828911, -95.93796559678036],
+    "schArr": "2024-09-02T14:45:00-05:00",
+    "schDep": "2024-09-02T16:45:00-05:00"
+  },
+  {
+    "name": "UP Council Bluffs",
+    "code": "UPCBL",
+    "tz": "America/Chicago",
+    "coords": [41.261071011074556, -95.86381999127505],
+    "schArr": "2024-09-02T20:00:00-05:00",
+    "schDep": "2024-09-04T08:00:00-05:00"
+  },
+  {
+    "name": "UP Carroll",
+    "code": "UPCRL",
+    "tz": "America/Chicago",
+    "coords": [42.06600534758331, -94.86728451529144],
+    "schArr": "2024-09-04T12:30:00-05:00",
+    "schDep": "2024-09-04T13:00:00-05:00"
+  },
+  {
+    "name": "UP Boone",
+    "code": "UPBNE",
+    "tz": "America/Chicago",
+    "coords": [42.059574514026984, -93.88118907080893],
+    "schArr": "2024-09-04T16:00:00-05:00",
+    "schDep": "2024-09-05T09:00:00-05:00"
+  },
+  {
+    "name": "UP Belle Plaine",
+    "code": "UPBPL",
+    "tz": "America/Chicago",
+    "coords": [41.89560431400889, -92.27624801492567],
+    "schArr": "2024-09-05T12:15:00-05:00",
+    "schDep": "2024-09-05T12:30:00-05:00"
+  },
+  {
+    "name": "UP Cedar Rapids",
+    "code": "UPCRP",
+    "tz": "America/Chicago",
+    "coords": [41.97835982852073, -91.66987211346112],
+    "schArr": "2024-09-05T16:00:00-05:00",
+    "schDep": "2024-09-06T09:00:00-05:00"
+  },
+  {
+    "name": "UP Grand Mound",
+    "code": "UPGRM",
+    "tz": "America/Chicago",
+    "coords": [41.82467180024529, -90.64764194381095],
+    "schArr": "2024-09-06T11:00:00-05:00",
+    "schDep": "2024-09-06T11:15:00-05:00"
+  },
+  {
+    "name": "UP Sterling",
+    "code": "UPSTR",
+    "tz": "America/Chicago",
+    "coords": [41.78871764547039, -89.69590889868161],
+    "schArr": "2024-09-06T13:30:00-05:00",
+    "schDep": "2024-09-06T13:45:00-05:00"
+  },
+  {
+    "name": "UP Global III",
+    "code": "UPGTH",
+    "tz": "America/Chicago",
+    "coords": [41.903353335253655, -89.1014382898317],
+    "schArr": "2024-09-06T18:00:00-05:00",
+    "schDep": "2024-09-09T08:00:00-05:00"
+  },
+  {
+    "name": "UP Rochelle",
+    "code": "UPRCH",
+    "tz": "America/Chicago",
+    "coords": [41.923908501321634, -89.06738184779994],
+    "schArr": "2024-09-09T08:45:00-05:00",
+    "schDep": "2024-09-09T09:00:00-05:00"
+  },
+  {
+    "name": "UP Watseka",
+    "code": "UPRCD",
+    "tz": "America/Chicago",
+    "coords": [40.7763505668927, -87.73625503883922],
+    "schArr": "2024-09-09T17:00:00-05:00",
+    "schDep": "2024-09-09T17:30:00-05:00"
+  },
+  {
+    "name": "UP Villa Grove",
+    "code": "UPVGV",
+    "tz": "America/Chicago",
+    "coords": [39.862815307140245, -88.1623178881696],
+    "schArr": "2024-09-09T21:00:00-05:00",
+    "schDep": "2024-09-10T09:00:00-05:00"
+  },
+  {
+    "name": "UP Nokomis",
+    "code": "UPNOK",
+    "tz": "America/Chicago",
+    "coords": [39.30119710688406, -89.28555471186857],
+    "schArr": "2024-09-10T12:15:00-05:00",
+    "schDep": "2024-09-10T12:45:00-05:00"
+  },
+  {
+    "name": "UP St. Louis",
+    "code": "UPSTL",
+    "tz": "America/Chicago",
+    "coords": [0, 0],
+    "schArr": "2024-09-10T16:00:00-05:00",
+    "schDep": "2024-09-12T08:30:00-05:00"
+  },
+  {
+    "name": "UP St. Louis",
+    "code": "UPSTL",
+    "tz": "America/Chicago",
+    "coords": [38.62704590009531, -90.19802830418072],
+    "schArr": "2024-09-10T16:00:00-05:00",
+    "schDep": "2024-09-12T08:30:00-05:00"
+  },
+  {
+    "name": "UP De Soto",
+    "code": "UPDSO",
+    "tz": "America/Chicago",
+    "coords": [38.13988948105267, -90.55409532564846],
+    "schArr": "2024-09-12T11:00:00-05:00",
+    "schDep": "2024-09-12T11:30:00-05:00"
+  },
+  {
+    "name": "UP Arcadia - Ironton",
+    "code": "UPARI",
+    "tz": "America/Chicago",
+    "coords": [37.592490402618765, -90.62436771533658],
+    "schArr": "2024-09-12T13:30:00-05:00",
+    "schDep": "2024-09-12T14:00:00-05:00"
+  },
+  {
+    "name": "UP Poplar Bluff",
+    "code": "UPPOB",
+    "tz": "America/Chicago",
+    "coords": [36.757358901056556, -90.39209035473648],
+    "schArr": "2024-09-12T17:00:00-05:00",
+    "schDep": "2024-09-13T09:00:00-05:00"
+  },
+  {
+    "name": "UP Piggott",
+    "code": "UPPIG",
+    "tz": "America/Chicago",
+    "coords": [36.38221105273798, -90.19087194385462],
+    "schArr": "2024-09-13T13:30:00-05:00",
+    "schDep": "2024-09-13T14:00:00-05:00"
+  },
+  {
+    "name": "UP Jonesboro",
+    "code": "UPJNS",
+    "tz": "America/Chicago",
+    "coords": [35.83542267071589, -90.70678556299707],
+    "schArr": "2024-09-13T18:00:00-05:00",
+    "schDep": "2024-09-14T09:00:00-05:00"
+  },
+  {
+    "name": "UP Hickory Ridge",
+    "code": "UPHKR",
+    "tz": "America/Chicago",
+    "coords": [35.40237326835705, -90.99506231137951],
+    "schArr": "2024-09-14T10:30:00-05:00",
+    "schDep": "2024-09-14T11:00:00-05:00"
+  },
+  {
+    "name": "UP Brinkley",
+    "code": "UPBNK",
+    "tz": "America/Chicago",
+    "coords": [34.887463961961636, -91.19561130799443],
+    "schArr": "2024-09-14T12:15:00-05:00",
+    "schDep": "2024-09-14T12:45:00-05:00"
+  },
+  {
+    "name": "UP Pine Bluff",
+    "code": "UPPBF",
+    "tz": "America/Chicago",
+    "coords": [34.22561908958062, -92.0033851435125],
+    "schArr": "2024-09-14T15:00:00-05:00",
+    "schDep": "2024-09-14T15:30:00-05:00"
+  },
+  {
+    "name": "UP North Little Rock",
+    "code": "UPNLR",
+    "tz": "America/Chicago",
+    "coords": [34.75607725324181, -92.26849948069844],
+    "schArr": "2024-09-14T19:00:00-05:00",
+    "schDep": "2024-09-16T08:00:00-05:00"
+  },
+  {
+    "name": "UP Kingsland",
+    "code": "UPKNG",
+    "tz": "America/Chicago",
+    "coords": [30.658369589440785, -98.44074585298031],
+    "schArr": "2024-09-16T11:45:00-05:00",
+    "schDep": "2024-09-16T12:15:00-05:00"
+  },
+  {
+    "name": "UP Texarkana",
+    "code": "UPTXR",
+    "tz": "America/Chicago",
+    "coords": [33.42474527529993, -94.0484670903762],
+    "schArr": "2024-09-16T16:00:00-05:00",
+    "schDep": "2024-09-17T09:00:00-05:00"
+  },
+  {
+    "name": "UP Big Sandy",
+    "code": "UPBGS",
+    "tz": "America/Chicago",
+    "coords": [32.583708212591496, -95.10889845866788],
+    "schArr": "2024-09-17T13:00:00-05:00",
+    "schDep": "2024-09-17T13:45:00-05:00"
+  },
+  {
+    "name": "UP Dallas",
+    "code": "UPDFW",
+    "tz": "America/Chicago",
+    "coords": [32.777233389925, -96.80642647828087],
+    "schArr": "2024-09-17T17:00:00-05:00",
+    "schDep": "2024-09-19T09:00:00-05:00"
+  },
+  {
+    "name": "UP Mexia",
+    "code": "UPMEX",
+    "tz": "America/Chicago",
+    "coords": [31.679663784380537, -96.48191117530726],
+    "schArr": "2024-09-19T12:45:00-05:00",
+    "schDep": "2024-09-19T13:15:00-05:00"
+  },
+  {
+    "name": "UP Hearne",
+    "code": "UPHRN",
+    "tz": "America/Chicago",
+    "coords": [30.878440190520433, -96.59302188535271],
+    "schArr": "2024-09-19T18:00:00-05:00"
+  }
 ]
