@@ -78,12 +78,14 @@ const update = async () => {
       "lon": station.coords[1]
     }
 
-    transitStatusObject.trains[4014].predictions.push({
-      "stationID": station.code,
-      "stationName": station.name,
-      "actualETA": etaToUse,
-      "noETA": false
-    })
+    if (etaToUse !== 0) {
+      transitStatusObject.trains[4014].predictions.push({
+        "stationID": station.code,
+        "stationName": station.name,
+        "actualETA": etaToUse,
+        "noETA": false
+      })
+    }
   })
 
   return transitStatusObject
