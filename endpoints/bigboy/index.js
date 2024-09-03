@@ -53,7 +53,7 @@ const update = async () => {
     let etaToUse = schArr;
 
     if (schArr < now && schDep >= now) etaToUse = schDep; // has arrived, not departed
-    if (schArr < now && schDep < now) etaToUse = schDep; // has departed
+    if (schArr < now && schDep < now) etaToUse = 0; // has departed
     if (schArr >= now) etaToUse = schArr; // has not arrived yet
 
     transitStatusObject.stations[station.code] = {
@@ -61,7 +61,7 @@ const update = async () => {
       "stationName": station.name,
       "destinations": {
         "Heartland of America": {
-          "trains": [
+          "trains": etaToUse === 0 ? [
             {
               "runNumber": "4014",
               "actualETA": etaToUse,
@@ -71,7 +71,7 @@ const update = async () => {
               "lineColor": "feca00",
               "lineTextColor": "000000"
             }
-          ]
+          ] : []
         }
       },
       "lat": station.coords[0],
