@@ -53,7 +53,7 @@ const update = async () => {
     let etaToUse = schArr;
 
     if (schArr < now && schDep >= now) etaToUse = schDep; // has arrived, not departed
-    if (schArr < now && schDep < now) return; // has departed
+    if (schArr < now && schDep < now) etaToUse = schDep; // has departed
     if (schArr >= now) etaToUse = schArr; // has not arrived yet
 
     transitStatusObject.stations[station.code] = {
