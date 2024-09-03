@@ -53,15 +53,15 @@ const update = async () => {
     let etaToUse = schArr;
 
     if (schArr < now && schDep >= now) etaToUse = schDep; // has arrived, not departed
-    if (schArr < now && schDep < now) etaToUse = 0; // has departed
     if (schArr >= now) etaToUse = schArr; // has not arrived yet
+    if (schArr < now && schDep < now) etaToUse = 0; // has departed
 
     transitStatusObject.stations[station.code] = {
       "stationID": station.code,
       "stationName": station.name,
       "destinations": {
         "Heartland of America": {
-          "trains": etaToUse === 0 ? [
+          "trains": etaToUse !== 0 ? [
             {
               "runNumber": "4014",
               "actualETA": etaToUse,
