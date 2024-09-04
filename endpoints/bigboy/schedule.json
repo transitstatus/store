@@ -176,14 +176,6 @@
     "schDep": "2024-09-12T08:30:00-05:00"
   },
   {
-    "name": "UP St. Louis",
-    "code": "UPSTL",
-    "tz": "America/Chicago",
-    "coords": [38.62704590009531, -90.19802830418072],
-    "schArr": "2024-09-10T16:00:00-05:00",
-    "schDep": "2024-09-12T08:30:00-05:00"
-  },
-  {
     "name": "UP De Soto",
     "code": "UPDSO",
     "tz": "America/Chicago",
