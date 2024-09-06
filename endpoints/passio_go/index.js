@@ -332,7 +332,7 @@ const updateFeed = async (feed) => {
 
     let fallbackData = null;
     if (feed.rtfallback) {
-      const fallbackRes = await fetch("https://passio3.com/rutgers/passioTransit/gtfs/realtime/tripUpdates", {
+      const fallbackRes = await fetch(feed.rtfallback, {
         "credentials": "omit",
         "headers": {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
@@ -356,6 +356,8 @@ const updateFeed = async (feed) => {
 
         let finalFeed = {};
 
+        //console.log(JSON.stringify(trackingFeed.entity))
+
         trackingFeed.entity.forEach((update) => {
           if (update.tripUpdate) {
             finalFeed[update.tripUpdate.trip.tripId] = {};
@@ -372,12 +374,6 @@ const updateFeed = async (feed) => {
         fallbackData = finalFeed;
       }
     }
-
-    //if (feed.username === 'rutgers') fs.writeFileSync('./predictions.json', JSON.stringify(predictions, null, 2));
-    //console.log(`https://passio3.com/www/mapGetData.php?eta=3&deviceId=20331424&stopIds=${allStopIDs.join(',')}`)
-
-    //if (feed.username === 'rutgers' && fallbackData === null) process.exit(1);
-    //if (feed.username === 'rutgers') console.log(fallbackData.entity.map(x => x.tripUpdate));
 
     const now = new Date().valueOf();
     Object.keys(fullPredictions).forEach((stopKey) => {
@@ -455,7 +451,7 @@ const updateFeed = async (feed) => {
           if (fallbackData[vidToTripDict[trainKey]]) { //does our trip have better estimates?
             Object.keys(fallbackData[vidToTripDict[trainKey]]).forEach((stopKey) => {
               if (!predictionsDict[stopKey]) { //seeing if the prediction exists
-                if (!transitStatus.stations[stopKey]) return;
+                if (!transitStatus.stations[stopKey]) return
 
                 predictionsDict[stopKey] = {
                   stationID: stopKey,
@@ -470,6 +466,14 @@ const updateFeed = async (feed) => {
           }
         }
       }
+
+      /*
+      // now that our predictions are all retrieved, we're going to use as much data as possible to fill in missing ETAs
+      Object.values(predictionsDict).forEach((station) => {
+
+      })
+      */
+
 
       totalAfter += Object.keys(predictionsDict).length;
 
@@ -538,7 +542,7 @@ const updateFeed = async (feed) => {
 const updateFeedInd = async (feedKey) => {
   let feed = feedsDict[feedKey];
 
-  //if (feed.username !== 'columbia') return false;
+  if (feed.username !== '') return false;
 
   if (extraConfig[feed.username]) {
     feed = {

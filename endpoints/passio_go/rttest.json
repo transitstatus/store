@@ -1,0 +1,2600 @@
+[
+  {
+    "id": "1",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "623733"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468112"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468166"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468332"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468704"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "2",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588821"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467947"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725468226"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467752"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725467821"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725468408"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "3",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588856"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467752"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467822"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725468262"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725468003"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725468060"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725468560"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "4",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576347"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467718"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467936"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468014"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "5",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "623740"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468477"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468519"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468676"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725469008"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725467757"
+          },
+          "stopId": "27767"
+        }
+      ]
+    }
+  },
+  {
+    "id": "6",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "579295"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725469438"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725467726"
+          },
+          "stopId": "10071"
+        },
+        {
+          "arrival": {
+            "time": "1725467806"
+          },
+          "stopId": "10029"
+        }
+      ]
+    }
+  },
+  {
+    "id": "7",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576191"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467896"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725467782"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "8",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "583162"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725469560"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725469593"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725469728"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725470234"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467791"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725467804"
+          },
+          "stopId": "21050"
+        }
+      ]
+    }
+  },
+  {
+    "id": "9",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577525"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467952"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467967"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468022"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725468339"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725468563"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467428"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725467549"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467696"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "10",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577913"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467652"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467988"
+          },
+          "stopId": "10075"
+        }
+      ]
+    }
+  },
+  {
+    "id": "11",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "579342"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468594"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468606"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468769"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725469333"
+          },
+          "stopId": "10071"
+        },
+        {
+          "arrival": {
+            "time": "1725469523"
+          },
+          "stopId": "10029"
+        }
+      ]
+    }
+  },
+  {
+    "id": "12",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576029"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468172"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725468051"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725467793"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467801"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467841"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "13",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576247"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467480"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467604"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725468101"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725468109"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467876"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "14",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "623748"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467521"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725467799"
+          },
+          "stopId": "27767"
+        }
+      ]
+    }
+  },
+  {
+    "id": "15",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588844"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468232"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467749"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467973"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "16",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "28860"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468119"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725468055"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467736"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725467777"
+          },
+          "stopId": "21050"
+        }
+      ]
+    }
+  },
+  {
+    "id": "17",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576126"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468357"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467421"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467599"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725467855"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "18",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "579362"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725469019"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725469031"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725469195"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725469765"
+          },
+          "stopId": "10071"
+        },
+        {
+          "arrival": {
+            "time": "1725467668"
+          },
+          "stopId": "10029"
+        }
+      ]
+    }
+  },
+  {
+    "id": "19",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "44865"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468711"
+          },
+          "stopId": "10056"
+        },
+        {
+          "arrival": {
+            "time": "1725468418"
+          },
+          "stopId": "10090"
+        },
+        {
+          "arrival": {
+            "time": "1725468489"
+          },
+          "stopId": "10033"
+        },
+        {
+          "arrival": {
+            "time": "1725468632"
+          },
+          "stopId": "10055"
+        },
+        {
+          "arrival": {
+            "time": "1725467732"
+          },
+          "stopId": "10053"
+        },
+        {
+          "arrival": {
+            "time": "1725467936"
+          },
+          "stopId": "10093"
+        },
+        {
+          "arrival": {
+            "time": "1725468083"
+          },
+          "stopId": "10058"
+        },
+        {
+          "arrival": {
+            "time": "1725468096"
+          },
+          "stopId": "10074"
+        },
+        {
+          "arrival": {
+            "time": "1725468209"
+          },
+          "stopId": "10076"
+        },
+        {
+          "arrival": {
+            "time": "1725468236"
+          },
+          "stopId": "10050"
+        },
+        {
+          "arrival": {
+            "time": "1725468260"
+          },
+          "stopId": "10047"
+        }
+      ]
+    }
+  },
+  {
+    "id": "20",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "44894"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725469037"
+          },
+          "stopId": "10056"
+        },
+        {
+          "arrival": {
+            "time": "1725467746"
+          },
+          "stopId": "10053"
+        },
+        {
+          "arrival": {
+            "time": "1725468160"
+          },
+          "stopId": "10058"
+        },
+        {
+          "arrival": {
+            "time": "1725468605"
+          },
+          "stopId": "10074"
+        }
+      ]
+    }
+  },
+  {
+    "id": "21",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577929"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467780"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467823"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468227"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468265"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468329"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468390"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468500"
+          },
+          "stopId": "62662"
+        }
+      ]
+    }
+  },
+  {
+    "id": "22",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "583177"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725470010"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468821"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725467715"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468209"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725468237"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725468267"
+          },
+          "stopId": "21050"
+        }
+      ]
+    }
+  },
+  {
+    "id": "23",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "579318"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467757"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725467769"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725467933"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468502"
+          },
+          "stopId": "10071"
+        },
+        {
+          "arrival": {
+            "time": "1725468675"
+          },
+          "stopId": "10029"
+        }
+      ]
+    }
+  },
+  {
+    "id": "24",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "579319"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467797"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725467927"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468481"
+          },
+          "stopId": "10071"
+        },
+        {
+          "arrival": {
+            "time": "1725468682"
+          },
+          "stopId": "10029"
+        }
+      ]
+    }
+  },
+  {
+    "id": "25",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "583208"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468475"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468512"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468650"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725469204"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725469399"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725469581"
+          },
+          "stopId": "21050"
+        }
+      ]
+    }
+  },
+  {
+    "id": "26",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "44935"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725469369"
+          },
+          "stopId": "10098"
+        },
+        {
+          "arrival": {
+            "time": "1725467916"
+          },
+          "stopId": "10053"
+        },
+        {
+          "arrival": {
+            "time": "1725468184"
+          },
+          "stopId": "10066"
+        },
+        {
+          "arrival": {
+            "time": "1725467767"
+          },
+          "stopId": "10057"
+        },
+        {
+          "arrival": {
+            "time": "1725468672"
+          },
+          "stopId": "10079"
+        },
+        {
+          "arrival": {
+            "time": "1725468703"
+          },
+          "stopId": "10054"
+        },
+        {
+          "arrival": {
+            "time": "1725468813"
+          },
+          "stopId": "10033"
+        },
+        {
+          "arrival": {
+            "time": "1725468908"
+          },
+          "stopId": "10090"
+        },
+        {
+          "arrival": {
+            "time": "1725469097"
+          },
+          "stopId": "10027"
+        }
+      ]
+    }
+  },
+  {
+    "id": "27",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577511"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468116"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725468160"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468370"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725468793"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725467685"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467765"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725467819"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467874"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "28",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588880"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467512"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725468081"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725468279"
+          },
+          "stopId": "10041"
+        }
+      ]
+    }
+  },
+  {
+    "id": "29",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576143"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467822"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467854"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725467476"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725467792"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "30",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578738"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467548"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467575"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725467586"
+          },
+          "stopId": "21050"
+        },
+        {
+          "arrival": {
+            "time": "1725467624"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725467753"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467881"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468092"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725468435"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "31",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578739"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468710"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467807"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725467833"
+          },
+          "stopId": "21050"
+        },
+        {
+          "arrival": {
+            "time": "1725467910"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725468143"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725468147"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468239"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725468490"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "32",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588870"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467769"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725467879"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725468212"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725467925"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467656"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "33",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576051"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467801"
+          },
+          "stopId": "10035"
+        }
+      ]
+    }
+  },
+  {
+    "id": "34",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578748"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467880"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467955"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725468089"
+          },
+          "stopId": "21050"
+        },
+        {
+          "arrival": {
+            "time": "1725468326"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725468679"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725468844"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725469062"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725469419"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "35",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577850"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467997"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725468111"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725468211"
+          },
+          "stopId": "10096"
+        },
+        {
+          "arrival": {
+            "time": "1725468448"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725468875"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725468935"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725468007"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "36",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578101"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467691"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467819"
+          },
+          "stopId": "10075"
+        },
+        {
+          "arrival": {
+            "time": "1725467911"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468112"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468238"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468386"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468471"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468588"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468816"
+          },
+          "stopId": "62662"
+        },
+        {
+          "arrival": {
+            "time": "1725467489"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "37",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578102"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467822"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467920"
+          },
+          "stopId": "10075"
+        },
+        {
+          "arrival": {
+            "time": "1725468011"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468113"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468247"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468396"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468480"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468597"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468825"
+          },
+          "stopId": "62662"
+        },
+        {
+          "arrival": {
+            "time": "1725469170"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "38",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576303"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467543"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467725"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467853"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "39",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588821"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467759"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467845"
+          },
+          "stopId": "10065"
+        }
+      ]
+    }
+  },
+  {
+    "id": "40",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588833"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467734"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467714"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725467629"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "41",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577533"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467445"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725467682"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467765"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725468186"
+          },
+          "stopId": "10052"
+        }
+      ]
+    }
+  },
+  {
+    "id": "42",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588880"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467574"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467689"
+          },
+          "stopId": "10065"
+        }
+      ]
+    }
+  },
+  {
+    "id": "43",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577500"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468025"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725468057"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468181"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725468479"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725468569"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467614"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467778"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "44",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578105"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467930"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467468"
+          },
+          "stopId": "62662"
+        },
+        {
+          "arrival": {
+            "time": "1725467715"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "45",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "579264"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467834"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725467855"
+          },
+          "stopId": "10039"
+        },
+        {
+          "arrival": {
+            "time": "1725467865"
+          },
+          "stopId": "21050"
+        },
+        {
+          "arrival": {
+            "time": "1725467897"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725468365"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725468375"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468566"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725467815"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "46",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577937"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467646"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467951"
+          },
+          "stopId": "10075"
+        },
+        {
+          "arrival": {
+            "time": "1725468034"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468066"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468082"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468096"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468115"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468134"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468234"
+          },
+          "stopId": "62662"
+        },
+        {
+          "arrival": {
+            "time": "1725468548"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "47",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577944"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467516"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467542"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467631"
+          },
+          "stopId": "10075"
+        },
+        {
+          "arrival": {
+            "time": "1725467718"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725467808"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725467942"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468092"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468175"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468292"
+          },
+          "stopId": "10036"
+        }
+      ]
+    }
+  },
+  {
+    "id": "48",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "577945"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467769"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725467803"
+          },
+          "stopId": "10075"
+        },
+        {
+          "arrival": {
+            "time": "1725468072"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725468106"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468123"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468139"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468199"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468288"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468515"
+          },
+          "stopId": "62662"
+        },
+        {
+          "arrival": {
+            "time": "1725468856"
+          },
+          "stopId": "10038"
+        }
+      ]
+    }
+  },
+  {
+    "id": "49",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "581037"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467502"
+          },
+          "stopId": "10060"
+        },
+        {
+          "arrival": {
+            "time": "1725467732"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725467761"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725467828"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725468139"
+          },
+          "stopId": "10089"
+        }
+      ]
+    }
+  },
+  {
+    "id": "50",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588856"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467792"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725468233"
+          },
+          "stopId": "10034"
+        },
+        {
+          "arrival": {
+            "time": "1725468270"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725468357"
+          },
+          "stopId": "10052"
+        },
+        {
+          "arrival": {
+            "time": "1725468593"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "51",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "588857"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467828"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725468318"
+          },
+          "stopId": "10041"
+        },
+        {
+          "arrival": {
+            "time": "1725468407"
+          },
+          "stopId": "10052"
+        }
+      ]
+    }
+  },
+  {
+    "id": "52",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576197"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467632"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467700"
+          },
+          "stopId": "10065"
+        },
+        {
+          "arrival": {
+            "time": "1725467415"
+          },
+          "stopId": "10071"
+        }
+      ]
+    }
+  },
+  {
+    "id": "53",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "576198"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467720"
+          },
+          "stopId": "10029"
+        },
+        {
+          "arrival": {
+            "time": "1725467832"
+          },
+          "stopId": "10065"
+        }
+      ]
+    }
+  },
+  {
+    "id": "54",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "578657"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468176"
+          },
+          "stopId": "10035"
+        },
+        {
+          "arrival": {
+            "time": "1725467574"
+          },
+          "stopId": "27767"
+        },
+        {
+          "arrival": {
+            "time": "1725468039"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725468113"
+          },
+          "stopId": "10042"
+        },
+        {
+          "arrival": {
+            "time": "1725468153"
+          },
+          "stopId": "10026"
+        },
+        {
+          "arrival": {
+            "time": "1725468219"
+          },
+          "stopId": "10061"
+        },
+        {
+          "arrival": {
+            "time": "1725468282"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468398"
+          },
+          "stopId": "62662"
+        }
+      ]
+    }
+  },
+  {
+    "id": "55",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "623726"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467924"
+          },
+          "stopId": "10037"
+        },
+        {
+          "arrival": {
+            "time": "1725467955"
+          },
+          "stopId": "10059"
+        },
+        {
+          "arrival": {
+            "time": "1725467994"
+          },
+          "stopId": "10036"
+        },
+        {
+          "arrival": {
+            "time": "1725468298"
+          },
+          "stopId": "10038"
+        },
+        {
+          "arrival": {
+            "time": "1725467806"
+          },
+          "stopId": "27767"
+        }
+      ]
+    }
+  },
+  {
+    "id": "56",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "536056"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467561"
+          },
+          "stopId": "22103"
+        },
+        {
+          "arrival": {
+            "time": "1725467565"
+          },
+          "stopId": "22104"
+        },
+        {
+          "arrival": {
+            "time": "1725467713"
+          },
+          "stopId": "22105"
+        },
+        {
+          "arrival": {
+            "time": "1725467905"
+          },
+          "stopId": "22106"
+        },
+        {
+          "arrival": {
+            "time": "1725468059"
+          },
+          "stopId": "23404"
+        },
+        {
+          "arrival": {
+            "time": "1725468253"
+          },
+          "stopId": "22107"
+        }
+      ]
+    }
+  },
+  {
+    "id": "57",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "536057"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725468600"
+          },
+          "stopId": "22103"
+        },
+        {
+          "arrival": {
+            "time": "1725468604"
+          },
+          "stopId": "22104"
+        },
+        {
+          "arrival": {
+            "time": "1725467820"
+          },
+          "stopId": "22105"
+        },
+        {
+          "arrival": {
+            "time": "1725467898"
+          },
+          "stopId": "22106"
+        },
+        {
+          "arrival": {
+            "time": "1725468050"
+          },
+          "stopId": "23404"
+        },
+        {
+          "arrival": {
+            "time": "1725468239"
+          },
+          "stopId": "22107"
+        }
+      ]
+    }
+  },
+  {
+    "id": "58",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "44839"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467700"
+          },
+          "stopId": "10056"
+        },
+        {
+          "arrival": {
+            "time": "1725467773"
+          },
+          "stopId": "10090"
+        },
+        {
+          "arrival": {
+            "time": "1725468061"
+          },
+          "stopId": "10033"
+        },
+        {
+          "arrival": {
+            "time": "1725468236"
+          },
+          "stopId": "10055"
+        },
+        {
+          "arrival": {
+            "time": "1725468559"
+          },
+          "stopId": "10053"
+        },
+        {
+          "arrival": {
+            "time": "1725468898"
+          },
+          "stopId": "10093"
+        },
+        {
+          "arrival": {
+            "time": "1725469124"
+          },
+          "stopId": "10058"
+        },
+        {
+          "arrival": {
+            "time": "1725469329"
+          },
+          "stopId": "10074"
+        },
+        {
+          "arrival": {
+            "time": "1725469479"
+          },
+          "stopId": "10076"
+        },
+        {
+          "arrival": {
+            "time": "1725469583"
+          },
+          "stopId": "10050"
+        },
+        {
+          "arrival": {
+            "time": "1725469698"
+          },
+          "stopId": "10047"
+        }
+      ]
+    }
+  },
+  {
+    "id": "59",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "44840"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725469802"
+          },
+          "stopId": "10056"
+        },
+        {
+          "arrival": {
+            "time": "1725467812"
+          },
+          "stopId": "10090"
+        },
+        {
+          "arrival": {
+            "time": "1725468061"
+          },
+          "stopId": "10033"
+        },
+        {
+          "arrival": {
+            "time": "1725468236"
+          },
+          "stopId": "10055"
+        },
+        {
+          "arrival": {
+            "time": "1725468559"
+          },
+          "stopId": "10053"
+        },
+        {
+          "arrival": {
+            "time": "1725468898"
+          },
+          "stopId": "10093"
+        },
+        {
+          "arrival": {
+            "time": "1725469124"
+          },
+          "stopId": "10058"
+        },
+        {
+          "arrival": {
+            "time": "1725469329"
+          },
+          "stopId": "10074"
+        },
+        {
+          "arrival": {
+            "time": "1725469479"
+          },
+          "stopId": "10076"
+        },
+        {
+          "arrival": {
+            "time": "1725469583"
+          },
+          "stopId": "10050"
+        },
+        {
+          "arrival": {
+            "time": "1725469698"
+          },
+          "stopId": "10047"
+        }
+      ]
+    }
+  },
+  {
+    "id": "60",
+    "tripUpdate": {
+      "trip": {
+        "tripId": "535957"
+      },
+      "stopTimeUpdate": [
+        {
+          "arrival": {
+            "time": "1725467901"
+          },
+          "stopId": "22103"
+        },
+        {
+          "arrival": {
+            "time": "1725467907"
+          },
+          "stopId": "22104"
+        },
+        {
+          "arrival": {
+            "time": "1725468241"
+          },
+          "stopId": "22105"
+        },
+        {
+          "arrival": {
+            "time": "1725468423"
+          },
+          "stopId": "22106"
+        },
+        {
+          "arrival": {
+            "time": "1725468588"
+          },
+          "stopId": "23404"
+        },
+        {
+          "arrival": {
+            "time": "1725467670"
+          },
+          "stopId": "22107"
+        }
+      ]
+    }
+  }
+]
