@@ -1,0 +1,38 @@
+[
+  {
+    "code": "PHL",
+    "STATION_2CHAR": "PH",
+    "STATIONNAME": "Philadelphia",
+    "STATION_14CHAR": "Philadelphia"
+  },
+  {
+    "code": "MET",
+    "STATION_2CHAR": "MP",
+    "STATIONNAME": "Metropark",
+    "STATION_14CHAR": "Metropark"
+  },
+  {
+    "code": "TRE",
+    "STATION_2CHAR": "TR",
+    "STATIONNAME": "Trenton",
+    "STATION_14CHAR": "Trenton"
+  },
+  {
+    "code": "EWR",
+    "STATION_2CHAR": "NA",
+    "STATIONNAME": "Newark Airport",
+    "STATION_14CHAR": "Newark Airport"
+  },
+  {
+    "code": "NWK",
+    "STATION_2CHAR": "NP",
+    "STATIONNAME": "Newark Penn Station",
+    "STATION_14CHAR": "Newark Penn"
+  },
+  {
+    "code": "NYP",
+    "STATION_2CHAR": "NY",
+    "STATIONNAME": "New York Penn Station",
+    "STATION_14CHAR": "New York"
+  }
+]
