@@ -1,4 +1,5 @@
 {
   "api.joeverlevel.com": "/joeverlevel",
-  "bigboyapi.amtraker.com": "/bigboy"
+  "bigboyapi.amtraker.com": "/bigboy",
+  "platformsapi": "/njt_rail_platforms"
 }
