@@ -126,14 +126,9 @@ const updateFeed = async (feed) => {
       "method": "POST",
       "mode": "cors"
     });
-
     const routes = await routesReq.json();
     const stops = await stopsReq.json();
     const buses = await busesReq.json();
-
-    //console.log(routes)
-    //console.log(stops)
-    //console.log(buses)
 
     //fs.writeFileSync('./routes.json', JSON.stringify(routes, null, 2));
     //fs.writeFileSync('./stops.json', JSON.stringify(stops, null, 2));
@@ -542,7 +537,7 @@ const updateFeed = async (feed) => {
 const updateFeedInd = async (feedKey) => {
   let feed = feedsDict[feedKey];
 
-  if (feed.username !== '') return false;
+  //if (feed.username !== '') return false;
 
   if (extraConfig[feed.username]) {
     feed = {
