@@ -5,20 +5,10 @@ const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
 require('dotenv').config();
 
-const interpolatePosition = (stationA, stationB, line, segmentsData) => {
-  const segmentKey = segmentsData.segmentKeyDict[`${line}_${stationA}_${stationB}`];
-
-  //console.log('key:', `${line}_${stationA}_${stationB}`)
-  //console.log('data:', segmentsData.segments[segmentKey]);
-
-  if (segmentsData.segments[segmentKey]) return true;
-  return false;
-
-  return {
-    latitude: 0,
-    longitude: 0,
-    heading: 0,
-  }
+const titleCase = (str) => {
+  return str.toLowerCase().split(/-| /).map(function (word) {
+    return (word.charAt(0).toUpperCase() + word.slice(1));
+  }).join(' ');
 };
 
 const updateFeed = async () => {
@@ -77,21 +67,7 @@ const updateFeed = async () => {
     const routesReq = await fetch('https://gtfs.piemadd.com/data/wmata_rail/routes.json');
     const stopsReq = await fetch('https://gtfs.piemadd.com/data/wmata_rail/stops.json');
 
-    const routesDataTemp = await routesReq.json();
-    const routesData = {
-      ...routesDataTemp,
-      "NR": {
-        "routeID": "NR",
-        "routeShortName": "No Route",
-        "routeLongName": "No Route",
-        "routeType": "1",
-        "routeColor": "000000",
-        "routeTextColor": "FFFFFF",
-        "routeTrips": {},
-        "routeStations": [],
-        "destinations": []
-      },
-    }
+    const routesData = await routesReq.json();
 
     const stopsData = await stopsReq.json();
     //finished fetching static data
@@ -109,7 +85,7 @@ const updateFeed = async () => {
       transitStatus.lines[routeKey] = {
         lineCode: routesData[routeKey].routeID,
         lineNameShort: routesData[routeKey].routeShortName,
-        lineNameLong: routesData[routeKey].routeLongName,
+        lineNameLong: routesData[routeKey].routeLongName.replace('Metrorail ', ""),
         routeColor: routesData[routeKey].routeColor,
         routeTextColor: routesData[routeKey].routeTextColor,
         stations: routesData[routeKey].routeStations,
@@ -121,7 +97,7 @@ const updateFeed = async () => {
     Object.keys(stopsData).forEach((stopKey) => {
       transitStatus.stations[stopKey] = {
         stationID: stopsData[stopKey].stopID,
-        stationName: stopsData[stopKey].stopName,
+        stationName: titleCase(stopsData[stopKey].stopName.split(',')[0].replace(' METRORAIL STATION', '')),
         destinations: {},
         lat: stopsData[stopKey].stopLat,
         lon: stopsData[stopKey].stopLon,
@@ -154,8 +130,7 @@ const updateFeed = async () => {
       const tripMeta = tripUpdate.tripUpdate.trip;
       const route = routesData[tripMeta.routeId];
 
-      //console.log(tripMeta.routeId, tripMeta)
-      //console.log(route)
+      if (!route) return; // no line
 
       if (!tripMeta || !tripMeta.routeId) return; //need the route id, even for fallbacks
 
@@ -170,38 +145,22 @@ const updateFeed = async () => {
         }
       }
 
-      /*
-      if (!positionMeta) {
-        console.log('vid:', positions[`vehicle_${vehicle.id}`])
-        console.log('tid:', positions[`trip_${tripMeta.tripId}`])
-        console.log(tripMeta)
-        console.log(stopTimes.length)
-      }
-
-      if (!route) {
-        console.log(route)
-        console.log(tripMeta)
-        console.log(tripMeta.routeId)
-        console.log(Object.keys(routesData).filter((n) => n.startsWith('EM')).join(','))
-      }
-      */
-
       transitStatus.trains[vehicle.id] = {
         lat: positionMeta.latitude,
         lon: positionMeta.longitude,
         heading: positionMeta.bearing,
-        line: route.routeLongName,
+        line: route.routeLongName.replace('Metrorail ', ""),
         lineCode: tripMeta.routeId,
         lineColor: route.routeColor,
         lineTextColor: route.routeTextColor,
-        dest: route.routeTrips[tripMeta.tripId] ? route.routeTrips[tripMeta.tripId].headsign : stopsData[stopTimes[stopTimes.length - 1].stopId].stopName,
+        dest: titleCase((route.routeTrips[tripMeta.tripId] ? route.routeTrips[tripMeta.tripId].headsign : stopsData[stopTimes[stopTimes.length - 1].stopId].stopName).split(',')[0]),
         predictions: stopTimes.map((stopTime) => {
           //console.log(stopTime)
           const timeObject = stopTime.arrival ?? stopTime.departure;
 
           let res = {
             stationID: stopTime.stopId,
-            stationName: stopsData[stopTime.stopId].stopName,
+            stationName: titleCase(stopsData[stopTime.stopId].stopName.split(',')[0].replace(' METRORAIL STATION', '')),
           };
 
           if (timeObject) {
