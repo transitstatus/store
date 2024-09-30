@@ -126,7 +126,7 @@ const updateFeed = async () => {
       if (!tripUpdate.tripUpdate.vehicle) return;
 
       const vehicle = tripUpdate.tripUpdate.vehicle;
-      const stopTimes = tripUpdate.tripUpdate.stopTimeUpdate.sort((a, b) => b.stopSequence - a.stopSequence);
+      const stopTimes = tripUpdate.tripUpdate.stopTimeUpdate.sort((a, b) => a.stopSequence - b.stopSequence);
       const tripMeta = tripUpdate.tripUpdate.trip;
       const route = routesData[tripMeta.routeId];
 
@@ -171,8 +171,10 @@ const updateFeed = async () => {
             res.noETA = true
           }
 
+          if (res.actualETA < now - (1000 * 60 * 2)) return false;
+
           return res;
-        })
+        }).filter((station) => station != false)
       }
 
       // for easy access
