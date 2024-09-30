@@ -188,13 +188,15 @@ const updateFeed = async () => {
 
       //adding destinations to stops
       transitStatusVehicle.predictions.forEach((station) => {
-        if (!transitStatus.stations[station.stationID].destinations[lastStop.stationName]) {
-          transitStatus.stations[station.stationID].destinations[lastStop.stationName] = {
+        const actualStationID = stopsData[station.stationID].parentStation.length > 0 ? stopsData[station.stationID].parentStation : station.stationID;
+
+        if (!transitStatus.stations[actualStationID].destinations[lastStop.stationName]) {
+          transitStatus.stations[actualStationID].destinations[lastStop.stationName] = {
             trains: []
           }
         }
 
-        transitStatus.stations[station.stationID].destinations[lastStop.stationName].trains.push({
+        transitStatus.stations[actualStationID].destinations[lastStop.stationName].trains.push({
           runNumber: vehicle.id,
           actualETA: station.actualETA,
           noETA: station.noETA,
