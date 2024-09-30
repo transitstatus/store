@@ -97,7 +97,7 @@ const updateFeed = async () => {
       const stopData = stopsData[stopKey];
 
       // only stations
-      if (!stopsData.stopID.startsWith('STN')) return;
+      if (!stopData.stopID.startsWith('STN')) return;
 
       transitStatus.stations[stopKey] = {
         stationID: stopData.stopID,
