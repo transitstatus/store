@@ -68,7 +68,6 @@ const updateFeed = async () => {
     const stopsReq = await fetch('https://gtfs.piemadd.com/data/wmata_rail/stops.json');
 
     const routesData = await routesReq.json();
-
     const stopsData = await stopsReq.json();
     //finished fetching static data
 
@@ -95,12 +94,17 @@ const updateFeed = async () => {
 
     //pushing stops into transitstatus object
     Object.keys(stopsData).forEach((stopKey) => {
+      const stopData = stopsData[stopKey];
+
+      // only stations
+      if (!stopsData.stopID.startsWith('STN')) return;
+
       transitStatus.stations[stopKey] = {
-        stationID: stopsData[stopKey].stopID,
-        stationName: titleCase(stopsData[stopKey].stopName.split(',')[0].replace(' METRORAIL STATION', '')),
+        stationID: stopData.stopID,
+        stationName: titleCase(stopData.stopName.split(',')[0].replace(' METRORAIL STATION', '')),
         destinations: {},
-        lat: stopsData[stopKey].stopLat,
-        lon: stopsData[stopKey].stopLon,
+        lat: stopData.stopLat,
+        lon: stopData.stopLon,
       }
     })
 
