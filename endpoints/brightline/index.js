@@ -138,11 +138,11 @@ const updateFeed = async () => {
           finalBrightlineV1.stations[stopTime.stopId].destinations[destination].trains.push(
             {
               runNumber: trip.id.split('_')[0],
-              actualEta: stopTime.departure ? stopTime.departure.time.toNumber() : stopTime.arrival.time.toNumber(),
-              arr: stopTime.arrival ? stopTime.arrival.time.toNumber() : stopTime.departure.time.toNumber(),
-              dep: stopTime.departure ? stopTime.departure.time.toNumber() : stopTime.arrival.time.toNumber(),
-              arrDelay: stopTime.arrival ? stopTime.arrival.delay : stopTime.departure.delay,
-              depDelay: stopTime.departure ? stopTime.departure.delay : stopTime.arrival.delay,
+              actualEta: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
+              arr: (stopTime.arrival ?? stopTime.departure).time.toNumber() * 1000,
+              dep: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
+              arrDelay: (stopTime.arrival ?? stopTime.departure).delay,
+              depDelay: (stopTime.departure ?? stopTime.arrival).delay,
               noETA: false,
               line: route.routeLongName,
               lineCode: route.routeID,
@@ -154,11 +154,11 @@ const updateFeed = async () => {
           return {
             stationID: stopTime.stopId,
             stationName: fetchedData.brightlineStops[stopTime.stopId].stopName,
-            actualEta: stopTime.departure ? stopTime.departure.time.toNumber() : stopTime.arrival.time.toNumber(),
-            arr: stopTime.arrival ? stopTime.arrival.time.toNumber() : stopTime.departure.time.toNumber(),
-            dep: stopTime.departure ? stopTime.departure.time.toNumber() : stopTime.arrival.time.toNumber(),
-            arrDelay: stopTime.arrival ? stopTime.arrival.delay : stopTime.departure.delay,
-            depDelay: stopTime.departure ? stopTime.departure.delay : stopTime.arrival.delay,
+            actualEta: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
+            arr: (stopTime.arrival ?? stopTime.departure).time.toNumber() * 1000,
+            dep: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
+            arrDelay: (stopTime.arrival ?? stopTime.departure).delay,
+            depDelay: (stopTime.departure ?? stopTime.arrival).delay,
             noETA: false,
           }
         }),
