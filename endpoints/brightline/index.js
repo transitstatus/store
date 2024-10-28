@@ -128,7 +128,7 @@ const updateFeed = async () => {
         position.bearing = 0;
       }
 
-      finalBrightlineV1.routes[route.routeID].hasActiveTrains = true;
+      finalBrightlineV1.lines[route.routeID].hasActiveTrains = true;
 
       finalBrightlineV1.trains[trip.id.split('_')[0]] = {
         line: route.routeLongName,
