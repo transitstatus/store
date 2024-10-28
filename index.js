@@ -36,7 +36,7 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
-  const only_testing = 'njt_rail_platforms';
+  const only_testing = '';
 
   let data = {};
 
