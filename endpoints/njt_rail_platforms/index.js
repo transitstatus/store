@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const updateFeed = async () => {
   try {
-    if (!process.env.bay_511) return false;
+    if (!process.env.NJT_REGULAR_RAIL_KEY) return false;
 
     const now = new Date();
 
