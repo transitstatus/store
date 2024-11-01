@@ -39,7 +39,7 @@ fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
 
   //ensuring the plugin(s) load before we start registering endpoints
   fastify.after(() => {
-    const only_testing = 'cta_trains';
+    const only_testing = '';
 
     let data = {};
 
