@@ -78,6 +78,7 @@ const update = async () => {
             //eta: stop.minutes,
             actualETA: new Date(lastUpdated).getTime() + (stop.minutes * 60 * 1000),
             noETA: false,
+            realTime: true,
           }
         }),
         type: 'train',
@@ -98,6 +99,7 @@ const update = async () => {
           //eta: prediction.eta,
           actualETA: prediction.actualETA,
           noETA: prediction.noETA,
+          realTime: true,
           line: train.line,
           lineCode: train.lineCode,
           lineColor: train.lineColor,

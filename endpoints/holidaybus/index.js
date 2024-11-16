@@ -101,6 +101,7 @@ const update = async () => {
             runNumber: prediction.vid,
             actualETA: parseTime(prediction.prdtm),
             noETA: false,
+            realTime: true,
             line: prediction.rt,
             lineCode: prediction.rt,
             lineColor: '2eb712',
@@ -124,7 +125,8 @@ const update = async () => {
           stationID: prediction.stpid,
           stationName: prediction.stpnm,
           actualETA: parseTime(prediction.prdtm),
-          noETA: false
+          noETA: false,
+          realTime: true,
         }
       }),
     }

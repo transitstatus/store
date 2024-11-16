@@ -146,6 +146,7 @@ const updateFeed = async () => {
               arrDelay: (stopTime.arrival ?? stopTime.departure).delay * 1000,
               depDelay: (stopTime.departure ?? stopTime.arrival).delay * 1000,
               noETA: false,
+              realTime: true,
               line: route.routeLongName,
               lineCode: route.routeID,
               lineColor: route.routeColor,
@@ -162,6 +163,7 @@ const updateFeed = async () => {
             arrDelay: (stopTime.arrival ?? stopTime.departure).delay * 1000,
             depDelay: (stopTime.departure ?? stopTime.arrival).delay * 1000,
             noETA: false,
+            realTime: true,
             tz: fetchedData.brightlineStops[stopTime.stopId].stopTZ
           }
         }),

@@ -170,6 +170,7 @@ const updateFeed = async (feedKey) => {
             stationID: stopTime.stopId,
             stationName: stopsData[stopTime.stopId].stopName,
             actualETA: Math.max(stopTime.arrival?.time?.low, stopTime.arrival?.time?.high) * 1000,
+            realTime: true,
             noETA: false,
           };
         })

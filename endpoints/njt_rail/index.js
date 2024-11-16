@@ -193,9 +193,11 @@ const updateFeed = async () => {
           if (timeObject) {
             res.actualETA = Math.max(timeObject.time?.low, timeObject.time?.high) * 1000
             res.noETA = false
+            res.realTime = true
           } else {
             res.actualETA = 0
             res.noETA = true
+            res.realTime = true
           }
 
           return res;
@@ -219,6 +221,7 @@ const updateFeed = async () => {
           runNumber: vehicle.id,
           actualETA: station.actualETA,
           noETA: station.noETA,
+          realTime: station.realTime,
           line: transitStatusVehicle.line,
           lineCode: transitStatusVehicle.lineCode,
           lineColor: transitStatusVehicle.lineColor,

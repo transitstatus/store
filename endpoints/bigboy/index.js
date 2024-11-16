@@ -66,6 +66,7 @@ const update = async () => {
               "runNumber": "4014",
               "actualETA": etaToUse,
               "noETA": false,
+              realTime: true,
               "line": "Big Boy",
               "lineCode": "BigBoy",
               "lineColor": "feca00",
@@ -83,6 +84,7 @@ const update = async () => {
         "stationID": station.code,
         "stationName": station.name,
         "actualETA": etaToUse,
+        realTime: true,
         "noETA": false
       })
     }

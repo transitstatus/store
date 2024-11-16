@@ -397,6 +397,7 @@ const updateFeed = async (feed) => {
               stationName: transitStatus.stations[actualStopKey].stationName,
               actualETA: 0,
               noETA: true,
+              realTime: true,
             });
             return; //exiting loop
           } else {
@@ -421,6 +422,7 @@ const updateFeed = async (feed) => {
           stationName: transitStatus.stations[actualStopKey].stationName,
           actualETA: finalETAVal,
           noETA: false,
+          realTime: true,
         });
       })
     });
@@ -453,6 +455,7 @@ const updateFeed = async (feed) => {
                   stationName: transitStatus.stations[stopKey].stationName,
                   actualETA: fallbackData[vidToTripDict[trainKey]][stopKey],
                   noETA: false,
+                  realTime: true,
                 }
               } else {
                 predictionsDict[stopKey].actualETA = fallbackData[vidToTripDict[trainKey]][stopKey]
@@ -502,6 +505,7 @@ const updateFeed = async (feed) => {
           //eta: prediction.eta,
           actualETA: prediction.actualETA,
           noETA: prediction.noETA,
+          realTime: true,
           line: train.line,
           lineCode: train.lineCode,
           lineColor: train.lineColor,

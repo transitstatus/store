@@ -62,7 +62,8 @@ exports.update = async () => {
           stationID: station.code,
           stationName: station.name,
           actualETA: new Date(station.dep).valueOf(),
-          noETA: false
+          noETA: false,
+          realTime: true,
         }
       }).filter((prediction) => {
         if (prediction.actualETA < now + (1000 * 60 * 5)) return false; //if the train was due more than 5 mintues ago
@@ -95,6 +96,7 @@ exports.update = async () => {
         runNumber: train.trainID,
         actualETA: prediction.actualETA,
         noETA: false,
+        realTime: prediction.realTime,
         line: train.routeName,
         lineCode: train.routeName,
         lineColor: "5366c9",
