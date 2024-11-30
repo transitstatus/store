@@ -14,7 +14,24 @@ const actualLines = {
   'UP-N': 'Union Pacific North',
   'UP-NW': 'Union Pacific Northwest',
   'UP-W': 'Union Pacific West',
-}
+};
+
+const holidayTrains = [
+  'ME-BX02',
+  'ME-BX03',
+  'ME-BX04',
+  'ME-BX05',
+  'BNSF-9513',
+  'BNSF-9516',
+  'RI-MX01',
+  'RI-MX02',
+  'MDN-NX02',
+  'MDN-NX03',
+  'UPN-8911',
+  'UPN-8914',
+  'UPNW-7902',
+  'UPNW-7903',
+]
 
 const recursivelyParseObjectValuesIntoString = (obj) => {
   if (typeof obj === 'string') {
@@ -110,6 +127,9 @@ const update = (async () => {
         dest: staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id]?.headsign ?? "Unknown Dest",
         predictions: [],
         type: 'train',
+        extra: {
+          holidayChristmas: holidayTrains.includes(runNumber),
+        }
       }
 
       //adding predictions to transitStatus object
@@ -159,6 +179,9 @@ const update = (async () => {
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
           lineTextColor: finalTrain.lineTextColor,
+          extra: {
+            holidayChristmas: holidayTrains.includes(runNumber),
+          }
         });
       });
 
