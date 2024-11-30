@@ -106,6 +106,9 @@ const update = async () => {
             lineCode: prediction.rt,
             lineColor: '2eb712',
             lineTextColor: 'ffffff',
+            extra: {
+              holidayChristmas: true,
+            }
           }
         ]
       }
@@ -129,6 +132,9 @@ const update = async () => {
           realTime: true,
         }
       }),
+      extra: {
+        holidayChristmas: true,
+      }
     }
 
     return transitStatusObject;

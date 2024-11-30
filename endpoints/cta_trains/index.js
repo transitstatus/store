@@ -115,38 +115,19 @@ const processData = async () => {
     const stationsData = await stationsReq.json();
 
     let processedData = {
-      lines: {},
-      stations: {},
-      trains: {},
-      headways: {
-        lines: {},
-        stations: {},
-        trains: {},
-      },
       transitStatus: {
         trains: {},
         stations: {},
         lines: {}
       },
-      interval: 30000,
     };
 
     data.dataObject.forEach((line) => {
-      let stations = {};
-      let headways = {};
-      let trains = {};
-
       line.Markers.forEach((train) => {
-        if (train.IsSched) return;
-
-        let stationPastLoop = false;
-
-        processedData.trains[train.RunNumber] = {
-          lat: train.Position.Lat,
-          lon: train.Position.Lng,
-          heading: ((2 * Math.PI - train.Direction) / (2 * Math.PI)) * 360 + 90,
-          line: actualLines[line.Line],
-        };
+        if (train.IsSched) {
+          //console.log(train)
+          return;
+        }
 
         processedData.transitStatus.trains[train.RunNumber] = {
           lat: train.Position.Lat,
@@ -159,89 +140,26 @@ const processData = async () => {
           dest: train.DestName.split('&')[0],
           predictions: [],
           type: 'train',
+          extra: {
+            holidayChristmas: train.RunNumber == 1225,
+          }
         };
 
-        train.Predictions.forEach((prediction, i, arr) => {
+        const now = Date.now();
 
+        train.Predictions.forEach((prediction, i, arr) => {
           let dest = train.DestName.split('&')[0];
           const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
-
-          const now = new Date().valueOf();
           const actualETA = now + (eta * 60000);
-
-          if (!isNaN(eta)) {
-            //setting up station if it doesn't exist
-            if (!stations[parseInt(prediction[0])]) {
-              stations[parseInt(prediction[0])] = {
-                dest: {},
-                stationName: prediction[1],
-              };
-            };
-
-            // changing destination if past station before loop
-            if (stationPastLoop) {
-              dest = lineMeta[line.Line].postLoopAlt;
-            }
-
-            //setting up destination if it doesn't exist
-            if (!stations[parseInt(prediction[0])]['dest'][dest]) {
-              stations[parseInt(prediction[0])]['dest'][dest] = {
-                etas: [],
-                headways: [],
-                avgHeadway: 0,
-                runNumbers: [],
-              };
-            };
-
-            //adding headway to station
-            stations[parseInt(prediction[0])]['dest'][dest].etas.push(eta);
-
-            //adding run number to station
-            stations[parseInt(prediction[0])]['dest'][dest].runNumbers.push(train.RunNumber);
-
-            //if final station, adding headway to line
-            if (i === arr.length - 1 || (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit)) {
-              if (!headways[dest]) {
-                headways[dest] = {
-                  etas: [],
-                  headways: [],
-                  avgHeadway: 0,
-                  runNumbers: [],
-                };
-              };
-
-              headways[dest].etas.push(eta);
-              headways[dest].runNumbers.push(train.RunNumber);
-            }
-
-            if (additionalStops[line.Line] && additionalStops[line.Line][prediction[1]]) {
-              if (!headways[additionalStops[line.Line][prediction[1]]]) {
-                headways[additionalStops[line.Line][prediction[1]]] = {
-                  etas: [],
-                  headways: [],
-                  avgHeadway: 0,
-                  runNumbers: [],
-                };
-              }
-
-              headways[additionalStops[line.Line][prediction[1]]].etas.push(eta);
-              headways[additionalStops[line.Line][prediction[1]]].runNumbers.push(train.RunNumber);
-            }
-          }
-
-          //checking if train is past loop
-          if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
-            stationPastLoop = true;
-          };
+          const isRealtime = !train.IsSched;
 
           //adding prediction to train
           processedData.transitStatus.trains[train.RunNumber].predictions.push({
             stationID: prediction[0],
             stationName: prediction[1],
-            //eta: eta,
             actualETA: actualETA,
             noETA: isNaN(eta),
-            realTime: true,
+            realTime: isRealtime,
           });
 
           //adding train to stations
@@ -261,65 +179,19 @@ const processData = async () => {
 
           processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
             runNumber: train.RunNumber,
-            //eta: eta,
             actualETA: actualETA,
             noETA: isNaN(eta),
-            realTime: true,
+            realTime: isRealtime,
             line: actualLines[line.Line],
             lineCode: line.Line,
             lineColor: routesData[validLinesReverse[line.Line]].routeColor,
             lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
+            extra: {
+              holidayChristmas: train.RunNumber == 1225,
+            }
           });
         });
       });
-
-      //looping through stations
-      Object.keys(stations).forEach((station) => {
-        Object.keys(stations[station]['dest']).forEach((dest) => {
-          //sorting ETAs
-          stations[station]['dest'][dest].etas.sort((a, b) => a - b);
-
-          //calculating headways
-          stations[station]['dest'][dest].etas.forEach((eta, i, arr) => {
-            if (i === 0) stations[station]['dest'][dest].headways.push(eta);
-            else stations[station]['dest'][dest].headways.push(eta - arr[i - 1]);
-          });
-
-          //calculating average headway
-          stations[station]['dest'][dest].avgHeadway = calcAvgHeadway(stations[station]['dest'][dest].headways);
-        });
-      });
-
-      //looping through headways
-      Object.keys(headways).forEach((dest) => {
-        //sorting ETAs
-        headways[dest].etas.sort((a, b) => a - b);
-
-        //calculating headways
-        headways[dest].etas.forEach((eta, i, arr) => {
-          if (i === 0) headways[dest].headways.push(eta);
-          else headways[dest].headways.push(eta - arr[i - 1]);
-        });
-
-        //calculating average headway
-        headways[dest].avgHeadway = calcAvgHeadway(headways[dest].headways);
-      });
-
-      //adding stations to processedData
-      Object.keys(stations).forEach((station) => {
-        if (!processedData.stations[station]) {
-          processedData.stations[station] = {
-            stationName: stations[station].stationName,
-            lines: {},
-          };
-        };
-
-        processedData.stations[station].lines[actualLines[line.Line]] = stations[station].dest;
-      });
-
-      //adding headways to processedData
-      processedData.lines[actualLines[line.Line]] = headways;
-      console.log('Data updated!')
     })
 
     Object.keys(validLines).forEach((lineCode) => {
@@ -370,8 +242,6 @@ const processData = async () => {
       });
     });
 
-    //console.log(processedData)
-
     Object.keys(processedData.transitStatus.trains).forEach((train) => {
       const trainData = processedData.transitStatus.trains[train];
 
@@ -380,9 +250,7 @@ const processData = async () => {
 
     const updated = new Date().toISOString();
 
-    processedData.lastUpdated = updated;
     processedData.transitStatus.lastUpdated = updated;
-    processedData.versionNumberAPI = '2.0.0'
 
     return processedData;
   } catch (e) {
