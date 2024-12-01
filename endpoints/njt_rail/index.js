@@ -119,12 +119,6 @@ const updateFeed = async () => {
 
     let positions = {};
     vehiclePositionsFeed.entity.forEach((position, i) => {
-      //console.log('vehicle:', position.vehicle)
-      //console.log('trip:', position.vehicle.trip)
-      //console.log('tripid:', position.vehicle.trip.tripId)
-
-      console.log(position)
-
       if (position.vehicle.vehicle) {
         positions['vehicle_' + position.vehicle.vehicle.id] = position.vehicle.position;
       }
@@ -155,23 +149,6 @@ const updateFeed = async () => {
           heading: 0,
         }
       }
-
-      /*
-      if (!positionMeta) {
-        console.log('vid:', positions[`vehicle_${vehicle.id}`])
-        console.log('tid:', positions[`trip_${tripMeta.tripId}`])
-        console.log(tripMeta)
-        console.log(stopTimes.length)
-      }
-
-      if (!route) {
-        console.log(route)
-        console.log(tripMeta)
-        console.log(tripMeta.routeId)
-        console.log(Object.keys(routesData).filter((n) => n.startsWith('EM')).join(','))
-      }
-      */
-
       transitStatus.trains[vehicle.id] = {
         lat: positionMeta.latitude,
         lon: positionMeta.longitude,
@@ -182,7 +159,6 @@ const updateFeed = async () => {
         lineTextColor: route.routeTextColor,
         dest: route.routeTrips[tripMeta.tripId] ? route.routeTrips[tripMeta.tripId].headsign : stopsData[stopTimes[stopTimes.length - 1].stopId].stopName,
         predictions: stopTimes.map((stopTime) => {
-          console.log(stopTime)
           const timeObject = stopTime.arrival ?? stopTime.departure;
 
           let res = {
@@ -231,8 +207,6 @@ const updateFeed = async () => {
 
       //making it active
       transitStatus.lines[tripMeta.routeId].hasActiveTrains = true;
-
-      //console.log(transitStatus.trains[vehicle.id])
     })
 
     console.log(`Finished updating NJT`)
