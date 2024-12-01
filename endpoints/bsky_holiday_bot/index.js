@@ -33,7 +33,7 @@ const postMessage = (endpoint, type, runNumber, sessData, now) => {
 
       const data = JSON.parse(rawData);
 
-      const postText = `The CTA Holiday ${type} is on the ${data.line} line toward ${data.dest}
+      const postText = `The CTA Holiday ${type} is on the ${data.line}${type == 'Train' ? ' line' : ''} toward ${data.dest}
 Next Stops:
 ${data.predictions.slice(0, 5).map((prediction) => `• ${prediction.stationName}: ${hoursMinutesUntilArrival(prediction.actualETA)} - ${usTimeStamp(prediction.actualETA)}`).join('\n')}
 Track It Here`;
@@ -96,7 +96,7 @@ const update = async () => {
     const sessData = await sessReq.json();
 
     postMessage('https://store.transitstat.us/cta_trains/transitStatus/trains/1225', 'Train', '1225', sessData, now);
-    postMessage('https://store.transitstat.us/holidaybus/4374', 'Bus', '4374', sessData, now);
+    postMessage('https://store.transitstat.us/holidaybus/trains/4374', 'Bus', '4374', sessData, now);
 
     return true;
   } catch (e) {
