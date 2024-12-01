@@ -49,6 +49,9 @@ const update = async () => {
     const routesData = await routesReq.json();
     const stopsData = await stopsReq.json();
 
+    // bus isnt tracking
+    if (vehicleData['bustime-response']['error'] || predictionsData['bustime-response']['error']) return false;
+
     const vehicleDataActual = vehicleData['bustime-response']['vehicle'][0];
     const predictionsDataActual = predictionsData['bustime-response']['prd'] ?? [];
 
@@ -65,7 +68,7 @@ const update = async () => {
       lineCode: vehicleDataActual.rt,
       lineNameShort: '',
       lineNameLong: `${vehicleDataActual.rt} Bus`,
-      routeColor: '2eb712',
+      routeColor: '009B3A',
       routeTextColor: 'ffffff',
       hasActiveTrains: true,
       stations: routesData[vehicleDataActual.rt].routeStations,
@@ -104,7 +107,7 @@ const update = async () => {
             realTime: true,
             line: prediction.rt,
             lineCode: prediction.rt,
-            lineColor: '2eb712',
+            lineColor: '009B3A',
             lineTextColor: 'ffffff',
             extra: {
               holidayChristmas: true,
@@ -120,7 +123,7 @@ const update = async () => {
       heading: Number(vehicleDataActual.hdg),
       line: `${vehicleDataActual.rt} Bus`,
       lineCode: vehicleDataActual.rt,
-      lineColor: '2eb712',
+      lineColor: '009B3A',
       lineTextColor: 'ffffff',
       dest: vehicleDataActual.des,
       predictions: predictionsDataActual.map((prediction) => {
