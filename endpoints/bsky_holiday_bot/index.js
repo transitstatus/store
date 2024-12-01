@@ -16,6 +16,15 @@ const hoursMinutesUntilArrival = (arrivalTime) => {
   return `${hours}h ${minutes % 60}m`;
 };
 
+const usTimeFormat = new Intl.DateTimeFormat('en-US', {
+  timeStyle: 'short',
+  timeZone: 'America/Chicago',
+});
+const usTimeStamp = (arrivalTime) => {
+  const arrival = new Date(arrivalTime);
+  return usTimeFormat.format(arrival);
+}
+
 const postMessage = (endpoint, type, runNumber, sessData, now) => {
   fetch(endpoint)
     .then((res) => res.text())
@@ -24,10 +33,14 @@ const postMessage = (endpoint, type, runNumber, sessData, now) => {
 
       const data = JSON.parse(rawData);
 
-      const postText = `The CTA Holiday ${type} is Active!
-Run #1225 is on the ${data.line} line toward ${data.dest}
+      const postText = `The CTA Holiday ${type} is on the ${data.line} line toward ${data.dest}
 Next Stops:
-${data.predictions.slice(0, 3).map((prediction) => `• ${prediction.stationName} - ${hoursMinutesUntilArrival(prediction.actualETA)}`).join('\n')}`
+${data.predictions.slice(0, 5).map((prediction) => `• ${prediction.stationName}: ${hoursMinutesUntilArrival(prediction.actualETA)} - ${usTimeStamp(prediction.actualETA)}`).join('\n')}
+Track It Here`;
+      const postByteNum = new Blob([postText]).size;
+      const urlByteNum = new Blob(['Track It Here']).size;
+      console.log(postText)
+      console.log('Bluesky post text length:', postText.length)
 
       fetch('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
         method: 'POST',
@@ -37,6 +50,18 @@ ${data.predictions.slice(0, 3).map((prediction) => `• ${prediction.stationName
           "record": {
             "$type": "app.bsky.feed.post",
             "text": postText,
+            facets: [
+              {
+                index: {
+                  byteStart: postByteNum - urlByteNum,
+                  byteEnd: postByteNum
+                },
+                features: [{
+                  $type: 'app.bsky.richtext.facet#link',
+                  uri: 'https://holiday.transitstat.us'
+                }]
+              }
+            ],
             "createdAt": now.toISOString(),
           }
         }),
@@ -45,6 +70,10 @@ ${data.predictions.slice(0, 3).map((prediction) => `• ${prediction.stationName
           'Authorization': 'Bearer ' + sessData['accessJwt']
         }
       })
+        .then((res) => res.text())
+        .then((output) => {
+          console.log('Bluesky update result:', output)
+        })
     })
 }
 
