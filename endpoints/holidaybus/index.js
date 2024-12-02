@@ -37,7 +37,13 @@ const update = async () => {
   try {
     const now = new Date();
 
-    if (!process.env.cta_bus_auth) return false;
+    if (!process.env.cta_bus_auth) return {
+      lastUpdated: now.toISOString(),
+      trains: {},
+      stations: {},
+      lines: {}
+    };
+    console.log('has auth')
 
     const vehicleReq = await fetch(`https://ctabustracker.com/bustime/api/v3/getvehicles?key=${process.env.cta_bus_auth}&format=json&vid=${busNum}`);
     const predictionsReq = await fetch(`https://ctabustracker.com/bustime/api/v3/getpredictions?key=${process.env.cta_bus_auth}&format=json&vid=${busNum}&tmres=s`);
@@ -50,7 +56,12 @@ const update = async () => {
     const stopsData = await stopsReq.json();
 
     // bus isnt tracking
-    if (vehicleData['bustime-response']['error'] || predictionsData['bustime-response']['error']) return false;
+    if (vehicleData['bustime-response']['error'] || predictionsData['bustime-response']['error']) return {
+      lastUpdated: now.toISOString(),
+      trains: {},
+      stations: {},
+      lines: {}
+    };
 
     const vehicleDataActual = vehicleData['bustime-response']['vehicle'][0];
     const predictionsDataActual = predictionsData['bustime-response']['prd'] ?? [];
@@ -144,10 +155,10 @@ const update = async () => {
   } catch (e) {
     console.log("Error updating holiday bus:", e)
     return {
-      "trains": {},
-      "stations": {},
-      "lines": {},
-      "lastUpdated": new Date().toISOString(),
+      lastUpdated: now.toISOString(),
+      trains: {},
+      stations: {},
+      lines: {}
     };
   }
 
