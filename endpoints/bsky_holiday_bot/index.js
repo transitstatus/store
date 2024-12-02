@@ -35,7 +35,10 @@ const postMessage = (endpoint, type, runNumber, sessData, now) => {
 
       const postText = `The CTA Holiday ${type} is on the ${data.line}${type == 'Train' ? ' line' : ''} toward ${data.dest}
 Next Stops:
-${data.predictions.slice(0, 5).map((prediction) => `• ${prediction.stationName}: ${hoursMinutesUntilArrival(prediction.actualETA)} - ${usTimeStamp(prediction.actualETA)}`).join('\n')}
+${data.predictions
+  .filter((prediction) => type == 'Train' || prediction.actualETA > now.valueOf() + 60000)
+  .slice(0, 5).map((prediction) => `• ${prediction.stationName}: ${hoursMinutesUntilArrival(prediction.actualETA)} - ${usTimeStamp(prediction.actualETA)}`)
+  .join('\n')}
 Track It Here`;
       const postByteNum = new Blob([postText]).size;
       const urlByteNum = new Blob(['Track It Here']).size;
@@ -56,7 +59,7 @@ Track It Here`;
                 },
                 features: [{
                   $type: 'app.bsky.richtext.facet#link',
-                  uri: 'https://holiday.transitstat.us'
+                  uri: `https://holiday.transitstat.us#${type.toLowerCase()}`
                 }]
               }
             ],
