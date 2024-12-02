@@ -39,8 +39,6 @@ ${data.predictions.slice(0, 5).map((prediction) => `• ${prediction.stationName
 Track It Here`;
       const postByteNum = new Blob([postText]).size;
       const urlByteNum = new Blob(['Track It Here']).size;
-      console.log(postText)
-      console.log('Bluesky post text length:', postText.length)
 
       fetch('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
         method: 'POST',
