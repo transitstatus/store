@@ -1,0 +1,91 @@
+{
+  "address_updated_at": "2024-12-08T04:21:04.437Z",
+  "school_location": {
+    "lat": 41.9810865,
+    "lng": -87.8630316,
+    "lon": -87.8630316
+  },
+  "last_stop_id": 140527163,
+  "last_known_address": "River Rd & Bryn Mawr Ave",
+  "current": {
+    "lat": 41.980414,
+    "lon": -87.861918
+  },
+  "devices": [
+    {
+      "device_id": 53183,
+      "name": "Blue- Bus 10 ♿️",
+      "position": {
+        "lat": 41.980414,
+        "lon": -87.861918
+      },
+      "updated_at": 1733631664,
+      "speed": 0.0,
+      "gps_valid": true,
+      "capacity": null
+    },
+    {
+      "device_id": 52631,
+      "name": "Blue- Bus 8",
+      "position": {
+        "lat": 41.999929,
+        "lon": -87.86427
+      },
+      "updated_at": 1733631645,
+      "speed": 0.0,
+      "gps_valid": true,
+      "capacity": null
+    }
+  ],
+  "stop_eta": {
+    "140527161": 695.0,
+    "140527162": 199.0,
+    "140527163": "arrived",
+    "140527285": 472.0
+  },
+  "other_routes_stop_eta": {
+    "140527161": [
+      {
+        "eta": 695,
+        "device": "Blue- Bus 8"
+      },
+      {
+        "eta": 1277,
+        "device": "Blue- Bus 10 ♿️"
+      }
+    ],
+    "140527162": [
+      {
+        "eta": 199,
+        "device": "Blue- Bus 10 ♿️"
+      },
+      {
+        "eta": 980,
+        "device": "Blue- Bus 8"
+      }
+    ],
+    "140527163": [
+      {
+        "eta": "arrived",
+        "device": "Blue- Bus 8"
+      },
+      {
+        "eta": 543,
+        "device": "Blue- Bus 10 ♿️"
+      }
+    ],
+    "140527285": [
+      {
+        "eta": 472,
+        "device": "Blue- Bus 8"
+      },
+      {
+        "eta": 1054,
+        "device": "Blue- Bus 10 ♿️"
+      }
+    ]
+  },
+  "active": true,
+  "started_at": "2024-12-07T09:10:43+0000",
+  "suspended": false
+}

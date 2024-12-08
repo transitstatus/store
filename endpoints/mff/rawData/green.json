@@ -1,0 +1,385 @@
+{
+  "img": {
+    "bus": "https://buswhere.com/assets/cobrands/shuttles/bus_pin-dda814ef29c187b66b48be5a6354890867abed71b906e74cbb183a2cbfaa4a7a.png",
+    "bus_asleep": "https://buswhere.com/assets/cobrands/shuttles/bus_pin_asleep-bf966c1f49a85bd68781b8e55c8aeebc141bf833755a9349c97568b6e6c37ca3.png",
+    "home": "https://buswhere.com/assets/cobrands/shuttles/school_pin-385da3a032b2f72ad6017fea5612936fc43e9a55ed118451cab84bd7ee90f08e.png",
+    "stop": "https://buswhere.com/assets/cobrands/shuttles/notarrived_pin-9c43f32d84eaebd9a2e0239ee043452ec5dac4686bdf6b469b61144718296686.png",
+    "skipped": "https://buswhere.com/assets/cobrands/shuttles/skipped-fda55a9636a936aa0a196289c30da83f58fc83b2f14753548ec362e8cc7a3914.png",
+    "suggested": "https://buswhere.com/assets/cobrands/shuttles/suggested-b64f17c4697f86329564c0b22d5c1925eaa04b38af99729b701616fe8fd2aaf6.png",
+    "arrived": "https://buswhere.com/assets/cobrands/shuttles/stop_pointer-c9349369538a922507d2d75dc314769788a02ee3c974fd491acc0d8902b46150.png",
+    "inactive": "https://buswhere.com/assets/cobrands/shuttles/inactive_pin-6c364e7dbe8d5e78193ee2380e939d6c327b8f31fbcf93acd28f35ddf7e688a7.png",
+    "start": "https://buswhere.com/assets/green-pin-56392ab0dba62101947096ad1c567dd82a4ea87cc80e464da49da8e921591e0e.png",
+    "end": "https://buswhere.com/assets/red-pin-cb2d4c80cce718827fbac1359c48c64848c91f2c28eae677aa28c5448b501dae.png"
+  },
+  "params": {
+    "vehicle_id": 15714
+  },
+  "current": {
+    "lat": 41.977693,
+    "lon": -87.867031
+  },
+  "devices": [],
+  "route_has_errors": null,
+  "last_stop_id": 140527596,
+  "waypoints": [
+    {
+      "lat": 41.97925,
+      "lon": -87.86197
+    },
+    {
+      "lat": 41.9792,
+      "lon": -87.86187
+    },
+    {
+      "lat": 41.97915,
+      "lon": -87.86181
+    },
+    {
+      "lat": 41.97906,
+      "lon": -87.8618
+    },
+    {
+      "lat": 41.97901,
+      "lon": -87.86183
+    },
+    {
+      "lat": 41.97897,
+      "lon": -87.86188
+    },
+    {
+      "lat": 41.97896,
+      "lon": -87.86212
+    },
+    {
+      "lat": 41.97898,
+      "lon": -87.86241
+    },
+    {
+      "lat": 41.97782,
+      "lon": -87.86265
+    },
+    {
+      "lat": 41.9778,
+      "lon": -87.86317
+    },
+    {
+      "lat": 41.97764,
+      "lon": -87.86316
+    },
+    {
+      "lat": 41.97746,
+      "lon": -87.86315
+    },
+    {
+      "lat": 41.97746,
+      "lon": -87.86342
+    },
+    {
+      "lat": 41.97745,
+      "lon": -87.86347
+    },
+    {
+      "lat": 41.97746,
+      "lon": -87.86388
+    },
+    {
+      "lat": 41.97746,
+      "lon": -87.86388
+    },
+    {
+      "lat": 41.97746,
+      "lon": -87.86315
+    },
+    {
+      "lat": 41.9778,
+      "lon": -87.86317
+    },
+    {
+      "lat": 41.97782,
+      "lon": -87.86265
+    },
+    {
+      "lat": 41.97747,
+      "lon": -87.86272
+    },
+    {
+      "lat": 41.97699,
+      "lon": -87.86282
+    },
+    {
+      "lat": 41.97697,
+      "lon": -87.86328
+    },
+    {
+      "lat": 41.97691,
+      "lon": -87.86479
+    },
+    {
+      "lat": 41.97684,
+      "lon": -87.86642
+    },
+    {
+      "lat": 41.97706,
+      "lon": -87.86632
+    },
+    {
+      "lat": 41.97711,
+      "lon": -87.86633
+    },
+    {
+      "lat": 41.97714,
+      "lon": -87.86633
+    },
+    {
+      "lat": 41.97728,
+      "lon": -87.86631
+    },
+    {
+      "lat": 41.97754,
+      "lon": -87.86624
+    },
+    {
+      "lat": 41.97763,
+      "lon": -87.86627
+    },
+    {
+      "lat": 41.97767,
+      "lon": -87.86629
+    },
+    {
+      "lat": 41.97774,
+      "lon": -87.86642
+    },
+    {
+      "lat": 41.97775,
+      "lon": -87.86665
+    },
+    {
+      "lat": 41.97775,
+      "lon": -87.867
+    },
+    {
+      "lat": 41.97777,
+      "lon": -87.86746
+    },
+    {
+      "lat": 41.97779,
+      "lon": -87.868
+    },
+    {
+      "lat": 41.97778,
+      "lon": -87.86815
+    },
+    {
+      "lat": 41.97776,
+      "lon": -87.86818
+    },
+    {
+      "lat": 41.97773,
+      "lon": -87.86886
+    },
+    {
+      "lat": 41.97711,
+      "lon": -87.86879
+    },
+    {
+      "lat": 41.97708,
+      "lon": -87.86877
+    },
+    {
+      "lat": 41.97702,
+      "lon": -87.86871
+    },
+    {
+      "lat": 41.97699,
+      "lon": -87.86863
+    },
+    {
+      "lat": 41.977,
+      "lon": -87.8677
+    },
+    {
+      "lat": 41.977,
+      "lon": -87.8677
+    },
+    {
+      "lat": 41.97701,
+      "lon": -87.86701
+    },
+    {
+      "lat": 41.97702,
+      "lon": -87.86673
+    },
+    {
+      "lat": 41.97702,
+      "lon": -87.86653
+    },
+    {
+      "lat": 41.97692,
+      "lon": -87.86658
+    },
+    {
+      "lat": 41.97668,
+      "lon": -87.86664
+    },
+    {
+      "lat": 41.97672,
+      "lon": -87.86589
+    },
+    {
+      "lat": 41.97683,
+      "lon": -87.86416
+    },
+    {
+      "lat": 41.97687,
+      "lon": -87.86307
+    },
+    {
+      "lat": 41.97687,
+      "lon": -87.86269
+    },
+    {
+      "lat": 41.97765,
+      "lon": -87.86254
+    },
+    {
+      "lat": 41.97866,
+      "lon": -87.86232
+    },
+    {
+      "lat": 41.97896,
+      "lon": -87.86226
+    },
+    {
+      "lat": 41.97896,
+      "lon": -87.86212
+    },
+    {
+      "lat": 41.97897,
+      "lon": -87.86188
+    },
+    {
+      "lat": 41.97898,
+      "lon": -87.86185
+    },
+    {
+      "lat": 41.97903,
+      "lon": -87.86181
+    },
+    {
+      "lat": 41.9791,
+      "lon": -87.8618
+    },
+    {
+      "lat": 41.97915,
+      "lon": -87.86181
+    },
+    {
+      "lat": 41.9792,
+      "lon": -87.86187
+    },
+    {
+      "lat": 41.97925,
+      "lon": -87.86197
+    }
+  ],
+  "stop_eta": null,
+  "active": false,
+  "address_updated_at": "2024-12-08T05:04:05.261Z",
+  "started_at": null,
+  "show_route": true,
+  "show_stops": true,
+  "school_location": {
+    "lat": 41.9810865,
+    "lng": -87.8630316,
+    "lon": -87.8630316
+  },
+  "show_school": true,
+  "bus_driver": null,
+  "small_icons": false,
+  "all_day": false,
+  "school_stop_threshold": 91.4399970739201,
+  "stop_threshold": 91.4399970739201,
+  "onestop": false,
+  "onestop_radius": 400,
+  "onestop_timebox": 180,
+  "states": [],
+  "stops": [
+    {
+      "id": 140527596,
+      "name": "1",
+      "address": "5555 N River Rd",
+      "lat": 41.979223,
+      "lon": -87.861987,
+      "stop": true,
+      "stop_threshold": 91.4399970739201,
+      "duration": 180,
+      "angle": 2.356194490192345,
+      "at_origin": false,
+      "arrived": false,
+      "departed": false,
+      "skipped": false,
+      "state": null,
+      "eta": null,
+      "order": 1,
+      "location": {
+        "lat": 41.979223,
+        "lng": -87.861987
+      }
+    },
+    {
+      "id": 140527597,
+      "name": "2",
+      "address": "5440 N River Rd",
+      "lat": 41.977473,
+      "lon": -87.864336,
+      "stop": true,
+      "stop_threshold": 91.4399970739201,
+      "duration": 128,
+      "angle": 2.356194490192345,
+      "at_origin": false,
+      "arrived": false,
+      "departed": false,
+      "skipped": false,
+      "state": null,
+      "eta": null,
+      "order": 2,
+      "location": {
+        "lat": 41.977473,
+        "lng": -87.864336
+      }
+    },
+    {
+      "id": 140527631,
+      "name": "3",
+      "address": "9700 Balmoral Ave",
+      "lat": 41.977119,
+      "lon": -87.867703,
+      "stop": true,
+      "stop_threshold": 91.4399970739201,
+      "duration": 275,
+      "angle": 2.356194490192345,
+      "at_origin": false,
+      "arrived": false,
+      "departed": false,
+      "skipped": false,
+      "state": null,
+      "eta": null,
+      "order": 3,
+      "location": {
+        "lat": 41.977119,
+        "lng": -87.867703
+      }
+    }
+  ],
+  "landmarks": [],
+  "path_color": "#01B",
+  "message": null,
+  "starts_at": "2000-01-01T00:00:00.000Z",
+  "ends_at": "2000-01-01T23:59:00.000Z",
+  "active_days": "1000111",
+  "last_known_address": null,
+  "other_routes_stop_eta": {},
+  "suspended": false,
+  "refresh_rate": 5
+}
