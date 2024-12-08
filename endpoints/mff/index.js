@@ -62,7 +62,7 @@ const updateFeed = async () => {
     };
 
     const routeData = await Promise.all(
-      ['red_route_a_line', 'blue_route_b_line', 'green_route_c_line']
+      ['red_route_a_line', 'blue_route_b_line', 'green_route_c_line_']
         .map((lineName) =>
           fetch(`https://buswhere.com/furfest/routes/${lineName}?t=${now.valueOf()}&t=${now.valueOf() + 55421}&initial=true`, {
             "headers": {
@@ -119,6 +119,8 @@ const updateFeed = async () => {
     })
 
     routeData.forEach((line) => {
+      console.log(line.devices)
+
       if (line.devices.length < 1) return;
       const lineMeta = customMeta[customMetaIndexes[line.devices[0].name.split(' ')[0]]];
       const updatedAt = new Date(line.address_updated_at).valueOf();
@@ -148,7 +150,6 @@ const updateFeed = async () => {
       Object.keys(line.other_routes_stop_eta).forEach((stopID) => {
         line.other_routes_stop_eta[stopID].forEach((stopTime) => {
           const busID = stopTime.device.split(' ')[2];
-          console.log(busID)
 
           transitStatus.trains[busID].predictions.push({
             stationID: stopDict[stopID],
