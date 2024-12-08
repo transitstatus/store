@@ -3,6 +3,11 @@ const redStatic = require('./rawData/red.json');
 const blueStatic = require('./rawData/blue.json');
 const greenStatic = require('./rawData/green.json');
 
+const customMetaIndexes = {
+  'Red-': 0,
+  'Blue-': 1,
+  'Green-': 2
+}
 const customMeta = [
   {
     code: 'red',
@@ -100,7 +105,6 @@ const updateFeed = async () => {
           }
         };
 
-        console.log(stop)
         if (stop.address != '5555 N River Rd') {
           transitStatus.stations[stopID]['destinations']['Convention Center'] = {
             trains: []
@@ -114,14 +118,16 @@ const updateFeed = async () => {
       })
     })
 
-    console.log(transitStatus.stations)
-
-    routeData.forEach((line, lineIndex) => {
-      const lineMeta = customMeta[lineIndex];
+    routeData.forEach((line) => {
+      if (line.devices.length < 1) return;
+      const lineMeta = customMeta[customMetaIndexes[line.devices[0].name.split(' ')[0]]];
       const updatedAt = new Date(line.address_updated_at).valueOf();
 
       for (let i = 0; i < line.devices.length; i++) {
         const device = line.devices[i];
+
+        console.log(lineMeta.name, device)
+
         const busID = device.name.split(' ')[2];
         transitStatus.trains[busID] = {
           lat: device.position.lat,
