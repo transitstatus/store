@@ -89,12 +89,12 @@ const updateFeed = async () => {
         lineNameLong: meta.name,
         routeColor: meta.color,
         routeTextColor: 'ffffff',
-        stations: Object.values(meta.stopNames).map((stop) => stop.toLowerCase().replaceAll(' ', '_')),
+        stations: Object.values(meta.stopNames).map((stop) => stop.toLowerCase().replaceAll(' ', '_').replaceAll('/', '-')),
         hasActiveTrains: false
       }
 
       routeStatic.stops.forEach((stop) => {
-        const stopID = meta.stopNames[stop.name].toLowerCase().replaceAll(' ', '_');
+        const stopID = meta.stopNames[stop.name].toLowerCase().replaceAll(' ', '-').replaceAll('/', '-');
         if (!transitStatus.stations[stopID]) {
           transitStatus.stations[stopID] = {
             stationID: stopID,
