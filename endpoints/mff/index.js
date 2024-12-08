@@ -7,7 +7,7 @@ const customMeta = [
   {
     code: 'red',
     name: 'Red',
-    color: 'cb4626',
+    color: 'e64219',
     stopNames: {
       '1': 'Convention Center',
       '2': 'Target',
@@ -18,7 +18,7 @@ const customMeta = [
   {
     code: 'blue',
     name: 'Blue',
-    color: '4776bb',
+    color: '5894ed',
     stopNames: {
       '1': 'Convention Center',
       '2': 'Marriott Suites',
@@ -29,7 +29,7 @@ const customMeta = [
   {
     code: 'green',
     name: 'Green',
-    color: '227054',
+    color: '2fad80',
     stopNames: {
       '1': 'Convention Center',
       '2': 'Crowne Plaza',
