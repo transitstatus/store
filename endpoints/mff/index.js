@@ -126,8 +126,6 @@ const updateFeed = async () => {
       for (let i = 0; i < line.devices.length; i++) {
         const device = line.devices[i];
 
-        console.log(lineMeta.name, device)
-
         const busID = device.name.split(' ')[2];
         transitStatus.trains[busID] = {
           lat: device.position.lat,
@@ -138,7 +136,10 @@ const updateFeed = async () => {
           lineColor: lineMeta.color,
           lineTextColor: 'ffffff',
           dest: '',
-          predictions: []
+          predictions: [],
+          extra: {
+            accessible: device.name.endsWith('♿️')
+          }
         }
 
         transitStatus.lines[lineMeta.code].hasActiveTrains = true;
@@ -154,6 +155,9 @@ const updateFeed = async () => {
             actualETA: isNaN(stopTime.eta) ? updatedAt : updatedAt + (stopTime.eta * 1000),
             noETA: false,
             realTime: true,
+            extra: {
+              accessible: stopTime.device.endsWith('♿️')
+            }
           })
 
           const destination = stopDict[stopID] == 'convention_center' ? `${lineMeta.name} Loop` : 'Convention Center';
@@ -183,7 +187,7 @@ const updateFeed = async () => {
       lastUpdated: new Date().toISOString(),
       shitsFucked: {
         shitIsFucked: true,
-        message: 'Something went wrong updating the data from NJT. Please try again later.'
+        message: 'Something went wrong updating the data for MFF buses. Please try again later.'
       }
     };
   }
