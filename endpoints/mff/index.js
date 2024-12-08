@@ -163,7 +163,7 @@ const updateFeed = async () => {
           const destination = stopDict[stopID] == 'convention-center' ? `${lineMeta.name} Loop` : 'Convention Center';
           transitStatus.stations[stopDict[stopID]].destinations[destination].trains.push({
             runNumber: busID,
-            actualETA: updatedAt + (stopTime.eta * 1000),
+            actualETA: isNaN(stopTime.eta) ? updatedAt : updatedAt + (stopTime.eta * 1000),
             noETA: false,
             realTime: true,
             line: lineMeta.name,
