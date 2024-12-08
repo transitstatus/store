@@ -89,7 +89,7 @@ const updateFeed = async () => {
         lineNameLong: meta.name,
         routeColor: meta.color,
         routeTextColor: 'ffffff',
-        stations: Object.values(meta.stopNames).map((stop) => stop.toLowerCase().replaceAll(' ', '_').replaceAll('/', '-')),
+        stations: Object.values(meta.stopNames).map((stop) => stop.toLowerCase().replaceAll(' ', '-').replaceAll('/', '-')),
         hasActiveTrains: false
       }
 
@@ -162,7 +162,7 @@ const updateFeed = async () => {
             }
           })
 
-          const destination = stopDict[stopID] == 'convention_center' ? `${lineMeta.name} Loop` : 'Convention Center';
+          const destination = stopDict[stopID] == 'convention-center' ? `${lineMeta.name} Loop` : 'Convention Center';
           transitStatus.stations[stopDict[stopID]].destinations[destination].trains.push({
             runNumber: busID,
             actualETA: updatedAt + (stopTime.eta * 1000),
