@@ -119,8 +119,6 @@ const updateFeed = async () => {
     })
 
     routeData.forEach((line) => {
-      console.log(line.devices)
-
       if (line.devices.length < 1) return;
       const lineMeta = customMeta[customMetaIndexes[line.devices[0].name.split(' ')[0]]];
       const updatedAt = new Date(line.address_updated_at).valueOf();
