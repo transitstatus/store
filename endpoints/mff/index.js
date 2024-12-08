@@ -145,7 +145,7 @@ const updateFeed = async () => {
           transitStatus.trains[busID].predictions.push({
             stationID: stopDict[stopID],
             stationName: stopNameDict[stopID],
-            actualETA: updatedAt + (stopTime.eta * 1000),
+            actualETA: isNaN(stopTime.eta) ? updatedAt : updatedAt + (stopTime.eta * 1000),
             noETA: false,
             realTime: true,
           })

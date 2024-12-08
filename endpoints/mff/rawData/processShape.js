@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const shapeNames = ['red', 'blue', 'green'];
 const properShapeNames = ['Red', 'Blue', 'Green'];
-const shapeColors = ['#cb4626', '#4776bb', '#227054'];
+const shapeColors = ['#e64219', '#5894ed', '#2fad80'];
 const shapesRaw = shapeNames.map((shapeName) => JSON.parse(fs.readFileSync(`./endpoints/mff/rawData/${shapeName}.json`, { encoding: 'utf8' })).waypoints);
 const finalShape = {
   type: "FeatureCollection",
