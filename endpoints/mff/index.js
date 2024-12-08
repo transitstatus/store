@@ -148,6 +148,7 @@ const updateFeed = async () => {
       Object.keys(line.other_routes_stop_eta).forEach((stopID) => {
         line.other_routes_stop_eta[stopID].forEach((stopTime) => {
           const busID = stopTime.device.split(' ')[2];
+          console.log(busID)
 
           transitStatus.trains[busID].predictions.push({
             stationID: stopDict[stopID],
