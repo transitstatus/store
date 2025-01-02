@@ -124,10 +124,9 @@ const processData = async () => {
 
     data.dataObject.forEach((line) => {
       line.Markers.forEach((train) => {
-        if (train.IsSched) {
-          //console.log(train)
-          return;
-        }
+        if (train.IsSched) return;
+
+        let stationPastLoop = false;
 
         processedData.transitStatus.trains[train.RunNumber] = {
           lat: train.Position.Lat,
@@ -151,6 +150,18 @@ const processData = async () => {
           let dest = train.DestName.split('&')[0];
           const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
           const actualETA = now + (eta * 60000);
+
+          if (!isNaN(eta)) {
+            // changing destination if past station before loop
+            if (stationPastLoop) {
+              dest = lineMeta[line.Line].postLoopAlt;
+            }
+          }
+          //checking if train is past loop
+          if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
+            stationPastLoop = true;
+          };
+
           const isRealtime = !train.IsSched;
 
           //adding prediction to train
