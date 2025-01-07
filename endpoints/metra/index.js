@@ -146,7 +146,6 @@ const update = (async () => {
           //eta: eta,
           actualETA: time,
           noETA: false,
-          realTime: true,
         });
 
         //adding stations to transitStatus object

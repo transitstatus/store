@@ -170,7 +170,6 @@ const processData = async () => {
             stationName: prediction[1],
             actualETA: actualETA,
             noETA: isNaN(eta),
-            realTime: isRealtime,
           });
 
           //adding train to stations

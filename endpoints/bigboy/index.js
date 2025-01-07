@@ -84,7 +84,6 @@ const update = async () => {
         "stationID": station.code,
         "stationName": station.name,
         "actualETA": etaToUse,
-        realTime: true,
         "noETA": false
       })
     }

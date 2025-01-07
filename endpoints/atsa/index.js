@@ -64,7 +64,6 @@ exports.update = async () => {
             stationName: station.name,
             actualETA: new Date(station.dep).valueOf(),
             noETA: false,
-            realTime: true,
           }
         }).filter((prediction) => {
           if (prediction.actualETA < now + (1000 * 60 * 5)) return false; //if the train was due more than 5 mintues ago

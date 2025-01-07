@@ -146,7 +146,6 @@ const update = async () => {
         stationName: titleCase(station.stopName),
         actualETA: new Date(prediction.nextArr).valueOf(),
         noETA: false,
-        realTime: true,
       })
     })
 

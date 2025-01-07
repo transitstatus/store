@@ -163,7 +163,6 @@ const updateFeed = async () => {
             arrDelay: (stopTime.arrival ?? stopTime.departure).delay * 1000,
             depDelay: (stopTime.departure ?? stopTime.arrival).delay * 1000,
             noETA: false,
-            realTime: true,
             tz: fetchedData.brightlineStops[stopTime.stopId].stopTZ
           }
         }),

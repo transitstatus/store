@@ -95,7 +95,6 @@ const update = async () => {
           stationName: "Earth",
           actualETA: new Date("2024-04-01T23:59:59-05:00").getTime(),
           noETA: false,
-          realTime: true,
         }
       ],
       type: 'train',
