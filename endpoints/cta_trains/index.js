@@ -60,7 +60,25 @@ const regularDestinations = [
   'UIC-Halsted',
   'Dempster-Skokie',
   'Skokie'
-]
+];
+
+const actualDestinationsFromGTFS = {
+  'Howard': 'Howard',
+  '95th/Dan Ryan': '95th/Dan Ryan',
+  'Linden': 'Linden',
+  '54th/Cermak': '54th/Cermak',
+  'Kimball': 'Kimball',
+  'Midway': 'Midway',
+  'Loop': 'Loop',
+  'Harlem/Lake': 'Harlem/Lake',
+  'Ashland/63rd': 'Ashland/63rd',
+  'Cottage Grove': 'Cottage Grove',
+  'Forest Park': 'Forest Park',
+  'O\'Hare': 'O\'Hare',
+  'UIC-Halsted': 'UIC-Halsted',
+  'Dempster-Skokie': 'Dempster-Skokie',
+  'Skokie': 'Skokie'
+};
 
 const inTheLoop = [
   40040,
@@ -110,9 +128,13 @@ const processData = async () => {
 
     const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
     const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
+    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.json`);
+    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/headsigns.json');
 
     const routesData = await routesReq.json();
     const stationsData = await stationsReq.json();
+    const staticScheduleData = await staticScheduleRes.json();
+    const staticMetaData = await staticMetaRes.json();
 
     let processedData = {
       transitStatus: {
@@ -259,8 +281,45 @@ const processData = async () => {
     });
 
     const updated = new Date().toISOString();
+    const lastUpdatedNum = new Date(updated).valueOf();
 
     processedData.transitStatus.lastUpdated = updated;
+
+    //filling in schedule data
+    const startOfDay = `${new Date().toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
+    Object.keys(processedData.transitStatus.stations).forEach((stationKey) => {
+      if (!staticScheduleData[stationKey]) return;
+
+      let now = new Date(startOfDay).valueOf();
+      let headsign = null; //NOT headsign id
+      let routeID = null;
+
+      const staticStationData = staticScheduleData[stationKey];
+      for (i = 0; i < staticStationData.length; i++) {
+        const thisVehicle = staticStationData[i];
+
+        now += (thisVehicle[0] * 1000);
+        headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticMetaData.headsigns[thisVehicle[1]] : headsign;
+        routeID = thisVehicle[2] ?? routeID;
+
+        if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
+
+        if (!processedData.transitStatus.stations[stationKey]['destinations'][headsign]) continue; // probably a bus
+        if (processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
+
+        processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
+          runNumber: "Scheduled",
+          actualETA: now,
+          noETA: false,
+          realTime: false,
+          line: routesData[routeID].routeLongName,
+          lineCode: routeID,
+          lineColor: routesData[routeID].routeColor,
+          lineTextColor: routesData[routeID].routeTextColor,
+          extra: {},
+        })
+      }
+    })
 
     return processedData;
   } catch (e) {

@@ -97,8 +97,8 @@ const update = (async () => {
     const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/metra/${new Date().toISOString().split('T')[0]}.json`);
     const staticScheduleData = await staticScheduleRes.json();
 
-    const staticHeadsignsRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/headsigns.json');
-    const staticHeadsignsData = await staticHeadsignsRes.json();
+    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/headsigns.json');
+    const staticMetaData = await staticMetaRes.json();
 
     const data = await res.json();
 
@@ -252,10 +252,11 @@ const update = (async () => {
         const thisVehicle = staticStationData[i];
 
         now += (thisVehicle[0] * 1000);
-        headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticHeadsignsData[thisVehicle[1]] : headsign;
+        headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticMetaData.headsigns[thisVehicle[1]] : headsign;
         routeID = thisVehicle[2] ?? routeID;
 
-        if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) return;
+        if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
+        if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
 
         transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
           runNumber: "Scheduled",
@@ -264,8 +265,8 @@ const update = (async () => {
           realTime: false,
           line: staticRoutesData[routeID].routeLongName,
           lineCode: routeID,
-          lineColor: staticRoutesData[routeID].lineColor,
-          lineTextColor: staticRoutesData[routeID].lineTextColor,
+          lineColor: staticRoutesData[routeID].routeColor,
+          lineTextColor: staticRoutesData[routeID].routeTextColor,
           extra: {},
         })
       }
