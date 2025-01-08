@@ -294,6 +294,8 @@ const processData = async () => {
       let headsign = null; //NOT headsign id
       let routeID = null;
 
+      let scheduledTrainsCanExist = false;
+
       const staticStationData = staticScheduleData[stationKey];
       for (i = 0; i < staticStationData.length; i++) {
         const thisVehicle = staticStationData[i];
@@ -306,6 +308,15 @@ const processData = async () => {
 
         if (!processedData.transitStatus.stations[stationKey]['destinations'][headsign]) continue; // probably a bus
         if (processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
+
+        //seeing if this train is before the first tracking train
+        if (!scheduledTrainsCanExist) {
+          if (now > processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'][0]['actualETA']) {
+            scheduledTrainsCanExist = true;
+          } else {
+            continue; // train is before first tracking train and thats *probably* not possible so YEET
+          }
+        }
 
         processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
           runNumber: "Scheduled",
