@@ -264,8 +264,8 @@ const update = (async () => {
           realTime: false,
           line: staticRoutesData[routeID].routeLongName,
           lineCode: routeID,
-          lineColor: "FFE600",
-          lineTextColor: "000000",
+          lineColor: staticRoutesData[routeID].lineColor,
+          lineTextColor: staticRoutesData[routeID].lineTextColor,
           extra: {},
         })
       }
