@@ -124,7 +124,7 @@ const processData = async () => {
 
     data.dataObject.forEach((line) => {
       line.Markers.forEach((train) => {
-        if (train.IsSched) return;
+        if (train.IsSched) return; //we're not meant to get these anyways but in case we do i no no wanna
 
         let stationPastLoop = false;
 

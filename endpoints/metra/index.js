@@ -94,6 +94,11 @@ const update = (async () => {
     const staticRoutesRes = await fetch('https://gtfs.piemadd.com/data/metra/routes.json');
     const staticRoutesData = await staticRoutesRes.json();
 
+    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/metra/${new Date().toISOString().split('T')[0]}.json`);
+    const staticScheduleData = await staticScheduleRes.json();
+
+    const staticHeadsignsRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/headsigns.json');
+    const staticHeadsignsData = await staticHeadsignsRes.json();
 
     const data = await res.json();
 
@@ -229,8 +234,42 @@ const update = (async () => {
     });
 
     const lastUpdated = new Date().toISOString();
+    const lastUpdatedNum = new Date(lastUpdated).valueOf();
 
     transitStatus.lastUpdated = lastUpdated;
+
+    //filling in schedule data
+    const startOfDay = `${new Date().toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
+    Object.keys(transitStatus.stations).forEach((stationKey) => {
+      if (!staticScheduleData[stationKey]) return;
+
+      let now = new Date(startOfDay).valueOf();
+      let headsign = null; //NOT headsign id
+      let routeID = null;
+
+      const staticStationData = staticScheduleData[stationKey];
+      for (i = 0; i < staticStationData.length; i++) {
+        const thisVehicle = staticStationData[i];
+
+        now += (thisVehicle[0] * 1000);
+        headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticHeadsignsData[thisVehicle[1]] : headsign;
+        routeID = thisVehicle[2] ?? routeID;
+
+        if (now < lastUpdatedNum) return;
+
+        transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
+          runNumber: "Scheduled",
+          actualETA: now,
+          noETA: false,
+          realTime: false,
+          line: staticRoutesData[routeID].routeLongName,
+          lineCode: routeID,
+          lineColor: "FFE600",
+          lineTextColor: "000000",
+          extra: {},
+        })
+      }
+    })
 
     return {
       trains: processedData,
