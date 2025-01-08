@@ -97,7 +97,7 @@ const update = (async () => {
     const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/metra/${new Date().toISOString().split('T')[0]}.json`);
     const staticScheduleData = await staticScheduleRes.json();
 
-    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/headsigns.json');
+    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/metadata.json');
     const staticMetaData = await staticMetaRes.json();
 
     const data = await res.json();

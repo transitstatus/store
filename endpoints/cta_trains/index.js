@@ -129,7 +129,7 @@ const processData = async () => {
     const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
     const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
     const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.json`);
-    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/headsigns.json');
+    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/metadata.json');
 
     const routesData = await routesReq.json();
     const stationsData = await stationsReq.json();
