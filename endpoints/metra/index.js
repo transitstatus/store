@@ -255,7 +255,7 @@ const update = (async () => {
         headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticHeadsignsData[thisVehicle[1]] : headsign;
         routeID = thisVehicle[2] ?? routeID;
 
-        if (now < lastUpdatedNum) return;
+        if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) return;
 
         transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
           runNumber: "Scheduled",
