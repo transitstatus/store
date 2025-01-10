@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const protobuf = require('protobufjs');
 
 require('dotenv').config();
 
@@ -88,17 +89,26 @@ const update = (async () => {
       "mode": "cors"
     });
 
+    const root = await protobuf.load('schedules.proto');
+    const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
+
     const staticStopsRes = await fetch('https://gtfs.piemadd.com/data/metra/stops.json');
     const staticStopsData = await staticStopsRes.json();
 
     const staticRoutesRes = await fetch('https://gtfs.piemadd.com/data/metra/routes.json');
     const staticRoutesData = await staticRoutesRes.json();
 
-    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/metra/${new Date().toISOString().split('T')[0]}.json`);
-    const staticScheduleData = await staticScheduleRes.json();
-
     const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/metadata.json');
     const staticMetaData = await staticMetaRes.json();
+
+    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/metra/${new Date().toISOString().split('T')[0]}.pbf`);
+    const staticScheduleArrayBuffer = await staticScheduleRes.arrayBuffer();
+    const staticScheduleArray = ScheduleMessage.decode(new Uint8Array(staticScheduleArrayBuffer));
+
+    let staticScheduleData = {};
+    staticScheduleArray.stopMessage.forEach((stop) => {
+      staticScheduleData[stop.stopId] = stop.trainMessage;
+    });
 
     const data = await res.json();
 
@@ -251,12 +261,13 @@ const update = (async () => {
       for (i = 0; i < staticStationData.length; i++) {
         const thisVehicle = staticStationData[i];
 
-        now += (thisVehicle[0] * 1000);
-        headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticMetaData.headsigns[thisVehicle[1]] : headsign;
-        routeID = thisVehicle[2] ?? routeID;
+        now += thisVehicle.timeDiff * 1000;
+        headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
+        routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
         if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
         if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
+        if (transitStatus.trains[thisVehicle.runNumber]) return; // train is tracking
 
         transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
           runNumber: "Scheduled",

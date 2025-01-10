@@ -1,0 +1,19 @@
+// schedules.proto
+package gobbler;
+syntax = "proto3";
+
+message TrainMessage {
+  uint32 time_diff = 1;
+  optional string run_number = 2;
+  optional uint32 headsign_id = 3;
+  optional uint32 route_id = 4;
+}
+
+message StopMessage {
+  string stop_id = 1;
+  repeated TrainMessage train_message = 2;
+}
+
+message ScheduleMessage {
+  repeated StopMessage stop_message = 1;
+}

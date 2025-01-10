@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const protobuf = require('protobufjs');
 
 const actualLines = {
   'R': 'Red',
@@ -126,15 +127,25 @@ const processData = async () => {
 
     if (data?.status !== 'OK') return {};
 
+    const root = await protobuf.load('schedules.proto');
+    const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
+
     const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
     const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
-    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.json`);
     const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/metadata.json');
 
     const routesData = await routesReq.json();
     const stationsData = await stationsReq.json();
-    const staticScheduleData = await staticScheduleRes.json();
     const staticMetaData = await staticMetaRes.json();
+
+    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.pbf`);
+    const staticScheduleArrayBuffer = await staticScheduleRes.arrayBuffer();
+    const staticScheduleArray = ScheduleMessage.decode(new Uint8Array(staticScheduleArrayBuffer));
+
+    let staticScheduleData = {};
+    staticScheduleArray.stopMessage.forEach((stop) => {
+      staticScheduleData[stop.stopId] = stop.trainMessage;
+    });
 
     let processedData = {
       transitStatus: {
@@ -300,18 +311,22 @@ const processData = async () => {
       for (i = 0; i < staticStationData.length; i++) {
         const thisVehicle = staticStationData[i];
 
-        now += (thisVehicle[0] * 1000);
-        headsign = (thisVehicle[1] && thisVehicle[1] >= 0) ? staticMetaData.headsigns[thisVehicle[1]] : headsign;
-        routeID = thisVehicle[2] ?? routeID;
+        now += thisVehicle.timeDiff * 1000;
+        headsign = typeof thisVehicle.headsignId != 'undefined' ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
+        routeID = typeof thisVehicle.routeId != 'undefined' ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
         if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
 
         if (!processedData.transitStatus.stations[stationKey]['destinations'][headsign]) continue; // probably a bus
-        if (processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
+
+        // readability 0 lol
+        const existingTrains = processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'];
+
+        if (existingTrains.length > 8) continue; //we dont need all that
 
         //seeing if this train is before the first tracking train
         if (!scheduledTrainsCanExist) {
-          if (now > processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'][0]['actualETA']) {
+          if (existingTrains.length == 0 || now > existingTrains[0]['actualETA']) {
             scheduledTrainsCanExist = true;
           } else {
             continue; // train is before first tracking train and thats *probably* not possible so YEET
