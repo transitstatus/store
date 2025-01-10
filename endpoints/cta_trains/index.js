@@ -322,7 +322,7 @@ const processData = async () => {
         // readability 0 lol
         const existingTrains = processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'];
 
-        if (existingTrains.length > 8) continue; //we dont need all that
+        if (existingTrains.length >= 4) continue; //we dont need all that
 
         //seeing if this train is before the first tracking train
         if (!scheduledTrainsCanExist) {

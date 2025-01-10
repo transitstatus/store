@@ -266,8 +266,8 @@ const update = (async () => {
         routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
         if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
-        if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
-        if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) return; // train is tracking
+        if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length >= 4) continue; //we dont need all that
+        if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
 
         transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
           runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
