@@ -267,10 +267,10 @@ const update = (async () => {
 
         if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
         if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length > 8) continue; //we dont need all that
-        if (transitStatus.trains[thisVehicle.runNumber]) return; // train is tracking
+        if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) return; // train is tracking
 
         transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
-          runNumber: "Scheduled",
+          runNumber: thisVehicle.runNumber ? `${thisVehicle.runNumber} Scheduled` : 'Scheduled',
           actualETA: now,
           noETA: false,
           realTime: false,
