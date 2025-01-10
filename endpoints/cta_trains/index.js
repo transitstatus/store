@@ -312,8 +312,8 @@ const processData = async () => {
         const thisVehicle = staticStationData[i];
 
         now += thisVehicle.timeDiff * 1000;
-        headsign = typeof thisVehicle.headsignId != 'undefined' ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
-        routeID = typeof thisVehicle.routeId != 'undefined' ? staticMetaData.routes[thisVehicle.routeId] : routeID;
+        headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
+        routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
         if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
 
