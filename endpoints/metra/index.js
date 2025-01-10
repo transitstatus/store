@@ -270,7 +270,7 @@ const update = (async () => {
         if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) return; // train is tracking
 
         transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
-          runNumber: thisVehicle.runNumber ? `${thisVehicle.runNumber} Scheduled` : 'Scheduled',
+          runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
           actualETA: now,
           noETA: false,
           realTime: false,
