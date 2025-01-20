@@ -89,25 +89,41 @@ const update = (async () => {
       "mode": "cors"
     });
 
+    const todaysDate = new Date();
+    const yesterdaysDate = new Date(todaysDate.valueOf() - (1000 * 60 * 60 * 24));
+
     const root = await protobuf.load('schedules.proto');
     const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
 
-    const staticStopsRes = await fetch('https://gtfs.piemadd.com/data/metra/stops.json');
-    const staticStopsData = await staticStopsRes.json();
+    const [
+      staticStopsData,
+      staticRoutesData,
+      staticMetaData,
+    ] = await Promise.all([
+      'https://gtfs.piemadd.com/data/metra/stops.json',
+      'https://gtfs.piemadd.com/data/metra/routes.json',
+      'https://gobblerstatic.transitstat.us/schedules/metra/metadata.json',
+    ].map((url) =>
+      fetch(url).then(res => res.json())
+    ));
 
-    const staticRoutesRes = await fetch('https://gtfs.piemadd.com/data/metra/routes.json');
-    const staticRoutesData = await staticRoutesRes.json();
-
-    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/metadata.json');
-    const staticMetaData = await staticMetaRes.json();
-
-    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/metra/${new Date().toISOString().split('T')[0]}.pbf`);
-    const staticScheduleArrayBuffer = await staticScheduleRes.arrayBuffer();
-    const staticScheduleArray = ScheduleMessage.decode(new Uint8Array(staticScheduleArrayBuffer));
+    const [
+      staticScheduleArray,
+      yesterdayStaticScheduleArray,
+    ] = await Promise.all([
+      `https://gobblerstatic.transitstat.us/schedules/metra/${todaysDate.toISOString().split('T')[0]}.pbf`,
+      `https://gobblerstatic.transitstat.us/schedules/metra/${yesterdaysDate.toISOString().split('T')[0]}.pbf`,
+    ].map((url) =>
+      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => ScheduleMessage.decode(new Uint8Array(arrayBuffer)))
+    ));
 
     let staticScheduleData = {};
+    let yesterdayStaticScheduleData = {};
     staticScheduleArray.stopMessage.forEach((stop) => {
       staticScheduleData[stop.stopId] = stop.trainMessage;
+    });
+    yesterdayStaticScheduleArray.stopMessage.forEach((stop) => {
+      yesterdayStaticScheduleData[stop.stopId] = stop.trainMessage;
     });
 
     const data = await res.json();
@@ -153,12 +169,10 @@ const update = (async () => {
         const dep = new Date(stop.departure?.time?.low).valueOf();
         const time = Math.max(arr, dep);
         const now = new Date().valueOf();
-        const eta = Math.round((time - now) / 60000);
 
         finalTrain.predictions.push({
           stationID: stop.stop_id,
           stationName: staticStopsData[stop.stop_id].stopName,
-          //eta: eta,
           actualETA: time,
           noETA: false,
         });
@@ -249,39 +263,45 @@ const update = (async () => {
     transitStatus.lastUpdated = lastUpdated;
 
     //filling in schedule data
-    const startOfDay = `${new Date().toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
-    Object.keys(transitStatus.stations).forEach((stationKey) => {
-      if (!staticScheduleData[stationKey]) return;
+    const fillInData = (staticData, date) => {
+      const startOfDay = `${date.toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
 
-      let now = new Date(startOfDay).valueOf();
-      let headsign = null; //NOT headsign id
-      let routeID = null;
+      Object.keys(transitStatus.stations).forEach((stationKey) => {
+        if (!staticData[stationKey]) return;
 
-      const staticStationData = staticScheduleData[stationKey];
-      for (i = 0; i < staticStationData.length; i++) {
-        const thisVehicle = staticStationData[i];
+        let now = new Date(startOfDay).valueOf();
+        let headsign = null; //NOT headsign id
+        let routeID = null;
 
-        now += thisVehicle.timeDiff * 1000;
-        headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
-        routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
+        const staticStationData = staticData[stationKey];
+        for (i = 0; i < staticStationData.length; i++) {
+          const thisVehicle = staticStationData[i];
 
-        if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
-        if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length >= 4) continue; //we dont need all that
-        if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
+          now += thisVehicle.timeDiff * 1000;
+          headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
+          routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
-        transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
-          runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
-          actualETA: now,
-          noETA: false,
-          realTime: false,
-          line: staticRoutesData[routeID].routeLongName,
-          lineCode: routeID,
-          lineColor: staticRoutesData[routeID].routeColor,
-          lineTextColor: staticRoutesData[routeID].routeTextColor,
-          extra: {},
-        })
-      }
-    })
+          if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
+          if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length >= 4) continue; //we dont need all that
+          if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
+
+          transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
+            runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
+            actualETA: now,
+            noETA: false,
+            realTime: false,
+            line: staticRoutesData[routeID].routeLongName,
+            lineCode: routeID,
+            lineColor: staticRoutesData[routeID].routeColor,
+            lineTextColor: staticRoutesData[routeID].routeTextColor,
+            extra: {},
+          })
+        }
+      })
+    };
+
+    fillInData(yesterdayStaticScheduleData, yesterdaysDate);
+    fillInData(staticScheduleData, todaysDate);
 
     return {
       trains: processedData,
