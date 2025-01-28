@@ -3,6 +3,8 @@ const protobuf = require('protobufjs');
 
 require('dotenv').config();
 
+const trainNumberRegex = new RegExp(/\d+/)
+
 const actualLines = {
   'BNSF': 'BNSF',
   'HC': 'Heritage Corridor',
@@ -32,6 +34,13 @@ const holidayTrains = [
   'UPN-8914',
   'UPNW-7902',
   'UPNW-7903',
+]
+
+const downtownStations = [
+  'Chicago OTC',
+  'Chicago Union Station',
+  'LaSalle Street',
+  'Millennium Station',
 ]
 
 const recursivelyParseObjectValuesIntoString = (obj) => {
@@ -145,8 +154,13 @@ const update = (async () => {
 
     //adding trains to transitStatus object
     data.forEach((train, i) => {
-      const runNumber = `${train.trip_update?.trip?.route_id.replaceAll('-', '')}-${train.trip_update?.vehicle?.label ?? train.trip_update?.vehicle?.id}`;
+      const trainNumber = train.trip_update?.trip?.trip_id.match(trainNumberRegex);
+      if (!trainNumber) return; //no train ig
 
+      const runNumber = `${train.trip_update?.trip?.route_id.replaceAll('-', '')}-${trainNumber[0]}`;
+      const isInbound = parseInt(trainNumber[0]) % 2 == 0;
+      const trainDirection = isInbound ? 'Inbound' : 'Outbound';
+      
       let finalTrain = {
         lat: train.trip_update?.position?.vehicle?.position?.latitude,
         lon: train.trip_update?.position?.vehicle?.position?.longitude,
@@ -184,22 +198,17 @@ const update = (async () => {
             stationName: staticStopsData[stop.stop_id].stopName,
             lat: staticStopsData[stop.stop_id].stopLat,
             lon: staticStopsData[stop.stop_id].stopLon,
-            destinations: {},
+            destinations: {
+              'Inbound': {trains: []},
+              'Outbound': {trains: []},
+            },
           };
         }
 
         const finalStation = staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id]?.headsign ?? "Unknown Dest";
 
-        //adding destinations to transitStatus object
-        if (!transitStatus.stations[stop.stop_id].destinations[finalStation]) {
-          transitStatus.stations[stop.stop_id].destinations[finalStation] = {
-            trains: [],
-          };
-        };
-
-        transitStatus.stations[stop.stop_id].destinations[finalStation].trains.push({
+        transitStatus.stations[stop.stop_id].destinations[trainDirection].trains.push({
           runNumber: runNumber,
-          //eta: eta,
           actualETA: time,
           noETA: false,
           realTime: true,
@@ -207,6 +216,7 @@ const update = (async () => {
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
           lineTextColor: finalTrain.lineTextColor,
+          destination: finalStation,
           extra: {
             holidayChristmas: holidayTrains.includes(runNumber),
           }
@@ -237,17 +247,12 @@ const update = (async () => {
             stationName: staticStopsData[stationID].stopName,
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
-            destinations: {},
+            destinations: {
+              'Inbound': {trains: []},
+              'Outbound': {trains: []},
+            },
           };
         }
-
-        route.destinations.forEach((destination) => {
-          if (!transitStatus.stations[stationID].destinations[destination]) {
-            transitStatus.stations[stationID].destinations[destination] = {
-              trains: [],
-            };
-          }
-        })
       });
     });
 
@@ -282,10 +287,13 @@ const update = (async () => {
           routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
           if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
-          if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length >= 4) continue; //we dont need all that
+
+          const trainDirection = parseInt(thisVehicle.runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
+
+          if (transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].length >= 4) continue; //we dont need all that
           if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
 
-          transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
+          transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].push({
             runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
             actualETA: now,
             noETA: false,
@@ -294,6 +302,7 @@ const update = (async () => {
             lineCode: routeID,
             lineColor: staticRoutesData[routeID].routeColor,
             lineTextColor: staticRoutesData[routeID].routeTextColor,
+            destination: headsign,
             extra: {},
           })
         }
