@@ -208,12 +208,6 @@ const update = (async () => {
             destinations: {},
           };
         }
-
-        route.destinations.forEach((destination) => {
-          transitStatus.stations[stationID]['destinations'][destination] = {
-            trains: []
-          }
-        });
       });
     });
 
