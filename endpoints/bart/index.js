@@ -82,6 +82,7 @@ const update = (async () => {
       const runNumber = train.tripUpdate.trip.tripId;
       const trainRouteID = routesDict[runNumber];
       if (!trainRouteID) return;
+      const actualRouteID = staticRoutesData[trainRouteID].routeShortName;
 
       const trainTimes = train.tripUpdate.stopTimeUpdate.map((stop) => {
         return {
@@ -125,8 +126,8 @@ const update = (async () => {
         lat: position[0],
         lon: position[1],
         heading: position[2],
-        line: staticRoutesData[trainRouteID].routeShortName,
-        lineCode: trainRouteID,
+        line: actualRouteID,
+        lineCode: actualRouteID,
         lineColor: staticRoutesData[trainRouteID].routeColor,
         lineTextColor: staticRoutesData[trainRouteID].routeTextColor,
         dest: headsignsDict[trainTimes[0].stopId][runNumber],
@@ -187,10 +188,10 @@ const update = (async () => {
     Object.keys(staticRoutesData).forEach((routeID) => {
       const route = staticRoutesData[routeID];
 
-      transitStatus.lines[routeID] = {
-        lineCode: routeID,
+      transitStatus.lines[route.routeShortName] = {
+        lineCode: route.routeShortName,
         lineNameShort: route.routeShortName,
-        lineNameLong: route.routeLongName,
+        lineNameLong: route.routeShortName,
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
         stations: route.routeStations,
@@ -256,8 +257,8 @@ const update = (async () => {
             actualETA: now,
             noETA: false,
             realTime: false,
-            line: staticRoutesData[routeID].routeLongName,
-            lineCode: routeID,
+            line: staticRoutesData[routeID].routeShortName,
+            lineCode: staticRoutesData[routeID].routeShortName,
             lineColor: staticRoutesData[routeID].routeColor,
             lineTextColor: staticRoutesData[routeID].routeTextColor,
             destination: headsign,
