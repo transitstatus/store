@@ -64,6 +64,19 @@ const update = (async () => {
       Object.keys(route.routeTrips).forEach((tripID) => routesDict[tripID] = route.routeID)
     })
 
+    let headsignsDict = {};
+    staticScheduleArray.stopMessage.forEach((stop) => {
+      const stopID = stop.stopId;
+      if (!headsignsDict[stopID]) headsignsDict[stopID] = {};
+
+      let headsign = null;
+
+      stop.trainMessage.forEach((trip) => {
+        if (trip.headsignId) headsign = staticMetaData.headsigns[trip.headsignId];
+        headsignsDict[stopID][trip.runNumber] = headsign;
+      });
+    })
+
     //adding trains to transitStatus object
     data.toJSON().entity.forEach((train, i) => {
       const runNumber = train.tripUpdate.trip.tripId;
@@ -116,44 +129,45 @@ const update = (async () => {
         lineCode: trainRouteID,
         lineColor: staticRoutesData[trainRouteID].routeColor,
         lineTextColor: staticRoutesData[trainRouteID].routeTextColor,
-        dest: "Unknown Dest",
+        dest: headsignsDict[trainTimes[0].stopId][runNumber],
         predictions: [],
         type: 'train',
         extra: {}
       }
 
-      /*
       //adding predictions to transitStatus object
-      train.trip_update?.stop_time_update?.forEach((stop) => {
-        const arr = new Date(stop.arrival?.time?.low).valueOf();
-        const dep = new Date(stop.departure?.time?.low).valueOf();
-        const time = Math.max(arr, dep);
-        const now = new Date().valueOf();
+      trainTimes.forEach((stop) => {
+        const arr = parseInt(stop.arrival?.time) * 1000;
+        const dep = parseInt(stop.departure?.time) * 1000;
+        const time = Math.min(arr, dep);
 
         finalTrain.predictions.push({
-          stationID: stop.stop_id,
-          stationName: staticStopsData[stop.stop_id].stopName,
+          stationID: stop.stopId,
+          stationName: staticStopsData[stop.stopId].stopName,
           actualETA: time,
           noETA: false,
         });
 
         //adding stations to transitStatus object
-        if (!transitStatus.stations[stop.stop_id]) {
-          transitStatus.stations[stop.stop_id] = {
-            stationID: stop.stop_id,
-            stationName: staticStopsData[stop.stop_id].stopName,
-            lat: staticStopsData[stop.stop_id].stopLat,
-            lon: staticStopsData[stop.stop_id].stopLon,
-            destinations: {
-              'Inbound': { trains: [] },
-              'Outbound': { trains: [] },
-            },
+        if (!transitStatus.stations[stop.stopId]) {
+          transitStatus.stations[stop.stopId] = {
+            stationID: stop.stopId,
+            stationName: staticStopsData[stop.stopId].stopName,
+            lat: staticStopsData[stop.stopId].stopLat,
+            lon: staticStopsData[stop.stopId].stopLon,
+            destinations: {},
           };
         }
 
-        const finalStation = staticRoutesData[train.trip_update?.trip?.route_id].routeTrips[train.trip_update?.trip?.trip_id]?.headsign ?? "Unknown Dest";
+        const finalStation = headsignsDict[stop.stopId][runNumber] ?? staticStopsData[trainTimes.slice(-1)[0].stopId].stopName ?? "Unknown Dest";
 
-        transitStatus.stations[stop.stop_id].destinations[trainDirection].trains.push({
+        if (!transitStatus.stations[stop.stopId].destinations[finalStation]) {
+          transitStatus.stations[stop.stopId].destinations[finalStation] = {
+            trains: [],
+          }
+        }
+
+        transitStatus.stations[stop.stopId].destinations[finalStation].trains.push({
           runNumber: runNumber,
           actualETA: time,
           noETA: false,
@@ -162,11 +176,9 @@ const update = (async () => {
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
           lineTextColor: finalTrain.lineTextColor,
-          destination: finalStation,
           extra: {}
         });
       });
-      */
 
       transitStatus.trains[runNumber] = finalTrain;
     });
@@ -192,12 +204,15 @@ const update = (async () => {
             stationName: staticStopsData[stationID].stopName,
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
-            destinations: {
-              'Inbound': { trains: [] },
-              'Outbound': { trains: [] },
-            },
+            destinations: {},
           };
         }
+
+        route.destinations.forEach((destination) => {
+          transitStatus.stations[stationID]['destinations'][destination] = {
+            trains: []
+          }
+        });
       });
     });
 
@@ -233,12 +248,10 @@ const update = (async () => {
 
           if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
 
-          const trainDirection = parseInt(thisVehicle.runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
-
-          if (transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].length >= 4) continue; //we dont need all that
+          if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length >= 4) continue; //we dont need all that
           if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
 
-          transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].push({
+          transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
             runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
             actualETA: now,
             noETA: false,
