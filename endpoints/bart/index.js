@@ -262,8 +262,8 @@ const update = (async () => {
       })
     };
 
-    //fillInData(yesterdayStaticScheduleData, yesterdaysDate);
-    //fillInData(staticScheduleData, todaysDate);
+    fillInData(yesterdayStaticScheduleData, yesterdaysDate);
+    fillInData(staticScheduleData, todaysDate);
 
     return {
       transitStatus,
