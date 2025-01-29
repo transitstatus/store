@@ -241,6 +241,10 @@ const update = (async () => {
           headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
           routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
+          if (!transitStatus.stations[stationKey]['destinations'][headsign]) {
+            transitStatus.stations[stationKey]['destinations'][headsign] = { trains: [] }
+          }
+
           if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
 
           if (transitStatus.stations[stationKey]['destinations'][headsign]['trains'].length >= 4) continue; //we dont need all that
@@ -259,6 +263,14 @@ const update = (async () => {
             extra: {},
           })
         }
+      })
+
+      Object.keys(transitStatus.stations).forEach((stationKey) => {
+        Object.keys(transitStatus.stations[stationKey]['destinations']).forEach((destination) => {
+          if (transitStatus.stations[stationKey]['destinations'][destination]['trains'].length < 1) {
+            delete transitStatus.stations[stationKey]['destinations'][destination];
+          }
+        })
       })
     };
 
