@@ -35,7 +35,7 @@ const updateFeed = async () => {
 
       data.ITEMS.forEach((train) => {
         if (train.LINECODE === 'AM') {
-          responseObject.stations[station.code][train.TRAIN_ID.replace('A', '')] = train.TRACK;
+          responseObject.stations[station.code][train.TRAIN_ID.replace('A', '').replaceAll('.', '')] = train.TRACK;
         }
       })
     })
