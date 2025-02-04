@@ -165,6 +165,7 @@ const updateFeed = async () => {
           let res = {
             stationID: stopTime.stopId,
             stationName: titleCase(stopsData[stopTime.stopId].stopName.split(',')[0].replace(' METRORAIL STATION', '')),
+            realTime: true,
           };
 
           if (timeObject) {
