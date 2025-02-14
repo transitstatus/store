@@ -1,51 +1,36 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-const FormData = require('form-data');
-const stations = require('./stations.json');
 
-require('dotenv').config();
+const defaultHeaders = {
+  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0",
+  "Accept": "application/json, text/plain, */*",
+  "Accept-Language": "en-US,en;q=0.5",
+  "Content-Type": "application/json",
+  "x-amtrak-trace-id": "",
+  "Sec-Fetch-Dest": "empty",
+  "Sec-Fetch-Mode": "cors",
+  "Sec-Fetch-Site": "same-origin",
+  "Pragma": "no-cache",
+  "Cache-Control": "no-cache"
+};
 
 const updateFeed = async () => {
   try {
-    if (!process.env.bay_511) return false;
-
     const now = new Date();
 
     let responseObject = {
-      stations: {}
+      trains: {},
     };
 
-    stations.forEach(async (station) => {
-      const form = new FormData();
-      form.append('token', process.env.NJT_REGULAR_RAIL_KEY);
-      form.append('station', station.STATION_2CHAR);
+    
 
-      //fetching data
-      const res = await fetch('https://raildata.njtransit.com/api/TrainData/getTrainSchedule19Rec', {
-        method: "POST",
-        headers: {
-          accept: '*/*',
-          ...form.getHeaders(),
-        },
-        body: form,
-      });
-      const data = await res.json();
 
-      responseObject.stations[station.code] = {};
-
-      data.ITEMS.forEach((train) => {
-        if (train.LINECODE === 'AM') {
-          responseObject.stations[station.code][train.TRAIN_ID.replace('A', '')] = train.TRACK;
-        }
-      })
-    })
-
-    console.log(`Finished updating NJT Tracks`)
+    console.log(`Finished updating Amtrak Alerts`)
     return responseObject;
   } catch (e) {
     console.log(e);
     return {
-      stations: {}
+      trains: {}
     };
   }
 };

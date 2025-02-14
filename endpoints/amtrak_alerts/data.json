@@ -1,0 +1,1670 @@
+{
+  "data": [
+    {
+      "id": "000720250207",
+      "travelService": {
+        "id": "000720250207",
+        "number": "7",
+        "date": "2025-02-07",
+        "type": {
+          "code": "TRN",
+          "description": "Intercity Train"
+        },
+        "name": {
+          "code": "EMPB",
+          "description": "Empire Builder"
+        },
+        "operator": {
+          "code": "AMTK",
+          "description": "Amtrak",
+          "number": "0007"
+        },
+        "origin": {
+          "code": "CHI",
+          "name": "Chicago, IL",
+          "facility": "Union Station",
+          "timeZone": "America/Chicago"
+        },
+        "destination": {
+          "code": "SEA",
+          "name": "Seattle, WA",
+          "facility": "King Street Station",
+          "timeZone": "America/Los_Angeles"
+        }
+      },
+      "statusSummary": {
+        "displayMessage": "7 HR 48 MIN LATE",
+        "locationInfo": {
+          "lastKnownLocationCode": "CHI",
+          "latitude": 41.878992,
+          "longitude": -87.641015
+        }
+      },
+      "stops": [
+        {
+          "id": "000720250207CHI",
+          "stopNumber": 1,
+          "station": {
+            "code": "CHI",
+            "name": "Chicago, IL",
+            "facility": "Union Station",
+            "timeZone": "America/Chicago"
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T15:05:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T15:05:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T15:05:33-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207GLN",
+          "stopNumber": 2,
+          "station": {
+            "code": "GLN",
+            "name": "Glenview, IL",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T15:29:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "6 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T15:35:00-06:00",
+              "delay": "PT6M",
+              "asOf": "2025-02-07T15:42:09-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T15:29:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "9 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T15:38:00-06:00",
+              "delay": "PT9M",
+              "asOf": "2025-02-07T15:42:09-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207MKE",
+          "stopNumber": 3,
+          "station": {
+            "code": "MKE",
+            "name": "Milwaukee-Downtown, WI",
+            "facility": "Intermodal Station",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T16:35:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "1 Minute Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T16:36:00-06:00",
+              "delay": "PT1M",
+              "asOf": "2025-02-07T16:49:23-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T16:45:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T16:45:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T16:49:23-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207CBS",
+          "stopNumber": 4,
+          "station": {
+            "code": "CBS",
+            "name": "Columbus, WI",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T17:55:00-06:00"
+            },
+            "statusInfo": {
+              "status": "EARLY",
+              "displayStatus": "Arrived",
+              "displayMessage": "1 Minute Early",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T17:54:00-06:00",
+              "delay": "PT-1M",
+              "asOf": "2025-02-07T17:59:36-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T17:55:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T17:55:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T17:59:36-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207POG",
+          "stopNumber": 5,
+          "station": {
+            "code": "POG",
+            "name": "Portage, WI",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T18:24:00-06:00"
+            },
+            "statusInfo": {
+              "status": "EARLY",
+              "displayStatus": "Arrived",
+              "displayMessage": "2 Minutes Early",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T18:22:00-06:00",
+              "delay": "PT-2M",
+              "asOf": "2025-02-07T18:27:07-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T18:24:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T18:24:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T18:27:07-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207WDL",
+          "stopNumber": 6,
+          "station": {
+            "code": "WDL",
+            "name": "Wisconsin Dells, WI",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T18:42:00-06:00"
+            },
+            "statusInfo": {
+              "status": "EARLY",
+              "displayStatus": "Arrived",
+              "displayMessage": "3 Minutes Early",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T18:39:00-06:00",
+              "delay": "PT-3M",
+              "asOf": "2025-02-07T18:46:46-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T18:42:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T18:42:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T18:46:46-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207TOH",
+          "stopNumber": 7,
+          "station": {
+            "code": "TOH",
+            "name": "Tomah, WI",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T19:20:00-06:00"
+            },
+            "statusInfo": {
+              "status": "EARLY",
+              "displayStatus": "Arrived",
+              "displayMessage": "2 Minutes Early",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T19:18:00-06:00",
+              "delay": "PT-2M",
+              "asOf": "2025-02-07T19:22:47-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T19:20:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T19:20:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T19:22:47-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207LSE",
+          "stopNumber": 8,
+          "station": {
+            "code": "LSE",
+            "name": "La Crosse, WI",
+            "facility": "Amtrak Station",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T20:04:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "9 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T20:13:00-06:00",
+              "delay": "PT9M",
+              "asOf": "2025-02-07T20:19:52-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T20:04:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "11 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T20:15:00-06:00",
+              "delay": "PT11M",
+              "asOf": "2025-02-07T20:19:52-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207WIN",
+          "stopNumber": 9,
+          "station": {
+            "code": "WIN",
+            "name": "Winona, MN",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T20:34:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "13 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T20:47:00-06:00",
+              "delay": "PT13M",
+              "asOf": "2025-02-07T20:58:20-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T20:40:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "14 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T20:54:00-06:00",
+              "delay": "PT14M",
+              "asOf": "2025-02-07T20:58:20-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207RDW",
+          "stopNumber": 10,
+          "station": {
+            "code": "RDW",
+            "name": "Red Wing, MN",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T21:42:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "13 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T21:55:00-06:00",
+              "delay": "PT13M",
+              "asOf": "2025-02-07T21:58:08-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T21:42:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "15 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T21:57:00-06:00",
+              "delay": "PT15M",
+              "asOf": "2025-02-07T21:58:08-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207MSP",
+          "stopNumber": 11,
+          "station": {
+            "code": "MSP",
+            "name": "St. Paul-Minneapolis, MN",
+            "facility": "Union Depot",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-07T22:56:00-06:00"
+            },
+            "statusInfo": {
+              "status": "EARLY",
+              "displayStatus": "Arrived",
+              "displayMessage": "8 Minutes Early",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T22:48:00-06:00",
+              "delay": "PT-8M",
+              "asOf": "2025-02-07T23:14:54-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-07T23:13:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-07T23:13:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-07T23:14:54-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207SCD",
+          "stopNumber": 12,
+          "station": {
+            "code": "SCD",
+            "name": "St. Cloud, MN",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T01:09:00-06:00"
+            },
+            "statusInfo": {
+              "status": "EARLY",
+              "displayStatus": "Arrived",
+              "displayMessage": "25 Minutes Early",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T00:44:00-06:00",
+              "delay": "PT-25M",
+              "asOf": "2025-02-08T11:01:28-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T01:09:00-06:00"
+            },
+            "statusInfo": {
+              "status": "ON TIME",
+              "displayStatus": "Departed",
+              "displayMessage": "On Time",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T01:09:00-06:00",
+              "delay": "PT0S",
+              "asOf": "2025-02-08T11:01:28-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207SPL",
+          "stopNumber": 13,
+          "station": {
+            "code": "SPL",
+            "name": "Staples, MN",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T02:10:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "5 Hours, 29 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T07:39:00-06:00",
+              "delay": "PT5H29M",
+              "asOf": "2025-02-08T11:01:28-06:00",
+              "comment": "(3157 08FEB25) ENGINE FAILURE W/SCD"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T02:10:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "5 Hours, 32 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T07:42:00-06:00",
+              "delay": "PT5H32M",
+              "asOf": "2025-02-08T11:01:28-06:00",
+              "comment": "(3157 08FEB25) ENGINE FAILURE W/SCD"
+            }
+          }
+        },
+        {
+          "id": "000720250207DLK",
+          "stopNumber": 14,
+          "station": {
+            "code": "DLK",
+            "name": "Detroit Lakes, MN",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T03:06:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "5 Hours, 56 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T09:02:00-06:00",
+              "delay": "PT5H56M",
+              "asOf": "2025-02-08T11:01:28-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T03:06:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "5 Hours, 59 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T09:05:00-06:00",
+              "delay": "PT5H59M",
+              "asOf": "2025-02-08T11:01:28-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207FAR",
+          "stopNumber": 15,
+          "station": {
+            "code": "FAR",
+            "name": "Fargo, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T04:13:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "5 Hours, 57 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T10:10:00-06:00",
+              "delay": "PT5H57M",
+              "asOf": "2025-02-08T11:01:28-06:00"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-07T01:13:09.807-05:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T04:13:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "6 Hours, 7 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T10:20:00-06:00",
+              "delay": "PT6H7M",
+              "asOf": "2025-02-08T11:01:28-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207GFK",
+          "stopNumber": 16,
+          "station": {
+            "code": "GFK",
+            "name": "Grand Forks, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T05:34:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "6 Hours, 19 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T11:53:00-06:00",
+              "delay": "PT6H19M",
+              "asOf": "2025-02-08T12:54:24-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T05:34:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "7 Hours, 18 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T12:52:00-06:00",
+              "delay": "PT7H18M",
+              "asOf": "2025-02-08T12:54:24-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207DVL",
+          "stopNumber": 17,
+          "station": {
+            "code": "DVL",
+            "name": "Devils Lake, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T06:59:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "7 Hours, 13 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T14:12:00-06:00",
+              "delay": "PT7H13M",
+              "asOf": "2025-02-08T14:15:19-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T06:59:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "7 Hours, 13 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T14:12:00-06:00",
+              "delay": "PT7H13M",
+              "asOf": "2025-02-08T14:15:19-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207RUG",
+          "stopNumber": 18,
+          "station": {
+            "code": "RUG",
+            "name": "Rugby, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T07:53:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "7 Hours, 15 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T15:08:00-06:00",
+              "delay": "PT7H15M",
+              "asOf": "2025-02-08T15:13:43-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T07:53:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "7 Hours, 18 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T15:11:00-06:00",
+              "delay": "PT7H18M",
+              "asOf": "2025-02-08T15:13:43-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207MOT",
+          "stopNumber": 19,
+          "station": {
+            "code": "MOT",
+            "name": "Minot, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T09:06:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "7 Hours, 14 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T16:20:00-06:00",
+              "delay": "PT7H14M",
+              "asOf": "2025-02-08T17:40:55-06:00"
+            },
+            "gate": {
+              "number": "A",
+              "asOf": "2025-02-07T01:13:09.87-05:00"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-07T01:13:09.887-05:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T09:51:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "7 Hours, 47 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T17:38:00-06:00",
+              "delay": "PT7H47M",
+              "asOf": "2025-02-08T17:40:55-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207STN",
+          "stopNumber": 20,
+          "station": {
+            "code": "STN",
+            "name": "Stanley, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T10:46:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "7 Hours, 47 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T18:33:00-06:00",
+              "delay": "PT7H47M",
+              "asOf": "2025-02-08T18:36:37-06:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T10:46:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "7 Hours, 48 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T18:34:00-06:00",
+              "delay": "PT7H48M",
+              "asOf": "2025-02-08T18:36:37-06:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207WTN",
+          "stopNumber": 21,
+          "station": {
+            "code": "WTN",
+            "name": "Williston, ND",
+            "timeZone": "America/Chicago"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T11:59:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Arrived",
+              "displayMessage": "7 Hours, 40 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T19:39:00-06:00",
+              "delay": "PT7H40M",
+              "asOf": "2025-02-08T19:46:49-06:00",
+              "comment": "(4211 07FEB25) CLOSED"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-07T01:13:09.917-05:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T11:59:00-06:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Departed",
+              "displayMessage": "7 Hours, 45 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 7:26 AM CT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ACTUAL",
+              "dateTime": "2025-02-08T19:44:00-06:00",
+              "delay": "PT7H45M",
+              "asOf": "2025-02-08T19:46:49-06:00",
+              "comment": "(4211 07FEB25) CLOSED"
+            }
+          }
+        },
+        {
+          "id": "000720250207WPT",
+          "stopNumber": 22,
+          "station": {
+            "code": "WPT",
+            "name": "Wolf Point, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T12:34:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 08:22PM",
+              "displayMessage": "7 Hours, 48 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T20:22:00-07:00",
+              "autoCalculated": false,
+              "delay": "PT7H48M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T12:34:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 08:24PM",
+              "displayMessage": "7 Hours, 50 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T20:24:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H50M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207GGW",
+          "stopNumber": 23,
+          "station": {
+            "code": "GGW",
+            "name": "Glasgow, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T13:20:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 09:04PM",
+              "displayMessage": "7 Hours, 44 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T21:04:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H44M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T13:20:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 09:05PM",
+              "displayMessage": "7 Hours, 45 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T21:05:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H45M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207MAL",
+          "stopNumber": 24,
+          "station": {
+            "code": "MAL",
+            "name": "Malta, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T14:20:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 10:00PM",
+              "displayMessage": "7 Hours, 40 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T22:00:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H40M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T14:20:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 10:02PM",
+              "displayMessage": "7 Hours, 42 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T22:02:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H42M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207HAV",
+          "stopNumber": 25,
+          "station": {
+            "code": "HAV",
+            "name": "Havre, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T15:54:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 11:14PM",
+              "displayMessage": "7 Hours, 20 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T23:14:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H20M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-08T03:54:12-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T16:15:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 11:31PM",
+              "displayMessage": "7 Hours, 16 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-08T23:31:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT7H16M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-08T03:54:12-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207SBY",
+          "stopNumber": 26,
+          "station": {
+            "code": "SBY",
+            "name": "Shelby, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T18:13:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 01:02AM",
+              "displayMessage": "6 Hours, 49 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T01:02:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H49M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-07T01:13:10.01-05:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T18:21:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 01:05AM",
+              "displayMessage": "6 Hours, 44 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T01:05:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H44M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            },
+            "track": {
+              "number": "1",
+              "asOf": "2025-02-07T01:13:10.01-05:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207CUT",
+          "stopNumber": 27,
+          "station": {
+            "code": "CUT",
+            "name": "Cut Bank, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T18:51:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 01:33AM",
+              "displayMessage": "6 Hours, 42 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T01:33:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H42M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T18:51:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 01:34AM",
+              "displayMessage": "6 Hours, 43 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T01:34:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H43M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207BRO",
+          "stopNumber": 28,
+          "station": {
+            "code": "BRO",
+            "name": "Browning, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T19:28:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 02:05AM",
+              "displayMessage": "6 Hours, 37 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T02:05:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H37M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T19:28:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 02:05AM",
+              "displayMessage": "6 Hours, 37 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T02:05:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H37M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207ESM",
+          "stopNumber": 29,
+          "station": {
+            "code": "ESM",
+            "name": "Essex, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T20:44:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:18AM",
+              "displayMessage": "6 Hours, 34 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T03:18:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H34M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T20:44:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:19AM",
+              "displayMessage": "6 Hours, 35 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T03:19:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H35M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207WGL",
+          "stopNumber": 30,
+          "station": {
+            "code": "WGL",
+            "name": "West Glacier, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T21:27:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:54AM",
+              "displayMessage": "6 Hours, 27 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T03:54:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H27M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T21:27:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:56AM",
+              "displayMessage": "6 Hours, 29 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T03:56:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H29M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207WFH",
+          "stopNumber": 31,
+          "station": {
+            "code": "WFH",
+            "name": "Whitefish, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-08T22:06:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 04:25AM",
+              "displayMessage": "6 Hours, 19 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T04:25:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H19M",
+              "asOf": "2025-02-08T19:51:00-07:00",
+              "comment": "(8430 07FEB25) ...                             "
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-08T22:21:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 04:45AM",
+              "displayMessage": "6 Hours, 24 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T04:45:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H24M",
+              "asOf": "2025-02-08T19:51:00-07:00",
+              "comment": "(8430 07FEB25) ...                             "
+            }
+          }
+        },
+        {
+          "id": "000720250207LIB",
+          "stopNumber": 32,
+          "station": {
+            "code": "LIB",
+            "name": "Libby, MT",
+            "timeZone": "America/Denver"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T00:05:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 06:24AM",
+              "displayMessage": "6 Hours, 19 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T06:24:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H19M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T00:05:00-07:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 06:26AM",
+              "displayMessage": "6 Hours, 21 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 6:26 AM MT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T06:26:00-07:00",
+              "autoCalculated": true,
+              "delay": "PT6H21M",
+              "asOf": "2025-02-08T19:51:00-07:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207SPT",
+          "stopNumber": 33,
+          "station": {
+            "code": "SPT",
+            "name": "Sandpoint, ID",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T00:55:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 07:10AM",
+              "displayMessage": "6 Hours, 15 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T07:10:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT6H15M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T00:55:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 07:12AM",
+              "displayMessage": "6 Hours, 17 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T07:12:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT6H17M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207SPK",
+          "stopNumber": 34,
+          "station": {
+            "code": "SPK",
+            "name": "Spokane, WA",
+            "facility": "Amtrak Station",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T02:44:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 08:22AM",
+              "displayMessage": "5 Hours, 38 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T08:22:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H38M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T03:19:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 08:46AM",
+              "displayMessage": "5 Hours, 27 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T08:46:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H27M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207EPH",
+          "stopNumber": 35,
+          "station": {
+            "code": "EPH",
+            "name": "Ephrata, WA",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T05:28:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 10:52AM",
+              "displayMessage": "5 Hours, 24 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T10:52:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H24M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T05:28:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 10:53AM",
+              "displayMessage": "5 Hours, 25 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T10:53:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H25M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207WEN",
+          "stopNumber": 36,
+          "station": {
+            "code": "WEN",
+            "name": "Wenatchee, WA",
+            "facility": "Amtrak Station",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T06:35:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 11:55AM",
+              "displayMessage": "5 Hours, 20 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T11:55:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H20M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T06:45:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 12:02PM",
+              "displayMessage": "5 Hours, 17 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T12:02:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H17M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207LWA",
+          "stopNumber": 37,
+          "station": {
+            "code": "LWA",
+            "name": "Leavenworth, WA",
+            "facility": "Icicle Station",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T07:18:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 12:33PM",
+              "displayMessage": "5 Hours, 15 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T12:33:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H15M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T07:18:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 12:34PM",
+              "displayMessage": "5 Hours, 16 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T12:34:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT5H16M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207EVR",
+          "stopNumber": 38,
+          "station": {
+            "code": "EVR",
+            "name": "Everett, WA",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T10:03:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 02:59PM",
+              "displayMessage": "4 Hours, 56 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T14:59:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT4H56M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T10:03:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:02PM",
+              "displayMessage": "4 Hours, 59 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T15:02:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT4H59M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207EDM",
+          "stopNumber": 39,
+          "station": {
+            "code": "EDM",
+            "name": "Edmonds, WA",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T10:35:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:27PM",
+              "displayMessage": "4 Hours, 52 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T15:27:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT4H52M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          },
+          "departure": {
+            "schedule": {
+              "dateTime": "2025-02-09T10:35:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 03:29PM",
+              "displayMessage": "4 Hours, 54 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T15:29:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT4H54M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            }
+          }
+        },
+        {
+          "id": "000720250207SEA",
+          "stopNumber": 40,
+          "station": {
+            "code": "SEA",
+            "name": "Seattle, WA",
+            "facility": "King Street Station",
+            "timeZone": "America/Los_Angeles"
+          },
+          "arrival": {
+            "schedule": {
+              "dateTime": "2025-02-09T11:29:00-08:00"
+            },
+            "statusInfo": {
+              "status": "DELAYED",
+              "displayStatus": "Now 04:01PM",
+              "displayMessage": "4 Hours, 32 Minutes Late",
+              "detailedMessage": "Delay Notification: As of 5:26 AM PT, Train 7/27 is currently operating approximately 5 hours and 20 minutes late due to engine issues with the trainset. We sincerely apologize for this extensive delay and greatly appreciate your patience and understanding during your travels. Departure estimates are subject to change. If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow. To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+              "dateTimeType": "ESTIMATE",
+              "dateTime": "2025-02-09T16:01:00-08:00",
+              "autoCalculated": true,
+              "delay": "PT4H32M",
+              "asOf": "2025-02-08T18:51:00-08:00"
+            },
+            "track": {
+              "number": "T7",
+              "asOf": "2025-02-07T01:13:10.23-05:00"
+            }
+          },
+          "departure": {
+            "track": {
+              "number": "T7",
+              "asOf": "2025-02-07T01:13:10.23-05:00"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

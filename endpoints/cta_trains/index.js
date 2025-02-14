@@ -127,8 +127,10 @@ const processData = async () => {
 
     if (data?.status !== 'OK') return {};
 
+    /*
     const root = await protobuf.load('schedules.proto');
     const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
+    */
 
     const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
     const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
@@ -138,6 +140,7 @@ const processData = async () => {
     const stationsData = await stationsReq.json();
     const staticMetaData = await staticMetaRes.json();
 
+    /*
     const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.pbf`);
     const staticScheduleArrayBuffer = await staticScheduleRes.arrayBuffer();
     const staticScheduleArray = ScheduleMessage.decode(new Uint8Array(staticScheduleArrayBuffer));
@@ -146,6 +149,7 @@ const processData = async () => {
     staticScheduleArray.stopMessage.forEach((stop) => {
       staticScheduleData[stop.stopId] = stop.trainMessage;
     });
+    */
 
     let processedData = {
       transitStatus: {
@@ -297,6 +301,7 @@ const processData = async () => {
     processedData.transitStatus.lastUpdated = updated;
 
     //filling in schedule data
+    /*
     const startOfDay = `${new Date().toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
     Object.keys(processedData.transitStatus.stations).forEach((stationKey) => {
       if (!staticScheduleData[stationKey]) return;
@@ -346,6 +351,7 @@ const processData = async () => {
         })
       }
     })
+    */
 
     return processedData;
   } catch (e) {
