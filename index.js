@@ -209,7 +209,7 @@ fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
     //this isnt needed, but tbh i dont trust this cache implementation
     for (let i = 5; i <= 60; i += 5) {
       setTimeout(() => {
-        console.log('YEET')
+        console.log('Hard resetting cache')
         fastify.lcache.reset();
       }, i * 1000)
     }

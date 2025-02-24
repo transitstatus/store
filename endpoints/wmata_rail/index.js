@@ -79,6 +79,12 @@ const updateFeed = async () => {
     const vehiclePositionsFeed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(vehiclePositionsBuffer));
     //finished processing GTFS-RT
 
+    /*
+    vehiclePositionsFeed.toJSON().entity.forEach((train) => {
+      console.log(train.vehicle.occupancyStatus)
+    })
+    */
+
     //pushing routes into transitstatus object
     Object.keys(routesData).forEach((routeKey) => {
       transitStatus.lines[routeKey] = {
