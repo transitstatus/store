@@ -98,7 +98,7 @@ const update = (async () => {
       "mode": "cors"
     });
 
-    const todaysDate = new Date();
+    const todaysDate = new Date(new Date().toISOString().split('T')[0] + 'T00:00:00.000Z')
     const yesterdaysDate = new Date(todaysDate.valueOf() - (1000 * 60 * 60 * 24));
 
     const root = await protobuf.load('schedules.proto');
