@@ -160,7 +160,7 @@ const update = (async () => {
       const runNumber = `${train.trip_update?.trip?.route_id.replaceAll('-', '')}-${trainNumber[0]}`;
       const isInbound = parseInt(trainNumber[0]) % 2 == 0;
       const trainDirection = isInbound ? 'Inbound' : 'Outbound';
-      
+
       let finalTrain = {
         lat: train.trip_update?.position?.vehicle?.position?.latitude,
         lon: train.trip_update?.position?.vehicle?.position?.longitude,
@@ -179,6 +179,7 @@ const update = (async () => {
 
       //adding predictions to transitStatus object
       train.trip_update?.stop_time_update?.forEach((stop) => {
+
         const arr = new Date(stop.arrival?.time?.low).valueOf();
         const dep = new Date(stop.departure?.time?.low).valueOf();
         const time = Math.max(arr, dep);
@@ -188,7 +189,7 @@ const update = (async () => {
           stationID: stop.stop_id,
           stationName: staticStopsData[stop.stop_id].stopName,
           actualETA: time,
-          noETA: false,
+          noETA: !time,
         });
 
         //adding stations to transitStatus object
@@ -199,8 +200,8 @@ const update = (async () => {
             lat: staticStopsData[stop.stop_id].stopLat,
             lon: staticStopsData[stop.stop_id].stopLon,
             destinations: {
-              'Inbound': {trains: []},
-              'Outbound': {trains: []},
+              'Inbound': { trains: [] },
+              'Outbound': { trains: [] },
             },
           };
         }
@@ -210,7 +211,7 @@ const update = (async () => {
         transitStatus.stations[stop.stop_id].destinations[trainDirection].trains.push({
           runNumber: runNumber,
           actualETA: time,
-          noETA: false,
+          noETA: !time,
           realTime: true,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
@@ -248,8 +249,8 @@ const update = (async () => {
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
             destinations: {
-              'Inbound': {trains: []},
-              'Outbound': {trains: []},
+              'Inbound': { trains: [] },
+              'Outbound': { trains: [] },
             },
           };
         }
