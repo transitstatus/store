@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const protobuf = require('protobufjs');
 
 const actualLines = {
@@ -120,11 +119,20 @@ const additionalStops = {
 const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
 
 const processData = async () => {
-  try {
-    const req = await fetch('https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=3000');
+  try { 
+    const req = await fetch('https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=3000', {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        Coookie: "foo=bar",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+    });
+
     const raw = await req.text();
 
-console.log(raw)
+    console.log(raw)
     const data = JSON.parse(raw);
 
     if (data?.status !== 'OK') return {};
