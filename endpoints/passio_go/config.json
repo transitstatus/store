@@ -20,7 +20,8 @@
     "bamabama": {},
     "columbia": {},
     "miller": {},
-    "ritech": {}
+    "ritech": {},
+    "uga": {}
   },
   "variables": [
     [
@@ -70,6 +71,9 @@
     ],
     [
       "ritech"
+    ],
+    [
+      "uga"
     ]
   ]
 }

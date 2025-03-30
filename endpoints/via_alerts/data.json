@@ -1,0 +1,1738 @@
+[
+  {
+    "id": [
+      {
+        "value": 2545
+      }
+    ],
+    "uuid": [
+      {
+        "value": "471d3b9a-092f-4f34-ad89-a861c67897fe"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199401
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:53:38+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-09-04T18:40:54+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "partly_in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 3060
+          }
+        ],
+        "uuid": [
+          {
+            "value": "6253c270-6c9d-4a86-97fc-fdc85aea95ea"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199399
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-10-12T01:01:48+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2545"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2024-10-18T18:54:40+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>We are currently experiencing delays of 15-45 minutes on certain Corridor trains due to unexpected speed restrictions imposed by CN, the railway infrastructure owner.</p>",
+            "format": "full_html",
+            "processed": "<p>We are currently experiencing delays of 15-45 minutes on certain Corridor trains due to unexpected speed restrictions imposed by CN, the railway infrastructure owner.</p>"
+          }
+        ],
+        "field_route_name": [
+          {
+            "value": "Corridor"
+          }
+        ],
+        "field_title": []
+      },
+      {
+        "id": [
+          {
+            "value": 3186
+          }
+        ],
+        "uuid": [
+          {
+            "value": "138f223f-1d39-4485-96e6-b22e58b027af"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199400
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2025-03-06T19:52:59+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2545"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2025-03-06T19:52:59+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Due to infrastructure maintenance, there will be no service to or from the Guildwood Station on March 22 and 23, and some trains will use a detour.T</p><p><strong>Trains 40, 44, 46, 48, 50, 52, 54, 60, 62, 64, 66, 68, 646, 668</strong>: schedule adjusted for arrival/departure at all stations, except departure from Toronto</p><p><strong>Trains 41, 43, 47, 53, 59, 61, 63, 65, 67, 69, 643, 645, 647, 669</strong>: schedule adjusted for arrival in Toronto only</p><p>Delays may occur above and beyond this modified schedule. <a href=\"https://service-pages.viarail.ca/kingston-sub-maintenance-march-2025-passenger-travel-advisory-bulletin-en\">Details here</a>.</p>",
+            "format": "full_html",
+            "processed": "<p>Due to infrastructure maintenance, there will be no service to or from the Guildwood Station on March 22 and 23, and some trains will use a detour.T</p><p><strong>Trains 40, 44, 46, 48, 50, 52, 54, 60, 62, 64, 66, 68, 646, 668</strong>: schedule adjusted for arrival/departure at all stations, except departure from Toronto</p><p><strong>Trains 41, 43, 47, 53, 59, 61, 63, 65, 67, 69, 643, 645, 647, 669</strong>: schedule adjusted for arrival in Toronto only</p><p>Delays may occur above and beyond this modified schedule. <a href=\"https://service-pages.viarail.ca/kingston-sub-maintenance-march-2025-passenger-travel-advisory-bulletin-en\">Details here</a>.</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": [
+          {
+            "value": "Infrastructure maintenance"
+          }
+        ]
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Québec – Windsor Corridor "
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2547
+      }
+    ],
+    "uuid": [
+      {
+        "value": "6466e9ac-3671-49de-ba92-e00124126413"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199403
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:53:57+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-10-21T12:52:59+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 2546
+          }
+        ],
+        "uuid": [
+          {
+            "value": "e4cbc719-33b2-415d-a548-cfb2ee41686b"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199402
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-05-09T03:53:57+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2547"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2024-10-21T12:52:59+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Toronto – Vancouver (The Canadian)"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2549
+      }
+    ],
+    "uuid": [
+      {
+        "value": "d735c70a-f586-4549-a930-05a18a31af53"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199405
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:23+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-05-09T03:54:23+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 2548
+          }
+        ],
+        "uuid": [
+          {
+            "value": "2e05865b-7ea3-45a2-a35e-811af2b01e7d"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199404
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-05-09T03:54:23+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2549"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2024-07-15T15:52:27+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Montréal – Halifax (The Ocean)"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2551
+      }
+    ],
+    "uuid": [
+      {
+        "value": "374ce705-dbee-4b18-bebd-867d043a16fa"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199407
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:29+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2025-01-08T13:48:38+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 3091
+          }
+        ],
+        "uuid": [
+          {
+            "value": "d9927fcc-1ada-4f68-8f78-84ec63502926"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199406
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-12-04T19:51:06+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2551"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2025-01-08T13:48:38+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Sudbury – White River"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2553
+      }
+    ],
+    "uuid": [
+      {
+        "value": "8494f33a-6aa6-41f5-a088-9a30ebacb38c"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199409
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:35+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-05-09T03:54:35+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 2552
+          }
+        ],
+        "uuid": [
+          {
+            "value": "3581920d-80fe-49ac-9267-fdf5ab418e5d"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199408
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-05-09T03:54:35+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2553"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2024-07-15T15:52:27+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Winnipeg – Churchill"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2555
+      }
+    ],
+    "uuid": [
+      {
+        "value": "9f0a0ade-8fdb-4d82-aa99-aedf7dc6efdc"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199411
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:41+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [
+      {
+        "value": true
+      }
+    ],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-05-09T03:54:41+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 3194
+          }
+        ],
+        "uuid": [
+          {
+            "value": "8af52093-7b9c-4b9b-b7f1-321191b83f8d"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199410
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2025-03-10T13:17:23+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2555"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [
+          {
+            "value": true
+          }
+        ],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2025-03-10T13:17:23+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Montréal – Senneterre"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2557
+      }
+    ],
+    "uuid": [
+      {
+        "value": "b7cf0ae6-9e31-4404-be65-86f74d31727c"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199413
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:46+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [
+      {
+        "value": true
+      }
+    ],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-05-09T03:54:46+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 3195
+          }
+        ],
+        "uuid": [
+          {
+            "value": "ecd2fe35-d2a7-447e-9380-954ba45cc5f3"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199412
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2025-03-10T13:17:41+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2557"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [
+          {
+            "value": true
+          }
+        ],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2025-03-10T13:17:41+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Montréal – Jonquière"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2559
+      }
+    ],
+    "uuid": [
+      {
+        "value": "f90e1b58-03a5-4c36-b39e-9ea107e7bc2d"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199415
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:52+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2025-01-07T14:02:50+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 3092
+          }
+        ],
+        "uuid": [
+          {
+            "value": "ad9baea9-de64-40e6-915c-bdea190db4f5"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199414
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-12-04T19:52:32+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2559"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2025-01-07T14:02:50+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Jasper – Prince George – Prince-Rupert"
+      }
+    ]
+  },
+  {
+    "id": [
+      {
+        "value": 2561
+      }
+    ],
+    "uuid": [
+      {
+        "value": "b5ebf934-7451-4ef4-8fae-6b2f5b1c9d59"
+      }
+    ],
+    "revision_id": [
+      {
+        "value": 199417
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": "arrival_and_departure_alerts",
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "created": [
+      {
+        "value": "2024-05-09T03:54:57+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "parent_id": [
+      {
+        "value": "71633"
+      }
+    ],
+    "parent_type": [
+      {
+        "value": "node"
+      }
+    ],
+    "parent_field_name": [
+      {
+        "value": "field_paragraph"
+      }
+    ],
+    "behavior_settings": [
+      {
+        "value": []
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": false
+      }
+    ],
+    "revision_translation_affected": [],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "content_translation_changed": [
+      {
+        "value": "2024-05-09T03:54:57+00:00",
+        "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_alert_state": [
+      {
+        "value": "in_service"
+      }
+    ],
+    "field_paragraph": [
+      {
+        "id": [
+          {
+            "value": 2560
+          }
+        ],
+        "uuid": [
+          {
+            "value": "499fd90a-18fc-4b33-abba-1ae64a64a15d"
+          }
+        ],
+        "revision_id": [
+          {
+            "value": 199416
+          }
+        ],
+        "langcode": [
+          {
+            "value": "en"
+          }
+        ],
+        "type": [
+          {
+            "target_id": "route",
+            "target_type": "paragraphs_type",
+            "target_uuid": "1fa2c96a-2af5-420b-9818-f415d68d2514"
+          }
+        ],
+        "status": [
+          {
+            "value": true
+          }
+        ],
+        "created": [
+          {
+            "value": "2024-05-09T03:54:57+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "parent_id": [
+          {
+            "value": "2561"
+          }
+        ],
+        "parent_type": [
+          {
+            "value": "paragraph"
+          }
+        ],
+        "parent_field_name": [
+          {
+            "value": "field_paragraph"
+          }
+        ],
+        "behavior_settings": [
+          {
+            "value": []
+          }
+        ],
+        "default_langcode": [
+          {
+            "value": false
+          }
+        ],
+        "revision_translation_affected": [],
+        "content_translation_source": [
+          {
+            "value": "und"
+          }
+        ],
+        "content_translation_outdated": [
+          {
+            "value": false
+          }
+        ],
+        "content_translation_changed": [
+          {
+            "value": "2024-07-15T15:52:27+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+          }
+        ],
+        "field_cause_of_incident": [],
+        "field_content": [
+          {
+            "value": "<p>Nothing to report</p>",
+            "format": "full_html",
+            "processed": "<p>Nothing to report</p>"
+          }
+        ],
+        "field_route_name": [],
+        "field_title": []
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Toronto – Niagara Falls"
+      }
+    ]
+  }
+]
