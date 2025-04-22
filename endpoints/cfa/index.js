@@ -27,8 +27,6 @@ const updateFeed = (async (zoneTag) => {
   try {
     const data = await res.json();
 
-    console.log(data)
-
     if (data.data == null) throw new Error(data.error);
 
     let zoneData = {
