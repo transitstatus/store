@@ -67,8 +67,8 @@ const hardCoded = {
 const update = async () => {
   try {
     //const trackingRes = await fetch(`https://developerservices.itsmarta.com:18096/railrealtimearrivals?apiKey=${process.env.marta}`);
-    const trackingRes = await fetch(`https://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=${process.env.marta}`);
-    const trackingData = await trackingRes.json();
+    //const trackingRes = await fetch(`https://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=${process.env.marta}`);
+    //const trackingData = await trackingRes.json();
 
     const trainsRes = await fetch('http://labs.itsmarta.com/signpost/trains');
     const trainsData = await trainsRes.json();
