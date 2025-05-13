@@ -287,11 +287,11 @@ const update = (async () => {
           headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
           routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
 
-          if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
+          if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 8)) continue;
 
           const trainDirection = parseInt(thisVehicle.runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
 
-          if (transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].length >= 4) continue; //we dont need all that
+          if (transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].length >= 8) continue; //we dont need all that
           if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
 
           transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].push({
