@@ -143,6 +143,7 @@ const update = async () => {
           stationName: prediction.stpnm,
           actualETA: parseTime(prediction.prdtm),
           noETA: false,
+          realTime: true,
         }
       }),
       extra: {

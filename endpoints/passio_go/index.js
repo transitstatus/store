@@ -397,6 +397,7 @@ const updateFeed = async (feed) => {
               stationName: transitStatus.stations[actualStopKey].stationName,
               actualETA: 0,
               noETA: true,
+              realTime: true,
             });
             return; //exiting loop
           } else {
@@ -421,6 +422,7 @@ const updateFeed = async (feed) => {
           stationName: transitStatus.stations[actualStopKey].stationName,
           actualETA: finalETAVal,
           noETA: false,
+          realTime: true,
         });
       })
     });

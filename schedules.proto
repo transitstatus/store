@@ -17,3 +17,27 @@ message StopMessage {
 message ScheduleMessage {
   repeated StopMessage stop_message = 1;
 }
+
+// beyond is for positions
+message VehicleLocationMessage {
+  float lon = 1;
+  float lat = 2;
+  optional string color = 3;
+}
+
+message LocationsMessage {
+  uint32 time = 1;
+  repeated VehicleLocationMessage vehicle_message = 2;
+}
+
+message VehicleScheduleMessage {
+  string run_number = 1;
+  string route_id = 2;
+  string service_id = 3;
+  uint32 vehicle_stop = 4;
+  uint32 start_time = 5;
+}
+
+message MultipleVehiclesScheduleMessage {
+  repeated VehicleScheduleMessage vehicle_schedule_message = 1;
+}

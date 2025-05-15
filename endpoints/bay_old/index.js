@@ -172,6 +172,7 @@ const updateFeed = async (feedKey) => {
             actualETA: Math.max(stopTime.arrival?.time?.low, stopTime.arrival?.time?.high) * 1000,
             realTime: true,
             noETA: false,
+            realTime: true,
           };
         })
       }

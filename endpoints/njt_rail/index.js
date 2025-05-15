@@ -164,6 +164,7 @@ const updateFeed = async () => {
           let res = {
             stationID: stopTime.stopId,
             stationName: stopsData[stopTime.stopId].stopName,
+            realTime: true,
           };
 
           if (timeObject) {

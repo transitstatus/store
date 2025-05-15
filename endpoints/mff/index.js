@@ -154,6 +154,7 @@ const updateFeed = async () => {
             stationName: stopNameDict[stopID],
             actualETA: isNaN(stopTime.eta) ? updatedAt : updatedAt + (stopTime.eta * 1000),
             noETA: false,
+            realTime: true,
             extra: {
               accessible: stopTime.device.endsWith('♿️')
             }

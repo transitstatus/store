@@ -236,6 +236,7 @@ const processData = async () => {
             //eta: eta,
             actualETA: actualETA,
             noETA: isNaN(eta),
+            realTime: true,
           });
 
           //adding train to stations
