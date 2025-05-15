@@ -410,7 +410,9 @@ const update = (async () => {
               'Outbound': { trains: [] },
             },
           };
-        }
+        };
+
+        if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
 
         transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
           runNumber: runNumber,
