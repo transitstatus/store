@@ -391,7 +391,7 @@ const update = (async () => {
 
     Object.keys(scheduledVehicles)
       .sort((aTrip, bTrip) => {
-        scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
+        return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
       })
       .forEach((runNumber) => {
       const scheduledVehicle = scheduledVehicles[runNumber];
