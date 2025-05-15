@@ -389,7 +389,11 @@ const update = (async () => {
     fillInVehicleData(vehicleSchedule, nowDate, yesterdaysDate); //yesterday
     fillInVehicleData(vehicleSchedule, nowDate, tomorrowsDate); //tomorrow
 
-    Object.keys(scheduledVehicles).forEach((runNumber) => {
+    Object.keys(scheduledVehicles)
+      .sort((aTrip, bTrip) => {
+        scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
+      })
+      .forEach((runNumber) => {
       const scheduledVehicle = scheduledVehicles[runNumber];
 
       if (transitStatus.trains[runNumber]) return; // train exists
