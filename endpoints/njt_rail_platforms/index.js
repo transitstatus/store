@@ -15,6 +15,8 @@ const updateFeed = async () => {
       stations: {}
     };
 
+return responseObject;
+
     stations.forEach(async (station) => {
       const form = new FormData();
       form.append('token', process.env.NJT_REGULAR_RAIL_KEY);
