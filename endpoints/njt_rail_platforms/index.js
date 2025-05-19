@@ -15,8 +15,6 @@ const updateFeed = async () => {
       stations: {}
     };
 
-return responseObject;
-
     stations.forEach(async (station) => {
       const form = new FormData();
       form.append('token', process.env.NJT_REGULAR_RAIL_KEY);
@@ -32,6 +30,8 @@ return responseObject;
         body: form,
       });
       const data = await res.json();
+
+      if (!data.ITEMS) return responseObject; // fallback if API bad
 
       responseObject.stations[station.code] = {};
 
