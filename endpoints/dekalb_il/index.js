@@ -41,8 +41,8 @@ const update = async () => {
         lineCode: route.id,
         lineNameShort: route.abbr,
         lineNameLong: route.name,
-        routeColor: route.color,
-        routeTextColor: '#000000',
+        routeColor: route.color.replace('#', ''),
+        routeTextColor: '000000',
         stations: route.stops,
         hasActiveTrains: false
       }
