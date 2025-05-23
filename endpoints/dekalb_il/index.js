@@ -42,7 +42,7 @@ const update = async () => {
         lineNameShort: route.abbr,
         lineNameLong: route.name,
         routeColor: route.color.replace('#', ''),
-        routeTextColor: '000000',
+        routeTextColor: 'ffffff',
         stations: route.stops,
         hasActiveTrains: false
       }
