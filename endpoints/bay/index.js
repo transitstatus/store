@@ -66,11 +66,11 @@ const updateFeed = async () => {
     //fetching static data
     const routesReq = await fetch('https://gtfs.piemadd.com/data/RG/routes.json');
     const stopsReq = await fetch('https://gtfs.piemadd.com/data/RG/stops.json');
-    const segmentsReq = await fetch('https://gtfs.piemadd.com/data/RG/segments.json');
+    //const segmentsReq = await fetch('https://gtfs.piemadd.com/data/RG/segments.json');
 
     const routesData = await routesReq.json();
     const stopsData = await stopsReq.json();
-    const segmentsData = await segmentsReq.json();
+    //const segmentsData = await segmentsReq.json();
     //finished fetching static data
 
     //processing GTFS-RT feed to usable format
@@ -143,9 +143,9 @@ const updateFeed = async () => {
             heading: 0,
           }
         } else if (stopTimes.length < 2) { //approaching last stop
-          positionMeta = interpolatePosition(stopTimes[0].stopId, undefined, tripMeta.routeId, segmentsData);
+          //positionMeta = interpolatePosition(stopTimes[0].stopId, undefined, tripMeta.routeId, segmentsData);
         } else {
-          positionMeta = interpolatePosition(stopTimes[0].stopId, stopTimes[1].stopId, tripMeta.routeId, segmentsData);
+          //positionMeta = interpolatePosition(stopTimes[0].stopId, stopTimes[1].stopId, tripMeta.routeId, segmentsData);
         }
       }
 
