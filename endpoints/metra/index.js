@@ -104,7 +104,6 @@ const update = (async () => {
     const tomorrowsDate = new Date(todaysDate.valueOf() + (1000 * 60 * 60 * 24));
 
     const root = await protobuf.load('schedules.proto');
-    const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
     const MultipleVehiclesScheduleMessage = root.lookupType('gobbler.MultipleVehiclesScheduleMessage');
 
     const [
@@ -119,35 +118,17 @@ const update = (async () => {
       fetch(url).then(res => res.json())
     ));
 
-    const [
-      staticScheduleArray,
-      yesterdayStaticScheduleArray,
-    ] = await Promise.all([
-      `https://gobblerstatic.transitstat.us/schedules/metra/${todaysDate.toISOString().split('T')[0]}.pbf`,
-      `https://gobblerstatic.transitstat.us/schedules/metra/${yesterdaysDate.toISOString().split('T')[0]}.pbf`,
-    ].map((url) =>
-      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => ScheduleMessage.decode(new Uint8Array(arrayBuffer)))
-    ));
-
     const vehicleSchedule = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/vehicles.pbf')
       .then(res => res.arrayBuffer())
       .then(arrayBuffer => MultipleVehiclesScheduleMessage.decode(new Uint8Array(arrayBuffer)));
 
-    let staticScheduleData = {};
-    let yesterdayStaticScheduleData = {};
-    staticScheduleArray.stopMessage.forEach((stop) => {
-      staticScheduleData[stop.stopId] = stop.trainMessage;
-    });
-    yesterdayStaticScheduleArray.stopMessage.forEach((stop) => {
-      yesterdayStaticScheduleData[stop.stopId] = stop.trainMessage;
-    });
 
     let stoppingPatternTimes = {};
     staticMetaData.stoppingPatterns.forEach((pattern, patternIndex) => {
       let totalTime = 0;
       for (let i = 1; i < pattern.length; i++) totalTime += staticMetaData.stopTimes[`${pattern[i - 1]}_${pattern[i]}`];
       stoppingPatternTimes[patternIndex] = totalTime;
-    })
+    });
 
     const data = await res.json();
 
@@ -383,8 +364,6 @@ const update = (async () => {
 
     };
 
-    //fillInDataOld(yesterdayStaticScheduleData, yesterdaysDate);
-    //fillInDataOld(staticScheduleData, todaysDate);
     fillInVehicleData(vehicleSchedule, nowDate, todaysDate); //today
     fillInVehicleData(vehicleSchedule, nowDate, yesterdaysDate); //yesterday
     fillInVehicleData(vehicleSchedule, nowDate, tomorrowsDate); //tomorrow
