@@ -3,14 +3,19 @@ const otherStopData = require('./stops').otherStopData;
 
 const update = async () => {
   try {
-    const trackingRes = await fetch('https://dekalbpublic.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING');
-    const trackingData = await trackingRes.json();
-
-    const routesReq = await fetch('https://dekalbpublic.etaspot.net/service.php?service=get_routes&token=TESTING');
-    const routes = await routesReq.json();
-
-    const stationsReq = await fetch('https://dekalbpublic.etaspot.net/service.php?service=get_stops&token=TESTING');
-    const stations = await stationsReq.json();
+    const [
+      vehiclesData,
+      routesData,
+      stationsData,
+      //patternsData,
+    ] = await Promise.all([
+      'https://dekalbpublic.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING',
+      'https://dekalbpublic.etaspot.net/service.php?service=get_routes&token=TESTING',
+      'https://dekalbpublic.etaspot.net/service.php?service=get_stops&token=TESTING',
+      //'https://dekalbpublic.etaspot.net/service.php?service=get_patterns&token=TESTING',
+    ].map((url) =>
+      fetch(url).then(res => res.json())
+    ));
 
     const lastUpdated = new Date().toISOString();
 
@@ -23,20 +28,20 @@ const update = async () => {
       lastUpdated,
     };
 
-    stations.get_stops.forEach((station) => {
+    stationsData.get_stops.forEach((station) => {
       transitStatusResponse.stations[station.id] = {
         stationID: station.id,
         stationName: station.name,
         destinations: {
-          'Inbound': {trains: []},
-          'Outbound': {trains: []}
+          'Inbound': { trains: [] },
+          'Outbound': { trains: [] }
         },
         lat: station.lat,
         lon: station.lng,
       }
     })
 
-    routes.get_routes.forEach((route) => {
+    routesData.get_routes.forEach((route) => {
       transitStatusResponse.lines[route.id] = {
         lineCode: route.id,
         lineNameShort: route.abbr,
@@ -48,7 +53,7 @@ const update = async () => {
       }
     });
 
-    trackingData.get_vehicles.forEach((train) => {
+    vehiclesData.get_vehicles.forEach((train) => {
       const trainRoute = transitStatusResponse.lines[train.routeID];
 
       vehicleDirections[train.equipmentID] = train.direction;
