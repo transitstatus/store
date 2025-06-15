@@ -22,7 +22,7 @@ fetch("https://www.amtrak.com/eymoNXDNm7bbwqa38ydg/3aO5GVz2f06z3X/XmE7QS8hAQ/WQE
 })
   .then((res) => res.text())
   .then((firstFetchData) => {
-    fetch("https://www.amtrak.com/dotcom/travel-service/statuses/124?service-date=2025-02-08", {
+    fetch("https://www.amtrak.com/dotcom/travel-service/statuses/6?service-date=2025-06-14", {
       "credentials": "include",
       "headers": {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0",
@@ -42,8 +42,10 @@ fetch("https://www.amtrak.com/eymoNXDNm7bbwqa38ydg/3aO5GVz2f06z3X/XmE7QS8hAQ/WQE
     })
       .then((res) => res.json())
       .then((finalData) => {
+        console.log(finalData)
+
         const targetStop = finalData.data[0].stops
-          .filter((stop) => stop.station.code == "TRE")[0];
+          .filter((stop) => stop.station.code == "EMY")[0];
 
           console.log("Arrival Track:", targetStop.arrival.track)
           console.log("Departure Track:", targetStop.departure.track)
