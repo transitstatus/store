@@ -16,7 +16,7 @@ const extractAlertsFromTrain = (train) => {
     if (!stopStatusInfo.detailedMessage) continue;
 
     const message = stopStatusInfo.detailedMessage.split('\n')[0];
-    const comparableMessage = message.replace(/\d\:\d+ [AP]M [ECMP]T/, '').replace(/\d+ hours( and \d+ minutes)/, '');
+    const comparableMessage = message.replace(/\d+\:\d+ [AP]M [ECMP]T/, '').replace(/\d+ hours( and \d+ minutes)/, '');
     if (!alertTextsComparable.includes(comparableMessage)) {
       alertTextsRaw.push(message);
       alertTextsComparable.push(comparableMessage);
