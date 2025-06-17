@@ -131,8 +131,8 @@ const updateFeed = async () => {
         errorsEncountered: [{
           trainID: 'all',
           code: 'ERROR_CATCH',
-          message: 'error in amtraker fetching of data',
-          detailedMessage: e.toString(),
+          message: e.toString(),
+          detailedMessage: e.message,
           businessMessage: '',
         }],
       },
