@@ -128,7 +128,13 @@ const updateFeed = async () => {
         numWithoutAlerts: 0,
         trainsWithAlerts: [],
         trainsWithoutAlerts: [],
-        errorsEncountered: [],
+        errorsEncountered: [{
+          trainID: 'all',
+          code: 'ERROR_CATCH',
+          message: 'error in amtraker fetching of data',
+          detailedMessage: e.toString(),
+          businessMessage: '',
+        }],
       },
     };
   }
