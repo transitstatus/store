@@ -6,6 +6,13 @@
   "configVersion": 0,
   "disabled": false,
   "default": {
-    "alerts": {}
+    "trains": {},
+    "meta": {
+      "numWithAlerts": 0,
+      "numWithoutAlerts": 0,
+      "trainsWithAlerts": [],
+      "trainsWithoutAlerts": [],
+      "errorsEncountered": []
+    }
   }
 }

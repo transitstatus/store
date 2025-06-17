@@ -122,7 +122,14 @@ const updateFeed = async () => {
   } catch (e) {
     console.log(e);
     return {
-      trains: {}
+      trains: {},
+      meta: {
+        numWithAlerts: 0,
+        numWithoutAlerts: 0,
+        trainsWithAlerts: [],
+        trainsWithoutAlerts: [],
+        errorsEncountered: [],
+      },
     };
   }
 };
