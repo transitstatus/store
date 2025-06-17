@@ -32,6 +32,13 @@ const updateFeed = async () => {
 
     let responseObject = {
       trains: {},
+      meta: {
+        numWithAlerts: 0,
+        numWithoutAlerts: 0,
+        trainsWithAlerts: [],
+        trainsWithoutAlerts: [],
+        errorsEncountered: [],
+      },
     };
 
     const trainIDs = await fetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
@@ -60,8 +67,6 @@ const updateFeed = async () => {
     for (let i = 0; i < trainIDs.length; i++) {
       const trainID = trainIDs[i];
 
-      console.log(i, trainIDs.length);
-
       if (trainID.startsWith('v') || trainID.startsWith('b')) continue; //not amtrak
 
       const splitID = trainID.split('-');
@@ -89,16 +94,28 @@ const updateFeed = async () => {
         "mode": "cors"
       }).then((res) => res.json());
 
-      if (!trainDataRes.data) continue; // no data, train is probably either pre-departure or completed
+      if (!trainDataRes.data) { // no data, train is probably either pre-departure or completed
+        //console.log(trainDataRes)
+        responseObject.meta.errorsEncountered.push({
+          trainID: shortID,
+          ...(trainDataRes.error ?? {}),
+        })
+        continue;
+      }
 
       const alerts = extractAlertsFromTrain(trainDataRes.data[0]);
 
-      responseObject.trains[shortID] = alerts;
+      if (alerts.length > 0) {
+        responseObject.trains[shortID] = alerts;
+        responseObject.meta.numWithAlerts++;
+        responseObject.meta.trainsWithAlerts.push(shortID);
+      } else {
+        responseObject.meta.numWithoutAlerts++;
+        responseObject.meta.trainsWithoutAlerts.push(shortID);
+      }
 
       sleep(10); // eh why not
     }
-
-    console.log(responseObject)
 
     console.log(`Finished updating Amtrak Alerts`)
     return responseObject;
