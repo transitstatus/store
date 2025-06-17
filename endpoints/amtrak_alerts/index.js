@@ -3,6 +3,16 @@ const nodeFetch = require('node-fetch'); // need a separate instance of fetch be
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+const blobsToRemove = [
+  "Please standby for further information.",
+  "We apologize for the inconvenience and thank you for your patience.",
+  "For customers waiting to board this train, please be aware that departure estimates are subject to change.",
+  "If conditions allow, a train delayed past its scheduled departure time may leave earlier than the updated estimate.",
+  "To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
+  "We appreciate your continued patience and apologize for the delay.",
+  "We sincerely apologize for the delay and appreciate your continued patience.",
+];
+
 const extractAlertsFromTrain = (train) => {
   let alertTextsRaw = [];
   let alertTextsComparable = [];
@@ -15,9 +25,16 @@ const extractAlertsFromTrain = (train) => {
 
     if (!stopStatusInfo.detailedMessage) continue;
 
-    const message = stopStatusInfo.detailedMessage.split('\n')[0];
+    let message = stopStatusInfo.detailedMessage.split('\n')[0];
+
     const comparableMessage = message.replace(/\d+\:\d+ [AP]M [ECMP]T/, '').replace(/\d+ hours( and \d+ minutes)/, '');
     if (!alertTextsComparable.includes(comparableMessage)) {
+      //console.log(message)
+      for (let i = 0; i < blobsToRemove.length; i++) {
+        message = message.replace(blobsToRemove[i], '');
+      };
+      //console.log(message)
+
       alertTextsRaw.push(message);
       alertTextsComparable.push(comparableMessage);
     };
