@@ -136,7 +136,7 @@ const updateFeed = async () => {
         responseObject.meta.trainsWithoutAlerts.push(shortID);
       }
 
-      sleep(10); // eh why not
+      sleep(250); // eh why not
     }
 
     console.log(`Finished updating Amtrak Alerts`)
