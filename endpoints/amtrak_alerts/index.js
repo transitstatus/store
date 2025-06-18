@@ -109,9 +109,13 @@ const updateFeed = async () => {
         "referrer": "https://www.amtrak.com/home.html",
         "method": "GET",
         "mode": "cors"
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+        .catch((e) => {
+          console.log('error fetching alerts for amtrak train', trainNum, trainDate)
+        });
 
-      if (!trainDataRes.data) { // no data, train is probably either pre-departure or completed
+      if (!trainDataRes || !trainDataRes.data) { // no data, train is probably either pre-departure or completed
         //console.log(trainDataRes)
         responseObject.meta.errorsEncountered.push({
           trainID: shortID,
@@ -137,6 +141,7 @@ const updateFeed = async () => {
     console.log(`Finished updating Amtrak Alerts`)
     return responseObject;
   } catch (e) {
+    console.log('Error with Amtrak Alerts')
     console.log(e);
     return {
       trains: {},
