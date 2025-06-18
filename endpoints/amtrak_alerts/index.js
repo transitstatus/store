@@ -113,6 +113,11 @@ const updateFeed = async () => {
         .then((res) => res.json())
         .catch((e) => {
           console.log('error fetching alerts for amtrak train', trainNum, trainDate)
+          responseObject.meta.errorsEncountered.push({
+            trainID: shortID,
+            ...(trainDataRes.error ?? {}),
+          })
+          return { error: { message: e.toString() } }
         });
 
       if (!trainDataRes || !trainDataRes.data) { // no data, train is probably either pre-departure or completed
@@ -142,7 +147,8 @@ const updateFeed = async () => {
     return responseObject;
   } catch (e) {
     console.log('Error with Amtrak Alerts')
-    console.log(e);
+    const errorMessage = e.message;
+    const errorString = e.toString();
     return {
       trains: {},
       meta: {
@@ -153,8 +159,8 @@ const updateFeed = async () => {
         errorsEncountered: [{
           trainID: 'all',
           code: 'ERROR_CATCH',
-          message: e.toString(),
-          detailedMessage: e.message,
+          message: errorString,
+          detailedMessage: errorMessage,
           businessMessage: '',
         }],
       },
