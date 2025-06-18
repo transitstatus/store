@@ -113,10 +113,6 @@ const updateFeed = async () => {
         .then((res) => res.json())
         .catch((e) => {
           console.log('error fetching alerts for amtrak train', trainNum, trainDate)
-          responseObject.meta.errorsEncountered.push({
-            trainID: shortID,
-            ...(trainDataRes.error ?? {}),
-          })
           return { error: { message: e.toString() } }
         });
 
