@@ -17,6 +17,8 @@ const blobsToRemove = [
   "We sincerely apologize for any inconvenience.",
   "We sincerely appreciate your continued patience and apologize for the lengthy delay.",
   "We apologize for the delay.",
+  "We apologize for any inconvenience this may cause.",
+  "We sincerely appreciate your patience and apologize for the delay.",
   "We sincerely appreciate your continued patience and apologize for any inconvenience this has caused.",
   "We appreciate your patience during this process and are committed to providing additional details as soon as they become available."
 ];
@@ -41,9 +43,11 @@ const extractAlertsFromTrain = (train) => {
         message = message.replace(blobsToRemove[i], '');
       };
       message = message.trim();
-
-      alertTextsRaw.push(message);
-      alertTextsComparable.push(comparableMessage);
+      
+      if (message.length > 0) {
+        alertTextsRaw.push(message);
+        alertTextsComparable.push(comparableMessage);
+      }
     };
   };
 
@@ -52,7 +56,7 @@ const extractAlertsFromTrain = (train) => {
 
 const updateFeed = async (updateConfig) => {
   const now = Date.now();
-  try {    
+  try {
     let responseObject = {
       trains: {},
       meta: {
@@ -63,7 +67,7 @@ const updateFeed = async (updateConfig) => {
         trainsWithoutAlerts: [],
         errorsEncountered: [],
       },
-    };    
+    };
 
     const trainIDs = await fetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
 
