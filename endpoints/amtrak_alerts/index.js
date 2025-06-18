@@ -11,6 +11,14 @@ const blobsToRemove = [
   "To avoid missing your train, please stay near the boarding area and monitor for announcements or updates.",
   "We appreciate your continued patience and apologize for the delay.",
   "We sincerely apologize for the delay and appreciate your continued patience.",
+  "We thank you for your patience and will provide updates as more information becomes available.",
+  "If a train is delayed past its scheduled departure time, it may still leave earlier than the updated estimate, if conditions allow.",
+  "For customers still waiting to board this train, departure estimates are subject to change.",
+  "We sincerely apologize for any inconvenience.",
+  "We sincerely appreciate your continued patience and apologize for the lengthy delay.",
+  "We apologize for the delay.",
+  "We sincerely appreciate your continued patience and apologize for any inconvenience this has caused.",
+  "We appreciate your patience during this process and are committed to providing additional details as soon as they become available."
 ];
 
 const extractAlertsFromTrain = (train) => {
@@ -29,11 +37,10 @@ const extractAlertsFromTrain = (train) => {
 
     const comparableMessage = message.replace(/\d+\:\d+ [AP]M [ECMP]T/, '').replace(/\d+ hours( and \d+ minutes)/, '');
     if (!alertTextsComparable.includes(comparableMessage)) {
-      //console.log(message)
       for (let i = 0; i < blobsToRemove.length; i++) {
         message = message.replace(blobsToRemove[i], '');
       };
-      //console.log(message)
+      message = message.trim();
 
       alertTextsRaw.push(message);
       alertTextsComparable.push(comparableMessage);
@@ -92,6 +99,8 @@ const updateFeed = async () => {
       const trainDate = `20${splitID[3]}-${splitID[1].padStart(2, '0')}-${splitID[2].padStart(2, '0')}`;
       const shortID = `${trainNum}-${splitID[2]}`;
 
+      const timeBeforeFetch = Date.now();
+
       const trainDataRes = await fetch(`https://www.amtrak.com/dotcom/travel-service/statuses/${trainNum}?service-date=${trainDate}`, {
         "credentials": "include",
         "headers": {
@@ -136,7 +145,7 @@ const updateFeed = async () => {
         responseObject.meta.trainsWithoutAlerts.push(shortID);
       }
 
-      sleep(250); // eh why not
+      sleep(Date.now() - timeBeforeFetch + 250 + 25); // making sure the time between now and when we started the fetch has been at least 250ms, but doing 275 for safety
     }
 
     console.log(`Finished updating Amtrak Alerts`)
