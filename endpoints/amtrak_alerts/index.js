@@ -20,7 +20,8 @@ const blobsToRemove = [
   "We apologize for any inconvenience this may cause.",
   "We sincerely appreciate your patience and apologize for the delay.",
   "We sincerely appreciate your continued patience and apologize for any inconvenience this has caused.",
-  "We appreciate your patience during this process and are committed to providing additional details as soon as they become available."
+  "We appreciate your patience during this process and are committed to providing additional details as soon as they become available.",
+  "We sincerely apologize for the lengthy delay and appreciate your continued patience."
 ];
 
 const extractAlertsFromTrain = (train) => {
