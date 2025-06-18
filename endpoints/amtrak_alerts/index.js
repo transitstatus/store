@@ -45,7 +45,9 @@ const extractAlertsFromTrain = (train) => {
       message = message.trim();
       
       if (message.length > 0) {
-        alertTextsRaw.push(message);
+        alertTextsRaw.push({
+          message,
+        });
         alertTextsComparable.push(comparableMessage);
       }
     };
