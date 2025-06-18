@@ -50,20 +50,20 @@ const extractAlertsFromTrain = (train) => {
   return alertTextsRaw;
 };
 
-const updateFeed = async () => {
-  try {
-    const now = new Date();
-
+const updateFeed = async (updateConfig) => {
+  const now = Date.now();
+  try {    
     let responseObject = {
       trains: {},
       meta: {
+        timeUpdated: now,
         numWithAlerts: 0,
         numWithoutAlerts: 0,
         trainsWithAlerts: [],
         trainsWithoutAlerts: [],
         errorsEncountered: [],
       },
-    };
+    };    
 
     const trainIDs = await fetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
 
@@ -154,9 +154,16 @@ const updateFeed = async () => {
     console.log('Error with Amtrak Alerts')
     const errorMessage = e.message;
     const errorString = e.toString();
+
+    if (updateConfig.firstUpdate) {
+      const initialState = await fetch('https://store.transitstat.us/amtrak_alerts').then((res) => res.json());
+      return initialState;
+    };
+
     return {
       trains: {},
       meta: {
+        timeUpdated: now,
         numWithAlerts: 0,
         numWithoutAlerts: 0,
         trainsWithAlerts: [],

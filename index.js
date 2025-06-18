@@ -158,6 +158,59 @@ fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
             }, config.interval);
 
             break;
+          case 2:
+            console.log(`Config version 2 detected for ${endpoint}`);
+
+            const updateV2 = require(`./endpoints/${endpoint}/${config.script}`).update;
+
+            data[endpoint] = config.default;
+
+            try {
+              const initialState = await fetch(`https://store.transitstat.us/${endpoint}`)
+                .then((res) => res.json())
+                .catch((e) => {
+                  return config.default; // earlier failure or issue
+                });
+
+              data[endpoint] = initialState;
+
+              updateV2({ firstUpdate: true })
+                .then((result) => {
+                  if (result === false) {
+                    data[endpoint] = initialState;
+                  } else {
+                    data[endpoint] = result;
+
+                    const keys = getAllKeysWithParents(config.default);
+
+                    console.log(`Destroying /${endpoint}GET`)
+                    fastify.lcache.reset(`/${endpoint}GET`)
+                    keys.forEach((key) => {
+                      console.log(`Destroying /${endpoint}/${key}GET`)
+                      fastify.lcache.reset(`/${endpoint}/${key}GET`)
+                    })
+                  }
+                })
+            } catch (e) {
+              console.log(`error updating data for ${endpoint}`);
+              console.log(e);
+            }
+
+            setInterval(() => {
+              try {
+                updateV2({ firstUpdate: false })
+                  .then((result) => {
+                    if (result === false) return;
+
+                    data[endpoint] = result;
+                  })
+              } catch (e) {
+                console.log(`error updating data for ${endpoint}`);
+                console.log(e);
+              }
+            }, config.interval);
+
+            break;
           default:
             console.log(`No known config version detected for ${endpoint}`);
             break;

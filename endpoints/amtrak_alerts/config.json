@@ -2,8 +2,7 @@
   "name": "Amtrak Alerts",
   "script": "index.js",
   "interval": 600000,
-  "apiVersion": 3,
-  "configVersion": 0,
+  "configVersion": 2,
   "disabled": false,
   "default": {
     "trains": {},
