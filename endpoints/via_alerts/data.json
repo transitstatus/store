@@ -12,7 +12,7 @@
     ],
     "revision_id": [
       {
-        "value": 199401
+        "value": 226170
       }
     ],
     "langcode": [
@@ -74,6 +74,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Québec – Windsor Corridor "
+      }
+    ],
     "field_alert_state": [
       {
         "value": "partly_in_service"
@@ -93,7 +98,7 @@
         ],
         "revision_id": [
           {
-            "value": 199399
+            "value": 226168
           }
         ],
         "langcode": [
@@ -179,17 +184,17 @@
       {
         "id": [
           {
-            "value": 3186
+            "value": 4954
           }
         ],
         "uuid": [
           {
-            "value": "138f223f-1d39-4485-96e6-b22e58b027af"
+            "value": "7d918fc3-d414-4fdb-aba1-e75a094ae5ab"
           }
         ],
         "revision_id": [
           {
-            "value": 199400
+            "value": 226169
           }
         ],
         "langcode": [
@@ -211,7 +216,7 @@
         ],
         "created": [
           {
-            "value": "2025-03-06T19:52:59+00:00",
+            "value": "2025-04-25T20:10:54+00:00",
             "format": "Y-m-d\\TH:i:sP"
           }
         ],
@@ -253,29 +258,24 @@
         ],
         "content_translation_changed": [
           {
-            "value": "2025-03-06T19:52:59+00:00",
+            "value": "2025-04-25T20:10:54+00:00",
             "format": "Y-m-d\\TH:i:sP"
           }
         ],
         "field_cause_of_incident": [],
         "field_content": [
           {
-            "value": "<p>Due to infrastructure maintenance, there will be no service to or from the Guildwood Station on March 22 and 23, and some trains will use a detour.T</p><p><strong>Trains 40, 44, 46, 48, 50, 52, 54, 60, 62, 64, 66, 68, 646, 668</strong>: schedule adjusted for arrival/departure at all stations, except departure from Toronto</p><p><strong>Trains 41, 43, 47, 53, 59, 61, 63, 65, 67, 69, 643, 645, 647, 669</strong>: schedule adjusted for arrival in Toronto only</p><p>Delays may occur above and beyond this modified schedule. <a href=\"https://service-pages.viarail.ca/kingston-sub-maintenance-march-2025-passenger-travel-advisory-bulletin-en\">Details here</a>.</p>",
+            "value": "<p>Due to maintenance work by METROLINX, the railway infrastructure owner, <strong>trains 84 and 87</strong> will be replaced by a bus on the following dates in 2025:<br><br>• July 26th and 27th<br>• September 6th and 7th&nbsp;<br>• September 20th and 21st&nbsp;<br>• October 18th and 19th<br>• November 1st and 2nd&nbsp;<br>• December 13th and 14th<br><br><a href=\"https://service-pages.viarail.ca/guelph-sub-maintenance-2025-passenger-travel-advisory-bulletin-en\">Details here.</a></p>",
             "format": "full_html",
-            "processed": "<p>Due to infrastructure maintenance, there will be no service to or from the Guildwood Station on March 22 and 23, and some trains will use a detour.T</p><p><strong>Trains 40, 44, 46, 48, 50, 52, 54, 60, 62, 64, 66, 68, 646, 668</strong>: schedule adjusted for arrival/departure at all stations, except departure from Toronto</p><p><strong>Trains 41, 43, 47, 53, 59, 61, 63, 65, 67, 69, 643, 645, 647, 669</strong>: schedule adjusted for arrival in Toronto only</p><p>Delays may occur above and beyond this modified schedule. <a href=\"https://service-pages.viarail.ca/kingston-sub-maintenance-march-2025-passenger-travel-advisory-bulletin-en\">Details here</a>.</p>"
+            "processed": "<p>Due to maintenance work by METROLINX, the railway infrastructure owner, <strong>trains 84 and 87</strong> will be replaced by a bus on the following dates in 2025:<br><br>• July 26th and 27th<br>• September 6th and 7th&nbsp;<br>• September 20th and 21st&nbsp;<br>• October 18th and 19th<br>• November 1st and 2nd&nbsp;<br>• December 13th and 14th<br><br><a href=\"https://service-pages.viarail.ca/guelph-sub-maintenance-2025-passenger-travel-advisory-bulletin-en\">Details here.</a></p>"
           }
         ],
         "field_route_name": [],
         "field_title": [
           {
-            "value": "Infrastructure maintenance"
+            "value": "Important notice"
           }
         ]
-      }
-    ],
-    "field_title": [
-      {
-        "value": "Québec – Windsor Corridor "
       }
     ]
   },
@@ -292,7 +292,7 @@
     ],
     "revision_id": [
       {
-        "value": 199403
+        "value": 226172
       }
     ],
     "langcode": [
@@ -337,7 +337,11 @@
         "value": false
       }
     ],
-    "revision_translation_affected": [],
+    "revision_translation_affected": [
+      {
+        "value": true
+      }
+    ],
     "content_translation_source": [
       {
         "value": "und"
@@ -354,6 +358,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Toronto – Vancouver (The Canadian)"
+      }
+    ],
     "field_alert_state": [
       {
         "value": "in_service"
@@ -363,17 +372,17 @@
       {
         "id": [
           {
-            "value": 2546
+            "value": 5028
           }
         ],
         "uuid": [
           {
-            "value": "e4cbc719-33b2-415d-a548-cfb2ee41686b"
+            "value": "987b7897-7efe-4aae-8bb7-af6bb45cacae"
           }
         ],
         "revision_id": [
           {
-            "value": 199402
+            "value": 226171
           }
         ],
         "langcode": [
@@ -395,7 +404,7 @@
         ],
         "created": [
           {
-            "value": "2024-05-09T03:53:57+00:00",
+            "value": "2025-06-26T19:46:33+00:00",
             "format": "Y-m-d\\TH:i:sP"
           }
         ],
@@ -424,7 +433,11 @@
             "value": false
           }
         ],
-        "revision_translation_affected": [],
+        "revision_translation_affected": [
+          {
+            "value": true
+          }
+        ],
         "content_translation_source": [
           {
             "value": "und"
@@ -437,7 +450,7 @@
         ],
         "content_translation_changed": [
           {
-            "value": "2024-10-21T12:52:59+00:00",
+            "value": "2025-06-26T19:46:33+00:00",
             "format": "Y-m-d\\TH:i:sP"
           }
         ],
@@ -451,11 +464,6 @@
         ],
         "field_route_name": [],
         "field_title": []
-      }
-    ],
-    "field_title": [
-      {
-        "value": "Toronto – Vancouver (The Canadian)"
       }
     ]
   },
@@ -472,7 +480,7 @@
     ],
     "revision_id": [
       {
-        "value": 199405
+        "value": 226174
       }
     ],
     "langcode": [
@@ -534,6 +542,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Montréal – Halifax (The Ocean)"
+      }
+    ],
     "field_alert_state": [
       {
         "value": "in_service"
@@ -553,7 +566,7 @@
         ],
         "revision_id": [
           {
-            "value": 199404
+            "value": 226173
           }
         ],
         "langcode": [
@@ -632,11 +645,6 @@
         "field_route_name": [],
         "field_title": []
       }
-    ],
-    "field_title": [
-      {
-        "value": "Montréal – Halifax (The Ocean)"
-      }
     ]
   },
   {
@@ -652,7 +660,7 @@
     ],
     "revision_id": [
       {
-        "value": 199407
+        "value": 226176
       }
     ],
     "langcode": [
@@ -714,6 +722,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Sudbury – White River"
+      }
+    ],
     "field_alert_state": [
       {
         "value": "in_service"
@@ -733,7 +746,7 @@
         ],
         "revision_id": [
           {
-            "value": 199406
+            "value": 226175
           }
         ],
         "langcode": [
@@ -812,11 +825,6 @@
         "field_route_name": [],
         "field_title": []
       }
-    ],
-    "field_title": [
-      {
-        "value": "Sudbury – White River"
-      }
     ]
   },
   {
@@ -832,7 +840,7 @@
     ],
     "revision_id": [
       {
-        "value": 199409
+        "value": 226178
       }
     ],
     "langcode": [
@@ -894,6 +902,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Winnipeg – Churchill"
+      }
+    ],
     "field_alert_state": [
       {
         "value": "in_service"
@@ -913,7 +926,7 @@
         ],
         "revision_id": [
           {
-            "value": 199408
+            "value": 226177
           }
         ],
         "langcode": [
@@ -984,18 +997,17 @@
         "field_cause_of_incident": [],
         "field_content": [
           {
-            "value": "<p>Nothing to report</p>",
+            "value": "<p>VIA Rail is closely monitoring the situation as it relates to the safety of operations and air quality. As emissions from forest fires can travel large distances, passengers with respiratory problems are advised to take proper precautions and inform themselves of the status of the air quality before departure.</p>",
             "format": "full_html",
-            "processed": "<p>Nothing to report</p>"
+            "processed": "<p>VIA Rail is closely monitoring the situation as it relates to the safety of operations and air quality. As emissions from forest fires can travel large distances, passengers with respiratory problems are advised to take proper precautions and inform themselves of the status of the air quality before departure.</p>"
           }
         ],
         "field_route_name": [],
-        "field_title": []
-      }
-    ],
-    "field_title": [
-      {
-        "value": "Winnipeg – Churchill"
+        "field_title": [
+          {
+            "value": "Air quality warning"
+          }
+        ]
       }
     ]
   },
@@ -1012,7 +1024,7 @@
     ],
     "revision_id": [
       {
-        "value": 199411
+        "value": 226180
       }
     ],
     "langcode": [
@@ -1057,11 +1069,7 @@
         "value": false
       }
     ],
-    "revision_translation_affected": [
-      {
-        "value": true
-      }
-    ],
+    "revision_translation_affected": [],
     "content_translation_source": [
       {
         "value": "und"
@@ -1076,6 +1084,11 @@
       {
         "value": "2024-05-09T03:54:41+00:00",
         "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Montréal – Senneterre"
       }
     ],
     "field_alert_state": [
@@ -1097,7 +1110,7 @@
         ],
         "revision_id": [
           {
-            "value": 199410
+            "value": 226179
           }
         ],
         "langcode": [
@@ -1148,11 +1161,7 @@
             "value": false
           }
         ],
-        "revision_translation_affected": [
-          {
-            "value": true
-          }
-        ],
+        "revision_translation_affected": [],
         "content_translation_source": [
           {
             "value": "und"
@@ -1180,11 +1189,6 @@
         "field_route_name": [],
         "field_title": []
       }
-    ],
-    "field_title": [
-      {
-        "value": "Montréal – Senneterre"
-      }
     ]
   },
   {
@@ -1200,7 +1204,7 @@
     ],
     "revision_id": [
       {
-        "value": 199413
+        "value": 226182
       }
     ],
     "langcode": [
@@ -1245,11 +1249,7 @@
         "value": false
       }
     ],
-    "revision_translation_affected": [
-      {
-        "value": true
-      }
-    ],
+    "revision_translation_affected": [],
     "content_translation_source": [
       {
         "value": "und"
@@ -1264,6 +1264,11 @@
       {
         "value": "2024-05-09T03:54:46+00:00",
         "format": "Y-m-d\\TH:i:sP"
+      }
+    ],
+    "field_title": [
+      {
+        "value": "Montréal – Jonquière"
       }
     ],
     "field_alert_state": [
@@ -1285,7 +1290,7 @@
         ],
         "revision_id": [
           {
-            "value": 199412
+            "value": 226181
           }
         ],
         "langcode": [
@@ -1336,11 +1341,7 @@
             "value": false
           }
         ],
-        "revision_translation_affected": [
-          {
-            "value": true
-          }
-        ],
+        "revision_translation_affected": [],
         "content_translation_source": [
           {
             "value": "und"
@@ -1368,11 +1369,6 @@
         "field_route_name": [],
         "field_title": []
       }
-    ],
-    "field_title": [
-      {
-        "value": "Montréal – Jonquière"
-      }
     ]
   },
   {
@@ -1388,7 +1384,7 @@
     ],
     "revision_id": [
       {
-        "value": 199415
+        "value": 226184
       }
     ],
     "langcode": [
@@ -1450,6 +1446,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Jasper – Prince George – Prince-Rupert"
+      }
+    ],
     "field_alert_state": [
       {
         "value": "in_service"
@@ -1469,7 +1470,7 @@
         ],
         "revision_id": [
           {
-            "value": 199414
+            "value": 226183
           }
         ],
         "langcode": [
@@ -1548,11 +1549,6 @@
         "field_route_name": [],
         "field_title": []
       }
-    ],
-    "field_title": [
-      {
-        "value": "Jasper – Prince George – Prince-Rupert"
-      }
     ]
   },
   {
@@ -1568,7 +1564,7 @@
     ],
     "revision_id": [
       {
-        "value": 199417
+        "value": 226186
       }
     ],
     "langcode": [
@@ -1630,6 +1626,11 @@
         "format": "Y-m-d\\TH:i:sP"
       }
     ],
+    "field_title": [
+      {
+        "value": "Toronto – Niagara Falls"
+      }
+    ],
     "field_alert_state": [
       {
         "value": "in_service"
@@ -1649,7 +1650,7 @@
         ],
         "revision_id": [
           {
-            "value": 199416
+            "value": 226185
           }
         ],
         "langcode": [
@@ -1727,11 +1728,6 @@
         ],
         "field_route_name": [],
         "field_title": []
-      }
-    ],
-    "field_title": [
-      {
-        "value": "Toronto – Niagara Falls"
       }
     ]
   }

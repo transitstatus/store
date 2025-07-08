@@ -71,7 +71,10 @@ const updateFeed = async () => {
       finalBrightlineV1.stations[stop.stopID] = {
         stationID: stop.stopID,
         stationName: stop.stopName,
-        destinations: {},
+        destinations: {
+          Northbound: {trains: []},
+          Southbound: {trains: []},
+        },
         lat: stop.stopLat,
         lon: stop.stopLon,
         tz: stop.stopTZ,
@@ -89,15 +92,6 @@ const updateFeed = async () => {
         stations: route.routeStations,
         hasActiveTrains: false,
       };
-
-      route.routeStations.forEach((station) => {
-        route.destinations.forEach((destination) => {
-          // getting the actual stop name from the GTFS
-          finalBrightlineV1.stations[station].destinations[fetchedData.brightlineStops[destination].stopName] = {
-            trains: []
-          }
-        })
-      })
     });
 
     //storing vehicle positions
@@ -109,6 +103,7 @@ const updateFeed = async () => {
     //vehicle times
     fetchedData.brightlineTimes.entity.forEach((trip) => {
       const route = fetchedData.brightlineRoutes[trip.tripUpdate.trip.routeId];
+      const direction = parseInt(trip.id.split('_')[0]) % 2 ? 'Southbound' : 'Northbound';
       const destination = fetchedData.brightlineStops[trip.tripUpdate.stopTimeUpdate.slice(-1)[0].stopId].stopName;
       const position = vehiclePositions[trip.id] ?? {
         latitude: 0,
@@ -137,7 +132,7 @@ const updateFeed = async () => {
         lineTextColor: route.routeTextColor,
         dest: destination,
         predictions: trip.tripUpdate.stopTimeUpdate.map((stopTime) => {
-          finalBrightlineV1.stations[stopTime.stopId].destinations[destination].trains.push(
+          finalBrightlineV1.stations[stopTime.stopId].destinations[direction].trains.push(
             {
               runNumber: trip.id.split('_')[0],
               actualETA: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
@@ -151,6 +146,7 @@ const updateFeed = async () => {
               lineCode: route.routeID,
               lineColor: route.routeColor,
               lineTextColor: route.routeTextColor,
+              destination: destination,
             }
           )
 

@@ -287,10 +287,10 @@ const update = (async () => {
 
           const trainDirection = parseInt(thisVehicle.runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
 
-          if (transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].length >= 8) continue; //we dont need all that
+          if (transitStatus.stations[stationKey].destinations[trainDirection].trains.length >= 8) continue; //we dont need all that
           if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
 
-          transitStatus.stations[stationKey]['destinations'][trainDirection]['trains'].push({
+          transitStatus.stations[stationKey].destinations[trainDirection].trains.push({
             runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
             actualETA: now,
             noETA: false,
