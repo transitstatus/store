@@ -159,6 +159,7 @@ const updateFeed = async () => {
         lat: positionMeta.latitude,
         lon: positionMeta.longitude,
         heading: positionMeta.bearing,
+        realTime: true,
         line: route.routeLongName.replace('Metrorail ', ""),
         lineCode: tripMeta.routeId,
         lineColor: route.routeColor,

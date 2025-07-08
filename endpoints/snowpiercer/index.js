@@ -84,6 +84,7 @@ const update = async () => {
       lat: snowPiercerPosition.geometry.coordinates[1],
       lon: snowPiercerPosition.geometry.coordinates[0],
       heading: snowPiercerHeading,
+      realTime: true,
       line: 'Snowpiercer',
       lineCode: 'PRCR',
       lineColor: "a5c9d7",

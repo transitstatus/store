@@ -167,6 +167,7 @@ const updateFeed = async () => {
         lat: position.latitude,
         lon: position.longitude,
         heading: position.bearing,
+        realTime: true,
       }
     })
 

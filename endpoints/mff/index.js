@@ -131,6 +131,7 @@ const updateFeed = async () => {
           lat: device.position.lat,
           lon: device.position.lon,
           heading: 0,
+          realTime: true,
           line: lineMeta.name,
           lineCode: lineMeta.code,
           lineColor: lineMeta.color,

@@ -143,6 +143,7 @@ const update = async () => {
         lat: train.lastPosition[0],
         lon: train.lastPosition[1],
         heading: 0,
+        realTime: true,
         line: titleCase(routeCodes[train.lineCode]),
         lineCode: routeCodes[train.lineCode],
         lineColor: transitStatusResponse.lines[routeCodes[train.lineCode]].routeColor,

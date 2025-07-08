@@ -126,6 +126,7 @@ const update = (async () => {
         lat: position[0],
         lon: position[1],
         heading: position[2],
+        realTime: true,
         line: actualRouteID,
         lineCode: actualRouteID,
         lineColor: staticRoutesData[trainRouteID].routeColor,

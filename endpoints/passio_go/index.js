@@ -264,6 +264,7 @@ const updateFeed = async (feed) => {
         lat: Number(bus.latitude),
         lon: Number(bus.longitude),
         heading: Number(bus.calculatedCourse),
+        realTime: true,
         line: busLine.lineNameLong,
         lineCode: busLineCode,
         lineColor: busLine.routeColor,

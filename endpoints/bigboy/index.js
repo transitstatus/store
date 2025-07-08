@@ -21,6 +21,7 @@ const update = async () => {
         lat: posData.info.equipment.gpsLat,
         lon: posData.info.equipment.gpsLon,
         heading: posData.info.equipment.heading,
+        realTime: true,
         line: "Big Boy",
         lineCode: "BigBoy",
         lineColor: "feca00",
