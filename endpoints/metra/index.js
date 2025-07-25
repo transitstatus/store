@@ -80,23 +80,8 @@ const update = (async () => {
   if (!process.env.metra_authorization) return false;
 
   try {
-    const res = await fetch('https://gtfsapi.metrarail.com/gtfs/tripUpdates', {
-      "credentials": "include",
-      "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Authorization": process.env.metra_authorization,
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "cross-site",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache"
-      },
-      "method": "GET",
-      "mode": "cors"
-    });
+    const res = await fetch('https://gtfsapi.metrarail.com/gtfs/tripUpdates', { "headers": { "Authorization": process.env.metra_authorization } });
+    const data = await res.json();
 
     const nowDate = new Date();
     const todaysDate = new Date(new Date(nowDate).toISOString().split('T')[0] + 'T00:00:00.000Z')
@@ -129,8 +114,6 @@ const update = (async () => {
       for (let i = 1; i < pattern.length; i++) totalTime += staticMetaData.stopTimes[`${pattern[i - 1]}_${pattern[i]}`];
       stoppingPatternTimes[patternIndex] = totalTime;
     });
-
-    const data = await res.json();
 
     const processedData = data.map((train) => {
       return {
@@ -375,44 +358,44 @@ const update = (async () => {
         return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
       })
       .forEach((runNumber) => {
-      const scheduledVehicle = scheduledVehicles[runNumber];
+        const scheduledVehicle = scheduledVehicles[runNumber];
 
-      if (transitStatus.trains[runNumber]) return; // train exists
-      transitStatus.trains[runNumber] = scheduledVehicle;
+        if (transitStatus.trains[runNumber]) return; // train exists
+        transitStatus.trains[runNumber] = scheduledVehicle;
 
-      const trainDirection = parseInt(runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
+        const trainDirection = parseInt(runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
 
-      scheduledVehicle.predictions.forEach((stop) => {
-        //adding stations to transitStatus object
-        if (!transitStatus.stations[stop.stationID]) {
-          transitStatus.stations[stop.stationID] = {
-            stationID: stop.stationID,
-            stationName: staticStopsData[stop.stationID].stopName,
-            lat: staticStopsData[stop.stationID].stopLat,
-            lon: staticStopsData[stop.stationID].stopLon,
-            destinations: {
-              'Inbound': { trains: [] },
-              'Outbound': { trains: [] },
-            },
+        scheduledVehicle.predictions.forEach((stop) => {
+          //adding stations to transitStatus object
+          if (!transitStatus.stations[stop.stationID]) {
+            transitStatus.stations[stop.stationID] = {
+              stationID: stop.stationID,
+              stationName: staticStopsData[stop.stationID].stopName,
+              lat: staticStopsData[stop.stationID].stopLat,
+              lon: staticStopsData[stop.stationID].stopLon,
+              destinations: {
+                'Inbound': { trains: [] },
+                'Outbound': { trains: [] },
+              },
+            };
           };
-        };
 
-        if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
+          if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
 
-        transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
-          runNumber: runNumber,
-          actualETA: stop.actualETA,
-          noETA: false,
-          realTime: false,
-          line: scheduledVehicle.line,
-          lineCode: scheduledVehicle.lineCode,
-          lineColor: scheduledVehicle.lineColor,
-          lineTextColor: scheduledVehicle.lineTextColor,
-          destination: scheduledVehicle.dest,
-          extra: {},
+          transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
+            runNumber: runNumber,
+            actualETA: stop.actualETA,
+            noETA: false,
+            realTime: false,
+            line: scheduledVehicle.line,
+            lineCode: scheduledVehicle.lineCode,
+            lineColor: scheduledVehicle.lineColor,
+            lineTextColor: scheduledVehicle.lineTextColor,
+            destination: scheduledVehicle.dest,
+            extra: {},
+          });
         });
-      });
-    })
+      })
 
     return {
       trains: processedData,

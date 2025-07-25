@@ -1,7 +1,7 @@
 {
   "name": "Metra Train Tracker",
   "script": "index.js",
-  "interval": 60000,
+  "interval": 30000,
   "apiVersion": 3,
   "configVersion": 0,
   "default": {
