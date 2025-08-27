@@ -5,6 +5,16 @@ require('dotenv').config();
 
 const trainNumberRegex = new RegExp(/\d+/)
 
+const scheduleRelationshipEnums = {
+  0: 'SCHEDULED',
+  2: 'UNSCHEDULED',
+  3: 'CANCELED',
+  4: 'REPLACEMENT',
+  5: 'DUPLICATED',
+  6: 'NEW',
+  7: 'DELETED',
+}
+
 const actualLines = {
   'BNSF': 'BNSF',
   'HC': 'Heritage Corridor',
@@ -153,6 +163,9 @@ const update = (async () => {
         type: 'train',
         extra: {
           holidayChristmas: holidayTrains.includes(runNumber),
+          cabCar: train.trip_update?.position?.vehicle?.vehicle?.id,
+          scheduleRelationship: train.trip_update?.position?.vehicle?.trip?.schedule_relationship,
+          scheduleRelationshipEnum: scheduleRelationshipEnums[train.trip_update?.position?.vehicle?.trip?.schedule_relationship],
         }
       };
 
