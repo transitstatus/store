@@ -87,7 +87,7 @@ const updateFeed = async () => {
 
     //fetching platform numbers using previous data
     const stationsInOrder = Object.values(fetchedData.brightlineStops);
-    const platformsRes = await Promise.all(stationsInOrder.map((stop) => fetch(`https://schedules.gobrightline.com/update/top-bottom.html?stationName=${stop.stopName}&DeparturesOrArrivals=Departures`)));
+    const platformsRes = await Promise.all(stationsInOrder.map((stop) => fetch(`https://schedules.gobrightline.com/api/schedulefordisplay?stationName=${stop.stopName}&DeparturesOrArrivals=Departures`)));
     const platformsResData = await Promise.all(platformsRes.map((res) => res.json()));
     platformsResData.forEach((station, i) => {
       const stationID = stationsInOrder[i].stopID;

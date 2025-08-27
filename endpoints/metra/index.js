@@ -248,48 +248,6 @@ const update = (async () => {
 
     transitStatus.lastUpdated = lastUpdated;
 
-    //filling in schedule data
-    const fillInDataOld = (staticData, date) => {
-      const startOfDay = `${date.toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
-
-      Object.keys(transitStatus.stations).forEach((stationKey) => {
-        if (!staticData[stationKey]) return;
-
-        let now = new Date(startOfDay).valueOf();
-        let headsign = null; //NOT headsign id
-        let routeID = null;
-
-        const staticStationData = staticData[stationKey];
-        for (i = 0; i < staticStationData.length; i++) {
-          const thisVehicle = staticStationData[i];
-
-          now += thisVehicle.timeDiff * 1000;
-          headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
-          routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
-
-          if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 8)) continue;
-
-          const trainDirection = parseInt(thisVehicle.runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
-
-          if (transitStatus.stations[stationKey].destinations[trainDirection].trains.length >= 8) continue; //we dont need all that
-          if (thisVehicle.runNumber && transitStatus.trains[thisVehicle.runNumber]) continue; // train is tracking
-
-          transitStatus.stations[stationKey].destinations[trainDirection].trains.push({
-            runNumber: thisVehicle.runNumber ? thisVehicle.runNumber : 'Scheduled',
-            actualETA: now,
-            noETA: false,
-            realTime: false,
-            line: staticRoutesData[routeID].routeLongName,
-            lineCode: routeID,
-            lineColor: staticRoutesData[routeID].routeColor,
-            lineTextColor: staticRoutesData[routeID].routeTextColor,
-            destination: headsign,
-            extra: {},
-          })
-        }
-      })
-    };
-
     let scheduledVehicles = {};
 
     const fillInVehicleData = (vehicleSchedule, now, todayStart) => {
