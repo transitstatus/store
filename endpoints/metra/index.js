@@ -3,7 +3,7 @@ const protobuf = require('protobufjs');
 
 require('dotenv').config();
 
-const trainNumberRegex = new RegExp(/\d+/)
+const trainNumberRegex = new RegExp(/\d+/);
 
 const scheduleRelationshipEnums = {
   0: 'SCHEDULED',
@@ -154,7 +154,7 @@ const update = (async () => {
         lon: train.trip_update?.position?.vehicle?.position?.longitude,
         heading: train.trip_update?.position?.vehicle?.position?.bearing,
         realTime: true,
-        line: actualLines[train.trip_update?.trip?.route_id],
+        line: staticRoutesData[train.trip_update?.trip?.route_id].routeLongName,
         lineCode: train.trip_update?.trip?.route_id,
         lineColor: staticRoutesData[train.trip_update?.trip?.route_id].routeColor,
         lineTextColor: staticRoutesData[train.trip_update?.trip?.route_id].routeTextColor,
@@ -287,7 +287,7 @@ const update = (async () => {
           lon: 0,
           heading: 0,
           realTime: false,
-          line: actualLines[vehicle.routeId],
+          line: staticRoutesData[vehicle.routeId].routeLongName,
           lineCode: vehicle.routeId,
           lineColor: staticRoutesData[vehicle.routeId].routeColor,
           lineTextColor: staticRoutesData[vehicle.routeId].routeTextColor,
