@@ -1,22 +1,6 @@
 {
   "all": [
     {
-      "fullname": "3630 Peachtree",
-      "username": "peachtree",
-      "goAgencyName": null,
-      "id": "951",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
       "fullname": "5025 Apartments",
       "username": "cardinal5025",
       "goAgencyName": null,
@@ -29,11 +13,10 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "725 Ponce",
+      "fullname": "725 Ponce (Reef Parking)",
       "username": "725ponce",
       "goAgencyName": null,
       "id": "1832",
@@ -45,7 +28,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -61,7 +43,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -77,7 +58,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Albany State University ",
+      "username": "asurams",
+      "goAgencyName": "Albany State University ",
+      "id": "5213",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.asurams.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#393b79",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -93,7 +88,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Athens Public Transit",
+      "username": "athenstransit",
+      "goAgencyName": null,
+      "id": "5842",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/hapcap.org\/transportation\/athens-on-demand\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#0232a8",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -109,7 +118,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -125,7 +133,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "shuttle@auctr.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -141,7 +148,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -157,7 +163,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "parkingoffice@augusta.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -173,7 +178,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -181,15 +185,14 @@
       "username": "BeaconCollege11",
       "goAgencyName": null,
       "id": "3389",
-      "email": "www.beaconcollege.edu",
+      "email": "",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "",
+      "homepage": "https:\/\/www.beaconcollege.edu",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -205,7 +208,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -221,7 +223,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -237,7 +238,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#2ca02c",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "BLT (Propark)",
+      "username": "buildingland",
+      "goAgencyName": null,
+      "id": "4940",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.propark.com\/cities-served\/stamford-parking-management\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Boise Airport (The Car Park)",
+      "username": "boiseairport",
+      "goAgencyName": "Boise Airport (The Car Park)",
+      "id": "5366",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/thecarpark.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -253,7 +283,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiotech.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -262,14 +291,28 @@
       "goAgencyName": null,
       "id": "2046",
       "email": "",
-      "goTestMode": "0",
+      "goTestMode": "1",
       "name2": "1",
       "homepage": "http:\/\/www.ridebat.com\/",
       "logo": 1,
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Brown University ",
+      "username": "brown",
+      "goAgencyName": "Brown University ",
+      "id": "1067",
+      "email": "",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": null,
       "goAuthenticationType": "0"
     },
     {
@@ -285,23 +328,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#006747",
       "goSupportEmail": "bullrunner@usf.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Cal State San Bernardino",
-      "username": "sundiego",
+      "fullname": "Calabasas Transit (LAZ Parking)",
+      "username": "calabasas",
       "goAgencyName": null,
-      "id": "1187",
-      "email": "",
+      "id": "5211",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
-      "homepage": "https:\/\/www.csusb.edu\/parking\/transportation",
+      "name2": "1",
+      "homepage": "https:\/\/www.cityofcalabasas.com\/government\/public-works\/transportation-transit-division\/shuttle-and-trolley-services",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -317,7 +358,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "cat@canbyoregon.gov",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -333,7 +373,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "abreault@coic.org",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -349,11 +388,25 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#1f77b4",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Century Village (FT)",
+      "fullname": "Cecil Transit",
+      "username": "cecil",
+      "goAgencyName": "Cecil Transit",
+      "id": "6135",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.ccgov.org\/government\/community-services\/cecil-transit",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#29759d",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Century Village (TD)",
       "username": "century",
       "goAgencyName": null,
       "id": "444",
@@ -365,7 +418,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -381,7 +433,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -397,7 +448,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#1f77b4",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -413,7 +463,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -429,7 +478,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -445,7 +493,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#000080",
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Chestnut Ridge",
+      "username": "chestnutridge",
+      "goAgencyName": "Chestnut Ridge",
+      "id": "5659",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/wedriveu.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -461,7 +523,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -477,7 +538,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -493,7 +553,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#2ca02c",
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "City of Bangor",
+      "username": "bangor",
+      "goAgencyName": "City of Bangor",
+      "id": "4631",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.bangormaine.gov\/634\/Community-Connector",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -509,7 +583,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#2ca02c",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -525,7 +598,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -541,39 +613,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#8c564b",
       "goSupportEmail": "clovistransit@cityofclovis.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "City of Detroit - Employee Shuttle",
-      "username": "detroitemp",
-      "goAgencyName": "City of Detroit - Employee Shuttle",
-      "id": "1275",
-      "email": "",
+      "fullname": "City of Galesburg",
+      "username": "galesburg",
+      "goAgencyName": null,
+      "id": "6268",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
+      "name2": "1",
+      "homepage": "https:\/\/www.ci.galesburg.il.us\/government\/community_development\/public_transportation\/fixedroute.php",
+      "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "City of Harrisonburg Department of Public Transportation (HDPT)",
-      "username": "harrisonburg",
-      "goAgencyName": null,
-      "id": "2868",
-      "email": "support@passiogo.com",
-      "goTestMode": "1",
-      "name2": "1",
-      "homepage": "https:\/\/www.harrisonburgva.gov\/bus-service",
-      "logo": 1,
-      "goRoutePlannerEnabled": "1",
-      "goColor": "#1f77b4",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -589,7 +643,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -605,7 +658,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#17becf",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -621,7 +673,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -637,7 +688,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "City of Janesville",
+      "username": "janesville",
+      "goAgencyName": "City of Janesville",
+      "id": "5599",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.janesvillewi.gov\/JTS",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -653,7 +718,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -669,7 +733,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#bdbdbd",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -685,7 +748,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "City of Passaic UEZ Shuttle (Propark)",
+      "username": "passaic",
+      "goAgencyName": "City of Passaic UEZ Shuttle (Propark)",
+      "id": "5730",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -701,7 +778,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -712,44 +788,11 @@
       "email": "",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "https:\/\/www.ci.sandy.or.us\/transit",
+      "homepage": "http:\/\/www.mthoodexpress.com\/",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "City of Tracy (MTM \/ Tracer Transit)",
-      "username": "CityofTracy",
-      "goAgencyName": null,
-      "id": "2996",
-      "email": "support@passiogo.com",
-      "goTestMode": "0",
-      "name2": "1",
-      "homepage": "http:\/\/www.ridesystems.net",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "City of Tyler",
-      "username": "tylertx",
-      "goAgencyName": "City of Tyler",
-      "id": "3777",
-      "email": "tylertransit@tylertexas.com",
-      "goTestMode": "0",
-      "name2": "1",
-      "homepage": "http:\/\/www.cityoftyler.org\/Departments.aspx",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": "#1f77b4",
-      "goSupportEmail": "tylertransit@tylertexas.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -765,7 +808,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "citylink | LATC",
+      "username": "avcog",
+      "goAgencyName": "citylink | LATC",
+      "id": "5863",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "http:\/\/www.purplebus.org",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#7c5bb4",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -776,12 +833,11 @@
       "email": "support@passiogo.com",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "http:\/\/www.ridesystems.net",
+      "homepage": "https:\/\/www.edmondok.gov\/205\/Citylink-Edmond",
       "logo": 1,
       "goRoutePlannerEnabled": "1",
       "goColor": "#6baed6",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": "1405",
       "goAuthenticationType": "2"
     },
     {
@@ -797,7 +853,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -813,7 +868,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -829,7 +883,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -845,23 +898,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Coca Cola",
-      "username": "coke",
+      "fullname": "Clemson University",
+      "username": "ClemsonU",
       "goAgencyName": null,
-      "id": "416",
-      "email": "gboothe@lanierparking.com",
+      "id": "793",
+      "email": "",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "https:\/\/www.lanierparking.com\/beyond-parking\/shuttle",
+      "homepage": "",
+      "logo": 0,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Cleveland Urban Area Transit System (CUATS)",
+      "username": "cuats",
+      "goAgencyName": "Cleveland Urban Area Transit System (CUATS)",
+      "id": "4836",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/sethratransit.org\/cuats-routes",
       "logo": 1,
-      "goRoutePlannerEnabled": "1",
-      "goColor": "#fe001a",
-      "goSupportEmail": "gboothe@lanierparking.com",
-      "goSharedCode": null,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#17becf",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -877,7 +943,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#002169",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -893,7 +958,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "transportation@columbia.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -909,7 +973,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -925,13 +988,12 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "support@ckrider.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
       "fullname": "Concourse",
       "username": "Concourse",
-      "goAgencyName": null,
+      "goAgencyName": "Concourse",
       "id": "1841",
       "email": "",
       "goTestMode": "0",
@@ -939,9 +1001,8 @@
       "homepage": "",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
+      "goColor": "#1f77b4",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -957,7 +1018,21 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "connectdouglas@co.douglas.ga.us",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Connecticut Children's Medical Center (Propark)",
+      "username": "ccmc",
+      "goAgencyName": "Connecticut Children's Medical Center (Propark)",
+      "id": "5387",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.connecticutchildrens.org\/ ",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#d62728",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -973,40 +1048,22 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Coral Gables",
-      "username": "cgables",
-      "goAgencyName": null,
-      "id": "2787",
-      "email": "\ufeffjfox@academybus.com",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "CoryD (Test)",
-      "username": "CoryD",
-      "goAgencyName": null,
-      "id": "829",
-      "email": "dummy@email.com",
+      "fullname": "Coos County Area Transit",
+      "username": "cooscounty",
+      "goAgencyName": "Coos County Area Transit",
+      "id": "4835",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "https:\/\/transportation.ncsu.edu\/wolfline\/",
-      "logo": 0,
+      "homepage": "https:\/\/coostransit.org\/",
+      "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": "",
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
+      "goColor": "#3182bd",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "2"
     },
     {
       "fullname": "County Connector",
@@ -1021,7 +1078,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "countyconnector",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1037,7 +1093,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#eba91b",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Dana Point Summer Trolley",
+      "username": "dptrolley",
+      "goAgencyName": "Dana Point Summer Trolley",
+      "id": "6059",
+      "email": null,
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": null,
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Denver International Airport",
+      "username": "flydenver",
+      "goAgencyName": "Denver International Airport",
+      "id": "5397",
+      "email": "",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.flydenver.com\/parking-and-transportation\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "1",
+      "goColor": "#000000",
+      "goSupportEmail": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1048,28 +1133,11 @@
       "email": "",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "https:\/\/support.disneyprograms.com\/hc\/en-us",
+      "homepage": "https:\/\/sites.disney.com\/disneyprogramsexperience\/transportation\/",
       "logo": 0,
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "District of Chamblee",
-      "username": "reefdoc",
-      "goAgencyName": null,
-      "id": "1897",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1085,7 +1153,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#800000",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1101,7 +1168,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "parking@eku.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1117,23 +1183,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "Eastern Virginia Medical School",
-      "username": "EVMS",
-      "goAgencyName": null,
-      "id": "591",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": "#1f7f9b",
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1149,7 +1198,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "bswift3@elon.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1165,7 +1213,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#012169",
       "goSupportEmail": "commute@emory.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1176,12 +1223,11 @@
       "email": "transportation@endicott.edu",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "endicott.edu",
+      "homepage": "https:\/\/endicott.edu",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
       "goColor": "#111680",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1197,7 +1243,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1213,7 +1258,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#31a354",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1229,7 +1273,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1245,7 +1288,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiotech.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1261,23 +1303,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "FIT NY",
-      "username": "fitnewyork",
-      "goAgencyName": null,
-      "id": "973",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1293,7 +1318,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1309,7 +1333,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#004785",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1323,41 +1346,38 @@
       "homepage": "https:\/\/parking.fiu.edu\/commuting-to-fiu\/index.html",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": "#000080",
+      "goColor": "#081E3F",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "ForestView\/Evergreen\/Evergreen East",
-      "username": "avenel",
-      "goAgencyName": null,
-      "id": "1641",
-      "email": "",
+      "fullname": "Fort Valley State University",
+      "username": "fvsu",
+      "goAgencyName": "Fort Valley State University",
+      "id": "6065",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "Fort Saskatchewan Transit (PWTransit Canada Ltd.)",
-      "username": "fortsask",
-      "goAgencyName": null,
-      "id": "912",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
+      "name2": "1",
+      "homepage": "https:\/\/www.fvsu.edu\/",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goColor": "#205097",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Four Points Sheraton (Propark)",
+      "username": "4PointsFlushing",
+      "goAgencyName": "Four Points Sheraton (Propark)",
+      "id": "5208",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/www.propark.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1373,7 +1393,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1389,7 +1408,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#0033A0",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1405,39 +1423,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "Fresno State University",
-      "username": "fresno",
-      "goAgencyName": null,
-      "id": "805",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "GatewayJFK Connection",
-      "username": "gatewayjfk",
-      "goAgencyName": "GatewayJFK Connection",
-      "id": "2125",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": "#0694E2",
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1445,15 +1430,14 @@
       "username": "georgewashu",
       "goAgencyName": "George Washington University (GW)",
       "id": "4120",
-      "email": "support@passiogo.com",
+      "email": "tve@gwu.edu",
       "goTestMode": "0",
       "name2": "1",
       "homepage": "https:\/\/www.gwu.edu\/",
       "logo": 1,
       "goRoutePlannerEnabled": "1",
       "goColor": "#1f77b4",
-      "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goSupportEmail": "tve@gwu.edu",
       "goAuthenticationType": "0"
     },
     {
@@ -1469,7 +1453,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#245745",
       "goSupportEmail": "support@passiotech.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1485,7 +1468,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1501,39 +1483,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#1a5dad",
       "goSupportEmail": "auxiliary@gsu.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Georgia Tech",
-      "username": "gatech",
-      "goAgencyName": "Georgia Tech",
-      "id": "76",
-      "email": "aaron.fowler@gatech.edu",
+      "fullname": "Harbortown (Atlantic Realty)",
+      "username": "harbortown",
+      "goAgencyName": "Harbortown (Atlantic Realty)",
+      "id": "4686",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "https:\/\/pts.gatech.edu\/",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": "#003057",
-      "goSupportEmail": "aaron.fowler@gatech.edu",
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "GoBus",
-      "username": "miller",
-      "goAgencyName": "GoBus",
-      "id": "1839",
-      "email": null,
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "https:\/\/millertransportation.com\/",
+      "homepage": "",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1546,10 +1510,9 @@
       "name2": "1",
       "homepage": "http:\/\/www.harfordcountymd.gov\/213\/Harford-Transit-LINK",
       "logo": 1,
-      "goRoutePlannerEnabled": "0",
+      "goRoutePlannerEnabled": "1",
       "goColor": "#3182bd",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1560,12 +1523,26 @@
       "email": "transit@csd.hctx.net",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "",
+      "homepage": "https:\/\/transit.harriscountytx.gov\/Bus-Routes",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": "#393b79",
       "goSupportEmail": "transit@csd.hctx.net",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Harrisonburg Transit",
+      "username": "harrisonburg",
+      "goAgencyName": null,
+      "id": "2868",
+      "email": "support@passiogo.com",
+      "goTestMode": "1",
+      "name2": "1",
+      "homepage": "https:\/\/www.harrisonburgva.gov\/bus-service",
+      "logo": 1,
+      "goRoutePlannerEnabled": "1",
+      "goColor": "#1C355E",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1581,7 +1558,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "www.hartransit.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1597,7 +1573,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": "#A51C30",
       "goSupportEmail": "",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1613,7 +1588,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1629,7 +1603,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "rjeangilles@metropolis.io",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1645,13 +1618,12 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
       "fullname": "Hollins University",
       "username": "hollinsshuttle",
-      "goAgencyName": null,
+      "goAgencyName": "Hollins University",
       "id": "3014",
       "email": "hello@goridesource.com",
       "goTestMode": "0",
@@ -1659,9 +1631,23 @@
       "homepage": "https:\/\/www.hollinsshuttle.com",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
+      "goColor": "#006948",
       "goSupportEmail": "hello@goridesource.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Hotel Indigo Flushing",
+      "username": "indigoflushing",
+      "goAgencyName": "Hotel Indigo Flushing",
+      "id": "5525",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/www.ihg.com\/hotelindigo\/hotels\/us\/en\/flushing\/nycfq\/hoteldetail",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#9467bd",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1677,7 +1663,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1693,7 +1678,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1709,7 +1693,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#355e3b",
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Island Transit",
+      "username": "islandtransit",
+      "goAgencyName": "Island Transit",
+      "id": "5245",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.islandtransit.org\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#302c6c",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1725,7 +1723,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "JAX Mass Transit",
+      "username": "JCMTD",
+      "goAgencyName": "JAX Mass Transit",
+      "id": "5153",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/ridejax.com",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#081e3f",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1741,7 +1753,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "JPS Health Network",
+      "username": "jpshealth",
+      "goAgencyName": null,
+      "id": "5158",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.jpshealthnet.org\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Kennesaw State University",
+      "username": "kennesaw",
+      "goAgencyName": "Kennesaw State University",
+      "id": "66",
+      "email": "talonone@kennesaw.edu",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/parking.kennesaw.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "talonone@kennesaw.edu",
       "goAuthenticationType": "0"
     },
     {
@@ -1757,7 +1798,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1773,7 +1813,51 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#b5cf6b",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "LaGuardia Plaza Hotel",
+      "username": "lgaplazahampton",
+      "goAgencyName": "LaGuardia Plaza Hotel",
+      "id": "5526",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/www.hilton.com\/en\/hotels\/nyclgdt-laguardia-plaza-hotel\/",
+      "logo": 0,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Laguna Niguel Summer Trolley",
+      "username": "lntrolley",
+      "goAgencyName": "Laguna Niguel Summer Trolley",
+      "id": "6058",
+      "email": null,
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/lntrolley.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Lawrence Transit",
+      "username": "lawrencetransit",
+      "goAgencyName": "Lawrence Transit",
+      "id": "4834",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "http:\/\/www.lawrencetransit.org",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#000435",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1786,26 +1870,39 @@
       "name2": "0",
       "homepage": "",
       "logo": 1,
-      "goRoutePlannerEnabled": "0",
+      "goRoutePlannerEnabled": "1",
       "goColor": "#653818",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Los Angeles International Airport (LAX)",
-      "username": "lax",
-      "goAgencyName": null,
-      "id": "1421",
-      "email": "",
+      "fullname": "Lewiston Transit & Asotin County Transit",
+      "username": "lewiston",
+      "goAgencyName": "Lewiston Transit & Asotin County Transit",
+      "id": "4939",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/ridethevalley.org\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#000435",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Long Island University",
+      "username": "longislanduni",
+      "goAgencyName": "Long Island University",
+      "id": "5082",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "",
-      "logo": 0,
+      "homepage": "https:\/\/liu.edu\/",
+      "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1821,7 +1918,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#2C3287",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Mass General Brigham",
+      "username": "mgb",
+      "goAgencyName": "Mass General Brigham",
+      "id": "6313",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.massgeneralbrigham.org\/Shuttles",
+      "logo": 0,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1837,7 +1948,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1853,7 +1963,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1869,7 +1978,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": "#DFDEDE",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1885,7 +1993,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1901,13 +2008,12 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
       "fullname": "MIT",
       "username": "mit",
-      "goAgencyName": null,
+      "goAgencyName": "MIT",
       "id": "94",
       "email": "shuttles@mit.edu",
       "goTestMode": "0",
@@ -1917,7 +2023,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "shuttles@mit.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1933,7 +2038,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "contactmart@mrta.us",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Montana State University",
+      "username": "montana",
+      "goAgencyName": "Montana State University",
+      "id": "5210",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.montana.edu\/sustainability\/sustainable_transportation\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#162960",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1949,7 +2068,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Naval Base San Diego",
+      "username": "navysandiego",
+      "goAgencyName": "Naval Base San Diego",
+      "id": "5477",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/cnrsw.cnic.navy.mil\/Installations\/NAVBASE-San-Diego\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -1958,14 +2091,13 @@
       "goAgencyName": "NC State University",
       "id": "3827",
       "email": "",
-      "goTestMode": "0",
+      "goTestMode": "1",
       "name2": "1",
       "homepage": "https:\/\/transportation.ncsu.edu\/wolfline\/",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": "#d62728",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1981,7 +2113,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -1997,7 +2128,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2013,7 +2143,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2029,7 +2158,51 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#470a68",
       "goSupportEmail": "director@northforkareatransit.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "NYU Langone Long Island Security",
+      "username": "nyulangone",
+      "goAgencyName": null,
+      "id": "5455",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/nyulangone.org\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Oak Ridge National Laboratory",
+      "username": "ornl",
+      "goAgencyName": "Oak Ridge National Laboratory",
+      "id": "6357",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.ornl.gov\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#00662C",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Orlando International Airport",
+      "username": "orlandoaviation",
+      "goAgencyName": "Orlando International Airport",
+      "id": "4692",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/orlandoairports.net",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2040,12 +2213,11 @@
       "email": "hello@goridesource.com",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "www.hollinsshuttle.com",
+      "homepage": "https:\/\/www.hollinsshuttle.com",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "hello@goridesource.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2061,23 +2233,21 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Palm Beach International Airport Parking Shuttle",
-      "username": "wpbair",
-      "goAgencyName": "Palm Beach International Airport Parking Shuttle",
-      "id": "1071",
-      "email": "",
+      "fullname": "Pensacola Airport Parking Shuttle",
+      "username": "pensacolaair",
+      "goAgencyName": "Pensacola Airport Parking Shuttle",
+      "id": "3520",
+      "email": "Skearney@lazparking.com",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "http:\/\/www.pbia.org",
-      "logo": 1,
+      "homepage": "",
+      "logo": 0,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2093,11 +2263,25 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "transit.services@pepperdine.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Pittsburgh International Airport (PIT)",
+      "fullname": "Perimeter Summit Shuttle",
+      "username": "cbreperimeter",
+      "goAgencyName": null,
+      "id": "5214",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.cbre.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Pittsburgh International Airport (PIT)(LAZ)",
       "username": "pittair",
       "goAgencyName": null,
       "id": "3200",
@@ -2109,13 +2293,12 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Port of Galveston (LAZ Parking)",
+      "fullname": "Port of Galveston",
       "username": "Port775",
-      "goAgencyName": null,
+      "goAgencyName": "Port of Galveston",
       "id": "3294",
       "email": "JOWilkins@lazparking.com",
       "goTestMode": "0",
@@ -2123,9 +2306,8 @@
       "homepage": "",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
+      "goColor": "#1f77b4",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2141,7 +2323,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2157,7 +2338,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#000000",
       "goSupportEmail": "pcshuttles@valetparkofamerica.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2173,7 +2353,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#0C2340",
       "goSupportEmail": "qushuttles@valetparkofamerica.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2189,23 +2368,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#e41c39",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "Ravinia",
-      "username": "ravinia",
-      "goAgencyName": null,
-      "id": "1593",
-      "email": "",
+      "fullname": "Ravinia Shuttle",
+      "username": "raviniabus",
+      "goAgencyName": "Ravinia Shuttle",
+      "id": "5231",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/www.ptgshuttle.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Rivendell Properties",
+      "username": "rivendell",
+      "goAgencyName": "Rivendell Properties",
+      "id": "5409",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
       "name2": "0",
       "homepage": "",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goColor": "#2ca02c",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2219,9 +2411,8 @@
       "homepage": "https:\/\/estuarytransit.org\/",
       "logo": 1,
       "goRoutePlannerEnabled": "1",
-      "goColor": "#2ca02c",
+      "goColor": "#000000",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2232,12 +2423,11 @@
       "email": "support@passiogo.com",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "https:\/\/www.las-cruces.org\/1314\/RoadRUNNER-Transit",
+      "homepage": "https:\/\/lascruces.gov\/community\/transportation\/roadrunner-transit\/",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": "#17becf",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2253,7 +2443,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#ff7f0e",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2269,8 +2458,22 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Rural Transit \/ Beyond the Borders \/ ATS",
+      "username": "atstrans",
+      "goAgencyName": "Rural Transit \/ Beyond the Borders \/ ATS",
+      "id": "4820",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/atstrans.org\/training\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "2"
     },
     {
       "fullname": "Rutgers University",
@@ -2285,7 +2488,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": "#CC0033",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": "4805",
       "goAuthenticationType": "2"
     },
     {
@@ -2301,7 +2503,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2317,7 +2518,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiotech.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2333,8 +2533,112 @@
       "goRoutePlannerEnabled": "1",
       "goColor": "#1f77b4",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Salve Regina University",
+      "username": "salve",
+      "goAgencyName": "Salve Regina University",
+      "id": "894",
+      "email": "",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#98df8a",
+      "goSupportEmail": null,
+      "goAuthenticationType": "1"
+    },
+    {
+      "fullname": "San Clemente Trolley",
+      "username": "sctrolley",
+      "goAgencyName": "San Clemente Trolley",
+      "id": "6061",
+      "email": null,
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": null,
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "San Juan Capistrano Summer Trolley",
+      "username": "scjtrolley",
+      "goAgencyName": "San Juan Capistrano Summer Trolley",
+      "id": "6060",
+      "email": null,
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": null,
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Santa Fe Trails",
+      "username": "santafenm",
+      "goAgencyName": "Santa Fe Trails",
+      "id": "5880",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.santafenm.gov\/transit",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "SAT Parking",
+      "username": "satparking",
+      "goAgencyName": "SAT Parking",
+      "id": "5479",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/www.flysatparking.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#2ca02c",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "SCAD Atlanta",
+      "username": "scadatlanta",
+      "goAgencyName": "SCAD Atlanta",
+      "id": "5306",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.scad.edu\/life\/transportation-and-parking\/scad-busing",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#000000",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "2"
+    },
+    {
+      "fullname": "SCAD Savannah",
+      "username": "scadsavannah",
+      "goAgencyName": "SCAD Savannah",
+      "id": "5305",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.scad.edu\/life\/transportation-and-parking\/scad-busing",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#000000",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "2"
     },
     {
       "fullname": "Seneca Transit System",
@@ -2349,7 +2653,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2365,7 +2668,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2379,9 +2681,38 @@
       "homepage": "http:\/\/www.smarttransit.org\/",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
+      "goColor": "#AB0534",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "SMU",
+      "username": "smu",
+      "goAgencyName": "SMU",
+      "id": "5155",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.smu.edu\/businessfinance\/campusservices\/parkingandidcardservices\/transportation\/smuexpress",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#354CA1",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Somerset County Transportation",
+      "username": "somerset",
+      "goAgencyName": "Somerset County Transportation",
+      "id": "5160",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "http:\/\/www.co.somerset.nj.us\/government\/public-works\/transportation\/county-shuttle-schedules",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#9edae5",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2397,7 +2728,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#1f77b4",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2413,7 +2743,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "parking@southeastern.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2429,7 +2758,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiotech.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "SPOT Bus (Selkirks - Pend Oreille Transit)",
+      "username": "spotbus",
+      "goAgencyName": "SPOT Bus (Selkirks - Pend Oreille Transit)",
+      "id": "5698",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/spotbus.org\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2445,7 +2788,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": "#637939",
       "goSupportEmail": "info@slcnypublictransit.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2461,13 +2803,12 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "State Shuttle (Onyx Equities)",
-      "username": "onyx",
-      "goAgencyName": null,
+      "fullname": "State Shuttle (First Mile Capital)",
+      "username": "Onyx",
+      "goAgencyName": "State Shuttle (First Mile Capital)",
       "id": "2780",
       "email": "bkinney@stateshuttle.com",
       "goTestMode": "0",
@@ -2477,23 +2818,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "STC Atlanta Georgia",
-      "username": "chickfila",
-      "goAgencyName": "STC Atlanta Georgia",
-      "id": "2197",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2509,7 +2833,21 @@
       "goRoutePlannerEnabled": "1",
       "goColor": "#1f77b4",
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Summit East",
+      "username": "summiteast",
+      "goAgencyName": "Summit East",
+      "id": "5795",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#25305c",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2525,7 +2863,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2541,7 +2878,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Texas Medical Center",
+      "username": "txmedctr",
+      "goAgencyName": "Texas Medical Center",
+      "id": "5595",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.tmc.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#d62728",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Texas State University ",
+      "username": "bobcatshuttle",
+      "goAgencyName": "Texas State University ",
+      "id": "5078",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.shuttle.txstate.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#501214",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2557,23 +2923,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "The Cottages at Lake Tamaha Tuscaloosa",
-      "username": "retreatlt",
-      "goAgencyName": null,
-      "id": "1093",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2589,7 +2938,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2603,25 +2951,38 @@
       "homepage": "https:\/\/www.thehartford.com\/",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": "Route 1",
+      "goColor": "#75013f",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "The U Apartments Raleigh",
-      "username": "cardgroup",
-      "goAgencyName": null,
-      "id": "1650",
-      "email": "",
+      "fullname": "Thomas Jefferson University",
+      "username": "jefferson",
+      "goAgencyName": "Thomas Jefferson University",
+      "id": "6436",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
+      "name2": "1",
+      "homepage": "https:\/\/www.jefferson.edu\/east-falls\/public-safety\/parking-and-transportation\/ram-van-shuttle-schedules.html",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goColor": "#1A2650",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Town Center Trolley",
+      "username": "woodlandstransit",
+      "goAgencyName": "Town Center Trolley",
+      "id": "5962",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.thewoodlandstownship-tx.gov\/96\/Transportation",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#637939",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2637,7 +2998,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#2ca02c",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2645,15 +3005,59 @@
       "username": "towson",
       "goAgencyName": null,
       "id": "2153",
-      "email": "",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
+      "name2": "1",
       "homepage": "",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
       "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Transit Services of Frederick County",
+      "username": "frederick",
+      "goAgencyName": "Transit Services of Frederick County",
+      "id": "4821",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.frederickcountymd.gov\/105\/Transit",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#058342",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Transpo",
+      "username": "transpo",
+      "goAgencyName": "Transpo",
+      "id": "3490",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "http:\/\/sbtranspo.com",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Tufts University",
+      "username": "tufts",
+      "goAgencyName": "Tufts University",
+      "id": "6670",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/access.tufts.edu\/shuttles-sharing-services",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#3172AE",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2669,7 +3073,6 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": "shuttles@tulane.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2685,7 +3088,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#d62728",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2701,7 +3103,36 @@
       "goRoutePlannerEnabled": "1",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "UB Shuttle",
+      "username": "univbuffalo",
+      "goAgencyName": "UB Shuttle",
+      "id": "5230",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.buffalo.edu\/parking.html",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#005bbb",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "UB Stampede",
+      "username": "ubuffalo",
+      "goAgencyName": "UB Stampede",
+      "id": "4882",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/wedriveu.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#005bbb",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -2717,7 +3148,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#202A44",
       "goSupportEmail": "support@passiotech.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2733,23 +3163,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#005035",
       "goSupportEmail": "scott@passiotech.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "UNC Greensboro (UNCG)",
+      "fullname": "UNC Greensboro",
       "username": "uncg",
-      "goAgencyName": null,
+      "goAgencyName": "UNC Greensboro",
       "id": "2874",
       "email": "",
       "goTestMode": "0",
       "name2": "0",
       "homepage": "https:\/\/parking.uncg.edu\/",
-      "logo": 0,
+      "logo": 1,
       "goRoutePlannerEnabled": "1",
-      "goColor": null,
+      "goColor": "#0F2044",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2765,23 +3193,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#17becf",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "University at Buffalo",
-      "username": "ubuffalo",
-      "goAgencyName": "University at Buffalo",
-      "id": "4882",
-      "email": "support@passiogo.com",
-      "goTestMode": "0",
-      "name2": "1",
-      "homepage": "https:\/\/wedriveu.com\/",
-      "logo": 1,
-      "goRoutePlannerEnabled": "0",
-      "goColor": "#005bbb",
-      "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2797,7 +3208,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#af002a",
       "goSupportEmail": "crimsonride@ua.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2813,23 +3223,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#843c39",
       "goSupportEmail": "bus@uchicago.edu",
-      "goSharedCode": "1312",
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "University of Florida (UF)",
+      "fullname": "University of Florida",
       "username": "UniFlorida",
-      "goAgencyName": null,
+      "goAgencyName": "University of Florida",
       "id": "3826",
       "email": "parking@ufl.edu",
       "goTestMode": "0",
       "name2": "0",
-      "homepage": "www.taps.ufl.edu",
+      "homepage": "https:\/\/taps.ufl.edu",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
+      "goColor": "#1f77b4",
       "goSupportEmail": "parking@ufl.edu",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2845,7 +3253,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#d62728",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2856,18 +3263,32 @@
       "email": "uhart@valetparkofamerica.com",
       "goTestMode": "0",
       "name2": "1",
-      "homepage": "https:\/\/www.valetparkofamerica.com",
+      "homepage": "https:\/\/www.hartford.edu\/student-life\/transportation\/campus-shuttle.aspx",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
+      "goColor": "#DB1E34",
       "goSupportEmail": "uhart@valetparkofamerica.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "University of Miami Medical Center (Reef Parking)",
+      "fullname": "University of Miami Hurry \u2019Canes Shuttle",
+      "username": "miami",
+      "goAgencyName": "University of Miami Hurry \u2019Canes Shuttle",
+      "id": "5657",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/pt.fop.miami.edu\/campus-transportation\/hurry-cane-shuttle\/index.html",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#005030",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "University of Miami Medical Center (Lanier Parking))",
       "username": "miamimedical",
-      "goAgencyName": "University of Miami Medical Center (Reef Parking)",
+      "goAgencyName": "University of Miami Medical Center (Lanier Parking))",
       "id": "4201",
       "email": "support@passiogo.com",
       "goTestMode": "0",
@@ -2877,23 +3298,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#355E3B",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
-      "goAuthenticationType": "0"
-    },
-    {
-      "fullname": "University of Michigan-Dearborn",
-      "username": "umdearborn",
-      "goAgencyName": null,
-      "id": "1481",
-      "email": "",
-      "goTestMode": "0",
-      "name2": "0",
-      "homepage": "",
-      "logo": 0,
-      "goRoutePlannerEnabled": "1",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2903,13 +3307,12 @@
       "id": "4041",
       "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
+      "name2": "1",
       "homepage": "https:\/\/www.umt.edu\/transportation\/bus\/default.php",
       "logo": 0,
       "goRoutePlannerEnabled": "0",
       "goColor": "#d62728",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2925,7 +3328,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#002D74",
       "goSupportEmail": "Judith.Miller@Propark.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2941,7 +3343,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#ba0c2f",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2957,7 +3358,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#1f77b4",
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2973,7 +3373,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -2989,7 +3388,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "trams@sandiego.edu",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "University of Tennessee, Knoxville (UTK)",
+      "username": "knoxtn",
+      "goAgencyName": "University of Tennessee, Knoxville (UTK)",
+      "id": "4938",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "http:\/\/ridethet.utk.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -3005,11 +3418,10 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "University of Wisconsin-Milwaukee",
+      "fullname": "University of Wisconsin-Milwaukee (GO Riteway)",
       "username": "milwaukee",
       "goAgencyName": null,
       "id": "728",
@@ -3021,7 +3433,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3037,7 +3448,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3053,7 +3463,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "UTHealth Houston",
+      "username": "uthealth",
+      "goAgencyName": "UTHealth Houston",
+      "id": "6717",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.uth.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Valdosta State University ",
+      "username": "valdosta",
+      "goAgencyName": "Valdosta State University ",
+      "id": "6090",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "0",
+      "homepage": "https:\/\/www.valdosta.edu\/administration\/finance-admin\/auxiliary-services\/parking\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#d62728",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -3069,7 +3508,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3085,23 +3523,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
-      "fullname": "VMware",
-      "username": "vmware",
-      "goAgencyName": null,
-      "id": "1274",
-      "email": "",
+      "fullname": "Via Mobility Services",
+      "username": "viaboulder",
+      "goAgencyName": "Via Mobility Services",
+      "id": "4729",
+      "email": "support@passiogo.com",
       "goTestMode": "0",
-      "name2": "0",
-      "homepage": "www.vmware.com",
+      "name2": "1",
+      "homepage": "https:\/\/viacolorado.org",
       "logo": 1,
       "goRoutePlannerEnabled": "0",
-      "goColor": null,
-      "goSupportEmail": null,
-      "goSharedCode": null,
+      "goColor": "#0058a6",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Vincennes Trolley",
+      "username": "ymcavango",
+      "goAgencyName": "Vincennes Trolley",
+      "id": "5365",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/vincennesymca.org\/our-focus\/vango\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#393b79",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -3117,7 +3568,21 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Washington County Transit (WCT)",
+      "username": "washco",
+      "goAgencyName": null,
+      "id": "5594",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.washco-md.net\/transit\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -3133,7 +3598,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#2ca02c",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3149,7 +3613,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": "#1f77b4",
       "goSupportEmail": "support@passiogo.com",
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3165,7 +3628,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3181,7 +3643,36 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Wilmington International Airport",
+      "username": "nhcairport",
+      "goAgencyName": "Wilmington International Airport",
+      "id": "5596",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/flyilm.com\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#1f77b4",
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Winston - Salem University",
+      "username": "wssu",
+      "goAgencyName": "Winston - Salem University",
+      "id": "6848",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.wssu.edu\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": "#c8102e",
+      "goSupportEmail": "support@passiogo.com",
       "goAuthenticationType": "0"
     },
     {
@@ -3197,7 +3688,6 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": null,
-      "goSharedCode": null,
       "goAuthenticationType": "0"
     },
     {
@@ -3213,16 +3703,52 @@
       "goRoutePlannerEnabled": "0",
       "goColor": null,
       "goSupportEmail": "",
-      "goSharedCode": null,
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Yellowknife",
+      "username": "yellowknife",
+      "goAgencyName": "Yellowknife",
+      "id": "4825",
+      "email": "support@passiogo.com",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "https:\/\/www.yellowknife.ca\/en\/living-here\/transit.aspx",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "support@passiogo.com",
+      "goAuthenticationType": "0"
+    },
+    {
+      "fullname": "Greenville",
+      "username": "scott",
+      "goAgencyName": "Greenville",
+      "id": "1000000001",
+      "email": "scott@adaptingtech.com",
+      "goTestMode": "1",
+      "name2": "1",
+      "homepage": "https:\/\/parking.uark.edu\/transit-services\/index.php",
+      "logo": 1,
+      "goRoutePlannerEnabled": "1",
+      "goColor": null,
+      "goSupportEmail": "scott@adaptingtech.com",
+      "goAuthenticationType": "2"
+    },
+    {
+      "fullname": "Fitchburg State University",
+      "username": "montachusett",
+      "goAgencyName": "Fitchburg State University",
+      "id": "1000000002",
+      "email": "contactmart@mrta.us",
+      "goTestMode": "0",
+      "name2": "1",
+      "homepage": "http:\/\/www.mrta.us\/",
+      "logo": 1,
+      "goRoutePlannerEnabled": "0",
+      "goColor": null,
+      "goSupportEmail": "contactmart@mrta.us",
       "goAuthenticationType": "0"
     }
-  ],
-  "lat": 41.9555,
-  "lng": -87.6613,
-  "IPcoords": {
-    "lat": 41.9555,
-    "lng": -87.6613,
-    "comment": "cache",
-    "IP": "107.138.100.171"
-  }
+  ]
 }

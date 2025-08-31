@@ -110,12 +110,12 @@ const updateFeed = async (feed) => {
 };
 
 const updateFeedInd = async (feedKey) => {
-  //if (feedKey !== 'metra') return false;
+  if (feedKey != '') return false;
 
   console.time(`GTFS schedules for ${feedKey}`);
   const feedData = await updateFeed(feedKey);
   console.timeEnd(`GTFS schedules for ${feedKey}`);
-  
+
   return feedData;
 }
 

@@ -9,7 +9,6 @@
     "gcsu": {},
     "GASO": {},
     "georgiast": {},
-    "gatech": {},
     "mit": {},
     "ncstateuni": {},
     "newyork": {},
@@ -19,7 +18,6 @@
     "uncw": {},
     "bamabama": {},
     "columbia": {},
-    "miller": {},
     "ritech": {},
     "uga": {}
   },
@@ -35,9 +33,6 @@
     ],
     [
       "georgiast"
-    ],
-    [
-      "gatech"
     ],
     [
       "GASO"
@@ -65,9 +60,6 @@
     ],
     [
       "columbia"
-    ],
-    [
-      "miller"
     ],
     [
       "ritech"

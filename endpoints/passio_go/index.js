@@ -73,7 +73,7 @@ const updateFeed = async (feed) => {
     const routesReq = await fetch(`https://passiogo.com/mapGetData.php?getRoutes=1&deviceId=${deviceId}&wTransloc=1&userId=${userId}`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -92,7 +92,7 @@ const updateFeed = async (feed) => {
     const stopsReq = await fetch(`https://passiogo.com/mapGetData.php?getStops=2&deviceId=${deviceId}&withOutdated=1&wBounds=1&showBusInOos=0&lat=undefined&lng=undefined&wTransloc=1&userId=${userId}`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -111,7 +111,7 @@ const updateFeed = async (feed) => {
     const busesReq = await fetch(`https://passiogo.com/mapGetData.php?getBuses=1&deviceId=${deviceId}&wTransloc=1&userId=${userId}`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -126,6 +126,7 @@ const updateFeed = async (feed) => {
       "method": "POST",
       "mode": "cors"
     });
+
     const routes = await routesReq.json();
     const stops = await stopsReq.json();
     const buses = await busesReq.json();
@@ -158,7 +159,7 @@ const updateFeed = async (feed) => {
       }
 
       if (feed.combineBasedOnName) {
-        lineCode = route.shortName.length > 0 ? route.shortName : lineNameLong;
+        lineCode = route.shortName && route.shortName.length > 0 ? route.shortName : lineNameLong;
         lineCodeReplacements[route.myid] = lineCode;
       }
 
@@ -300,7 +301,7 @@ const updateFeed = async (feed) => {
       let predictions = await recursivelyTryFetching(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&position=0&userId=${userId}`, {
         "credentials": "omit",
         "headers": {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
           //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
           "Accept-Language": "en-US,en;q=0.5",

@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const protobuf = require('protobufjs');
 
 require('dotenv').config();
 
@@ -14,20 +13,6 @@ const scheduleRelationshipEnums = {
   6: 'NEW',
   7: 'DELETED',
 }
-
-const actualLines = {
-  'BNSF': 'BNSF',
-  'HC': 'Heritage Corridor',
-  'MD-N': 'Milwaukee District North',
-  'MD-W': 'Milwaukee District West',
-  'ME': 'Metra Electric',
-  'NCS': 'North Central Service',
-  'RI': 'Rock Island',
-  'SWS': 'Southwest Service',
-  'UP-N': 'Union Pacific North',
-  'UP-NW': 'Union Pacific Northwest',
-  'UP-W': 'Union Pacific West',
-};
 
 const holidayTrains = [
   'ME-BX02',
@@ -44,13 +29,6 @@ const holidayTrains = [
   'UPN-8914',
   'UPNW-7902',
   'UPNW-7903',
-]
-
-const downtownStations = [
-  'Chicago OTC',
-  'Chicago Union Station',
-  'LaSalle Street',
-  'Millennium Station',
 ]
 
 const recursivelyParseObjectValuesIntoString = (obj) => {
@@ -93,30 +71,19 @@ const update = (async () => {
     const res = await fetch('https://gtfsapi.metrarail.com/gtfs/tripUpdates', { "headers": { "Authorization": process.env.metra_authorization } });
     const data = await res.json();
 
-    const nowDate = new Date();
-    const todaysDate = new Date(new Date(nowDate).toISOString().split('T')[0] + 'T00:00:00.000Z')
-    const yesterdaysDate = new Date(todaysDate.valueOf() - (1000 * 60 * 60 * 24));
-    const tomorrowsDate = new Date(todaysDate.valueOf() + (1000 * 60 * 60 * 24));
-
-    const root = await protobuf.load('schedules.proto');
-    const MultipleVehiclesScheduleMessage = root.lookupType('gobbler.MultipleVehiclesScheduleMessage');
-
     const [
       staticStopsData,
       staticRoutesData,
       staticMetaData,
+      scheduledVehicles,
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/metra/stops.json',
       'https://gtfs.piemadd.com/data/metra/routes.json',
       'https://gobblerstatic.transitstat.us/schedules/metra/metadata.json',
+      'http://localhost:3000/gtfs_sch/metra/scheduledVehicles',
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
-
-    const vehicleSchedule = await fetch('https://gobblerstatic.transitstat.us/schedules/metra/vehicles.pbf')
-      .then(res => res.arrayBuffer())
-      .then(arrayBuffer => MultipleVehiclesScheduleMessage.decode(new Uint8Array(arrayBuffer)));
-
 
     let stoppingPatternTimes = {};
     staticMetaData.stoppingPatterns.forEach((pattern, patternIndex) => {
@@ -257,72 +224,8 @@ const update = (async () => {
     });
 
     const lastUpdated = new Date().toISOString();
-    const lastUpdatedNum = new Date(lastUpdated).valueOf();
 
     transitStatus.lastUpdated = lastUpdated;
-
-    let scheduledVehicles = {};
-
-    const fillInVehicleData = (vehicleSchedule, now, todayStart) => {
-      const secondsSinceTodayStart = Math.floor((new Date(now).valueOf() - todayStart.valueOf()) / 1000);
-      const todayStartCode = todayStart.toISOString().split('T')[0];
-      const todayValidServices = staticMetaData.services[todayStartCode];
-
-      const upcomingVehiclesWithinTimeFrame = vehicleSchedule
-        .toJSON()
-        .vehicleScheduleMessage
-        .filter((vehicle) =>
-          vehicle.startTime + stoppingPatternTimes[vehicle.vehicleStop] > secondsSinceTodayStart &&
-          vehicle.startTime < secondsSinceTodayStart + (60 * 60 * 8) &&
-          todayValidServices.includes(vehicle.serviceId)
-        );
-
-      upcomingVehiclesWithinTimeFrame.forEach((vehicle) => {
-        const trainNumber = vehicle.runNumber.match(trainNumberRegex);
-        if (!trainNumber) return; //no train ig
-        const runNumber = `${vehicle.routeId.replaceAll('-', '')}-${trainNumber[0]}`;
-
-        let finalScheduledVehicle = {
-          lat: 0,
-          lon: 0,
-          heading: 0,
-          realTime: false,
-          line: staticRoutesData[vehicle.routeId].routeLongName,
-          lineCode: vehicle.routeId,
-          lineColor: staticRoutesData[vehicle.routeId].routeColor,
-          lineTextColor: staticRoutesData[vehicle.routeId].routeTextColor,
-          dest: "Unknown Dest",
-          predictions: [],
-          type: 'train',
-          extra: {}
-        };
-
-        let currentStationTime = todayStart.valueOf() + (vehicle.startTime * 1000);
-        staticMetaData.stoppingPatterns[vehicle.vehicleStop].forEach((stop, i, arr) => {
-          finalScheduledVehicle.predictions.push({ //adding prediction
-            stationID: stop,
-            stationName: staticStopsData[stop].stopName,
-            actualETA: currentStationTime,
-            noETA: false,
-            realTime: false,
-          });
-
-          if (i == arr.length - 1) { //dont have to do the next step if this is the last station
-            finalScheduledVehicle.dest = staticStopsData[stop].stopName;
-          } else { //moving time to next station
-            currentStationTime += staticMetaData.stopTimes[`${stop}_${arr[i + 1]}`] * 1000;
-          }
-        })
-
-        if (!scheduledVehicles[runNumber]) scheduledVehicles[runNumber] = finalScheduledVehicle;
-      });
-
-
-    };
-
-    fillInVehicleData(vehicleSchedule, nowDate, todaysDate); //today
-    fillInVehicleData(vehicleSchedule, nowDate, yesterdaysDate); //yesterday
-    fillInVehicleData(vehicleSchedule, nowDate, tomorrowsDate); //tomorrow
 
     Object.keys(scheduledVehicles)
       .sort((aTrip, bTrip) => {
@@ -376,14 +279,6 @@ const update = (async () => {
   } catch (e) {
     console.log(e)
     return false;
-    return {
-      trains: [],
-      transitStatus: {
-        trains: [],
-        stations: [],
-      },
-      lastUpdated: new Date().toISOString(),
-    }
   }
 })
 

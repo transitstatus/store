@@ -39,7 +39,7 @@ fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
 
   //ensuring the plugin(s) load before we start registering endpoints
   fastify.after(() => {
-    const only_testing = '';
+    const only_testing = [''];
 
     let data = {};
 
@@ -48,7 +48,7 @@ fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
 
     // going through endpoints and setting up update jobs
     endpoints.forEach(async (endpoint) => {
-      if (only_testing !== undefined && only_testing !== null && only_testing !== '' && endpoint !== only_testing) return;
+      if (only_testing.length > 0 && !only_testing.includes(endpoint)) return;
 
       console.log(`Loading endpoint: ${endpoint}`);
       if (fs.lstatSync(`./endpoints/${endpoint}`).isDirectory()) {
