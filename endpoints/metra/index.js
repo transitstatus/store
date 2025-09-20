@@ -68,8 +68,15 @@ const update = (async () => {
   if (!process.env.metra_authorization) return false;
 
   try {
-    const res = await fetch('https://gtfsapi.metrarail.com/gtfs/tripUpdates', { "headers": { "Authorization": process.env.metra_authorization } });
-    const data = await res.json();
+    const [
+      data,
+      alertsData,
+    ] = await Promise.all([
+      'https://gtfsapi.metrarail.com/gtfs/tripUpdates',
+      'https://gtfsapi.metrarail.com/gtfs/alerts',
+    ].map((url) =>
+      fetch(url, { "headers": { "Authorization": process.env.metra_authorization } }).then(res => res.json())
+    ));
 
     const [
       staticStopsData,
@@ -105,6 +112,7 @@ const update = (async () => {
       trains: {},
       stations: {},
       lines: {},
+      alerts: [],
     };
 
     //adding trains to transitStatus object
@@ -223,6 +231,18 @@ const update = (async () => {
       transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
 
+    // alerts
+    transitStatus.alerts = alertsData.map((alert) => {
+      return {
+        id: alert.id,
+        lineCode: alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].route_id ?? null) : null,
+        runNumber: alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].trip?.trip_id ?? null) : null,
+        stationID: alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].stop_id ?? null) : null,
+        title: alert.alert.header_text.translation[0].text,
+        message: alert.alert.description_text.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
+      }
+    });
+
     const lastUpdated = new Date().toISOString();
 
     transitStatus.lastUpdated = lastUpdated;
@@ -273,6 +293,7 @@ const update = (async () => {
 
     return {
       trains: processedData,
+      alertsData,
       transitStatus,
       lastUpdated: lastUpdated,
     }
