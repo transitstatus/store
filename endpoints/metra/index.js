@@ -72,7 +72,7 @@ const update = (async () => {
       data,
       alertsData,
     ] = await Promise.all([
-      'https://gtfsapi.metrarail.com/gtfs/tripUpdates',
+      `https://gtfsapi.metrarail.com/gtfs/tripUpdates?t=${Date.now()}`,
       'https://gtfsapi.metrarail.com/gtfs/alerts',
     ].map((url) =>
       fetch(url, { "headers": { "Authorization": process.env.metra_authorization } }).then(res => res.json())
