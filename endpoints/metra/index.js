@@ -233,11 +233,33 @@ const update = (async () => {
 
     // alerts
     transitStatus.alerts = alertsData.map((alert) => {
+      const lineCode = alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].route_id ?? null) : null;
+      const runNumber = alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].trip?.trip_id ?? null) : null;
+      const stationID = alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].stop_id ?? null) : null;
+
+      const additionalRunNumbers = Object.values(transitStatus.trains).filter((train) => {
+        const stopIDs = train.predictions.map((prediction) => prediction.stationID);
+        if (lineCode == train.lineCode) return true;
+        if (stopIDs.includes(stationID)) return true;
+        return false;
+      });
+
+      const additionalStationIDs = Object.values(transitStatus.stations).filter((station) => {
+        const stationLines = Object.values(staticRoutesData).filter((line) => line.routeStations.includes(station.stationID)).map((line) => line.routeID);
+        const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
+
+        if (stationLines.includes(lineCode)) return true;
+        if (stationTrains.includes(runNumber)) return true;
+        return false;
+      })
+
       return {
         id: alert.id,
-        lineCode: alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].route_id ?? null) : null,
-        runNumber: alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].trip?.trip_id ?? null) : null,
-        stationID: alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].stop_id ?? null) : null,
+        lineCode,
+        runNumber,
+        stationID,
+        additionalRunNumbers,
+        additionalStationIDs,
         title: alert.alert.header_text.translation[0].text,
         message: alert.alert.description_text.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
       }
