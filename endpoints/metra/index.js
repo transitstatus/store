@@ -237,7 +237,8 @@ const update = (async () => {
       const runNumber = alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].trip?.trip_id ?? null) : null;
       const stationID = alert.alert.informed_entity.length > 0 ? (alert.alert.informed_entity[0].stop_id ?? null) : null;
 
-      const additionalRunNumbers = Object.values(transitStatus.trains).filter((train) => {
+      const additionalRunNumbers = Object.keys(transitStatus.trains).filter((trainID) => {
+        const train = transitStatus.trains[trainID];
         const stopIDs = train.predictions.map((prediction) => prediction.stationID);
         if (lineCode == train.lineCode) return true;
         if (stopIDs.includes(stationID)) return true;
@@ -251,7 +252,7 @@ const update = (async () => {
         if (stationLines.includes(lineCode)) return true;
         if (stationTrains.includes(runNumber)) return true;
         return false;
-      })
+      }).map((station) => station.stationID);
 
       return {
         id: alert.id,
