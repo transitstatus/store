@@ -119,7 +119,7 @@ const additionalStops = {
 const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
 
 const processData = async () => {
-  try { 
+  try {
     const req = await fetch(`https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=3000&=${Date.now()}`, {
       method: "GET",
       mode: "cors",
@@ -174,6 +174,9 @@ const processData = async () => {
 
         let stationPastLoop = false;
 
+        const reverseColors = train.DestName.split('&')[0] == 'Cottage Grove';
+        const route = routesData[validLinesReverse[line.Line]];
+
         processedData.transitStatus.trains[train.RunNumber] = {
           lat: train.Position.Lat,
           lon: train.Position.Lng,
@@ -181,8 +184,8 @@ const processData = async () => {
           realTime: true,
           line: actualLines[line.Line],
           lineCode: line.Line,
-          lineColor: routesData[validLinesReverse[line.Line]].routeColor,
-          lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
+          lineColor: reverseColors ? route.routeTextColor : route.routeColor,
+          lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
           dest: train.DestName.split('&')[0],
           predictions: [],
           type: 'train',
@@ -241,8 +244,8 @@ const processData = async () => {
             realTime: isRealtime,
             line: actualLines[line.Line],
             lineCode: line.Line,
-            lineColor: routesData[validLinesReverse[line.Line]].routeColor,
-            lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
+            lineColor: reverseColors ? route.routeTextColor : route.routeColor,
+            lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
             extra: {
               holidayChristmas: train.RunNumber == 1225,
             }
