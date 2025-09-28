@@ -174,7 +174,7 @@ const processData = async () => {
 
         let stationPastLoop = false;
 
-        const reverseColors = train.DestName.split('&')[0] == 'Cottage Grove';
+        const reverseColors = train.DestName.split('&')[0] == 'Cottage Grove' || train.DestName.split('&')[0] == 'UIC-Halsted';
         const route = routesData[validLinesReverse[line.Line]];
 
         processedData.transitStatus.trains[train.RunNumber] = {
