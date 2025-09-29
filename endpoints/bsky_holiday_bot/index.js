@@ -26,56 +26,58 @@ const usTimeStamp = (arrivalTime) => {
 }
 
 const postMessage = (endpoint, type, runNumber, sessData, now) => {
-  fetch(endpoint)
-    .then((res) => res.text())
-    .then((rawData) => {
-      if (rawData === 'Not found') return;
+  try {
+    fetch(endpoint)
+      .then((res) => res.text())
+      .then((rawData) => {
+        if (rawData === 'Not found' || rawData.startsWith('no available server')) return;
 
-      const data = JSON.parse(rawData);
+        const data = JSON.parse(rawData);
 
-      const postText = `The CTA Holiday ${type} is on the ${data.line}${type == 'Train' ? ' line' : ''} toward ${data.dest}
+        const postText = `The CTA Holiday ${type} is on the ${data.line}${type == 'Train' ? ' line' : ''} toward ${data.dest}
 Next Stops:
 ${data.predictions
-  .filter((prediction) => type == 'Train' || prediction.actualETA > now.valueOf() + 60000)
-  .slice(0, 5).map((prediction) => `• ${prediction.stationName}: ${hoursMinutesUntilArrival(prediction.actualETA)} - ${usTimeStamp(prediction.actualETA)}`)
-  .join('\n')}
+            .filter((prediction) => type == 'Train' || prediction.actualETA > now.valueOf() + 60000)
+            .slice(0, 5).map((prediction) => `• ${prediction.stationName}: ${hoursMinutesUntilArrival(prediction.actualETA)} - ${usTimeStamp(prediction.actualETA)}`)
+            .join('\n')}
 Track It Here`;
-      const postByteNum = new Blob([postText]).size;
-      const urlByteNum = new Blob(['Track It Here']).size;
+        const postByteNum = new Blob([postText]).size;
+        const urlByteNum = new Blob(['Track It Here']).size;
 
-      fetch('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
-        method: 'POST',
-        body: JSON.stringify({
-          "repo": sessData["did"],
-          "collection": "app.bsky.feed.post",
-          "record": {
-            "$type": "app.bsky.feed.post",
-            "text": postText,
-            facets: [
-              {
-                index: {
-                  byteStart: postByteNum - urlByteNum,
-                  byteEnd: postByteNum
-                },
-                features: [{
-                  $type: 'app.bsky.richtext.facet#link',
-                  uri: `https://holiday.transitstat.us#${type.toLowerCase()}`
-                }]
-              }
-            ],
-            "createdAt": now.toISOString(),
+        fetch('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
+          method: 'POST',
+          body: JSON.stringify({
+            "repo": sessData["did"],
+            "collection": "app.bsky.feed.post",
+            "record": {
+              "$type": "app.bsky.feed.post",
+              "text": postText,
+              facets: [
+                {
+                  index: {
+                    byteStart: postByteNum - urlByteNum,
+                    byteEnd: postByteNum
+                  },
+                  features: [{
+                    $type: 'app.bsky.richtext.facet#link',
+                    uri: `https://holiday.transitstat.us#${type.toLowerCase()}`
+                  }]
+                }
+              ],
+              "createdAt": now.toISOString(),
+            }
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessData['accessJwt']
           }
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + sessData['accessJwt']
-        }
-      })
-        .then((res) => res.text())
-        .then((output) => {
-          console.log('Bluesky update result:', output)
         })
-    })
+          .then((res) => res.text())
+          .then((output) => {
+            console.log('Bluesky update result:', output)
+          })
+      })
+  } catch (e) { };
 }
 
 const update = async () => {

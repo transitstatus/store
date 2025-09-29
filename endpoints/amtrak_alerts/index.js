@@ -165,8 +165,8 @@ const updateFeed = async (updateConfig) => {
     const errorString = e.toString();
 
     if (updateConfig.firstUpdate) {
-      const initialState = await fetch('https://store.transitstat.us/amtrak_alerts').then((res) => res.json());
-      return initialState;
+      const initialStateText = await fetch('https://store.transitstat.us/amtrak_alerts').then((res) => res.text());
+      if (initialStateText !== 'Not found' && !initialStateText.startsWith('no available server')) return JSON.parse(initialStateText);
     };
 
     return {
