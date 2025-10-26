@@ -4,11 +4,13 @@ const updateFeed = async (updateConfig) => {
       trainStations: null,
       trainDataMain: null,
       trainDataASMAD: { type: "FeatureCollection", features: [] },
+      updatedAt: 0,
     };
 
     const fetchedData = await fetch('https://amtraker-fetch-proxy.piero.workers.dev/').then((res) => res.json());
     responseObject = fetchedData;
     responseObject.trainDataASMAD = JSON.parse(fetchedData.trainDataASMAD);
+    responseObject.updatedAt = Date.now(),
 
 
     console.log(`Finished updating Amtraker Proxy`)
@@ -27,6 +29,7 @@ const updateFeed = async (updateConfig) => {
       trainStations: null,
       trainDataMain: null,
       trainDataASMAD: { type: "FeatureCollection", features: [] },
+      updatedAt: Date.now(),
     };
   }
 };
