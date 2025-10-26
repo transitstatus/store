@@ -1,0 +1,12 @@
+{
+  "name": "Amtrak Fetch Proxy",
+  "script": "index.js",
+  "interval": 30000,
+  "configVersion": 2,
+  "disabled": false,
+  "default": {
+    "trainStations": null,
+    "trainDataMain": null,
+    "trainDataASMAD": { "type": "FeatureCollection", "features": [] }
+  }
+}
