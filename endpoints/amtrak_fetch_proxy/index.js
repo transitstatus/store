@@ -76,6 +76,7 @@ const updateFeed = async (updateConfig) => {
       trainDataMain: getDecryptedData(fetchedData.trainDataMain) ?? { type: "FeatureCollection", features: [] },
       trainStations: getDecryptedData(fetchedData.trainStations).StationsDataResponse ?? { type: "FeatureCollection", features: [] },
       trainDataASMAD: JSON.parse(fetchedData.trainDataASMAD) ?? { type: "FeatureCollection", features: [] },
+      trainDataVIA: JSON.parse(fetchedData.trainDataVIA) ?? {},
       updatedAt: updatedAt.valueOf(),
       updatedAtISO: updatedAt.toISOString(),
       updatedAtChicagoPlain: updatedAt.toLocaleString("en-US", {
