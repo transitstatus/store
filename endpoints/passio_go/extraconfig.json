@@ -28,14 +28,6 @@
       "38732"
     ]
   },
-  "columbia": {
-    "combineBasedOnName": true,
-    "black": [
-      "Manhattanville",
-      "Manhattanville AM Start",
-      "Manhattanville PM"
-    ]
-  },
   "ncstateuni": {
     "black": [
       "44364"

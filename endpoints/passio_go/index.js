@@ -19,7 +19,7 @@ const recursivelyTryFetching = async (url, options, attempts = 5) => {
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 100));
     return await recursivelyTryFetching(url, options, attempts - 1)
   }
 
@@ -62,26 +62,27 @@ const updateFeed = async (feed) => {
   try {
     let vidToTripDict = {};
 
-    //const deviceId = 64638265; //cheeky bastard moment
     const deviceId = idGen(8);
-    const userId = idGen(5);
+    const userId = feed.id;
+    const userAgent = "Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/135.0";
 
     const routesForm = `json=%7B%22systemSelected0%22%3A%22${feed.id}%22%2C%22amount%22%3A1%7D`;
     const stopsForm = `json=%7B%22s0%22%3A%22${feed.id}%22%2C%22sA%22%3A1%7D`;
-    const busesForm = `json=%7B%22s0%22%3A%22${feed.id}%22%2C%22sA%22%3A1%7D`
+    const busesForm = `json=%7B%22s0%22%3A%22${feed.id}%22%2C%22sA%22%3A1%7D`;
 
     const routesReq = await fetch(`https://passiogo.com/mapGetData.php?getRoutes=1&deviceId=${deviceId}&wTransloc=1&userId=${userId}`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
+        "User-Agent": userAgent,
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
+        "X-Requested-With": "XMLHttpRequest",
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site",
-        "X-Requested-With": "XMLHttpRequest"
+        "Sec-Fetch-Site": "same-origin",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
       },
       "referrer": "https://passiogo.com/",
       "body": routesForm,
@@ -89,18 +90,20 @@ const updateFeed = async (feed) => {
       "mode": "cors"
     });
 
-    const stopsReq = await fetch(`https://passiogo.com/mapGetData.php?getStops=2&deviceId=${deviceId}&withOutdated=1&wBounds=1&showBusInOos=0&lat=undefined&lng=undefined&wTransloc=1&userId=${userId}`, {
+    //https://passiogo.com/mapGetData.php?getStops=2&deviceId=75558324&withOutdated=1&wBounds=1&buildNo=110&showBusInOos=0&lat=undefined&lng=undefined
+    const stopsReq = await fetch(`https://passiogo.com/mapGetData.php?getStops=2&deviceId=${deviceId}&withOutdated=1&wBounds=1&buildNo=110&showBusInOos=0&lat=undefined&lng=undefined&wTransloc=1&userId=${userId}`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
+        "User-Agent": userAgent,
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
+        "X-Requested-With": "XMLHttpRequest",
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site",
-        "X-Requested-With": "XMLHttpRequest"
+        "Sec-Fetch-Site": "same-origin",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
       },
       "referrer": "https://passiogo.com/",
       "body": stopsForm,
@@ -111,15 +114,16 @@ const updateFeed = async (feed) => {
     const busesReq = await fetch(`https://passiogo.com/mapGetData.php?getBuses=1&deviceId=${deviceId}&wTransloc=1&userId=${userId}`, {
       "credentials": "omit",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
+        "User-Agent": userAgent,
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Language": "en-US,en;q=0.5",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at piero@piemadd.com',
+        "X-Requested-With": "XMLHttpRequest",
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "cross-site",
-        "X-Requested-With": "XMLHttpRequest"
+        "Sec-Fetch-Site": "same-origin",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
       },
       "referrer": "https://passiogo.com/",
       "body": busesForm,
@@ -131,8 +135,8 @@ const updateFeed = async (feed) => {
     const stops = await stopsReq.json();
     const buses = await busesReq.json();
 
-    //fs.writeFileSync('./routes.json', JSON.stringify(routes, null, 2));
-    //fs.writeFileSync('./stops.json', JSON.stringify(stops, null, 2));
+    fs.writeFileSync('./routes.json', JSON.stringify(routes, null, 2));
+    fs.writeFileSync('./stops.json', JSON.stringify(stops, null, 2));
     //fs.writeFileSync('./buses.json', JSON.stringify(buses, null, 2));
 
     const lastUpdated = new Date().toISOString();
@@ -144,6 +148,7 @@ const updateFeed = async (feed) => {
       lines: {},
       lastUpdated,
     };
+    let routesForEachStop = {};
 
     //adding routes to transitStatus
     routes.forEach((route) => {
@@ -175,6 +180,18 @@ const updateFeed = async (feed) => {
     })
 
     //fs.writeFileSync('./transitStatus.json', JSON.stringify(transitStatus, null, 2));
+
+    Object.keys(stops.routes).forEach((routeID) => {
+      const route = stops.routes[routeID];
+
+      route.slice(3).forEach((stop) => {
+        if (!routesForEachStop[stop[1]]) routesForEachStop[stop[1]] = [];
+        routesForEachStop[stop[1]].push({
+          routeID,
+          order: stop[0],
+        })
+      })
+    })
 
     let allStopIDs = [];
 
@@ -293,28 +310,30 @@ const updateFeed = async (feed) => {
 
     let fullPredictions = {};
 
-    const chunkSize = 10;
+    const chunkSize = feed.username == 'chicago' ? 25 : 10;
     for (let j = 0; j < allStopIDs.length; j += chunkSize) {
       const chunk = allStopIDs.slice(j, j + chunkSize);
       const chunkString = chunk.join(',');
 
+      //https://passiogo.com/mapGetData.php?eta=3&deviceId=75558324&stopIds=cta1529&routeId=cta15&position=67
       let predictions = await recursivelyTryFetching(`https://passiogo.com/mapGetData.php?eta=3&deviceId=${deviceId}&stopIds=${chunkString}&position=0&userId=${userId}`, {
         "credentials": "omit",
         "headers": {
-          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
-          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-          //'Contact': 'I know I am not meant to be here. If you would like to contact me, i am available at passiogosucksass@piemadd.com',
+          "User-Agent": userAgent,
+          "Accept": "application/json, text/javascript, */*; q=0.01",
           "Accept-Language": "en-US,en;q=0.5",
-          "Upgrade-Insecure-Requests": "1",
-          "Sec-Fetch-Dest": "document",
-          "Sec-Fetch-Mode": "navigate",
-          "Sec-Fetch-Site": "cross-site"
+          "X-Requested-With": "XMLHttpRequest",
+          "Sec-Fetch-Dest": "empty",
+          "Sec-Fetch-Mode": "cors",
+          "Sec-Fetch-Site": "same-origin",
+          "Pragma": "no-cache",
+          "Cache-Control": "no-cache"
         },
         "method": "GET",
         "mode": "cors"
-      });
+      }, 1);
 
-      if (Object.keys(predictions).length === 0) {
+      if (Object.keys(predictions).length === 0 || !predictions.ETAs) {
         predictions = {
           ETAs: {},
         }
@@ -332,7 +351,7 @@ const updateFeed = async (feed) => {
       const fallbackRes = await fetch(feed.rtfallback, {
         "credentials": "omit",
         "headers": {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0",
+          "User-Agent": userAgent,
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
           "Accept-Language": "en-US,en;q=0.5",
           "Upgrade-Insecure-Requests": "1",
@@ -517,7 +536,6 @@ const updateFeed = async (feed) => {
       });
     })
 
-    console.log(`Finished updating ${feed.username}`)
     return {
       ...transitStatus,
       shitsFucked: {
@@ -543,8 +561,6 @@ const updateFeed = async (feed) => {
 const updateFeedInd = async (feedKey) => {
   let feed = feedsDict[feedKey];
 
-  //if (feed.username !== '') return false;
-
   if (extraConfig[feed.username]) {
     feed = {
       ...feed,
@@ -554,7 +570,7 @@ const updateFeedInd = async (feedKey) => {
 
   const feedData = await updateFeed(feed);
 
-  console.log(`Finished updating ${feed.username}`)
+  console.log(`Finished updating ${feed.username}`);
 
   return feedData;
 }
