@@ -37,6 +37,8 @@ const update = (async () => {
   const gtfsRealtimeRoot = await protobuf.load('gtfs-rt.proto');
   const FeedMessage = gtfsRealtimeRoot.lookupType('transit_realtime.FeedMessage');
 
+  let cancelledTrains = {};
+
   try {
     const [
       tripUpdatesData,
@@ -96,10 +98,21 @@ const update = (async () => {
       const isInbound = parseInt(trainNumber[0]) % 2 == 0;
       const trainDirection = isInbound ? 'Inbound' : 'Outbound';
 
+      if (train.tripUpdate?.trip?.scheduleRelationship == 3) {
+        cancelledTrains[trainNumber] = true;
+        return;
+      }
+
+      const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? {
+        latitude: 0,
+        longitude: 0,
+        bearing: 0,
+      }
+
       let finalTrain = {
-        lat: train.tripUpdate?.position?.vehicle?.position?.latitude,
-        lon: train.tripUpdate?.position?.vehicle?.position?.longitude,
-        heading: train.tripUpdate?.position?.vehicle?.position?.bearing,
+        lat: position.latitude,
+        lon: position.longitude,
+        heading: position.bearing,
         realTime: true,
         line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
         lineCode: train.tripUpdate?.trip?.routeId,
@@ -111,8 +124,8 @@ const update = (async () => {
         extra: {
           holidayChristmas: holidayTrains.includes(runNumber),
           cabCar: train.tripUpdate?.position?.vehicle?.vehicle?.id,
-          scheduleRelationship: train.tripUpdate?.position?.vehicle?.trip?.scheduleRelationship,
-          scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.position?.vehicle?.trip?.scheduleRelationship],
+          scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
+          scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
         }
       };
 
@@ -249,6 +262,7 @@ const update = (async () => {
         const scheduledVehicle = scheduledVehicles[runNumber];
 
         if (transitStatus.trains[runNumber]) return; // train exists
+        if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
         transitStatus.trains[runNumber] = scheduledVehicle;
 
         const trainDirection = parseInt(runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
