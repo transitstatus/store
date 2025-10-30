@@ -135,7 +135,7 @@ const update = (async () => {
 
         const arr = stop.arrival ? new Date(stop.arrival.time?.low).valueOf() : 0;
         const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
-        const time = Math.max(arr, dep);
+        const time = Math.max(arr, dep) * 1000;
 
         finalTrain.predictions.push({
           stationID: stop.stopId,
