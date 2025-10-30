@@ -4,7 +4,7 @@ const headsignReplacements = require('./headsignReplacements');
 const stopReplacements = require('./stopReplacements');
 const extraBusInfo = require('./extraBusInfo');
 
-const extraConfig = JSON.parse(fs.readFileSync('./endpoints/passio_go_beta/extraconfig.json'));
+const extraConfig = JSON.parse(fs.readFileSync('./endpoints/passio_go/extraconfig.json'));
 
 const updateFeed = async (feed) => {
   try {
@@ -20,11 +20,14 @@ const updateFeed = async (feed) => {
       `https://passio3.com/${feed.id}/passioTransit/gtfs/realtime/vehiclePositions`,
       `https://passio3.com/${feed.id}/passioTransit/gtfs/realtime/serviceAlerts`,
     ].map((url) =>
-      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => FeedMessage.decode(new Uint8Array(arrayBuffer))).then(data => data.toJSON())
+      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => FeedMessage.decode(new Uint8Array(arrayBuffer))).then(data => data.toJSON()).catch((e) => {
+        console.log(feed)
+        console.log(e)
+      })
     ));
 
     let vehiclePositionsDict = {};
-    positionsData.entity.forEach((position) => {
+    (positionsData.entity ?? []).forEach((position) => {
       if (position.vehicle) {
         if (position.vehicle.vehicle && position.vehicle.position) {
           vehiclePositionsDict[position.vehicle.vehicle.id] = position.vehicle.position;
@@ -36,8 +39,8 @@ const updateFeed = async (feed) => {
       staticStopsData,
       staticRoutesData,
     ] = await Promise.all([
-      `https://gtfs.piemadd.com/data/${feed.id}/stops.json`,
-      `https://gtfs.piemadd.com/data/${feed.id}/routes.json`
+      `https://gtfs.piemadd.com/data/${feed.gtfsKey ?? feed.id}/stops.json`,
+      `https://gtfs.piemadd.com/data/${feed.gtfsKey ?? feed.id}/routes.json`
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
@@ -58,7 +61,7 @@ const updateFeed = async (feed) => {
     };
 
     //adding trains to transitStatus object
-    tripUpdatesData.entity.forEach((train, i) => {
+    (tripUpdatesData.entity ?? []).forEach((train, i) => {
       const runNumber = train.tripUpdate?.vehicle?.label ?? train.tripUpdate?.vehicle?.id ?? `X${(i + 1).toString().padStart(3, '0')}`;
 
       const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? {
@@ -97,9 +100,17 @@ const updateFeed = async (feed) => {
         const dep = stop.departure ? parseInt(stop.departure.time) : 0;
         const time = Math.max(arr, dep) * 1000;
 
+        const thisStopData = staticStopsData[stop.stopId] ?? {
+          stopID: stop.stopId,
+          stopName: 'Unknown Stop',
+          stopLat: 0,
+          stoPLon: 0,
+          stopTZ: ""
+        };
+
         finalTrain.predictions.push({
           stationID: stop.stopId,
-          stationName: staticStopsData[stop.stopId].stopName,
+          stationName: thisStopData.stopName,
           actualETA: time,
           noETA: !time,
           realTime: true,
@@ -109,9 +120,9 @@ const updateFeed = async (feed) => {
         if (!transitStatus.stations[stop.stopId]) {
           transitStatus.stations[stop.stopId] = {
             stationID: stop.stopId,
-            stationName: staticStopsData[stop.stopId].stopName,
-            lat: staticStopsData[stop.stopId].stopLat,
-            lon: staticStopsData[stop.stopId].stopLon,
+            stationName: thisStopData.stopName,
+            lat: thisStopData.stopLat,
+            lon: thisStopData.stopLon,
             destinations: {},
           };
         }
@@ -176,7 +187,7 @@ const updateFeed = async (feed) => {
     });
 
     // alerts
-    transitStatus.alerts = alertsData.entity.map((alert) => {
+    transitStatus.alerts = (alertsData.entity ?? []).map((alert) => {
       const lineCode = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
       const runNumber = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
       const stationID = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
@@ -236,16 +247,20 @@ const updateFeed = async (feed) => {
   }
 };
 
-const updateFeedInd = async (feedKey) => {
-  let feed = {};
+const updateFeedInd = async (feedKey, gtfsKey) => {
+  let feed = {
+    id: feedKey,
+    gtfsKey,
+  };
 
   if (extraConfig[feedKey]) {
     feed = {
       ...feed,
       ...extraConfig[feedKey],
-      id: feedKey,
     }
   }
+
+  //if (feedKey !=)
 
   const feedData = await updateFeed(feed);
 

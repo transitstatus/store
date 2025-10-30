@@ -16,27 +16,23 @@
   },
   "variables": [
     [
-      "bamabama"
-    ],
-    [
-      "gcsu"
-    ],
-    [
-      "newyork"
-    ],
-    [
+      "ritech",
       "ritech"
     ],
     [
+      "rutgers",
       "rutgers"
     ],
     [
-      "chicago"
+      "chicago",
+      "uchicago"
     ],
     [
+      "uga",
       "uga"
     ],
     [
+      "uncc",
       "uncc"
     ]
   ]
