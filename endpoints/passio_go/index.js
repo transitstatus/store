@@ -247,8 +247,6 @@ const updateFeedInd = async (feedKey) => {
     }
   }
 
-  if (feedKey != 'rutgers') return false;
-
   const feedData = await updateFeed(feed);
 
   console.log(`Finished updating ${feedKey}`);
