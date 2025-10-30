@@ -1,0 +1,43 @@
+{
+  "name": "Passio",
+  "script": "index.js",
+  "interval": 60000,
+  "apiVersion": 3,
+  "configVersion": 1,
+  "default": {
+    "bamabama": {},
+    "gcsu": {},
+    "newyork": {},
+    "ritech": {},
+    "rutgers": {},
+    "chicago": {},
+    "uga": {},
+    "uncc": {}
+  },
+  "variables": [
+    [
+      "bamabama"
+    ],
+    [
+      "gcsu"
+    ],
+    [
+      "newyork"
+    ],
+    [
+      "ritech"
+    ],
+    [
+      "rutgers"
+    ],
+    [
+      "chicago"
+    ],
+    [
+      "uga"
+    ],
+    [
+      "uncc"
+    ]
+  ]
+}
