@@ -5,7 +5,6 @@
   "apiVersion": 3,
   "configVersion": 0,
   "default": {
-    "trains": [],
     "transitStatus": {
       "trains": {},
       "stations": {},
