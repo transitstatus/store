@@ -77,13 +77,15 @@ const updateFeed = async (updateConfig) => {
       trainStations: getDecryptedData(fetchedData.trainStations).StationsDataResponse ?? { type: "FeatureCollection", features: [] },
       trainDataASMAD: JSON.parse(fetchedData.trainDataASMAD) ?? { type: "FeatureCollection", features: [] },
       trainDataVIA: JSON.parse(fetchedData.trainDataVIA) ?? {},
-      updatedAt: updatedAt.valueOf(),
-      updatedAtISO: updatedAt.toISOString(),
-      updatedAtChicagoPlain: updatedAt.toLocaleString("en-US", {
-        dateStyle: "full",
-        timeStyle: "long",
-        timeZone: "America/Chicago"
-      }),
+      updatedTime: {
+        updatedAt: updatedAt.valueOf(),
+        updatedAtISO: updatedAt.toISOString(),
+        updatedAtChicagoPlain: updatedAt.toLocaleString("en-US", {
+          dateStyle: "full",
+          timeStyle: "long",
+          timeZone: "America/Chicago"
+        }),
+      },
     }
 
     console.log(`Finished updating Amtraker Proxy`)
