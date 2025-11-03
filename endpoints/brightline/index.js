@@ -199,6 +199,7 @@ const updateFeed = async () => {
         lon: position.longitude,
         heading: position.bearing,
         realTime: true,
+        deadMileage: false,
       }
     });
 
@@ -234,6 +235,7 @@ const updateFeed = async () => {
           lon: 0,
           heading: 0,
           realTime: false,
+          deadMileage: true,
         };
 
         let currentStationTime = todayStart.valueOf() + (vehicle.startTime * 1000);

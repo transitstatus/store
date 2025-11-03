@@ -148,6 +148,7 @@ const processData = async () => {
           lon: train.Position.Lng,
           heading: ((2 * Math.PI - train.Direction) / (2 * Math.PI)) * 360 + 90,
           realTime: true,
+          deadMileage: false,
           line: actualLines[line.Line],
           lineCode: line.Line,
           lineColor: routesData[validLinesReverse[line.Line]].routeColor,

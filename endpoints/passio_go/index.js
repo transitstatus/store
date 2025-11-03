@@ -78,6 +78,7 @@ const updateFeed = async (feed) => {
         lon: position.longitude,
         heading: position.bearing,
         realTime: true,
+        deadMileage: false,
         line: staticRoutesData[routeId].routeLongName,
         lineCode: routeId,
         lineColor: staticRoutesData[routeId].routeColor,

@@ -132,6 +132,8 @@ const update = async () => {
         dest: titleCase(destination.stopName),
         predictions: [],
         type: 'train',
+        realTime: true,
+        deadMileage: false,
       }
 
       const angle = getAngleFromFeatureAndPoint(train.lastPosition, shapeDataDict[routeCodes[train.lineCode]])

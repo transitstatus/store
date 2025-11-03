@@ -61,6 +61,7 @@ const updateFeed = async (feed) => {
           lon: 0,
           heading: 0,
           realTime: false,
+          deadMileage: true,
           line: staticRoutesData[vehicle.routeId].routeLongName,
           lineCode: vehicle.routeId,
           lineColor: staticRoutesData[vehicle.routeId].routeColor,

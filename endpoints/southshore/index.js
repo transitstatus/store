@@ -65,6 +65,7 @@ const update = async () => {
         lon: train.lng,
         heading: train.h,
         realTime: true,
+        deadMileage: false,
         line: 'South Shore Line',
         lineCode: 'so_shore',
         lineColor: transitStatusResponse.lines['so_shore'].routeColor,

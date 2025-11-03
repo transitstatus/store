@@ -133,6 +133,7 @@ const update = async () => {
       lon: Number(vehicleDataActual.lon),
       heading: Number(vehicleDataActual.hdg),
       realTime: true,
+      deadMileage: false,
       line: `${vehicleDataActual.rt} Bus`,
       lineCode: vehicleDataActual.rt,
       lineColor: '009B3A',

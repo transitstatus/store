@@ -54,6 +54,7 @@ exports.update = async () => {
         lon: train.lon,
         heading: trainHeadings[train.heading],
         realTime: true,
+        deadhMileage: false,
         line: train.routeName,
         lineCode: train.routeName,
         lineColor: "5366c9",

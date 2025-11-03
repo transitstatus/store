@@ -132,6 +132,7 @@ const updateFeed = async () => {
           lon: device.position.lon,
           heading: 0,
           realTime: true,
+          deadMileage: false,
           line: lineMeta.name,
           lineCode: lineMeta.code,
           lineColor: lineMeta.color,

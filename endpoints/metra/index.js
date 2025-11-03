@@ -64,23 +64,14 @@ const update = (async () => {
     const [
       staticStopsData,
       staticRoutesData,
-      staticMetaData,
       scheduledVehicles,
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/metra/stops.json',
       'https://gtfs.piemadd.com/data/metra/routes.json',
-      'https://gobblerstatic.transitstat.us/schedules/metra/metadata.json',
       'http://localhost:3000/gtfs_sch/metra/scheduledVehicles',
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
-
-    let stoppingPatternTimes = {};
-    staticMetaData.stoppingPatterns.forEach((pattern, patternIndex) => {
-      let totalTime = 0;
-      for (let i = 1; i < pattern.length; i++) totalTime += staticMetaData.stopTimes[`${pattern[i - 1]}_${pattern[i]}`];
-      stoppingPatternTimes[patternIndex] = totalTime;
-    });
 
     let transitStatus = {
       trains: {},
@@ -88,6 +79,20 @@ const update = (async () => {
       lines: {},
       alerts: [],
     };
+
+    Object.values(staticStopsData).forEach((stop) => {
+      //adding stations to transitStatus object
+      transitStatus.stations[stop.stopID] = {
+        stationID: stop.stopID,
+        stationName: stop.stopName,
+        lat: stop.stopLat,
+        lon: stop.stopLon,
+        destinations: {
+          'Inbound': { trains: [] },
+          'Outbound': { trains: [] },
+        },
+      };
+    })
 
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
@@ -107,13 +112,15 @@ const update = (async () => {
         latitude: 0,
         longitude: 0,
         bearing: 0,
-      }
+      };
+      delete vehiclePositionsDict[train.tripUpdate?.vehicle?.id];
 
       let finalTrain = {
         lat: position.latitude,
         lon: position.longitude,
         heading: position.bearing,
         realTime: true,
+        deadMileage: false,
         line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
         lineCode: train.tripUpdate?.trip?.routeId,
         lineColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeColor,
@@ -145,20 +152,6 @@ const update = (async () => {
           realTime: true,
         });
 
-        //adding stations to transitStatus object
-        if (!transitStatus.stations[stop.stopId]) {
-          transitStatus.stations[stop.stopId] = {
-            stationID: stop.stopId,
-            stationName: staticStopsData[stop.stopId].stopName,
-            lat: staticStopsData[stop.stopId].stopLat,
-            lon: staticStopsData[stop.stopId].stopLon,
-            destinations: {
-              'Inbound': { trains: [] },
-              'Outbound': { trains: [] },
-            },
-          };
-        }
-
         transitStatus.stations[stop.stopId].destinations[trainDirection].trains.push({
           runNumber: runNumber,
           actualETA: time,
@@ -177,6 +170,38 @@ const update = (async () => {
 
       finalTrain.predictions = finalTrain.predictions.reverse();
       transitStatus.trains[runNumber] = finalTrain;
+    });
+
+    Object.keys(vehiclePositionsDict).forEach((vehicleID) => {
+      const position = vehiclePositionsDict[vehicleID] ?? {
+        latitude: 0,
+        longitude: 0,
+        bearing: 0,
+      };
+      delete vehiclePositionsDict[vehicleID];
+
+      let finalTrain = {
+        lat: position.latitude,
+        lon: position.longitude,
+        heading: position.bearing,
+        realTime: false,
+        deadMileage: true,
+        line: 'Dead Mileage',
+        lineCode: 'DEADMILEAGE',
+        lineColor: '111111',
+        lineTextColor: 'FFFFFF',
+        dest: "Unknown Dest",
+        predictions: [],
+        type: 'train',
+        extra: {
+          holidayChristmas: false,
+          cabCar: vehicleID,
+          //scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
+          //scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
+        }
+      };
+
+      transitStatus.trains[`DEADMILEAGE_${vehicleID}`] = finalTrain;
     });
 
     //adding any stations without trains to transitStatus object
@@ -212,7 +237,7 @@ const update = (async () => {
     Object.keys(transitStatus.trains).forEach((train) => {
       const trainData = transitStatus.trains[train];
 
-      transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+      if (transitStatus.lines[trainData.lineCode]) transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
 
     // alerts

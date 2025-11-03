@@ -22,6 +22,7 @@ const update = async () => {
         lon: posData.info.equipment.gpsLon,
         heading: posData.info.equipment.heading,
         realTime: true,
+        deadMileage: false,
         line: "Big Boy",
         lineCode: "BigBoy",
         lineColor: "feca00",

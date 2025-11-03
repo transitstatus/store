@@ -160,6 +160,7 @@ const updateFeed = async () => {
         lon: positionMeta.longitude,
         heading: positionMeta.bearing,
         realTime: true,
+        deadMileage: false,
         line: route.routeLongName.replace('Metrorail ', ""),
         lineCode: tripMeta.routeId,
         lineColor: route.routeColor,
