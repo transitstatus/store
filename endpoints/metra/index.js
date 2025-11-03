@@ -190,7 +190,7 @@ const update = (async () => {
         lineCode: 'DEADMILEAGE',
         lineColor: '111111',
         lineTextColor: 'FFFFFF',
-        dest: "Unknown Dest",
+        dest: "Nowhere",
         predictions: [],
         type: 'train',
         extra: {
@@ -201,7 +201,7 @@ const update = (async () => {
         }
       };
 
-      transitStatus.trains[`DEADMILEAGE_${vehicleID}`] = finalTrain;
+      transitStatus.trains[vehicleID] = finalTrain;
     });
 
     //adding any stations without trains to transitStatus object
