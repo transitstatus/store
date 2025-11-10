@@ -48,7 +48,7 @@ const update = (async () => {
       if (!pieroTrainsList.response.object.includes(runNumber)) return;
 
       const trainNumber = runNumber.split('-')[1];
-      const isInbound = parseInt(trainNumber[0]) % 2 == 0;
+      const isInbound = parseInt(trainNumber) % 2 == 0;
       const trainDirection = isInbound ? 'Inbound' : 'Outbound';
 
       finalTrain.predictions.forEach((prediciton) => {
