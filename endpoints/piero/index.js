@@ -10,7 +10,7 @@ const update = (async () => {
       'https://gtfs.piemadd.com/data/metra/stops.json',
       'https://gtfs.piemadd.com/data/metra/routes.json',
       'http://localhost:3000/metra/transitStatus',
-      'https://gks.pgm.sh/api/v1/piero_trains'
+      `https://gks.pgm.sh/api/v1/piero_trains?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
