@@ -62,9 +62,7 @@ const update = (async () => {
           lineColor: finalTrain.lineColor,
           lineTextColor: finalTrain.lineTextColor,
           destination: finalTrain.dest,
-          extra: {
-            holidayChristmas: holidayTrains.includes(finalTrain.extra.cabCar),
-          }
+          extra: {}
         });
       });
 
