@@ -1,36 +1,3 @@
-const protobuf = require('protobufjs');
-
-require('dotenv').config();
-
-const trainNumberRegex = new RegExp(/\d+/);
-
-const scheduleRelationshipEnums = {
-  0: 'SCHEDULED',
-  2: 'UNSCHEDULED',
-  3: 'CANCELED',
-  4: 'REPLACEMENT',
-  5: 'DUPLICATED',
-  6: 'NEW',
-  7: 'DELETED',
-}
-
-const holidayTrains = [
-  'ME-BX02',
-  'ME-BX03',
-  'ME-BX04',
-  'ME-BX05',
-  'BNSF-9513',
-  'BNSF-9516',
-  'RI-MX01',
-  'RI-MX02',
-  'MDN-NX02',
-  'MDN-NX03',
-  'UPN-8911',
-  'UPN-8914',
-  'UPNW-7902',
-  'UPNW-7903',
-];
-
 const update = (async () => {
   if (!process.env.metra_token) return false;
 
@@ -129,8 +96,8 @@ const update = (async () => {
         predictions: [],
         type: 'train',
         extra: {
-          holidayChristmas: holidayTrains.includes(train.tripUpdate?.vehicle?.id),
-          cabCar: train.tripUpdate?.vehicle?.id,
+          holidayChristmas: holidayTrains.includes(runNumber),
+          cabCar: train.tripUpdate?.position?.vehicle?.vehicle?.id,
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
         }
@@ -163,7 +130,7 @@ const update = (async () => {
           lineTextColor: finalTrain.lineTextColor,
           destination: finalTrain.dest,
           extra: {
-            holidayChristmas: holidayTrains.includes(train.tripUpdate?.vehicle?.id),
+            holidayChristmas: holidayTrains.includes(runNumber),
           }
         });
       });
@@ -201,7 +168,7 @@ const update = (async () => {
         }
       };
 
-      transitStatus.trains['DM-' + vehicleID] = finalTrain;
+      transitStatus.trains['DM' + vehicleID] = finalTrain;
     });
 
     //adding any stations without trains to transitStatus object
