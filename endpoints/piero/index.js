@@ -1,33 +1,5 @@
 const update = (async () => {
-  if (!process.env.metra_token) return false;
-
-  const gtfsRealtimeRoot = await protobuf.load('gtfs-rt.proto');
-  const FeedMessage = gtfsRealtimeRoot.lookupType('transit_realtime.FeedMessage');
-
-  let cancelledTrains = {};
-
   try {
-    const [
-      tripUpdatesData,
-      positionsData,
-      alertsData,
-    ] = await Promise.all([
-      `https://gtfspublic.metrarr.com/gtfs/public/tripupdates?api_token=${process.env.metra_token}`,
-      `https://gtfspublic.metrarr.com/gtfs/public/positions?api_token=${process.env.metra_token}`,
-      `https://gtfspublic.metrarr.com/gtfs/public/alerts?api_token=${process.env.metra_token}`,
-    ].map((url) =>
-      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => FeedMessage.decode(new Uint8Array(arrayBuffer)))
-    ));
-
-    let vehiclePositionsDict = {};
-    positionsData.entity.forEach((position) => {
-      if (position.vehicle) {
-        if (position.vehicle.vehicle && position.vehicle.position) {
-          vehiclePositionsDict[position.vehicle.vehicle.id] = position.vehicle.position;
-        }
-      }
-    });
-
     const [
       staticStopsData,
       staticRoutesData,
@@ -39,6 +11,8 @@ const update = (async () => {
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
+
+    const metraTrainData = await fetch('http://localhost:3000/metra/transitStatus')
 
     let transitStatus = {
       trains: {},

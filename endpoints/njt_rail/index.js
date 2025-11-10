@@ -5,26 +5,8 @@ const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 
 require('dotenv').config();
 
-const interpolatePosition = (stationA, stationB, line, segmentsData) => {
-  const segmentKey = segmentsData.segmentKeyDict[`${line}_${stationA}_${stationB}`];
-
-  //console.log('key:', `${line}_${stationA}_${stationB}`)
-  //console.log('data:', segmentsData.segments[segmentKey]);
-
-  if (segmentsData.segments[segmentKey]) return true;
-  return false;
-
-  return {
-    latitude: 0,
-    longitude: 0,
-    heading: 0,
-  }
-};
-
 const updateFeed = async () => {
   try {
-    if (!process.env.bay_511) return false;
-
     const now = new Date();
 
     let transitStatus = {
