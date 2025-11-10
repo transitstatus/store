@@ -66,6 +66,8 @@ const update = (async () => {
         });
       });
 
+      finalTrain.deadMileage = false;
+
       transitStatus.trains[runNumber] = finalTrain;
     });
 
