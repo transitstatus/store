@@ -80,6 +80,16 @@ const update = (async () => {
       });
     });
 
+    transitStatus.lines['DEADMILEAGE'] = {
+        lineCode: 'DEADMILEAGE',
+        lineNameShort: 'Dead Mileage',
+        lineNameLong: 'Dead Mileage',
+        routeColor: '111111',
+        routeTextColor: 'ffffff',
+        stations: [],
+        hasActiveTrains: false
+      };
+
     Object.keys(transitStatus.trains).forEach((train) => {
       const trainData = transitStatus.trains[train];
 
