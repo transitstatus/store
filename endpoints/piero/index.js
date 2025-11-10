@@ -47,6 +47,27 @@ const update = (async () => {
 
       if (!pieroTrainsList.response.object.includes(runNumber)) return;
 
+      const trainNumber = runNumber.split('-')[1];
+      const isInbound = parseInt(trainNumber[0]) % 2 == 0;
+      const trainDirection = isInbound ? 'Inbound' : 'Outbound';
+
+      finalTrain.predictions.forEach((prediciton) => {
+        transitStatus.stations[prediciton.stationID].destinations[trainDirection].trains.push({
+          runNumber: runNumber,
+          actualETA: prediciton.actualETA,
+          noETA: prediciton.noETA,
+          realTime: prediciton.realTime,
+          line: finalTrain.line,
+          lineCode: finalTrain.lineCode,
+          lineColor: finalTrain.lineColor,
+          lineTextColor: finalTrain.lineTextColor,
+          destination: finalTrain.dest,
+          extra: {
+            holidayChristmas: holidayTrains.includes(finalTrain.extra.cabCar),
+          }
+        });
+      });
+
       transitStatus.trains[runNumber] = finalTrain;
     });
 
@@ -81,14 +102,14 @@ const update = (async () => {
     });
 
     transitStatus.lines['DEADMILEAGE'] = {
-        lineCode: 'DEADMILEAGE',
-        lineNameShort: 'Dead Mileage',
-        lineNameLong: 'Dead Mileage',
-        routeColor: '111111',
-        routeTextColor: 'ffffff',
-        stations: [],
-        hasActiveTrains: false
-      };
+      lineCode: 'DEADMILEAGE',
+      lineNameShort: 'Dead Mileage',
+      lineNameLong: 'Dead Mileage',
+      routeColor: '111111',
+      routeTextColor: 'ffffff',
+      stations: [],
+      hasActiveTrains: false
+    };
 
     Object.keys(transitStatus.trains).forEach((train) => {
       const trainData = transitStatus.trains[train];
