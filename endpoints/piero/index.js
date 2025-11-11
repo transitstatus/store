@@ -45,7 +45,10 @@ const update = (async () => {
     Object.keys(metraTrainData.trains).forEach((runNumber) => {
       const finalTrain = metraTrainData.trains[runNumber];
 
-      if (!pieroTrainsList.response.object.includes(runNumber)) return;
+      if (
+        !pieroTrainsList.response.object.includes(runNumber) &&
+        !pieroTrainsList.response.object.includes(finalTrain.extra?.cabCar)
+      ) return;
 
       const trainNumber = runNumber.split('-')[1];
       const isInbound = parseInt(trainNumber) % 2 == 0;
