@@ -1,4 +1,5 @@
 const protobuf = require('protobufjs');
+const fetch = require('node-fetch');
 
 const actualLines = {
   'R': 'Red',
@@ -120,17 +121,27 @@ const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
 
 const processData = async () => {
   try {
-    const req = await fetch(`https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=3000&=${Date.now()}`, {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        Coookie: "foo=bar",
+    const req = await fetch("https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=6", {
+      "credentials": "include",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Language": "en-US,en;q=0.5",
         "X-Requested-With": "XMLHttpRequest",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
       },
+      "referrer": "https://www.transitchicago.com/traintrackermap/",
+      "method": "GET",
+      "mode": "cors"
     });
 
     const raw = await req.text();
+
+    console.log(raw)
 
     const data = JSON.parse(raw);
 
