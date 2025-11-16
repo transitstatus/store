@@ -121,7 +121,7 @@ const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
 
 const processData = async () => {
   try {
-    const req = await fetch("https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=6", {
+    const req = await fetch(`https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=33&currentTime=${Date.now()}`, {
       "credentials": "include",
       "headers": {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
