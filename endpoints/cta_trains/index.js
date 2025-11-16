@@ -141,8 +141,6 @@ const processData = async () => {
 
     const raw = await req.text();
 
-    console.log(raw)
-
     const data = JSON.parse(raw);
 
     if (data?.status !== 'OK') return {};

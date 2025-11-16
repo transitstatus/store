@@ -65,13 +65,17 @@ const update = (async () => {
       staticStopsData,
       staticRoutesData,
       scheduledVehicles,
+      holidayVehicles,
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/metra/stops.json',
       'https://gtfs.piemadd.com/data/metra/routes.json',
       'http://localhost:3000/gtfs_sch/metra/scheduledVehicles',
+      `https://gks.pgm.sh/api/v1/metra_holiday_sets?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
+
+    const holidayVehiclesArray = holidayVehicles.error ? [] : holidayVehicles.response.object;
 
     let transitStatus = {
       trains: {},
@@ -129,7 +133,7 @@ const update = (async () => {
         predictions: [],
         type: 'train',
         extra: {
-          holidayChristmas: holidayTrains.includes(train.tripUpdate?.vehicle?.id),
+          holidayChristmas: holidayVehiclesArray.includes(train.tripUpdate?.vehicle?.id),
           cabCar: train.tripUpdate?.vehicle?.id,
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
@@ -163,7 +167,7 @@ const update = (async () => {
           lineTextColor: finalTrain.lineTextColor,
           destination: finalTrain.dest,
           extra: {
-            holidayChristmas: holidayTrains.includes(train.tripUpdate?.vehicle?.id),
+            holidayChristmas: holidayVehiclesArray.includes(train.tripUpdate?.vehicle?.id),
           }
         });
       });
@@ -194,7 +198,7 @@ const update = (async () => {
         predictions: [],
         type: 'train',
         extra: {
-          holidayChristmas: false,
+          holidayChristmas: holidayVehiclesArray.includes(vehicleID),
           cabCar: vehicleID,
           //scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           //scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
