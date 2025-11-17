@@ -65,10 +65,10 @@ const update = async () => {
         heading: train.h,
         realTime: true,
         deadMileage: train.nextStopETA == -1,
-        line: 'South Shore Line',
-        lineCode: 'so_shore',
-        lineColor: transitStatusResponse.lines['so_shore'].routeColor,
-        lineTextColor: transitStatusResponse.lines['so_shore'].routeTextColor,
+        line: train.nextStopETA == -1 ? 'Deadmileage' : 'South Shore Line',
+        lineCode: train.nextStopETA == -1 ? 'dm_train' : 'so_shore',
+        lineColor: train.nextStopETA == -1 ? '000000' : transitStatusResponse.lines['so_shore'].routeColor,
+        lineTextColor: train.nextStopETA == -1 ? 'ffffff' : transitStatusResponse.lines['so_shore'].routeTextColor,
         dest: routes['so_shore'].routeTrips[train.tripID] ? routes['so_shore'].routeTrips[train.tripID].headsign : 'Unknown Destination',
         predictions: (train.minutesToNextStops ?? []).map((stop, i) => {
           const stationMeta = transitStatusResponse.stations[`s${stop.stopID}`];
@@ -108,7 +108,7 @@ const update = async () => {
         })
       })
 
-      transitStatusResponse.lines[train.lineCode].hasActiveTrains = true;
+      if (transitStatusResponse.lines[train.lineCode]) transitStatusResponse.lines[train.lineCode].hasActiveTrains = true;
     })
 
     return {
