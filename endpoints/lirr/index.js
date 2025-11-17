@@ -226,7 +226,7 @@ const update = (async () => {
 
       transitStatus.lines[routeID] = {
         lineCode: routeID,
-        lineNameShort: route.routeShortName,
+        lineNameShort: route.routeLongName,
         lineNameLong: route.routeLongName,
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
