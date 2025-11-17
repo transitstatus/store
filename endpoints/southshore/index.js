@@ -6,7 +6,7 @@ const update = async () => {
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
   try {
-    const trackingRes = await fetch('https://southshore.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=1&orderedETAArray=1&token=TESTING');
+    const trackingRes = await fetch('https://southshore.etaspot.net/service.php?service=get_vehicles&includeETAData=1&inService=0&orderedETAArray=1&token=TESTING');
     const trackingData = await trackingRes.json();
 
     const stationsReq = await fetch('https://gtfs.piemadd.com/data/southshore/stops.json');
@@ -59,19 +59,18 @@ const update = async () => {
     });
 
     trackingData.get_vehicles.forEach((train) => {
-
       transitStatusResponse.trains[train.tripID] = {
         lat: train.lat,
         lon: train.lng,
         heading: train.h,
         realTime: true,
-        deadMileage: false,
+        deadMileage: train.nextStopETA == -1,
         line: 'South Shore Line',
         lineCode: 'so_shore',
         lineColor: transitStatusResponse.lines['so_shore'].routeColor,
         lineTextColor: transitStatusResponse.lines['so_shore'].routeTextColor,
         dest: routes['so_shore'].routeTrips[train.tripID] ? routes['so_shore'].routeTrips[train.tripID].headsign : 'Unknown Destination',
-        predictions: train.minutesToNextStops.map((stop, i) => {
+        predictions: (train.minutesToNextStops ?? []).map((stop, i) => {
           const stationMeta = transitStatusResponse.stations[`s${stop.stopID}`];
 
           return {
@@ -88,7 +87,7 @@ const update = async () => {
 
       if (transitStatusResponse.trains[train.tripID].dest === 'Unknown Destination') {
         const predictions = transitStatusResponse.trains[train.tripID].predictions;
-        transitStatusResponse.trains[train.tripID].dest = predictions[predictions.length - 1].stationName;
+        transitStatusResponse.trains[train.tripID].dest = predictions.length > 0 ? predictions[predictions.length - 1].stationName : 'Unknown Dest';
       }
     })
 
