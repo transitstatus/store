@@ -70,7 +70,7 @@ const update = (async () => {
       'https://gtfs.piemadd.com/data/metra/stops.json',
       'https://gtfs.piemadd.com/data/metra/routes.json',
       'http://localhost:3000/gtfs_sch/metra/scheduledVehicles',
-      `https://gks.pgm.sh/api/v1/metra_holiday_sets?t=${Date.now()}`
+      `https://gks.pgm.sh/api/v1/metra_christmas_sets?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
