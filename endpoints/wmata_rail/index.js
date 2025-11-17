@@ -120,16 +120,14 @@ const updateFeed = async () => {
       //console.log('trip:', position.vehicle.trip)
       //console.log('tripid:', position.vehicle.trip.tripId)
 
-      //console.log(position)
-
       if (position.vehicle.vehicle) {
         positions['vehicle_' + position.vehicle.vehicle.id] = position.vehicle.position;
+        positions['vehicle_label_' + position.vehicle.vehicle.label] = position.vehicle.position;
       }
       if (position.vehicle.trip) {
         positions['trip_' + position.vehicle.trip.tripId] = position.vehicle.position;
       }
     })
-
 
     tripUpdateFeed.entity.forEach((tripUpdate) => {
       if (tripUpdate.tripUpdate.stopTimeUpdate.length < 1) return;
@@ -138,7 +136,17 @@ const updateFeed = async () => {
       const vehicle = tripUpdate.tripUpdate.vehicle;
       const stopTimes = tripUpdate.tripUpdate.stopTimeUpdate.sort((a, b) => a.stopSequence - b.stopSequence);
       const tripMeta = tripUpdate.tripUpdate.trip;
-      const route = routesData[tripMeta.routeId];
+      const route = routesData[tripMeta.routeId] ?? {
+        routeID: 'NR',
+        routeShortName: 'NR',
+        routeLongName: 'No Route',
+        routeType: '1',
+        routeColor: '000000',
+        routeTextColor: 'ffffff',
+        routeTrips: {},
+        routeStations: [],
+        destinations: [],
+      };
 
       if (!route) return; // no line
 
@@ -151,7 +159,8 @@ const updateFeed = async () => {
         positionMeta = {
           latitude: 0,
           longitude: 0,
-          heading: 0,
+          bearing: 0,
+          nullIsland: true,
         }
       }
 
@@ -159,8 +168,8 @@ const updateFeed = async () => {
         lat: positionMeta.latitude,
         lon: positionMeta.longitude,
         heading: positionMeta.bearing,
-        realTime: true,
-        deadMileage: false,
+        realTime: !positionMeta.nullIsland,
+        deadMileage: route.routeID == 'NR',
         line: route.routeLongName.replace('Metrorail ', ""),
         lineCode: tripMeta.routeId,
         lineColor: route.routeColor,
@@ -173,7 +182,7 @@ const updateFeed = async () => {
           let res = {
             stationID: stopTime.stopId,
             stationName: titleCase(stopsData[stopTime.stopId].stopName.split(',')[0].replace(' METRORAIL STATION', '')),
-            realTime: true,
+            realTime: !positionMeta.nullIsland,
           };
 
           if (timeObject) {
@@ -218,7 +227,7 @@ const updateFeed = async () => {
       })
 
       //making it active
-      transitStatus.lines[tripMeta.routeId].hasActiveTrains = true;
+      if (transitStatus.lines[tripMeta.routeId]) transitStatus.lines[tripMeta.routeId].hasActiveTrains = true;
 
       //console.log(transitStatus.trains[vehicle.id])
     })
