@@ -22,6 +22,12 @@
     },
     "southshore": {
       "scheduledVehicles": {}
+    },
+    "lirr": {
+      "scheduledVehicles": {}
+    },
+    "mnrr": {
+      "scheduledVehicles": {}
     }
   },
   "variables": [
@@ -42,6 +48,12 @@
     ],
     [
       "southshore"
+    ],
+    [
+      "lirr"
+    ],
+    [
+      "mnrr"
     ]
   ]
 }
