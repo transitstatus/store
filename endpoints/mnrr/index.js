@@ -58,12 +58,10 @@ const update = (async () => {
     const [
       staticStopsData,
       staticRoutesData,
-      scheduledVehicles,
       holidayVehicles,
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/mnrr/stops.json',
       'https://gtfs.piemadd.com/data/mnrr/routes.json',
-      'http://localhost:3000/gtfs_sch/mnrr/scheduledVehicles',
       `https://gks.pgm.sh/api/v1/mnrr_christmas_sets?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())
@@ -101,8 +99,8 @@ const update = (async () => {
         lat: stop.stopLat,
         lon: stop.stopLon,
         destinations: {
-          'Eastbound': { trains: [] },
-          'Westbound': { trains: [] },
+          'Outbound': { trains: [] },
+          'Inbound': { trains: [] },
         },
       };
     })
@@ -115,13 +113,11 @@ const update = (async () => {
 
       const tripStartTime = startTimeAndDateToDate(train.tripUpdate.trip.startDate, train.tripUpdate.trip.startTime, tzOffset);
 
-      const isScheduled = lastUpdatedUnix + (1000 * 60 * 2) < tripStartTime.valueOf(); 
+      const isScheduled = lastUpdatedUnix + (1000 * 60 * 2) < tripStartTime.valueOf();
 
       const runNumber = trainNumber;
-      const isEastbound = parseInt(trainNumber) % 2 == 0;
-      const trainDirection = isEastbound ? 'Eastbound' : 'Westbound';
-
-      console.log(trainNumber, runNumber, isScheduled);
+      const isOutbound = parseInt(trainNumber) % 2 == 0;
+      const trainDirection = isOutbound ? 'Outbound' : 'Inbound';
 
       if (train.tripUpdate?.trip?.scheduleRelationship == 3) {
         cancelledTrains[trainNumber] = true;
@@ -217,8 +213,8 @@ const update = (async () => {
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
             destinations: {
-              'Eastbound': { trains: [] },
-              'Westbound': { trains: [] },
+              'Outbound': { trains: [] },
+              'Inbound': { trains: [] },
             },
           };
         }
@@ -228,8 +224,19 @@ const update = (async () => {
     Object.keys(transitStatus.trains).forEach((train) => {
       const trainData = transitStatus.trains[train];
 
+      if (!trainData.realTime) return;
+
       if (transitStatus.lines[trainData.lineCode]) transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
+
+    // removing scheduled trains from stations if theres too many
+    Object.keys(transitStatus.stations).forEach((stationKey) => {
+      Object.keys(transitStatus.stations[stationKey].destinations).forEach((destination) => {
+        transitStatus.stations[stationKey].destinations[destination].trains = transitStatus.stations[stationKey].destinations[destination].trains
+          .sort((a, b) => a.actualETA - b.actualETA)
+          .filter((train, i) => i <= 12 || train.realTime)
+      })
+    })
 
     // alerts
     transitStatus.alerts = alertsData.entity.map((alert) => {
@@ -267,53 +274,6 @@ const update = (async () => {
     });
 
     transitStatus.lastUpdated = lastUpdated;
-
-    Object.keys(scheduledVehicles)
-      .sort((aTrip, bTrip) => {
-        return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
-      })
-      .forEach((runNumber) => {
-        const scheduledVehicle = scheduledVehicles[runNumber];
-
-        return; // disabling schdeules from metro north until i can figure out what the fuck is going on
-
-        if (transitStatus.trains[runNumber]) return; // train exists
-        if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
-        transitStatus.trains[runNumber] = scheduledVehicle;
-
-        const trainDirection = parseInt(runNumber.split('_')[2]) % 2 == 0 ? 'Eastbound' : 'Westbound';
-
-        scheduledVehicle.predictions.forEach((stop) => {
-          //adding stations to transitStatus object
-          if (!transitStatus.stations[stop.stationID]) {
-            transitStatus.stations[stop.stationID] = {
-              stationID: stop.stationID,
-              stationName: staticStopsData[stop.stationID].stopName,
-              lat: staticStopsData[stop.stationID].stopLat,
-              lon: staticStopsData[stop.stationID].stopLon,
-              destinations: {
-                'Eastbound': { trains: [] },
-                'Westbound': { trains: [] },
-              },
-            };
-          };
-
-          if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
-
-          transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
-            runNumber: runNumber,
-            actualETA: stop.actualETA,
-            noETA: false,
-            realTime: false,
-            line: scheduledVehicle.line,
-            lineCode: scheduledVehicle.lineCode,
-            lineColor: scheduledVehicle.lineColor,
-            lineTextColor: scheduledVehicle.lineTextColor,
-            destination: scheduledVehicle.dest,
-            extra: {},
-          });
-        });
-      })
 
     return {
       transitStatus,
