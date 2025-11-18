@@ -17,9 +17,30 @@ const crossCheckTwoArrays = (array1, array2) => {
   return array1.some(element => array2.includes(element));
 };
 
+const getTzOffset = () => {
+  const tzOffsets = ["-05:00", "-04:00"];
+  const now = new Date();
+  const nowYear = now.getFullYear();
+  let dst_start = new Date(nowYear, 2, 14);
+  let dst_end = new Date(nowYear, 10, 7);
+  dst_start.setDate(14 - dst_start.getDay()); // adjust date to 2nd Sunday
+  dst_end.setDate(7 - dst_end.getDay()); // adjust date to the 1st Sunday
+  const isDST = Number(now >= dst_start && now < dst_end);
+  return tzOffsets[isDST];
+};
+
+const startTimeAndDateToDate = (startDate, startTime, timeZone) => {
+  return new Date(`${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6, 8)}T${startTime}${timeZone}`)
+};
+
 const update = (async () => {
   const gtfsRealtimeRoot = await protobuf.load('gtfs-realtime-MTARR.proto');
   const FeedMessage = gtfsRealtimeRoot.lookupType('transit_realtime.FeedMessage');
+
+  const lastUpdatedDate = new Date();
+  const lastUpdatedUnix = lastUpdatedDate.valueOf();
+  const lastUpdated = lastUpdatedDate.toISOString();
+  const tzOffset = getTzOffset();
 
   let cancelledTrains = {};
 
@@ -88,16 +109,19 @@ const update = (async () => {
 
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
-      //console.log(train)
 
       const trainNumber = train.vehicle?.vehicle?.id;
       if (!trainNumber) return; //no train ig
 
-      const isScheduled = trainNumber.includes('B');
+      const tripStartTime = startTimeAndDateToDate(train.tripUpdate.trip.startDate, train.tripUpdate.trip.startTime, tzOffset);
 
-      const runNumber = trainNumber.replace('B', '');
+      const isScheduled = lastUpdatedUnix + (1000 * 60 * 2) < tripStartTime.valueOf(); 
+
+      const runNumber = trainNumber;
       const isEastbound = parseInt(trainNumber) % 2 == 0;
       const trainDirection = isEastbound ? 'Eastbound' : 'Westbound';
+
+      console.log(trainNumber, runNumber, isScheduled);
 
       if (train.tripUpdate?.trip?.scheduleRelationship == 3) {
         cancelledTrains[trainNumber] = true;
@@ -241,8 +265,6 @@ const update = (async () => {
         message: alert.alert.descriptionText.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
       }
     });
-
-    const lastUpdated = new Date().toISOString();
 
     transitStatus.lastUpdated = lastUpdated;
 
