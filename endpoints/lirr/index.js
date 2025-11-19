@@ -17,9 +17,30 @@ const crossCheckTwoArrays = (array1, array2) => {
   return array1.some(element => array2.includes(element));
 };
 
+const getTzOffset = () => {
+  const tzOffsets = ["-05:00", "-04:00"];
+  const now = new Date();
+  const nowYear = now.getFullYear();
+  let dst_start = new Date(nowYear, 2, 14);
+  let dst_end = new Date(nowYear, 10, 7);
+  dst_start.setDate(14 - dst_start.getDay()); // adjust date to 2nd Sunday
+  dst_end.setDate(7 - dst_end.getDay()); // adjust date to the 1st Sunday
+  const isDST = Number(now >= dst_start && now < dst_end);
+  return tzOffsets[isDST];
+};
+
+const startTimeAndDateToDate = (startDate, startTime, timeZone) => {
+  return new Date(`${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6, 8)}T${startTime}${timeZone}`)
+};
+
 const update = (async () => {
   const gtfsRealtimeRoot = await protobuf.load('gtfs-realtime-MTARR.proto');
   const FeedMessage = gtfsRealtimeRoot.lookupType('transit_realtime.FeedMessage');
+
+  const lastUpdatedDate = new Date();
+  const lastUpdatedUnix = lastUpdatedDate.valueOf();
+  const lastUpdated = lastUpdatedDate.toISOString();
+  const tzOffset = getTzOffset();
 
   let cancelledTrains = {};
 
@@ -108,6 +129,10 @@ const update = (async () => {
       const trainNumber = train.tripUpdate?.trip?.tripId.split('_')[2];
       if (!trainNumber) return; //no train ig
 
+       const tripStartTime = startTimeAndDateToDate(train.tripUpdate.trip.startDate, train.tripUpdate.trip.startTime, tzOffset);
+
+      const isScheduled = lastUpdatedUnix + (1000 * 60 * 2) < tripStartTime.valueOf();
+
       const runNumber = trainNumber;
       const isEastbound = parseInt(trainNumber) % 2 == 0;
       const trainDirection = isEastbound ? 'Eastbound' : 'Westbound';
@@ -134,7 +159,7 @@ const update = (async () => {
         lat: position.latitude,
         lon: position.longitude,
         heading: position.bearing,
-        realTime: true,
+        realTime: !isScheduled,
         deadMileage: false,
         line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
         lineCode: train.tripUpdate?.trip?.routeId,
@@ -173,14 +198,14 @@ const update = (async () => {
           stationName: staticStopsData[stop.stopId].stopName,
           actualETA: time,
           noETA: !time,
-          realTime: true,
+          realTime: !isScheduled,
         });
 
         transitStatus.stations[stop.stopId].destinations[trainDirection].trains.push({
           runNumber: runNumber,
           actualETA: time,
           noETA: !time,
-          realTime: true,
+          realTime: !isScheduled,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
@@ -301,8 +326,6 @@ const update = (async () => {
       }
     });
 
-    const lastUpdated = new Date().toISOString();
-
     transitStatus.lastUpdated = lastUpdated;
 
     Object.keys(scheduledVehicles)
@@ -316,7 +339,7 @@ const update = (async () => {
         if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
         transitStatus.trains[runNumber] = scheduledVehicle;
 
-        const trainDirection = parseInt(runNumber.split('_')[2]) % 2 == 0 ? 'Eastbound' : 'Westbound';
+        const trainDirection = parseInt(runNumber) % 2 == 0 ? 'Eastbound' : 'Westbound';
 
         scheduledVehicle.predictions.forEach((stop) => {
           //adding stations to transitStatus object

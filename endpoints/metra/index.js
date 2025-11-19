@@ -290,11 +290,15 @@ const update = (async () => {
       .forEach((runNumber) => {
         const scheduledVehicle = scheduledVehicles[runNumber];
 
-        if (transitStatus.trains[runNumber]) return; // train exists
-        if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
-        transitStatus.trains[runNumber] = scheduledVehicle;
+        const trainNumber = runNumber.match(trainNumberRegex);
+        if (!trainNumber) return; //no train ig
+        const actualRunNumber = `${scheduledVehicle.lineCode.replaceAll('-', '')}-${trainNumber[0]}`;
 
-        const trainDirection = parseInt(runNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
+        if (transitStatus.trains[actualRunNumber]) return; // train exists
+        if (cancelledTrains[actualRunNumber]) return; // cancelled - TODO handle this better
+        transitStatus.trains[actualRunNumber] = scheduledVehicle;
+
+        const trainDirection = parseInt(actualRunNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
 
         scheduledVehicle.predictions.forEach((stop) => {
           //adding stations to transitStatus object
@@ -314,7 +318,7 @@ const update = (async () => {
           if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
 
           transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
-            runNumber: runNumber,
+            runNumber: actualRunNumber,
             actualETA: stop.actualETA,
             noETA: false,
             realTime: false,

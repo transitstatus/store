@@ -58,10 +58,12 @@ const update = (async () => {
     const [
       staticStopsData,
       staticRoutesData,
+      scheduledVehicles,
       holidayVehicles,
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/mnrr/stops.json',
       'https://gtfs.piemadd.com/data/mnrr/routes.json',
+      'http://localhost:3000/gtfs_sch/mnrr/scheduledVehicles',
       `https://gks.pgm.sh/api/v1/mnrr_christmas_sets?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())
@@ -277,6 +279,52 @@ const update = (async () => {
     });
 
     transitStatus.lastUpdated = lastUpdated;
+
+    Object.keys(scheduledVehicles)
+      .sort((aTrip, bTrip) => {
+        return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
+      })
+      .forEach((runNumber) => {
+        const scheduledVehicle = scheduledVehicles[runNumber];
+
+        if (transitStatus.trains[runNumber]) return; // train exists
+        console.log('train')
+        if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
+        transitStatus.trains[runNumber] = scheduledVehicle;
+
+        const trainDirection = parseInt(runNumber) % 2 == 0 ? 'Outbound' : 'Inbound';
+
+        scheduledVehicle.predictions.forEach((stop) => {
+          //adding stations to transitStatus object
+          if (!transitStatus.stations[stop.stationID]) {
+            transitStatus.stations[stop.stationID] = {
+              stationID: stop.stationID,
+              stationName: staticStopsData[stop.stationID].stopName,
+              lat: staticStopsData[stop.stationID].stopLat,
+              lon: staticStopsData[stop.stationID].stopLon,
+              destinations: {
+                'Inbound': { trains: [] },
+                'Outbound': { trains: [] },
+              },
+            };
+          };
+
+          if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
+
+          transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
+            runNumber: runNumber,
+            actualETA: stop.actualETA,
+            noETA: false,
+            realTime: false,
+            line: scheduledVehicle.line,
+            lineCode: scheduledVehicle.lineCode,
+            lineColor: scheduledVehicle.lineColor,
+            lineTextColor: scheduledVehicle.lineTextColor,
+            destination: scheduledVehicle.dest,
+            extra: {},
+          });
+        });
+      })
 
     return {
       transitStatus,

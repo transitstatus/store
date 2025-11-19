@@ -1,7 +1,5 @@
 const protobuf = require('protobufjs');
 
-const trainNumberRegex = new RegExp(/\d+/);
-
 const updateFeed = async (feed) => {
   try {
     const nowDate = new Date();
@@ -52,9 +50,7 @@ const updateFeed = async (feed) => {
         );
 
       upcomingVehiclesWithinTimeFrame.forEach((vehicle) => {
-        const trainNumber = vehicle.runNumber.match(trainNumberRegex);
-        if (!trainNumber) return; //no train ig
-        const runNumber = `${vehicle.routeId.replaceAll('-', '')}-${trainNumber[0]}`;
+        const runNumber = vehicle.runNumber;
 
         let finalScheduledVehicle = {
           lat: 0,
