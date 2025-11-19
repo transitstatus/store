@@ -129,10 +129,6 @@ const update = (async () => {
       const trainNumber = train.tripUpdate?.trip?.tripId.split('_')[2];
       if (!trainNumber) return; //no train ig
 
-       const tripStartTime = startTimeAndDateToDate(train.tripUpdate.trip.startDate, train.tripUpdate.trip.startTime, tzOffset);
-
-      const isScheduled = lastUpdatedUnix + (1000 * 60 * 2) < tripStartTime.valueOf();
-
       const runNumber = trainNumber;
       const isEastbound = parseInt(trainNumber) % 2 == 0;
       const trainDirection = isEastbound ? 'Eastbound' : 'Westbound';
@@ -149,18 +145,20 @@ const update = (async () => {
       };
       delete vehiclePositionsDict[train?.tripUpdate?.trip?.tripId];
 
+      const isScheduled = (position.latitude == 0 && position.longitude == 0 && position.bearing == 0);
+
       const consist = trainConsists[trainNumber] ?? [];
       const consistBasic = consist.map((car) => (car.number ?? 0).toString());
       const isHolidayChristmas = holidayVehiclesArray.includes(position.label) || crossCheckTwoArrays(holidayVehiclesArray, consistBasic);
 
       const leadingCar = consist.length > 0 ? consist[0] : null;
-      
+
       let finalTrain = {
         lat: position.latitude,
         lon: position.longitude,
         heading: position.bearing,
         realTime: !isScheduled,
-        deadMileage: false,
+        deadMileage: isScheduled,
         line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
         lineCode: train.tripUpdate?.trip?.routeId,
         lineColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeColor,
@@ -190,8 +188,8 @@ const update = (async () => {
 
         // stops are done in reverse order, which is why we can filter as we go instead of 
         // checking and then filtering later
-        if (time) trainHasValidStops = true; 
-        else if (trainHasValidStops) return; 
+        if (time) trainHasValidStops = true;
+        else if (trainHasValidStops) return;
 
         finalTrain.predictions.push({
           stationID: stop.stopId,
@@ -322,7 +320,7 @@ const update = (async () => {
         additionalRunNumbers,
         additionalStationIDs,
         title: alert.alert.headerText.translation[0].text,
-        message: alert.alert.descriptionText.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
+        message: (alert.alert.descriptionText ?? { translation: [{ text: '' }] }).translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
       }
     });
 
