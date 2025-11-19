@@ -128,6 +128,8 @@ const update = (async () => {
       const consistBasic = consist.map((car) => (car.number ?? 0).toString());
       const isHolidayChristmas = holidayVehiclesArray.includes(position.label) || crossCheckTwoArrays(holidayVehiclesArray, consistBasic);
 
+      const leadingCar = consist.length > 0 ? consist[0] : null;
+      
       let finalTrain = {
         lat: position.latitude,
         lon: position.longitude,
@@ -143,7 +145,8 @@ const update = (async () => {
         type: 'train',
         extra: {
           holidayChristmas: isHolidayChristmas,
-          cabCar: position.label,
+          cabCar: leadingCar && !leadingCar.locomotive ? leadingCar.number : null,
+          engine: leadingCar && leadingCar.locomotive ? leadingCar.number : null,
           consist,
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
