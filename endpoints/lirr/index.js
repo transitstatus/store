@@ -153,6 +153,8 @@ const update = (async () => {
         }
       };
 
+      let trainHasValidStops = false; // gauging whether we can remove noeta stops
+
       //adding predictions to transitStatus object
       train.tripUpdate?.stopTimeUpdate?.reverse().forEach((stop, i) => {
         if (i == 0) finalTrain.dest = staticStopsData[stop.stopId].stopName;
@@ -160,6 +162,11 @@ const update = (async () => {
         const arr = stop.arrival ? new Date(stop.arrival.time?.low).valueOf() : 0;
         const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
         const time = Math.max(arr, dep) * 1000;
+
+        // stops are done in reverse order, which is why we can filter as we go instead of 
+        // checking and then filtering later
+        if (time) trainHasValidStops = true; 
+        else if (trainHasValidStops) return; 
 
         finalTrain.predictions.push({
           stationID: stop.stopId,
