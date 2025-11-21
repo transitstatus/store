@@ -128,11 +128,7 @@ const update = async () => {
         //if (feature.properties.PubliclyVisible != 'Y') return; // stop shouldnt be shown
 
         const parsedTimes = parseStopTimes(feature.properties);
-
-        if (feature.properties.OBJECTID == 80) {
-          console.log(parsedTimes)
-        }
-
+        
         const showArrivalTime = nowNumber < parsedTimes.eventStartTime || nowNumber < parsedTimes.arrivalTime;
         const showDepartureTime = nowNumber < parsedTimes.leaveTime || nowNumber < parsedTimes.eventEndTime;
         const arrivalTimeToUse = nowNumber < parsedTimes.arrivalTime ? parsedTimes.arrivalTime : parsedTimes.eventStartTime;
