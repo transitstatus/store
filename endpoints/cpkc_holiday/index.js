@@ -187,7 +187,7 @@ const update = async () => {
             realTime: true,
           });
 
-          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Event End'] = {
+          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Event Start'] = {
             trains: [{
               runNumber: engineNumbers[feature.properties.TrainRoute],
               actualETA: parsedTimes.eventStartTime,
