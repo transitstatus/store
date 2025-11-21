@@ -1,0 +1,6 @@
+url: https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-13673820.5585,%22ymin%22:3260316.5033,%22xmax%22:-7354170.764799999,%22ymax%22:7134457.986699998}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry&outSR=102100&inSR=102100
+train info: https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0?f=json
+route info: https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Route/MapServer/0?f=json
+stops: https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&inSR=4326&outFields=OBJECTID,StopOID,Country,OP_Day,StopName,TrainRoute,Address,Event_Time_Range,Event_Start,Event_End,Arrival_Time_UTC,Leave_Time,TimeZone,StageSide,CrewChange,OverNight,FuelWaterSeptic,OperatingComments,EventComments,PubliclyVisible,created_user,created_date,last_edited_user,last_edited_date
+canada stops pdf: https://gis.cpkcr.com/arcgis/rest/directories/arcgisoutput/HolidayTrain/Canada_Holiday_Train_Route.pdf
+us stops pdf: https://gis.cpkcr.com/arcgis/rest/directories/arcgisoutput/HolidayTrain/U.S._Holiday_Train_Route.pdf

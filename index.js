@@ -11,41 +11,59 @@ const fastify = require('fastify')({
     return request.url;
   }
 });
+
 const lcache = require('fastify-lcache');
-const metricsPlugin = require('fastify-metrics');
 
-fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
+fastify.register(lcache, {
+  ttlInMinutes: 0.5, // set cached data lifetime to 30 seconds
+  //excludeRoutes: ['/']
+});
 
-  fastify.register(lcache, {
-    ttlInMinutes: 0.5, // set cached data lifetime to 30 seconds
-    //excludeRoutes: ['/']
-  });
+require('dotenv').config();
 
-  const getAllKeysWithParents = (obj, parentKey = '') => {
-    let keys = [];
+const getAllKeysWithParents = (obj, parentKey = '') => {
+  let keys = [];
 
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        const currentKey = parentKey ? `${parentKey}/${key}` : key;
-        keys.push(currentKey);
-        if (typeof obj[key] === 'object') {
-          keys = keys.concat(getAllKeysWithParents(obj[key], currentKey));
-        }
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const currentKey = parentKey ? `${parentKey}/${key}` : key;
+      keys.push(currentKey);
+      if (typeof obj[key] === 'object') {
+        keys = keys.concat(getAllKeysWithParents(obj[key], currentKey));
       }
     }
-
-    return keys;
   }
 
-  //ensuring the plugin(s) load before we start registering endpoints
-  fastify.after(() => {
-    const only_testing = [];
+  return keys;
+}
 
-    let data = {};
+//ensuring the plugin(s) load before we start registering endpoints
+fastify.after(() => {
+  const only_testing = [];
 
-    // getting folders within scripts folder
-    const endpoints = fs.readdirSync('./endpoints');
+  let data = {};
 
+  // getting folders within scripts folder
+  const endpoints = fs.readdirSync('./endpoints');
+
+  if (process.env.PROXY_MODE == 'true') {
+    const updateInProxyMode = () => {
+      fetch('https://store.transitstat.us/')
+        .then((result) => {
+          if (result !== false) {
+            data = result;
+
+            console.log('Finished updating in proxy mode')
+
+            console.log(`Destroying /GET`)
+            fastify.lcache.reset(`/GET`)
+          }
+        })
+    };
+
+    updateInProxyMode();
+    setInterval(() => { updateInProxyMode() }, process.env.PROXY_MODE_INTERVAL ?? 60000);
+  } else { // normal operation
     // going through endpoints and setting up update jobs
     endpoints.forEach(async (endpoint) => {
       if (only_testing.length > 0 && !only_testing.includes(endpoint)) return;
@@ -219,57 +237,57 @@ fastify.register(metricsPlugin, { endpoint: '/metrics' }).then(() => {
         console.log(`${endpoint} is a file, not continuing`);
       }
     });
+  }
 
-    fastify.get('*', (request, reply) => {
-      let path = request.url.split('?')[0];
+  fastify.get('*', (request, reply) => {
+    let path = request.url.split('?')[0];
 
-      console.log(`Returning data for ${path}`)
+    console.log(`Returning data for ${path}`)
 
-      if (path === '/') {
-        reply.header('Access-Control-Allow-Origin', '*');
-        reply.send(data);
-        return;
-      }
-
-      //remove leading slash first
-      const pathArray = path.substring(1).split('/');
-      let dataToReturn = data;
-
-      try {
-        pathArray.forEach((path) => {
-          if (path === '') return; //trailing slash
-
-          dataToReturn = dataToReturn[path];
-
-          if (dataToReturn === undefined) {
-            throw new Error('Not found');
-          }
-        });
-      } catch (e) {
-        //console.log(e);
-        console.log('Not found:', path)
-        reply.header('Access-Control-Allow-Origin', '*');
-        reply.code(404);
-        reply.send('Not found');
-        return;
-      }
-
+    if (path === '/') {
       reply.header('Access-Control-Allow-Origin', '*');
-      reply.send(dataToReturn);
-    });
-
-    //killing the cache's default state every 5 seconds for the first minute just in case the updates didn't go through above
-    //this isnt needed, but tbh i dont trust this cache implementation
-    for (let i = 5; i <= 60; i += 5) {
-      setTimeout(() => {
-        console.log('Hard resetting cache')
-        fastify.lcache.reset();
-      }, i * 1000)
+      reply.send(data);
+      return;
     }
+
+    //remove leading slash first
+    const pathArray = path.substring(1).split('/');
+    let dataToReturn = data;
+
+    try {
+      pathArray.forEach((path) => {
+        if (path === '') return; //trailing slash
+
+        dataToReturn = dataToReturn[path];
+
+        if (dataToReturn === undefined) {
+          throw new Error('Not found');
+        }
+      });
+    } catch (e) {
+      //console.log(e);
+      console.log('Not found:', path)
+      reply.header('Access-Control-Allow-Origin', '*');
+      reply.code(404);
+      reply.send('Not found');
+      return;
+    }
+
+    reply.header('Access-Control-Allow-Origin', '*');
+    reply.send(dataToReturn);
   });
 
-  fastify.listen({ port: 3000, host: '0.0.0.0', }, (err, address) => {
-    if (err) throw err
-    console.log(`Server is now listening on ${address}`);
-  })
+  //killing the cache's default state every 5 seconds for the first minute just in case the updates didn't go through above
+  //this isnt needed, but tbh i dont trust this cache implementation
+  for (let i = 5; i <= 60; i += 5) {
+    setTimeout(() => {
+      console.log('Hard resetting cache')
+      fastify.lcache.reset();
+    }, i * 1000)
+  }
 });
+
+fastify.listen({ port: process.env.PORT ?? 3000, host: '0.0.0.0', }, (err, address) => {
+  if (err) throw err
+  console.log(`Server is now listening on ${address}`);
+})

@@ -1,0 +1,209 @@
+const fetch = require('node-fetch');
+const stationsData = require('./stops.json');
+
+const timeZoneOffsets = {
+  'AST': '-04:00',
+  'EST': '-05:00',
+  'CST': '-06:00',
+  'CT': '-06:00',
+  'MST': '-07:00',
+  'PST': '-08:00'
+};
+
+const timeZoneOffsetsNumerical = {
+  'AST': -240,
+  'EST': -300,
+  'CST': -360,
+  'CT': -360,
+  'MST': -420,
+  'PST': -480
+};
+
+// https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
+const toIsoStringWithOffset = (date, offset) => {
+  var tzo = offset,
+    dif = tzo >= 0 ? '+' : '-',
+    pad = function (num) {
+      return (num < 10 ? '0' : '') + num;
+    };
+
+  return date.getFullYear() +
+    '-' + pad(date.getMonth() + 1) +
+    '-' + pad(date.getDate()) +
+    'T' + pad(date.getHours()) +
+    ':' + pad(date.getMinutes()) +
+    ':' + pad(date.getSeconds()) +
+    dif + pad(Math.floor(Math.abs(tzo) / 60)) +
+    ':' + pad(Math.abs(tzo) % 60);
+}
+
+const parseStopTimes = (stopProperties) => {
+  const arrivalTime = new Date(stopProperties.Arrival_Time_UTC);
+  const arrivalTimeDate = toIsoStringWithOffset(arrivalTime, timeZoneOffsetsNumerical[stopProperties.TimeZone]).split('T')[0];
+
+  const eventStartTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_Start}:00${timeZoneOffsets[stopProperties.TimeZone]}`);
+  const eventEndTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_End}:00${timeZoneOffsets[stopProperties.TimeZone]}`);
+  const leaveTime = new Date(`${arrivalTimeDate}T${stopProperties.Leave_Time}:00${timeZoneOffsets[stopProperties.TimeZone]}`);
+
+  return {
+    arrivalTime: arrivalTime.valueOf(),
+    eventStartTime: eventStartTime.valueOf(),
+    eventEndTime: eventEndTime.valueOf(),
+    leaveTime: leaveTime.valueOf(),
+  }
+};
+
+const update = async () => {
+  try {
+    const now = new Date();
+    const nowNumber = now.valueOf();
+
+    const trainData = await fetch('https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry,last_event_tms,last_event_trstn_nm,lat_nbr,lngtd_nbr,train_dir,lead_loco&inSR=4326').then((res) => res.json());
+
+    let otherStopsOfSameName = {};
+
+    let transitStatusObject = {
+      lastUpdated: now.toISOString(),
+      trains: {},
+      stations: {},
+      lines: {
+        US: {
+          lineCode: 'US',
+          lineNameShort: 'US',
+          lineNameLong: 'US',
+          routeColor: '267300',
+          routeTextColor: 'ffffff',
+          stations: [],
+          hasActiveTrains: true,
+        },
+        CA: {
+          lineCode: 'CA',
+          lineNameShort: 'CA',
+          lineNameLong: 'Canada',
+          routeColor: 'a80000',
+          routeTextColor: '000000',
+          stations: [],
+          hasActiveTrains: true,
+        },
+      },
+      shitsFucked: {
+        shitIsFucked: false,
+        message: ""
+      }
+    };
+
+    trainData.features.forEach((feature) => {
+      transitStatusObject.trains[feature.properties.RunToCountry] = {
+        lat: Number(feature.geometry.coordinates[1]),
+        lon: Number(feature.geometry.coordinates[0]),
+        heading: 0,
+        realTime: true,
+        deadMileage: false,
+        line: transitStatusObject.lines[feature.properties.RunToCountry].lineNameLong,
+        lineCode: feature.properties.RunToCountry,
+        lineColor: transitStatusObject.lines[feature.properties.RunToCountry].routeColor,
+        lineTextColor: transitStatusObject.lines[feature.properties.RunToCountry].routeTextColor,
+        dest: '',
+        predictions: [],
+        type: 'train',
+        extra: {
+          holidayChristmas: true,
+          engine: feature.properties.lead_loco.replace('CP', 'CP '),
+        }
+      }
+    });
+
+    stationsData.features
+      .sort((a, b) => {
+        if (a.properties.PubliclyVisible != 'Y' && b.properties.PubliclyVisible != 'Y') return 0;
+        if (a.properties.PubliclyVisible == 'Y' && b.properties.PubliclyVisible != 'Y') return 1;
+        if (a.properties.PubliclyVisible != 'Y' && b.properties.PubliclyVisible == 'Y') return -1;
+        if (a.properties.PubliclyVisible == 'Y' && b.properties.PubliclyVisible == 'Y') return 0;
+      })
+      .forEach((feature) => {
+        if (!feature.properties.Arrival_Time_UTC) return; // stop is not real
+        //if (feature.properties.PubliclyVisible != 'Y') return; // stop shouldnt be shown
+
+        const parsedTimes = parseStopTimes(feature.properties);
+
+        const showArrivalTime = nowNumber < parsedTimes.eventStartTime || nowNumber < parsedTimes.arrivalTime;
+        const showDepartureTime = nowNumber < parsedTimes.leaveTime || nowNumber < parsedTimes.eventEndTime;
+        const arrivalTimeToUse = (nowNumber < parsedTimes.arrivalTime ? parsedTimes.arrivalTime : parsedTimes.eventStartTime) ?? parsedTimes.arrivalTime ?? parsedTimes.eventStartTime;
+        const departureTimeToUse = (nowNumber < parsedTimes.eventEndTime ? parsedTimes.eventEndTime : parsedTimes.leaveTime) ?? parsedTimes.eventEndTime ?? parsedTimes.leaveTime;
+
+        if (showArrivalTime) {
+          transitStatusObject.trains[feature.properties.TrainRoute].predictions.push({
+            stationID: feature.properties.OBJECTID,
+            stationName: `${feature.properties.StopName} (Arr)`,
+            actualETA: arrivalTimeToUse,
+            noETA: false,
+            realTime: true,
+          })
+        } else if (showDepartureTime) {
+          transitStatusObject.trains[feature.properties.TrainRoute].predictions.push({
+            stationID: feature.properties.OBJECTID,
+            stationName: `${feature.properties.StopName} (Dep)`,
+            actualETA: departureTimeToUse,
+            noETA: false,
+            realTime: true,
+          })
+        }
+
+        transitStatusObject.stations[feature.properties.OBJECTID] = {
+          stationID: feature.properties.OBJECTID,
+          stationName: feature.properties.StopName,
+          lat: Number(feature.geometry.coordinates[1]),
+          lon: Number(feature.geometry.coordinates[0]),
+          destinations: {
+            'Arrival': {
+              trains: showArrivalTime ? [{
+                runNumber: feature.properties.TrainRoute,
+                actualETA: arrivalTimeToUse,
+                noETA: false,
+                realTime: true,
+                line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
+                lineCode: feature.properties.TrainRoute,
+                lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
+                lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+                extra: {
+                  holidayChristmas: true,
+                }
+              }] : [],
+            },
+            'Departure': {
+              trains: showDepartureTime ? [{
+                runNumber: feature.properties.TrainRoute,
+                actualETA: departureTimeToUse,
+                noETA: false,
+                realTime: true,
+                line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
+                lineCode: feature.properties.TrainRoute,
+                lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
+                lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+                extra: {
+                  holidayChristmas: true,
+                }
+              }] : [],
+            },
+          }
+        }
+      });
+
+    return transitStatusObject;
+  } catch (e) {
+    console.log("Error updating CPKC holiday:", e)
+    return {
+      lastUpdated: 0,
+      trains: {},
+      stations: {},
+      lines: {},
+      shitsFucked: {
+        shitIsFucked: true,
+        message: "There was an error fetching data from CPKC. This is us, not you."
+      }
+    };
+  }
+
+};
+
+exports.update = update;

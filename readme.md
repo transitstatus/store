@@ -15,7 +15,17 @@ their required variables).
 
 Those are:
 
-- `metra_authorization`
+- `metra_token`
 - `cta_bus_auth`
 - `bsky_holiday_bot_handle`
 - `bsky_holiday_bot_password`
+
+
+## Proxy Mode
+If you just want to demo the project, make a `.env` file with the following contents: 
+```toml
+PROXY_MODE=true
+PROXY_MODE_INTERVAL=60000 # optional, update frequency in ms
+```
+
+This will have the program automatically mirror `https://store.transitstat.us` without requiring any API keys.
