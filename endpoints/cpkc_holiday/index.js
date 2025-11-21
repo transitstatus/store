@@ -129,6 +129,10 @@ const update = async () => {
 
         const parsedTimes = parseStopTimes(feature.properties);
 
+        if (feature.properties.OBJECTID == 80) {
+          console.log(parsedTimes)
+        }
+
         const showArrivalTime = nowNumber < parsedTimes.eventStartTime || nowNumber < parsedTimes.arrivalTime;
         const showDepartureTime = nowNumber < parsedTimes.leaveTime || nowNumber < parsedTimes.eventEndTime;
         const arrivalTimeToUse = nowNumber < parsedTimes.arrivalTime ? parsedTimes.arrivalTime : parsedTimes.eventStartTime;
@@ -145,7 +149,8 @@ const update = async () => {
             noETA: false,
             realTime: true,
           });
-        } else if (showDepartureTime) {
+        }
+        if (showDepartureTime) {
           transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
             stationName: `${feature.properties.StopName} (Dep)`,
