@@ -40,16 +40,17 @@ const toIsoStringWithOffset = (date, offset) => {
 const parseStopTimes = (stopProperties) => {
   const arrivalTime = new Date(stopProperties.Arrival_Time_UTC);
   const arrivalTimeDate = toIsoStringWithOffset(arrivalTime, timeZoneOffsetsNumerical[stopProperties.TimeZone]).split('T')[0];
+  const arrivalTimeNumber = arrivalTime.valueOf();
 
-  const eventStartTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_Start}:00${timeZoneOffsets[stopProperties.TimeZone]}`);
-  const eventEndTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_End}:00${timeZoneOffsets[stopProperties.TimeZone]}`);
-  const leaveTime = new Date(`${arrivalTimeDate}T${stopProperties.Leave_Time}:00${timeZoneOffsets[stopProperties.TimeZone]}`);
+  const eventStartTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_Start}:00${timeZoneOffsets[stopProperties.TimeZone]}`).valueOf();
+  const eventEndTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_End}:00${timeZoneOffsets[stopProperties.TimeZone]}`).valueOf();
+  const leaveTime = new Date(`${arrivalTimeDate}T${stopProperties.Leave_Time}:00${timeZoneOffsets[stopProperties.TimeZone]}`).valueOf();
 
   return {
-    arrivalTime: arrivalTime.valueOf(),
-    eventStartTime: eventStartTime.valueOf(),
-    eventEndTime: eventEndTime.valueOf(),
-    leaveTime: leaveTime.valueOf(),
+    arrivalTime: !isNaN(arrivalTimeNumber) ? arrivalTimeNumber : (!isNaN(eventStartTime) ? eventStartTime : null),
+    eventStartTime: !isNaN(eventStartTime) ? eventStartTime : (!isNaN(arrivalTimeNumber) ? arrivalTimeNumber : null),
+    eventEndTime: !isNaN(eventEndTime) ? eventEndTime : (!isNaN(leaveTime) ? leaveTime : null),
+    leaveTime: !isNaN(leaveTime) ? leaveTime : (!isNaN(eventEndTime) ? eventEndTime : null),
   }
 };
 
@@ -130,8 +131,8 @@ const update = async () => {
 
         const showArrivalTime = nowNumber < parsedTimes.eventStartTime || nowNumber < parsedTimes.arrivalTime;
         const showDepartureTime = nowNumber < parsedTimes.leaveTime || nowNumber < parsedTimes.eventEndTime;
-        const arrivalTimeToUse = (nowNumber < parsedTimes.arrivalTime ? parsedTimes.arrivalTime : parsedTimes.eventStartTime) ?? parsedTimes.arrivalTime ?? parsedTimes.eventStartTime;
-        const departureTimeToUse = (nowNumber < parsedTimes.eventEndTime ? parsedTimes.eventEndTime : parsedTimes.leaveTime) ?? parsedTimes.eventEndTime ?? parsedTimes.leaveTime;
+        const arrivalTimeToUse = nowNumber < parsedTimes.arrivalTime ? parsedTimes.arrivalTime : parsedTimes.eventStartTime;
+        const departureTimeToUse = nowNumber < parsedTimes.eventEndTime ? parsedTimes.eventEndTime : parsedTimes.leaveTime;
 
         // adding stop to line
         transitStatusObject.lines[feature.properties.TrainRoute].stations.push(feature.properties.OBJECTID);
@@ -194,7 +195,7 @@ const update = async () => {
         }
       });
 
-      // sorting ETAs
+    // sorting ETAs
     Object.keys(transitStatusObject.trains).forEach((trainKey) => {
       transitStatusObject.trains[trainKey].predictions = transitStatusObject.trains[trainKey].predictions.sort((a, b) => a.actualETA - b.actualETA);
     })
