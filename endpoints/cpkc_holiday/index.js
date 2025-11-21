@@ -168,7 +168,7 @@ const update = async () => {
           destinations: {
             'Arrival': {
               trains: showArrivalTime ? [{
-                runNumber: feature.properties.TrainRoute,
+                runNumber: engineNumbers[feature.properties.TrainRoute],
                 actualETA: arrivalTimeToUse,
                 noETA: false,
                 realTime: true,
@@ -183,7 +183,7 @@ const update = async () => {
             },
             'Departure': {
               trains: showDepartureTime ? [{
-                runNumber: feature.properties.TrainRoute,
+                runNumber: engineNumbers[feature.properties.TrainRoute],
                 actualETA: departureTimeToUse,
                 noETA: false,
                 realTime: true,
@@ -191,6 +191,7 @@ const update = async () => {
                 lineCode: feature.properties.TrainRoute,
                 lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
                 lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+                destination: 'Christmas',
                 extra: {
                   holidayChristmas: true,
                 }
