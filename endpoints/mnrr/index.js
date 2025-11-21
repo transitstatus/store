@@ -274,7 +274,7 @@ const update = (async () => {
         additionalRunNumbers,
         additionalStationIDs,
         title: alert.alert.headerText.translation[0].text,
-        message: alert.alert.descriptionText.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
+        message: (alert.alert.descriptionText ?? { translation: [{ text: '' }] }).translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
       }
     });
 
