@@ -105,6 +105,7 @@ const update = async () => {
         lat: Number(feature.geometry.coordinates[1]),
         lon: Number(feature.geometry.coordinates[0]),
         heading: 0,
+        headingLetter: feature.properties.train_dir.length > 0 ? feature.properties.train_dir : 'N',
         realTime: true,
         deadMileage: false,
         line: transitStatusObject.lines[feature.properties.RunToCountry].lineNameLong,
