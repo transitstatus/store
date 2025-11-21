@@ -60,7 +60,7 @@ const update = async () => {
 
     const trainData = await fetch('https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry,last_event_tms,last_event_trstn_nm,lat_nbr,lngtd_nbr,train_dir,lead_loco&inSR=4326').then((res) => res.json());
 
-    let otherStopsOfSameName = {};
+    let engineNumbers = {};
 
     let transitStatusObject = {
       lastUpdated: now.toISOString(),
@@ -81,7 +81,7 @@ const update = async () => {
           lineNameShort: 'CA',
           lineNameLong: 'Canada',
           routeColor: 'a80000',
-          routeTextColor: '000000',
+          routeTextColor: 'ffffff',
           stations: [],
           hasActiveTrains: true,
         },
@@ -93,7 +93,9 @@ const update = async () => {
     };
 
     trainData.features.forEach((feature) => {
-      transitStatusObject.trains[feature.properties.RunToCountry] = {
+      engineNumbers[feature.properties.RunToCountry] = feature.properties.lead_loco.replace('CP', '');
+
+      transitStatusObject.trains[feature.properties.lead_loco.replace('CP', '')] = {
         lat: Number(feature.geometry.coordinates[1]),
         lon: Number(feature.geometry.coordinates[0]),
         heading: 0,
@@ -103,7 +105,7 @@ const update = async () => {
         lineCode: feature.properties.RunToCountry,
         lineColor: transitStatusObject.lines[feature.properties.RunToCountry].routeColor,
         lineTextColor: transitStatusObject.lines[feature.properties.RunToCountry].routeTextColor,
-        dest: '',
+        dest: 'Christmas',
         predictions: [],
         type: 'train',
         extra: {
@@ -132,7 +134,7 @@ const update = async () => {
         const departureTimeToUse = (nowNumber < parsedTimes.eventEndTime ? parsedTimes.eventEndTime : parsedTimes.leaveTime) ?? parsedTimes.eventEndTime ?? parsedTimes.leaveTime;
 
         if (showArrivalTime) {
-          transitStatusObject.trains[feature.properties.TrainRoute].predictions.push({
+          transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
             stationName: `${feature.properties.StopName} (Arr)`,
             actualETA: arrivalTimeToUse,
@@ -140,7 +142,7 @@ const update = async () => {
             realTime: true,
           })
         } else if (showDepartureTime) {
-          transitStatusObject.trains[feature.properties.TrainRoute].predictions.push({
+          transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
             stationName: `${feature.properties.StopName} (Dep)`,
             actualETA: departureTimeToUse,
