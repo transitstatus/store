@@ -176,6 +176,7 @@ const update = async () => {
                 lineCode: feature.properties.TrainRoute,
                 lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
                 lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+                destination: 'Christmas',
                 extra: {
                   holidayChristmas: true,
                 }
