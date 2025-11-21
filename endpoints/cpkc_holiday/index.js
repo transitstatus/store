@@ -110,7 +110,7 @@ const update = async () => {
         type: 'train',
         extra: {
           holidayChristmas: true,
-          engine: feature.properties.lead_loco.replace('CP', 'CP '),
+          //engine: feature.properties.lead_loco.replace('CP', 'CP '),
         }
       }
     });
@@ -193,6 +193,11 @@ const update = async () => {
           }
         }
       });
+
+      // sorting ETAs
+    Object.keys(transitStatusObject.trains).forEach((trainKey) => {
+      transitStatusObject.trains[trainKey].predictions = transitStatusObject.trains[trainKey].predictions.sort((a, b) => a.actualETA - b.actualETA);
+    })
 
     return transitStatusObject;
   } catch (e) {
