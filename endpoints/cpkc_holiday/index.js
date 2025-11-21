@@ -133,6 +133,9 @@ const update = async () => {
         const arrivalTimeToUse = (nowNumber < parsedTimes.arrivalTime ? parsedTimes.arrivalTime : parsedTimes.eventStartTime) ?? parsedTimes.arrivalTime ?? parsedTimes.eventStartTime;
         const departureTimeToUse = (nowNumber < parsedTimes.eventEndTime ? parsedTimes.eventEndTime : parsedTimes.leaveTime) ?? parsedTimes.eventEndTime ?? parsedTimes.leaveTime;
 
+        // adding stop to line
+        transitStatusObject.lines[feature.properties.TrainRoute].stations.push(feature.properties.OBJECTID);
+
         if (showArrivalTime) {
           transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
@@ -140,7 +143,7 @@ const update = async () => {
             actualETA: arrivalTimeToUse,
             noETA: false,
             realTime: true,
-          })
+          });
         } else if (showDepartureTime) {
           transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
@@ -148,7 +151,7 @@ const update = async () => {
             actualETA: departureTimeToUse,
             noETA: false,
             realTime: true,
-          })
+          });
         }
 
         transitStatusObject.stations[feature.properties.OBJECTID] = {
