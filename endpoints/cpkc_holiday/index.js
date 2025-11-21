@@ -135,7 +135,7 @@ const update = async () => {
         const departureTimeToUse = nowNumber < parsedTimes.eventEndTime ? parsedTimes.eventEndTime : parsedTimes.leaveTime;
 
         // adding stop to line
-        transitStatusObject.lines[feature.properties.TrainRoute].stations.push(feature.properties.OBJECTID);
+        transitStatusObject.lines[feature.properties.TrainRoute].stations.push(feature.properties.OBJECTID.toString());
 
         if (showArrivalTime) {
           transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
