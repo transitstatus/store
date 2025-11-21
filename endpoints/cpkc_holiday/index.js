@@ -160,44 +160,51 @@ const update = async () => {
           });
         }
 
-        transitStatusObject.stations[feature.properties.OBJECTID] = {
-          stationID: feature.properties.OBJECTID,
-          stationName: feature.properties.StopName,
-          lat: Number(feature.geometry.coordinates[1]),
-          lon: Number(feature.geometry.coordinates[0]),
-          destinations: {
-            'Arrival': {
-              trains: showArrivalTime ? [{
-                runNumber: engineNumbers[feature.properties.TrainRoute],
-                actualETA: arrivalTimeToUse,
-                noETA: false,
-                realTime: true,
-                line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
-                lineCode: feature.properties.TrainRoute,
-                lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
-                lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
-                destination: 'Christmas',
-                extra: {
-                  holidayChristmas: true,
-                }
-              }] : [],
-            },
-            'Departure': {
-              trains: showDepartureTime ? [{
-                runNumber: engineNumbers[feature.properties.TrainRoute],
-                actualETA: departureTimeToUse,
-                noETA: false,
-                realTime: true,
-                line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
-                lineCode: feature.properties.TrainRoute,
-                lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
-                lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
-                destination: 'Christmas',
-                extra: {
-                  holidayChristmas: true,
-                }
-              }] : [],
-            },
+        if (showArrivalTime || showDepartureTime) {
+          transitStatusObject.stations[feature.properties.OBJECTID] = {
+            stationID: feature.properties.OBJECTID,
+            stationName: feature.properties.StopName,
+            lat: Number(feature.geometry.coordinates[1]),
+            lon: Number(feature.geometry.coordinates[0]),
+            destinations: {}
+          }
+        }
+
+        if (showArrivalTime) {
+          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Arrival'] = {
+            trains: [{
+              runNumber: engineNumbers[feature.properties.TrainRoute],
+              actualETA: arrivalTimeToUse,
+              noETA: false,
+              realTime: true,
+              line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
+              lineCode: feature.properties.TrainRoute,
+              lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
+              lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+              destination: 'Christmas',
+              extra: {
+                holidayChristmas: true,
+              }
+            }],
+          }
+        }
+
+        if (showDepartureTime) {
+          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Departure'] = {
+            trains: [{
+              runNumber: engineNumbers[feature.properties.TrainRoute],
+              actualETA: departureTimeToUse,
+              noETA: false,
+              realTime: true,
+              line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
+              lineCode: feature.properties.TrainRoute,
+              lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
+              lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+              destination: 'Christmas',
+              extra: {
+                holidayChristmas: true,
+              }
+            }],
           }
         }
       });
