@@ -181,7 +181,7 @@ const update = async () => {
         if (showEventStartTime) {
           transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
-            stationName: `${feature.properties.StopName} (Ev. S)`,
+            stationName: `${feature.properties.StopName} (Ev-S)`,
             actualETA: parsedTimes.eventStartTime,
             noETA: false,
             realTime: true,
@@ -207,7 +207,7 @@ const update = async () => {
         if (showEventEndTime) {
           transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
             stationID: feature.properties.OBJECTID,
-            stationName: `${feature.properties.StopName} (Ev. E)`,
+            stationName: `${feature.properties.StopName} (Ev-E)`,
             actualETA: parsedTimes.eventEndTime,
             noETA: false,
             realTime: true,
