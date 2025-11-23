@@ -47,12 +47,32 @@ const parseStopTimes = (stopProperties) => {
   const eventEndTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_End}:00${timeZoneOffsets[stopProperties.TimeZone]}`).valueOf();
   const leaveTime = new Date(`${arrivalTimeDate}T${stopProperties.Leave_Time}:00${timeZoneOffsets[stopProperties.TimeZone]}`).valueOf();
 
-  return {
+  const res = {
     arrivalTime: !isNaN(arrivalTimeNumber) ? arrivalTimeNumber : null,
     eventStartTime: !isNaN(eventStartTime) ? eventStartTime : null,
     eventEndTime: !isNaN(eventEndTime) ? eventEndTime : null,
     leaveTime: !isNaN(leaveTime) ? leaveTime : null,
+    hasAnyValidValues: false,
   }
+
+  if (res.arrivalTime || res.eventStartTime || res.eventEndTime || res.leaveTime) res.hasAnyValidValues = true;
+
+  return res;
+};
+
+const recursivelyRetryFetch = async (i = 0) => {
+  if (i == 0) return false;
+
+  const rawTrains = await fetch('https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry,train_dir,lead_loco&inSR=4326')
+
+  if (!rawTrains.ok) {
+    await new Promise(r => setTimeout(r, 1000));
+    return recursivelyRetryFetch(i - 1);
+  } else {
+    const trainData = await rawTrains.json();
+    return trainData;
+  }
+
 };
 
 const update = async () => {
@@ -61,9 +81,10 @@ const update = async () => {
     const nowNumber = now.valueOf();
     const twoDaysFromNow = nowNumber + (1000 * 60 * 60 * 24 * 2);
 
-    const trainData = await fetch('https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry,last_event_tms,last_event_trstn_nm,lat_nbr,lngtd_nbr,train_dir,lead_loco&inSR=4326').then((res) => res.json());
-
+    const trainData = await recursivelyRetryFetch(5);
     //const trainData = { "type": "FeatureCollection", "features": [{ "type": "Feature", "id": 4, "geometry": { "type": "Point", "coordinates": [-70.98922999994089, 45.62174999984324] }, "properties": { "OBJECTID": 4, "RunToCountry": "CA", "last_event_tms": "1:19PM EST", "last_event_trstn_nm": "NANTES", "lat_nbr": 45.62175, "lngtd_nbr": -70.98923, "train_dir": "W", "lead_loco": "CP2249" } }, { "type": "Feature", "id": 14, "geometry": { "type": "Point", "coordinates": [-79.90167999975664, 43.25232300018597] }, "properties": { "OBJECTID": 14, "RunToCountry": "US", "last_event_tms": "1:19PM EST", "last_event_trstn_nm": "", "lat_nbr": 43.252323, "lngtd_nbr": -79.90168, "train_dir": "", "lead_loco": "CP2246" } }] }
+
+    if (!trainData) return false;
 
     let engineNumbers = {};
 
@@ -136,39 +157,56 @@ const update = async () => {
         const parsedTimes = parseStopTimes(feature.properties);
 
         const showArrivalTime = parsedTimes.arrivalTime && nowNumber < parsedTimes.arrivalTime;
-        const showEventStartTime = parsedTimes.eventStartTime && nowNumber < parsedTimes.eventStartTime;
-        const showEventEndTime = parsedTimes.eventEndTime && nowNumber < parsedTimes.eventEndTime;
+        //const showEventStartTime = parsedTimes.eventStartTime && nowNumber < parsedTimes.eventStartTime;
+        //const showEventEndTime = parsedTimes.eventEndTime && nowNumber < parsedTimes.eventEndTime;
         const showDepartureTime = parsedTimes.leaveTime && nowNumber < parsedTimes.leaveTime;
 
         // creating stop
-        if (showArrivalTime || showEventStartTime || showEventEndTime || showDepartureTime) {
-          transitStatusObject.stations[feature.properties.OBJECTID] = {
-            stationID: feature.properties.OBJECTID,
+        if ((parsedTimes.arrivalTime || parsedTimes.leaveTime) && !transitStatusObject.stations[stationCodes[feature.properties.OBJECTID]]) {
+          transitStatusObject.stations[stationCodes[feature.properties.OBJECTID]] = {
+            stationID: stationCodes[feature.properties.OBJECTID],
             stationName: feature.properties.StopName,
             lat: Number(feature.geometry.coordinates[1]),
             lon: Number(feature.geometry.coordinates[0]),
-            destinations: {}
+            destinations: {
+              'Train': { trains: [] }
+            }
           }
         }
 
         // adding stop to line
-        transitStatusObject.lines[feature.properties.TrainRoute].stations.push(feature.properties.OBJECTID.toString());
+        transitStatusObject.lines[feature.properties.TrainRoute].stations.push(stationCodes[feature.properties.OBJECTID]);
 
-        if (showArrivalTime) { // if we should show the arrival time
-          if (twoDaysFromNow >= parsedTimes.arrivalTime) {
+        const timeToUse =
+          (parsedTimes.arrivalTime && nowNumber < parsedTimes.arrivalTime) ?
+            parsedTimes.arrivalTime :
+            (
+              (parsedTimes.leaveTime && nowNumber < parsedTimes.leaveTime) ?
+                parsedTimes.leaveTime :
+                null
+            )
+
+        if (parsedTimes.arrivalTime || parsedTimes.leaveTime) {
+          if (twoDaysFromNow >= timeToUse) {
             transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
-              stationID: feature.properties.OBJECTID,
-              stationName: `${feature.properties.StopName} (Arr)`,
-              actualETA: parsedTimes.arrivalTime,
+              stationID: stationCodes[feature.properties.OBJECTID],
+              stationName: feature.properties.StopName,
+              actualETA: timeToUse,
+              arr: parsedTimes.arrivalTime,
+              dep: parsedTimes.leaveTime,
+              evSta: parsedTimes.eventStartTime,
+              evEnd: parsedTimes.eventEndTime,
               noETA: false,
               realTime: true,
             });
-          }
 
-          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Arrival'] = {
-            trains: [{
+            transitStatusObject.stations[stationCodes[feature.properties.OBJECTID]].destinations.Train.trains.push({
               runNumber: engineNumbers[feature.properties.TrainRoute],
-              actualETA: parsedTimes.arrivalTime,
+              actualETA: timeToUse,
+              arr: parsedTimes.arrivalTime,
+              dep: parsedTimes.leaveTime,
+              evSta: parsedTimes.eventStartTime,
+              evEnd: parsedTimes.eventEndTime,
               noETA: false,
               realTime: true,
               line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
@@ -179,95 +217,8 @@ const update = async () => {
               extra: {
                 holidayChristmas: true,
               }
-            }],
-          }
-        }
-
-        if (showEventStartTime) {
-          if (twoDaysFromNow >= parsedTimes.eventStartTime) {
-            transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
-              stationID: feature.properties.OBJECTID,
-              stationName: `${feature.properties.StopName} (Ev-S)`,
-              actualETA: parsedTimes.eventStartTime,
-              noETA: false,
-              realTime: true,
             });
           }
-
-          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Event Start'] = {
-            trains: [{
-              runNumber: engineNumbers[feature.properties.TrainRoute],
-              actualETA: parsedTimes.eventStartTime,
-              noETA: false,
-              realTime: true,
-              line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
-              lineCode: feature.properties.TrainRoute,
-              lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
-              lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
-              destination: 'Christmas',
-              extra: {
-                holidayChristmas: true,
-              }
-            }],
-          };
-        }
-
-        if (showEventEndTime) {
-          if (twoDaysFromNow >= parsedTimes.eventEndTime) {
-            transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
-              stationID: feature.properties.OBJECTID,
-              stationName: `${feature.properties.StopName} (Ev-E)`,
-              actualETA: parsedTimes.eventEndTime,
-              noETA: false,
-              realTime: true,
-            });
-          }
-
-          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Event End'] = {
-            trains: [{
-              runNumber: engineNumbers[feature.properties.TrainRoute],
-              actualETA: parsedTimes.eventEndTime,
-              noETA: false,
-              realTime: true,
-              line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
-              lineCode: feature.properties.TrainRoute,
-              lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
-              lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
-              destination: 'Christmas',
-              extra: {
-                holidayChristmas: true,
-              }
-            }],
-          };
-        }
-
-        if (showDepartureTime) {
-          if (twoDaysFromNow >= parsedTimes.leaveTime) {
-            transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
-              stationID: feature.properties.OBJECTID,
-              stationName: `${feature.properties.StopName} (Dep)`,
-              actualETA: parsedTimes.leaveTime,
-              noETA: false,
-              realTime: true,
-            });
-          }
-
-          transitStatusObject.stations[feature.properties.OBJECTID].destinations['Departure'] = {
-            trains: [{
-              runNumber: engineNumbers[feature.properties.TrainRoute],
-              actualETA: parsedTimes.leaveTime,
-              noETA: false,
-              realTime: true,
-              line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
-              lineCode: feature.properties.TrainRoute,
-              lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
-              lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
-              destination: 'Christmas',
-              extra: {
-                holidayChristmas: true,
-              }
-            }],
-          };
         }
       });
 
@@ -279,6 +230,7 @@ const update = async () => {
     return transitStatusObject;
   } catch (e) {
     console.log("Error updating CPKC holiday:", e)
+    return false;
     return {
       lastUpdated: 0,
       trains: {},

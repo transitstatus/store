@@ -26,6 +26,7 @@
     "gtfs-rt-bindings": "^4.6.0",
     "jsdom": "^25.0.0",
     "node-fetch": "^2.6.7",
+    "prompt-sync": "^4.2.0",
     "protobufjs": "^7.2.5",
     "rss-parser": "^3.13.0"
   }
