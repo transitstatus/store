@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const moment = require('moment-timezone');
 const stationsData = require('./stops.json');
 const stationCodes = require('./stationCodes.json');
 
@@ -11,6 +12,15 @@ const timeZoneOffsets = {
   'PST': '-08:00'
 };
 
+const timeZoneNames = {
+  'AST': 'America/Halifax',
+  'EST': 'America/New_York',
+  'CST': 'America/Chicago',
+  'CT': 'America/Chicago',
+  'MST': 'America/Boise',
+  'PST': 'America/Los_Angeles'
+};
+
 const timeZoneOffsetsNumerical = {
   'AST': -240,
   'EST': -300,
@@ -20,27 +30,9 @@ const timeZoneOffsetsNumerical = {
   'PST': -480
 };
 
-// https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
-const toIsoStringWithOffset = (date, offset) => {
-  var tzo = offset,
-    dif = tzo >= 0 ? '+' : '-',
-    pad = function (num) {
-      return (num < 10 ? '0' : '') + num;
-    };
-
-  return date.getFullYear() +
-    '-' + pad(date.getMonth() + 1) +
-    '-' + pad(date.getDate()) +
-    'T' + pad(date.getHours()) +
-    ':' + pad(date.getMinutes()) +
-    ':' + pad(date.getSeconds()) +
-    dif + pad(Math.floor(Math.abs(tzo) / 60)) +
-    ':' + pad(Math.abs(tzo) % 60);
-}
-
 const parseStopTimes = (stopProperties) => {
   const arrivalTime = new Date(stopProperties.Arrival_Time_UTC);
-  const arrivalTimeDate = toIsoStringWithOffset(arrivalTime, timeZoneOffsetsNumerical[stopProperties.TimeZone]).split('T')[0];
+  const arrivalTimeDate = moment(arrivalTime).tz(timeZoneNames[stopProperties.TimeZone]).format().split('T')[0];
   const arrivalTimeNumber = arrivalTime.valueOf();
 
   const eventStartTime = new Date(`${arrivalTimeDate}T${stopProperties.Event_Start}:00${timeZoneOffsets[stopProperties.TimeZone]}`).valueOf();
@@ -53,11 +45,6 @@ const parseStopTimes = (stopProperties) => {
     eventEndTime: !isNaN(eventEndTime) ? eventEndTime : null,
     leaveTime: !isNaN(leaveTime) ? leaveTime : null,
     hasAnyValidValues: false,
-  }
-
-  if (stopProperties.OBJECTID == '39') {
-    //console.log(arrivalTime, new Date(leaveTime), arrivalTimeDate, arrivalTimeNumber, stopProperties.Leave_Time);
-    //console.log(`${arrivalTimeDate}T${stopProperties.Leave_Time}:00${timeZoneOffsets[stopProperties.TimeZone]}`)
   }
 
   if (res.arrivalTime || res.eventStartTime || res.eventEndTime || res.leaveTime) res.hasAnyValidValues = true;
