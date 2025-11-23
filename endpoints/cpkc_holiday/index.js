@@ -55,7 +55,7 @@ const parseStopTimes = (stopProperties) => {
 const recursivelyRetryFetch = async (i = 0) => {
   if (i == 0) return false;
 
-  const rawTrains = await fetch('https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry,train_dir,lead_loco&inSR=4326')
+  const rawTrains = await fetch('https://gis.cpkcr.com/arcgis/rest/services/HolidayTrain/CPKC_Holiday_Train_Tracker/MapServer/0/query?f=geojson&geometry={%22xmin%22:-180,%22ymin%22:-90,%22xmax%22:180,%22ymax%22:90}&orderByFields=OBJECTID&outFields=OBJECTID,RunToCountry,train_dir,lead_loco,last_event_tms,last_event_trstn_nm&inSR=4326')
 
   if (!rawTrains.ok) {
     await new Promise(r => setTimeout(r, 1000));
@@ -75,6 +75,10 @@ const update = async () => {
 
     const trainData = await recursivelyRetryFetch(5);
     //const trainData = { "type": "FeatureCollection", "features": [{ "type": "Feature", "id": 4, "geometry": { "type": "Point", "coordinates": [-70.98922999994089, 45.62174999984324] }, "properties": { "OBJECTID": 4, "RunToCountry": "CA", "last_event_tms": "1:19PM EST", "last_event_trstn_nm": "NANTES", "lat_nbr": 45.62175, "lngtd_nbr": -70.98923, "train_dir": "W", "lead_loco": "CP2249" } }, { "type": "Feature", "id": 14, "geometry": { "type": "Point", "coordinates": [-79.90167999975664, 43.25232300018597] }, "properties": { "OBJECTID": 14, "RunToCountry": "US", "last_event_tms": "1:19PM EST", "last_event_trstn_nm": "", "lat_nbr": 43.252323, "lngtd_nbr": -79.90168, "train_dir": "", "lead_loco": "CP2246" } }] }
+
+    trainData.features.forEach((feature) => {
+      console.log(feature.properties)
+    })
 
     if (!trainData) return false;
 
@@ -130,6 +134,8 @@ const update = async () => {
         type: 'train',
         extra: {
           holidayChristmas: true,
+          last_update: feature.properties.last_event_tms.length > 0 ? feature.properties.last_event_tms : null,
+          last_station: feature.properties.last_event_trstn_nm.length > 0 ? feature.properties.last_event_trstn_nm : null
           //engine: feature.properties.lead_loco.replace('CP', 'CP '),
         }
       }
