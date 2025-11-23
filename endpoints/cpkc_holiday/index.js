@@ -189,6 +189,7 @@ const update = async () => {
               dep: parsedTimes.leaveTime,
               evSta: parsedTimes.eventStartTime,
               evEnd: parsedTimes.eventEndTime,
+              tz: timeZoneNames[feature.properties.TimeZone],
               noETA: false,
               realTime: true,
             });
