@@ -55,6 +55,11 @@ const parseStopTimes = (stopProperties) => {
     hasAnyValidValues: false,
   }
 
+  if (stopProperties.OBJECTID == '39') {
+    //console.log(arrivalTime, new Date(leaveTime), arrivalTimeDate, arrivalTimeNumber, stopProperties.Leave_Time);
+    //console.log(`${arrivalTimeDate}T${stopProperties.Leave_Time}:00${timeZoneOffsets[stopProperties.TimeZone]}`)
+  }
+
   if (res.arrivalTime || res.eventStartTime || res.eventEndTime || res.leaveTime) res.hasAnyValidValues = true;
 
   return res;
@@ -177,7 +182,6 @@ const update = async () => {
         // adding stop to line
         transitStatusObject.lines[feature.properties.TrainRoute].stations.push(stationCodes[feature.properties.OBJECTID]);
 
-        
         const timeToUse =
           (parsedTimes.arrivalTime && nowNumber < parsedTimes.arrivalTime) ?
             parsedTimes.arrivalTime :
