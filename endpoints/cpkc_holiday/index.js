@@ -184,7 +184,7 @@ const update = async () => {
             (
               (parsedTimes.leaveTime && nowNumber < parsedTimes.leaveTime) ?
                 parsedTimes.leaveTime :
-                null
+                0
             )
 
         if (parsedTimes.arrivalTime || parsedTimes.leaveTime) {
