@@ -131,6 +131,7 @@ const update = async () => {
         lineTextColor: transitStatusObject.lines[feature.properties.RunToCountry].routeTextColor,
         dest: 'Christmas',
         predictions: [],
+        hiddenPredictions: [],
         type: 'train',
         extra: {
           holidayChristmas: true,
@@ -185,20 +186,22 @@ const update = async () => {
             )
 
         if (parsedTimes.arrivalTime || parsedTimes.leaveTime) {
+          const prediction = {
+            stationID: stationCodes[feature.properties.OBJECTID],
+            stationName: feature.properties.StopName,
+            actualETA: timeToUse,
+            rawETA: parsedTimes.arrivalTime ?? parsedTimes.leaveTime,
+            arr: parsedTimes.arrivalTime,
+            dep: parsedTimes.leaveTime,
+            evSta: parsedTimes.eventStartTime,
+            evEnd: parsedTimes.eventEndTime,
+            tz: timeZoneNames[feature.properties.TimeZone],
+            noETA: false,
+            realTime: true,
+          };
+
           if (twoDaysFromNow >= timeToUse) {
-            transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push({
-              stationID: stationCodes[feature.properties.OBJECTID],
-              stationName: feature.properties.StopName,
-              actualETA: timeToUse,
-              rawETA: parsedTimes.arrivalTime ?? parsedTimes.leaveTime, 
-              arr: parsedTimes.arrivalTime,
-              dep: parsedTimes.leaveTime,
-              evSta: parsedTimes.eventStartTime,
-              evEnd: parsedTimes.eventEndTime,
-              tz: timeZoneNames[feature.properties.TimeZone],
-              noETA: false,
-              realTime: true,
-            });
+            transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push(prediction);
 
             transitStatusObject.stations[stationCodes[feature.properties.OBJECTID]].destinations.Train.trains.push({
               runNumber: engineNumbers[feature.properties.TrainRoute],
@@ -218,6 +221,8 @@ const update = async () => {
                 holidayChristmas: true,
               }
             });
+          } else {
+            transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].hiddenPredictions.push(prediction);
           }
         }
       });
