@@ -177,6 +177,7 @@ const update = async () => {
         // adding stop to line
         transitStatusObject.lines[feature.properties.TrainRoute].stations.push(stationCodes[feature.properties.OBJECTID]);
 
+        
         const timeToUse =
           (parsedTimes.arrivalTime && nowNumber < parsedTimes.arrivalTime) ?
             parsedTimes.arrivalTime :
@@ -192,6 +193,7 @@ const update = async () => {
               stationID: stationCodes[feature.properties.OBJECTID],
               stationName: feature.properties.StopName,
               actualETA: timeToUse,
+              rawETA: parsedTimes.arrivalTime ?? parsedTimes.leaveTime, 
               arr: parsedTimes.arrivalTime,
               dep: parsedTimes.leaveTime,
               evSta: parsedTimes.eventStartTime,
@@ -224,7 +226,7 @@ const update = async () => {
 
     // sorting ETAs
     Object.keys(transitStatusObject.trains).forEach((trainKey) => {
-      transitStatusObject.trains[trainKey].predictions = transitStatusObject.trains[trainKey].predictions.sort((a, b) => a.actualETA - b.actualETA);
+      transitStatusObject.trains[trainKey].predictions = transitStatusObject.trains[trainKey].predictions.sort((a, b) => a.rawETA - b.rawETA);
     })
 
     return transitStatusObject;
