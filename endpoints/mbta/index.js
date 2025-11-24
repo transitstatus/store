@@ -93,7 +93,6 @@ const update = (async () => {
     Object.values(staticRoutesData)
     .filter((route) => route.routeType != '3')
     .forEach((route) => {
-
       transitStatusV1.lines[route.routeID] = {
         lineCode: route.routeID,
         lineNameShort: route.routeLongName,
@@ -303,18 +302,7 @@ const update = (async () => {
 
         scheduledVehicle.predictions.forEach((stop) => {
           //adding stations to transitStatusV1 object
-          if (!transitStatusV1.stations[stop.stationID]) {
-            transitStatusV1.stations[stop.stationID] = {
-              stationID: stop.stationID,
-              stationName: staticStopsData[stop.stationID].stopName,
-              lat: staticStopsData[stop.stationID].stopLat,
-              lon: staticStopsData[stop.stationID].stopLon,
-              destinations: {
-                'Eastbound': { trains: [] },
-                'Westbound': { trains: [] },
-              },
-            };
-          };
+          if (!transitStatusV1.stations[stop.stationID]) return; // this is probably a bus or something
 
           if (transitStatusV1.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
 
