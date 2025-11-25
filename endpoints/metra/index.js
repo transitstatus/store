@@ -184,14 +184,14 @@ const update = (async () => {
       };
       delete vehiclePositionsDict[vehicleID];
 
-      let finalTrain = {
+      transitStatus.trains['DM-' + vehicleID] = {
         lat: position.latitude,
         lon: position.longitude,
         heading: position.bearing,
         realTime: false,
         deadMileage: true,
         line: 'Dead Mileage',
-        lineCode: 'DEADMILEAGE',
+        lineCode: 'DM',
         lineColor: '111111',
         lineTextColor: 'FFFFFF',
         dest: "Nowhere",
@@ -204,8 +204,6 @@ const update = (async () => {
           //scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
         }
       };
-
-      transitStatus.trains['DM-' + vehicleID] = finalTrain;
     });
 
     //adding any stations without trains to transitStatus object
