@@ -191,7 +191,7 @@ const update = (async () => {
         realTime: false,
         deadMileage: true,
         line: 'Dead Mileage',
-        lineCode: 'DM',
+        lineCode: 'DeadMileage',
         lineColor: '111111',
         lineTextColor: 'FFFFFF',
         dest: "Nowhere",
