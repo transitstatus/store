@@ -60,7 +60,7 @@ Track It Here`;
                   },
                   features: [{
                     $type: 'app.bsky.richtext.facet#link',
-                    uri: `https://transitstat.us/cta${type.toLowerCase()[0]}`
+                    uri: `https://transitstat.us/cta${type.toLowerCase()[0]}/track/${runNumber}`
                   }]
                 }
               ],
