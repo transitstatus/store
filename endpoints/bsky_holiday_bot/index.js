@@ -60,7 +60,7 @@ Track It Here`;
                   },
                   features: [{
                     $type: 'app.bsky.richtext.facet#link',
-                    uri: `https://holiday.transitstat.us#${type.toLowerCase()}`
+                    uri: `https://transitstat.us/cta${type.toLowerCase()[0]}`
                   }]
                 }
               ],
