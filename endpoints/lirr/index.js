@@ -142,6 +142,7 @@ const update = (async () => {
         latitude: 0,
         longitude: 0,
         bearing: 0,
+        label: '',
       };
       delete vehiclePositionsDict[train?.tripUpdate?.trip?.tripId];
 
@@ -152,7 +153,6 @@ const update = (async () => {
       const isHolidayChristmas = holidayVehiclesArray.includes(position.label) || crossCheckTwoArrays(holidayVehiclesArray, consistBasic);
 
       const leadingCar = consist.length > 0 ? consist[0] : null;
-
       let finalTrain = {
         lat: position.latitude,
         lon: position.longitude,
@@ -168,8 +168,8 @@ const update = (async () => {
         type: 'train',
         extra: {
           holidayChristmas: isHolidayChristmas,
-          cabCar: leadingCar && !leadingCar.locomotive ? leadingCar.number : null,
-          engine: leadingCar && leadingCar.locomotive ? leadingCar.number : null,
+          cabCar: leadingCar && !leadingCar.locomotive ? leadingCar.number : (position.label.length == 4 ? position.label : null),
+          engine: leadingCar && leadingCar.locomotive ? leadingCar.number : (position.label.length == 3 ? position.label : null),
           consist,
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
