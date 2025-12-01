@@ -148,6 +148,7 @@ const update = async () => {
       .forEach((feature) => {
         if (!feature.properties.Arrival_Time_UTC) return; // stop is not real
         //if (feature.properties.PubliclyVisible != 'Y') return; // stop shouldnt be shown
+        if (!stationCodes[feature.properties.OBJECTID]) return; // stop doesnt have a code
 
         const parsedTimes = parseStopTimes(feature.properties);
 
