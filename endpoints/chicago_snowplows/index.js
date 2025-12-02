@@ -84,6 +84,15 @@ const updateFeed = async () => {
         )
     );
 
+    const nameData = await fetch('https://services7.arcgis.com/A03QrhyHnDaUmK0W/arcgis/rest/services/ChicagoDSS_SpreaderNames_public/FeatureServer/0/query?f=json&cacheHint=true&resultOffset=0&resultRecordCount=1000&where=1=1&outFields=*&outSR=102100&returnGeometry=false&spatialRel=')
+      .then((res) => res.json());
+
+    const nameDataDict = {};
+
+    nameData.features.forEach((feature) => {
+      nameDataDict[feature.attributes.SpreaderID] = feature.attributes.SpreaderID = SpreaderName;
+    });
+
     const flattenedData = data.flatMap((res) => res.features);
     const vinsList = flattenedData.map((vehicle) => vehicle.properties.vin);
 
@@ -109,6 +118,9 @@ const updateFeed = async () => {
         allEngineManufacturers.push(thisVinData.engineManufacturer);
         allEngineModels.push(thisVinData.engineModel);
       }
+
+      vehicle.properties.vehicleNickName = nameDataDict[vehicle.properties.vehicleName] ?? null;
+
       return vehicle;
     });
 
