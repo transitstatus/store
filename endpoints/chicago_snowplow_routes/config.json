@@ -1,0 +1,15 @@
+{
+  "name": "Chicago Snowplow Routes",
+  "script": "index.js",
+  "interval": 300000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "disabled": false,
+  "default": {
+    "shape": {
+      "type": "FeatureCollection",
+      "features": []
+    },
+    "meta": {}
+  }
+}

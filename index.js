@@ -40,15 +40,17 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [];
+  const exclude_from_root = ['gtfs_sch', 'chicago_snowplow_routes']; // won't be returned to lighten the load, can be overridden
 
   let data = {};
+  let data_reduced = {};
 
   // getting folders within scripts folder
   const endpoints = fs.readdirSync('./endpoints');
 
   if (process.env.PROXY_MODE == 'true') {
     const updateInProxyMode = () => {
-      fetch('https://store.transitstat.us/')
+      fetch('https://store.transitstat.us/?showAll=true')
         .then((result) => {
           if (result !== false) {
             data = result;
@@ -98,14 +100,14 @@ fastify.after(() => {
             const updateV0 = require(`./endpoints/${endpoint}/${config.script}`).update;
 
             data[endpoint] = config.default
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : config.default;
 
             try {
               updateV0()
                 .then((result) => {
-                  if (result === false) {
-                    data[endpoint] = config.default
-                  } else {
+                  if (result !== false) {
                     data[endpoint] = result;
+                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
 
                     const keys = getAllKeysWithParents(config.default);
 
@@ -129,6 +131,7 @@ fastify.after(() => {
                     if (result === false) return;
 
                     data[endpoint] = result;
+                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
                   })
               } catch (e) {
                 console.log(`error updating data for ${endpoint}`);
@@ -144,6 +147,7 @@ fastify.after(() => {
             const variables = config.variables;
 
             data[endpoint] = config.default
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : config.default;
 
             try {
               variables.forEach((variableSet) => updateV1(...variableSet)
@@ -151,6 +155,7 @@ fastify.after(() => {
                   if (result === false) return;
 
                   data[endpoint][variableSet[0]] = result;
+                  if (!exclude_from_root.includes(endpoint)) data_reduced[endpoint][variableSet[0]] = result;
 
                   console.log(`Destroying /${endpoint}/${variableSet[0]}GET`)
                   fastify.lcache.reset(`/${endpoint}/${variableSet[0]}GET`);
@@ -168,6 +173,7 @@ fastify.after(() => {
                     if (result === false) return;
 
                     data[endpoint][variableSet[0]] = result;
+                    if (!exclude_from_root.includes(endpoint)) data_reduced[endpoint][variableSet[0]] = result;
                   }))
               } catch (e) {
                 console.log(`error updating data for ${endpoint}`);
@@ -182,6 +188,7 @@ fastify.after(() => {
             const updateV2 = require(`./endpoints/${endpoint}/${config.script}`).update;
 
             data[endpoint] = config.default;
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : config.default;
 
             try {
               const initialState = await fetch(`https://store.transitstat.us/${endpoint}`)
@@ -191,13 +198,16 @@ fastify.after(() => {
                 });
 
               data[endpoint] = initialState;
+              data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : initialState;
 
               updateV2({ firstUpdate: true })
                 .then((result) => {
                   if (result === false) {
                     data[endpoint] = initialState;
+                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : initialState;
                   } else {
                     data[endpoint] = result;
+                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
 
                     const keys = getAllKeysWithParents(config.default);
 
@@ -221,6 +231,7 @@ fastify.after(() => {
                     if (result === false) return;
 
                     data[endpoint] = result;
+                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
                   })
               } catch (e) {
                 console.log(`error updating data for ${endpoint}`);
@@ -246,7 +257,8 @@ fastify.after(() => {
 
     if (path === '/') {
       reply.header('Access-Control-Allow-Origin', '*');
-      reply.send(data);
+      if (request.query?.showAll == 'true') reply.send(data)
+      else reply.send(data_reduced);
       return;
     }
 

@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const { JSDOM } = require("jsdom");
 const { XMLParser } = require("fast-xml-parser");
 const fs = require('fs');
 const schedule = require('./schedule.json');

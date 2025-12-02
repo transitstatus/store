@@ -1,24 +1,9 @@
-const cryptoOld = require('crypto-js');
 const crypto = require('node:crypto');
 
 const sValue = "9a3686ac";
 const iValue = "c6eb2f7f5c4740c1a2f708fefd947d39";
 const publicKey = "69af143c-e8cf-47f8-bf09-fc1f61e5cc33";
 const masterSegment = 88;
-
-const decryptOld = (content, key) => {
-  return cryptoOld.AES.decrypt(
-    cryptoOld.lib.CipherParams.create({
-      ciphertext: cryptoOld.enc.Base64.parse(content),
-    }),
-    cryptoOld.PBKDF2(key, cryptoOld.enc.Hex.parse(sValue), {
-      keySize: 4,
-      iterations: 1e3,
-      hasher: cryptoOld.algo.SHA1 // thank you cabalex!
-    }),
-    { iv: cryptoOld.enc.Hex.parse(iValue) }
-  ).toString(cryptoOld.enc.Utf8);
-};
 
 const decrypt = (content, key) => {
   const salt = Buffer.from(sValue, 'hex');
