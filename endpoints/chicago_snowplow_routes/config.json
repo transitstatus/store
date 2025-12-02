@@ -10,6 +10,10 @@
       "type": "FeatureCollection",
       "features": []
     },
-    "meta": {}
+    "meta": {
+      "lastUpdated": 0,
+      "priorities": [],
+      "streets": []
+    }
   }
 }
