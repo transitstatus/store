@@ -26,6 +26,8 @@ const updateFeed = async () => {
       finalFeatures.push(...data.features.map((feature) => {
         delete feature.properties?.objectid; // we already have this in the ids
 
+        feature.properties.timeSinceLastUpdate = feature.properties.lastServiced ? now - feature.properties.lastServiced : now;  
+
         if (feature.properties?.routepriority == 'ORD') feature.properties.routepriority = 'OHARE'; // dont ask me, just go with the flow
 
         // half assed data saving
