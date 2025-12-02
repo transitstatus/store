@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const vin = require('vin-decoder');
 
 const fetchBatchOfVins = async (vins) => {
   const data = await fetch("https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/", {
