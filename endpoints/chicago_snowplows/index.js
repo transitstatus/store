@@ -119,6 +119,8 @@ const updateFeed = async () => {
         allEngineModels.push(thisVinData.engineModel);
       }
 
+      if (vehicle.properties.deviceType == 'GO9') vehicle.properties.deviceType = 'Geotab GO9';
+
       vehicle.properties.vehicleNickName = nameDataDict[vehicle.properties.vehicleName] ?? null;
 
       return vehicle;
