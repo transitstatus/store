@@ -90,7 +90,7 @@ const updateFeed = async () => {
     const nameDataDict = {};
 
     nameData.features.forEach((feature) => {
-      nameDataDict[feature.attributes.SpreaderID] = feature.attributes.SpreaderID = SpreaderName;
+      nameDataDict[feature.attributes.SpreaderID] = feature.attributes.SpreaderName;
     });
 
     const flattenedData = data.flatMap((res) => res.features);
