@@ -3,7 +3,7 @@ const turf = require('@turf/turf');
 
 const updateFeed = async () => {
   try {
-    const now = new Date();
+    const now = Date.now();
 
     let finalFeatures = [];
     let streets = [];
