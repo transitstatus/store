@@ -53,7 +53,7 @@ const fetchVins = async (vins) => {
         make: r.Make,
         manufacturer: r.Manufacturer,
         model: r.Model,
-        modelYear: r.ModelYear.length > 0 ? parseInt(r.ModelYear) : "",
+        modelYear: r.ModelYear,
         plantCity: r.PlantCity,
         plantState: r.PlantState,
         plantCountry: r.PlantCountry,
