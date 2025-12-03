@@ -12,7 +12,14 @@
     },
     "meta": {
       "count": 0,
-      "filterValues": {},
+      "filterValues": {
+        "make": [],
+        "model": [],
+        "modelYear": [],
+        "engineCylinders": [],
+        "engineManufacturer": [],
+        "engineModel": []
+      },
       "vins": []
     },
     "vinData": {}

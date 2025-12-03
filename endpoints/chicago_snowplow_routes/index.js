@@ -73,8 +73,10 @@ const updateFeed = async () => {
       },
       "meta": {
         lastUpdated: now,
-        priorities,
-        streets,
+        filterValues: {
+          priorities,
+          streets,
+        }
       }
     }
   } catch (e) {

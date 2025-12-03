@@ -12,8 +12,10 @@
     },
     "meta": {
       "lastUpdated": 0,
-      "priorities": [],
-      "streets": []
+      "filterValues": {
+        "priorities": [],
+        "streets": []
+      }
     }
   }
 }
