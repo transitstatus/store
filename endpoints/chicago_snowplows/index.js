@@ -108,7 +108,16 @@ const updateFeed = async () => {
     const vehicleDataWithVinData = flattenedData.map((vehicle) => {
       if (vinData[vehicle.properties.vin]) {
         const thisVinData = vinData[vehicle.properties.vin];
-        vehicle.properties.vinData = thisVinData;
+
+        if (thisVinData.engineModel.includes('Cat')) {
+          thisVinData.engineManufacturer = 'CAT';
+          thisVinData.engineModel = thisVinData.engineModel.replace('Cat', ''); 
+        }
+
+        if (thisVinData.engineModel.includes('Cummins')) {
+          thisVinData.engineManufacturer = 'Cummins';
+          thisVinData.engineModel = thisVinData.engineModel.replace('Cummins', ''); 
+        }
 
         // now for stats
         allMakes.push(thisVinData.make);
@@ -117,6 +126,8 @@ const updateFeed = async () => {
         allCylinders.push(thisVinData.engineCylinders);
         allEngineManufacturers.push(thisVinData.engineManufacturer);
         allEngineModels.push(thisVinData.engineModel);
+
+        vehicle.properties.vinData = thisVinData;
       }
 
       if (vehicle.properties.deviceType == 'GO9') vehicle.properties.deviceType = 'Geotab GO9';
