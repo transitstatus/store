@@ -111,12 +111,12 @@ const updateFeed = async () => {
 
         if (thisVinData.engineModel.includes('Cat')) {
           thisVinData.engineManufacturer = 'CAT';
-          thisVinData.engineModel = thisVinData.engineModel.replace('Cat', ''); 
+          thisVinData.engineModel = thisVinData.engineModel.replace('Cat', '').trim(); 
         }
 
         if (thisVinData.engineModel.includes('Cummins')) {
           thisVinData.engineManufacturer = 'Cummins';
-          thisVinData.engineModel = thisVinData.engineModel.replace('Cummins', ''); 
+          thisVinData.engineModel = thisVinData.engineModel.replace('Cummins', '').trim(); 
         }
 
         // now for stats
