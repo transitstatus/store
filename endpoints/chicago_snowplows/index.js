@@ -44,7 +44,7 @@ const fetchVins = async (vins) => {
         displacementL: r.DisplacementL.length > 0 ? parseFloat(parseFloat(r.DisplacementL).toFixed(1)) : "",
         driveType: r.DriveType,
         engineConfiguration: r.EngineConfiguration,
-        engineCylinders: r.EngineCylinders.length > 0 ? parseInt(r.EngineCylinders) : "",
+        engineCylinders: r.EngineCylinders,
         engineHP: r.EngineHP,
         engineHP_to: r.EngineHP_to,
         engineManufacturer: r.EngineManufacturer,
