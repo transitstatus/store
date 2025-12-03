@@ -74,8 +74,8 @@ const updateFeed = async () => {
       "meta": {
         lastUpdated: now,
         filterValues: {
-          priorities,
-          streets,
+          routepriority: priorities,
+          roadname: streets,
         }
       }
     }
