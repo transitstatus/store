@@ -126,8 +126,14 @@ const updateFeed = async () => {
         allCylinders.push(thisVinData.engineCylinders);
         allEngineManufacturers.push(thisVinData.engineManufacturer);
         allEngineModels.push(thisVinData.engineModel);
-
+        
         vehicle.properties.vinData = thisVinData;
+        vehicle.properties.make = thisVinData.make;
+        vehicle.properties.model = thisVinData.model;
+        vehicle.properties.modelYear = thisVinData.modelYear;
+        vehicle.properties.engineCylinders = thisVinData.engineCylinders;
+        vehicle.properties.engineManufacturer = thisVinData.engineManufacturer;
+        vehicle.properties.engineModel = thisVinData.engineModel;
       }
 
       if (vehicle.properties.deviceType == 'GO9') vehicle.properties.deviceType = 'Geotab GO9';
