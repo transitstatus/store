@@ -48,11 +48,11 @@ const updateFeed = async () => {
           // checking if we already have this street saved
           if (!priorityIndexes[feature.properties.routepriority]) {
             priorities.push(feature.properties.routepriority);
-            priorityIndexes[feature.properties.routepriority] = priorities.length - 1;
+            priorityIndexes[feature.properties.routepriority] = priorities.length;
           }
 
           //replacing our name in the feature
-          feature.properties.routepriority = priorityIndexes[feature.properties.routepriority];
+          feature.properties.routepriority = priorityIndexes[feature.properties.routepriority] - 1;
         }
 
         // truncating to 5 coordinates, which is good enough and saves a few bytes so why not
