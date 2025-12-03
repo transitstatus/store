@@ -139,6 +139,7 @@ const updateFeed = async () => {
       if (vehicle.properties.deviceType == 'GO9') vehicle.properties.deviceType = 'Geotab GO9';
 
       vehicle.properties.vehicleNickName = nameDataDict[vehicle.properties.vehicleName] ?? null;
+      vehicle.properties.activityState = (now - vehicle.properties.dateTime) <= (1000 * 60 * 5) ? 'Active' : 'Inactive';
 
       return vehicle;
     });
@@ -154,6 +155,7 @@ const updateFeed = async () => {
           engineCylinders: [...new Set(allCylinders)],
           engineManufacturer: [...new Set(allEngineManufacturers)],
           engineModel: [...new Set(allEngineModels)],
+          activityState: ['Active', 'Inactive'],
         },
         vins: vinsList,
       },

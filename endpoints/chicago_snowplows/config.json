@@ -18,7 +18,8 @@
         "modelYear": [],
         "engineCylinders": [],
         "engineManufacturer": [],
-        "engineModel": []
+        "engineModel": [],
+        "activityState": []
       },
       "vins": []
     },
