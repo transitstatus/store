@@ -144,7 +144,7 @@ const updateFeed = async () => {
         filterValues: {
           make: [...new Set(allMakes)],
           model: [...new Set(allModels)],
-          modelYear: [...new Set(allYears)],
+          modelYear: [...new Set(allYears)].sort(),
           engineCylinders: [...new Set(allCylinders)],
           engineManufacturer: [...new Set(allEngineManufacturers)],
           engineModel: [...new Set(allEngineModels)],
