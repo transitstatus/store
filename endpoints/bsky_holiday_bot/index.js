@@ -98,8 +98,8 @@ const update = async () => {
 
     const sessData = await sessReq.json();
 
-    postMessage('https://store.transitstat.us/cta_trains/transitStatus/trains/1225?t=' + Date.now(), 'Train', '1225', sessData, now);
-    postMessage('https://store.transitstat.us/holidaybus/trains/4374?t=' + Date.now(), 'Bus', '4374', sessData, now);
+    postMessage('http://localhost:3000/cta_trains/transitStatus/trains/1225?t=' + Date.now(), 'Train', '1225', sessData, now);
+    postMessage('http://localhost:3000/holidaybus/trains/4374?t=' + Date.now(), 'Bus', '4374', sessData, now);
 
     return true;
   } catch (e) {
