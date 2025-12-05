@@ -36,11 +36,11 @@ const updateFeed = async () => {
           // checking if we already have this street saved
           if (!streetIndexes[feature.properties.roadname]) {
             streets.push(feature.properties.roadname);
-            streetIndexes[feature.properties.roadname] = streets.length - 1;
+            streetIndexes[feature.properties.roadname] = streets.length;
           }
 
           //replacing our name in the feature
-          feature.properties.roadname = streetIndexes[feature.properties.roadname];
+          feature.properties.roadname = streetIndexes[feature.properties.roadname] - 1;
         }
 
         // doing the exact same but for priorities
