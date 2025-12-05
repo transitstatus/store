@@ -139,7 +139,7 @@ const updateFeed = async () => {
       if (vehicle.properties.deviceType == 'GO9') vehicle.properties.deviceType = 'Geotab GO9';
 
       vehicle.properties.vehicleNickName = nameDataDict[vehicle.properties.vehicleName] ?? null;
-      vehicle.properties.activityState = (now - vehicle.properties.dateTime) <= (1000 * 60 * 5) ? 'Active' : 'Inactive';
+      vehicle.properties.activityState = (now.valueOf() - vehicle.properties.dateTime) <= (1000 * 60 * 5) ? 'Active' : 'Inactive';
 
       return vehicle;
     });
@@ -147,6 +147,7 @@ const updateFeed = async () => {
     console.log(`Finished updating Chicago Snowplows`)
     return {
       meta: {
+        updatedAt: now.valueOf(),
         count: flattenedData.length,
         filterValues: {
           make: [...new Set(allMakes)],
