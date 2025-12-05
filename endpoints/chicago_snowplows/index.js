@@ -148,6 +148,7 @@ const updateFeed = async () => {
     return {
       meta: {
         updatedAt: now.valueOf(),
+        updatedAtISO: now.toISOString(),
         count: flattenedData.length,
         filterValues: {
           make: [...new Set(allMakes)],
