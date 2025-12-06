@@ -1,7 +1,7 @@
 {
   "name": "Parsed GTFS Schedules",
   "script": "index.js",
-  "interval": 60000,
+  "interval": 600000,
   "apiVersion": 3,
   "configVersion": 1,
   "default": {

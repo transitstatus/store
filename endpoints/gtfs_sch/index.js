@@ -100,6 +100,7 @@ const updateFeed = async (feed) => {
     };
   } catch (e) {
     console.log(e);
+    console.log(feed)
     return {
       scheduledVehicles: {}
     };
