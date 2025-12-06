@@ -28,7 +28,7 @@ const customMeta = [
       '1': 'Convention Center',
       '2': 'Marriott Suites',
       '3': 'Courtyard by Marriott',
-      '4': 'Fashion Outlets of Chicago'
+      '4': 'Hyatt Centric'
     }
   },
   {
@@ -38,7 +38,8 @@ const customMeta = [
     stopNames: {
       '1': 'Convention Center',
       '2': 'Crowne Plaza',
-      '3': 'Aloft'
+      '3': 'Aloft',
+      '4': 'Fashion Outlets of Chicago'
     }
   }
 ];
