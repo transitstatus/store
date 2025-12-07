@@ -197,30 +197,30 @@ const update = async () => {
             realTime: true,
           };
 
-          if (twoDaysFromNow >= timeToUse) {
+          //if (twoDaysFromNow >= timeToUse) {
             transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].predictions.push(prediction);
-
-            transitStatusObject.stations[stationCodes[feature.properties.OBJECTID]].destinations.Train.trains.push({
-              runNumber: engineNumbers[feature.properties.TrainRoute],
-              actualETA: timeToUse,
-              arr: parsedTimes.arrivalTime,
-              dep: parsedTimes.leaveTime,
-              evSta: parsedTimes.eventStartTime,
-              evEnd: parsedTimes.eventEndTime,
-              noETA: false,
-              realTime: true,
-              line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
-              lineCode: feature.properties.TrainRoute,
-              lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
-              lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
-              destination: 'Christmas',
-              extra: {
-                holidayChristmas: true,
-              }
-            });
-          } else {
+          //} else {
             transitStatusObject.trains[engineNumbers[feature.properties.TrainRoute]].hiddenPredictions.push(prediction);
-          }
+          //}
+
+          transitStatusObject.stations[stationCodes[feature.properties.OBJECTID]].destinations.Train.trains.push({
+            runNumber: engineNumbers[feature.properties.TrainRoute],
+            actualETA: timeToUse,
+            arr: parsedTimes.arrivalTime,
+            dep: parsedTimes.leaveTime,
+            evSta: parsedTimes.eventStartTime,
+            evEnd: parsedTimes.eventEndTime,
+            noETA: false,
+            realTime: true,
+            line: transitStatusObject.lines[feature.properties.TrainRoute].lineNameLong,
+            lineCode: feature.properties.TrainRoute,
+            lineColor: transitStatusObject.lines[feature.properties.TrainRoute].routeColor,
+            lineTextColor: transitStatusObject.lines[feature.properties.TrainRoute].routeTextColor,
+            destination: 'Christmas',
+            extra: {
+              holidayChristmas: true,
+            }
+          });
         }
       });
 
