@@ -45,7 +45,7 @@ const updateFeed = async (feed) => {
         .vehicleScheduleMessage
         .filter((vehicle) =>
           vehicle.startTime + stoppingPatternTimes[vehicle.vehicleStop] > secondsSinceTodayStart &&
-          vehicle.startTime < secondsSinceTodayStart + (60 * 60 * 8) &&
+          vehicle.startTime < secondsSinceTodayStart + (60 * 60 * 24) &&
           todayValidServices.includes(vehicle.serviceId)
         );
 
