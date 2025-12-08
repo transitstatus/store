@@ -60,6 +60,8 @@ const extractAlertsFromTrain = (train) => {
 };
 
 const updateFeed = async (updateConfig) => {
+  //return JSON.parse(initialStateText); // cooling down
+
   const now = Date.now();
   try {
     let responseObject = {
@@ -74,9 +76,9 @@ const updateFeed = async (updateConfig) => {
       },
     };
 
-    const trainIDs = await fetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
+    const trainIDs = await nodeFetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
 
-    const setupFetchRes = await nodeFetch("https://www.amtrak.com/eymoNXDNm7bbwqa38ydg/3aO5GVz2f06z3X/XmE7QS8hAQ/WQE8U14D/NEE", {
+    const setupFetchRes = await fetch("https://www.amtrak.com/eymoNXDNm7bbwqa38ydg/3aO5GVz2f06z3X/XmE7QS8hAQ/WQE8U14D/NEE", {
       "credentials": "include",
       "headers": {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0",
@@ -134,7 +136,7 @@ const updateFeed = async (updateConfig) => {
           return { error: { message: e.toString() } }
         });
 
-      console.log(shortID, trainDataRes)
+      console.log(trainDataRes)
 
       if (!trainDataRes || !trainDataRes.data) { // no data, train is probably either pre-departure or completed
         //console.log(trainDataRes)
