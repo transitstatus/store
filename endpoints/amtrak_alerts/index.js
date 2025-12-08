@@ -100,7 +100,7 @@ const updateFeed = async (updateConfig) => {
     for (let i = 0; i < trainIDs.length; i++) {
       const trainID = trainIDs[i];
 
-      if (trainID.startsWith('v') || trainID.startsWith('b')) continue; //not amtrak
+      if (trainID.startsWith('v') || trainID.startsWith('b') || trainID.startsWith('CP')) continue; //not amtrak
 
       const splitID = trainID.split('-');
 
@@ -133,6 +133,8 @@ const updateFeed = async (updateConfig) => {
           console.log('error fetching alerts for amtrak train', trainNum, trainDate)
           return { error: { message: e.toString() } }
         });
+
+      console.log(shortID, trainDataRes)
 
       if (!trainDataRes || !trainDataRes.data) { // no data, train is probably either pre-departure or completed
         //console.log(trainDataRes)
