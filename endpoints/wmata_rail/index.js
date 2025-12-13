@@ -180,7 +180,7 @@ const updateFeed = async () => {
           const timeObject = stopTime.arrival ?? stopTime.departure;
 
           let res = {
-            stationID: stopTime.stopId,
+            stationID: stopsData[stopTime.stopId].parentStation ?? stopTime.stopId,
             stationName: titleCase(stopsData[stopTime.stopId].stopName.split(',')[0].replace(' METRORAIL STATION', '')),
             realTime: !positionMeta.nullIsland,
           };
