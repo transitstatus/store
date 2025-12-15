@@ -60,10 +60,10 @@ const extractAlertsFromTrain = (train) => {
 };
 
 const updateFeed = async (updateConfig) => {
-  //return JSON.parse(initialStateText); // cooling down
-
   const now = Date.now();
   try {
+    throw new Error(); // cooling down
+
     let responseObject = {
       trains: {},
       meta: {

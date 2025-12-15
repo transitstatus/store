@@ -1,6 +1,8 @@
 const protobuf = require('protobufjs');
 
 const updateFeed = async (feed) => {
+  if (feed == 'southshore') return false;
+
   try {
     const nowDate = new Date();
     const todaysDate = new Date(new Date(nowDate).toISOString().split('T')[0] + 'T00:00:00.000Z')
