@@ -68,6 +68,7 @@ const recursivelyRetryFetch = async (i = 0) => {
 };
 
 const update = async () => {
+  return false;
   try {
     const now = new Date();
     const nowNumber = now.valueOf();
@@ -111,7 +112,9 @@ const update = async () => {
       amtrakerStops: {}
     };
 
-    trainData.features.forEach((feature) => {
+    console.log(trainData);
+
+    (trainData.features ?? []).forEach((feature) => {
       engineNumbers[feature.properties.RunToCountry] = feature.properties.lead_loco.replace('CP', '');
 
       transitStatusObject.trains[feature.properties.lead_loco.replace('CP', '')] = {
