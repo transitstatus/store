@@ -1,0 +1,29 @@
+{
+  "name": "Amtraker Atlas Routes Data",
+  "script": "index.js",
+  "interval": 600000,
+  "apiVersion": 3,
+  "configVersion": 1,
+  "default": {
+    "brightline": {
+      "scheduledVehicles": {}
+    },
+    "amtrak": {
+      "scheduledVehicles": {}
+    },
+    "via_rail": {
+      "scheduledVehicles": {}
+    }
+  },
+  "variables": [
+    [
+      "brightline"
+    ],
+    [
+      "amtrak"
+    ],
+    [
+      "via_rail"
+    ]
+  ]
+}

@@ -40,7 +40,7 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [];
-  const exclude_from_root = ['gtfs_sch', 'chicago_snowplow_routes']; // won't be returned to lighten the load, can be overridden
+  const exclude_from_root = ['gtfs_sch', 'chicago_snowplow_routes', 'atlas_routes']; // won't be returned to lighten the load, can be overridden
 
   let data = {};
   let data_reduced = {};
