@@ -57,7 +57,7 @@ const updateFeed = async (feed) => {
           trainNum: vehicle.runNumber,
           stoppingPattern: staticMetaData.stoppingPatterns[vehicle.vehicleStop],
         }
-        tripToRoute[`${vehicle.runNumber}_${vehicle.routeId}`] = vehicle.routeId;
+        tripToRoute[vehicle.runNumber] = vehicle.routeId;
       });
 
     return {
