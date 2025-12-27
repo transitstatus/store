@@ -5,19 +5,16 @@ const updateFeed = async (feed) => {
   //if (feed != 'via_rail') return false;
 
   try {
-    const nowDate = new Date();
-    const todaysDate = new Date(new Date(nowDate).toISOString().split('T')[0] + 'T00:00:00.000Z')
-
     const root = await protobuf.load('schedules.proto');
     const MultipleVehiclesScheduleMessage = root.lookupType('gobbler.MultipleVehiclesScheduleMessage');
 
     const [
-      staticStopsData,
+      //staticStopsData,
       staticRoutesData,
       staticSegmentsData,
       staticMetaData,
     ] = await Promise.all([
-      `https://gtfs.piemadd.com/data/${feed}/stops.json`,
+      //`https://gtfs.piemadd.com/data/${feed}/stops.json`,
       `https://gtfs.piemadd.com/data/${feed}/routes.json`,
       `https://gtfs.piemadd.com/data/${feed}/segments.json`,
       `https://gobblerstatic.transitstat.us/schedules/${feed}/metadata.json`,
@@ -66,12 +63,15 @@ const updateFeed = async (feed) => {
     return {
       routeDataFinal,
       segments: staticSegmentsData.segments,
+      tripToRoute
     };
   } catch (e) {
     console.log(e);
     console.log(feed);
     return {
-      routeDataFinal: {}
+      routeDataFinal: {},
+      tripToRoute: {},
+      segments: {},
     };
   }
 };
