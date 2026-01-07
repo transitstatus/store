@@ -2,5 +2,6 @@
   "api.joeverlevel.com": "/joeverlevel",
   "bigboyapi.amtraker.com": "/bigboy",
   "platformsapi.amtraker.com": "/njt_rail_platforms",
-  "amtrakalerts.amtraker.com": "/amtrak_alerts"
+  "amtrakalerts.amtraker.com": "/amtrak_alerts",
+  "nyp_platformsapi.amtraker.com": "/nyp_moy_platforms"
 }

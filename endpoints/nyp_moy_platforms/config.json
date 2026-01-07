@@ -1,0 +1,9 @@
+{
+  "name": "Moynihan Hall Platform Numbers",
+  "script": "index.js",
+  "interval": 60000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "disabled": false,
+  "default": {}
+}
