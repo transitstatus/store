@@ -40,10 +40,11 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [];
-  const exclude_from_root = ['gtfs_sch', 'chicago_snowplow_routes', 'atlas_routes', 'amtrak_fetch_proxy']; // won't be returned to lighten the load, can be overridden
+  const exclude_from_root = ['gtfs_sch', 'gtfs_sch_acc', 'chicago_snowplow_routes', 'atlas_routes', 'amtrak_fetch_proxy']; // won't be returned to lighten the load, can be overridden
 
   let data = {};
   let data_reduced = {};
+  let data_configs = {};
 
   // getting folders within scripts folder
   const endpoints = fs.readdirSync('./endpoints');
@@ -81,6 +82,7 @@ fastify.after(() => {
         }
 
         const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
+        if (!config) data_configs[endpoint] = config;
 
         if (config.disabled) {
           console.log(`Endpoint ${endpoint} is disabled, skipping`)
@@ -269,6 +271,21 @@ fastify.after(() => {
     try {
       pathArray.forEach((path) => {
         if (path === '') return; //trailing slash
+
+        if (path === '_ts_store_meta') {
+          let roughSizesOfKeys = {};
+
+          Object.keys(dataToReturn).forEach((key) => {
+            roughSizesOfKeys[key] = JSON.stringify(dataToReturn[key]).length
+          });
+
+          dataToReturn = {
+            roughSize: JSON.stringify(dataToReturn).length,
+            roughSizesOfKeys,
+            config: data_configs[pathArray[0]] ?? null
+          };
+          return;
+        };
 
         dataToReturn = dataToReturn[path];
 

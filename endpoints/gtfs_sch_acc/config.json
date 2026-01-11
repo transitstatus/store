@@ -1,0 +1,65 @@
+{
+  "name": "Parsed GTFS Schedules",
+  "script": "index.js",
+  "interval": 600000,
+  "apiVersion": 3,
+  "configVersion": 1,
+  "default": {
+    "metra": {
+      "scheduledVehicles": {}
+    },
+    "mbta": {
+      "scheduledVehicles": {}
+    },
+    "bart": {
+      "scheduledVehicles": {}
+    },
+    "brightline": {
+      "scheduledVehicles": {}
+    },
+    "cta": {
+      "scheduledVehicles": {}
+    },
+    "dekalb_il": {
+      "scheduledVehicles": {}
+    },
+    "southshore": {
+      "scheduledVehicles": {}
+    },
+    "lirr": {
+      "scheduledVehicles": {}
+    },
+    "mnrr": {
+      "scheduledVehicles": {}
+    }
+  },
+  "variables": [
+    [
+      "metra"
+    ],
+    [
+      "mbta"
+    ],
+    [
+      "bart"
+    ],
+    [
+      "brightline"
+    ],
+    [
+      "cta"
+    ],
+    [
+      "dekalb_il"
+    ],
+    [
+      "southshore"
+    ],
+    [
+      "lirr"
+    ],
+    [
+      "mnrr"
+    ]
+  ]
+}
