@@ -59,7 +59,7 @@ const updateFeed = async (feed) => {
       const nowNumber = now.valueOf();
 
       dateSchedule.toJSON().stopMessage.forEach((stop) => {
-        const stopData = staticStopsData[stop.stopId]
+        const stopData = staticStopsData[stop.stopId];
 
         let currentTimeDiff = todayStartNumber;
         let runNumber = null;
@@ -91,7 +91,7 @@ const updateFeed = async (feed) => {
           individualTrains[runNumber].predictions.push({
             stationID: stop.stopId,
             stationName: stopData.stopName,
-            actualETA: todayStartNumber + currentTimeDiff,
+            actualETA: todayStartNumber,
             noETA: false,
             realTime: false,
           })
@@ -112,75 +112,13 @@ const updateFeed = async (feed) => {
           !scheduledVehicles[runNumber]
         ) {
           scheduledVehicles[runNumber] = individualTrains[runNumber];
-        }
-      });
-
-      //console.log(individualTrains)
-    };
-
-    const fillInVehicleData = (vehicleSchedule, now, todayStart) => {
-      const secondsSinceTodayStart = Math.floor((new Date(now).valueOf() - todayStart.valueOf()) / 1000);
-      const todayStartCode = todayStart.toISOString().split('T')[0];
-      const todayValidServices = staticMetaData.services[todayStartCode];
-
-      const upcomingVehiclesWithinTimeFrame = vehicleSchedule
-        .toJSON()
-        .vehicleScheduleMessage
-        .filter((vehicle) =>
-          vehicle.startTime + stoppingPatternTimes[vehicle.vehicleStop] > secondsSinceTodayStart &&
-          vehicle.startTime < secondsSinceTodayStart + (60 * 60 * 24) &&
-          todayValidServices.includes(vehicle.serviceId)
-        );
-
-      upcomingVehiclesWithinTimeFrame.forEach((vehicle) => {
-        const runNumber = vehicle.runNumber;
-
-        let finalScheduledVehicle = {
-          lat: 0,
-          lon: 0,
-          heading: 0,
-          realTime: false,
-          deadMileage: true,
-          line: [vehicle.routeId].routeLongName,
-          lineCode: vehicle.routeId,
-          lineColor: staticRoutesData[vehicle.routeId].routeColor,
-          lineTextColor: staticRoutesData[vehicle.routeId].routeTextColor,
-          dest: "Unknown Dest",
-          predictions: [],
-          type: 'train',
-          extra: {}
         };
-
-        let currentStationTime = todayStart.valueOf() + (vehicle.startTime * 1000);
-        staticMetaData.stoppingPatterns[vehicle.vehicleStop].forEach((stop, i, arr) => {
-          finalScheduledVehicle.predictions.push({ //adding prediction
-            stationID: stop,
-            stationName: staticStopsData[stop].stopName,
-            actualETA: currentStationTime,
-            noETA: false,
-            realTime: false,
-          });
-
-          if (i == arr.length - 1) { //dont have to do the next step if this is the last station
-            finalScheduledVehicle.dest = staticStopsData[stop].stopName;
-          } else { //moving time to next station
-            currentStationTime += staticMetaData.stopTimes[`${stop}_${arr[i + 1]}`] * 1000;
-          }
-        })
-
-        if (!scheduledVehicles[runNumber]) scheduledVehicles[runNumber] = finalScheduledVehicle;
       });
-
-
     };
 
+    fillInScheduleData(todaysStopData, nowDate, yesterdaysDate);
     fillInScheduleData(todaysStopData, nowDate, todaysDate);
-    fillInScheduleData(todaysStopData, nowDate, todaysStopData);
     fillInScheduleData(todaysStopData, nowDate, tomorrowsDate);
-
-    //fillInVehicleData(vehicleSchedule, nowDate, todaysDate); //today
-    //fillInVehicleData(vehicleSchedule, nowDate, yesterdaysDate); //yesterday
-    //fillInVehicleData(vehicleSchedule, nowDate, tomorrowsDate); //tomorrow
 
     return {
       scheduledVehicles,
