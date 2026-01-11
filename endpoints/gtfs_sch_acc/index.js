@@ -61,7 +61,7 @@ const updateFeed = async (feed) => {
       dateSchedule.toJSON().stopMessage.forEach((stop) => {
         const stopData = staticStopsData[stop.stopId]
 
-        let currentTimeDiff = 0;
+        let currentTimeDiff = todayStartNumber;
         let runNumber = null;
         let headsign = null;
         let route = null;
@@ -72,7 +72,7 @@ const updateFeed = async (feed) => {
           if ('headsignId' in train) headsign = staticMetaData.headsigns[train.headsignId];
           if ('routeId' in train) route = staticRoutesData[staticMetaData.routes[train.routeId]];
 
-          if (!individualTrains[train.runNumber]) individualTrains[train.runNumber] = {
+          if (!individualTrains[runNumber]) individualTrains[runNumber] = {
             lat: 0,
             lon: 0,
             heading: 0,
@@ -88,7 +88,7 @@ const updateFeed = async (feed) => {
             extra: {}
           };
 
-          individualTrains[train.runNumber].predictions.push({
+          individualTrains[runNumber].predictions.push({
             stationID: stop.stopId,
             stationName: stopData.stopName,
             actualETA: todayStartNumber + currentTimeDiff,
