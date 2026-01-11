@@ -67,7 +67,7 @@ const updateFeed = async (feed) => {
         let route = null;
 
         (stop.trainMessage ?? []).forEach((train) => {
-          currentTimeDiff += train.timeDiff;
+          currentTimeDiff += train.timeDiff * 1000;
           if ('runNumber' in train) runNumber = train.runNumber;
           if ('headsignId' in train) headsign = staticMetaData.headsigns[train.headsignId];
           if ('routeId' in train) route = staticRoutesData[staticMetaData.routes[train.routeId]];
