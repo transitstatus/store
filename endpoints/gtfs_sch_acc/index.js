@@ -91,7 +91,7 @@ const updateFeed = async (feed) => {
           individualTrains[runNumber].predictions.push({
             stationID: stop.stopId,
             stationName: stopData.stopName,
-            actualETA: todayStartNumber,
+            actualETA: currentTimeDiff,
             noETA: false,
             realTime: false,
           })
