@@ -77,7 +77,7 @@ const update = (async () => {
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/mbta/stops.json',
       'https://gtfs.piemadd.com/data/mbta/routes.json',
-      'http://localhost:3000/gtfs_sch/mbta/scheduledVehicles',
+      'http://localhost:3000/gtfs_sch_acc/mbta/scheduledVehicles',
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));

@@ -63,7 +63,7 @@ const update = (async () => {
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/mnrr/stops.json',
       'https://gtfs.piemadd.com/data/mnrr/routes.json',
-      'http://localhost:3000/gtfs_sch/mnrr/scheduledVehicles',
+      'http://localhost:3000/gtfs_sch_acc/mnrr/scheduledVehicles',
       `https://gks.pgm.sh/api/v1/mnrr_christmas_sets?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())

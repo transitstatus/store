@@ -78,7 +78,7 @@ const update = (async () => {
     ] = await Promise.all([
       'https://gtfs.piemadd.com/data/lirr/stops.json',
       'https://gtfs.piemadd.com/data/lirr/routes.json',
-      'http://localhost:3000/gtfs_sch/lirr/scheduledVehicles',
+      'http://localhost:3000/gtfs_sch_acc/lirr/scheduledVehicles',
       `https://gks.pgm.sh/api/v1/lirr_christmas_sets?t=${Date.now()}`
     ].map((url) =>
       fetch(url).then(res => res.json())
