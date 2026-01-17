@@ -46,7 +46,7 @@ const extractAlertsFromTrain = (train) => {
         message = message.replace(blobsToRemove[i], '');
       };
       message = message.trim();
-      
+
       if (message.length > 0) {
         alertTextsRaw.push({
           message,
@@ -62,8 +62,6 @@ const extractAlertsFromTrain = (train) => {
 const updateFeed = async (updateConfig) => {
   const now = Date.now();
   try {
-    throw new Error(); // cooling down
-
     let responseObject = {
       trains: {},
       meta: {
@@ -78,24 +76,21 @@ const updateFeed = async (updateConfig) => {
 
     const trainIDs = await nodeFetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
 
-    const setupFetchRes = await fetch("https://www.amtrak.com/eymoNXDNm7bbwqa38ydg/3aO5GVz2f06z3X/XmE7QS8hAQ/WQE8U14D/NEE", {
+    const setupFetchRes = await fetch("https://www.amtrak.com/ZzY0YSohgsiiSOBLfokUxQFA/EcVimLtpw4pLSmV9/Zj0JAg/MT/tLNElwEB8B", {
       "credentials": "include",
       "headers": {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0",
         "Accept": "*/*",
-        "Accept-Language": "en-US,en;q=0.5",
-        "CSRF-Token": "undefined",
-        "Content-Type": "text/plain;charset=UTF-8",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Alt-Used": "www.amtrak.com",
+        "Sec-Fetch-Dest": "script",
+        "Sec-Fetch-Mode": "no-cors",
         "Sec-Fetch-Site": "same-origin",
-        "Priority": "u=0",
         "Pragma": "no-cache",
         "Cache-Control": "no-cache"
       },
-      "referrer": "https://www.amtrak.com/home.html",
-      "body": "{}",
-      "method": "POST",
+      "referrer": "https://www.amtrak.com/tickets/train-status.html",
+      "method": "GET",
       "mode": "cors"
     });
 
