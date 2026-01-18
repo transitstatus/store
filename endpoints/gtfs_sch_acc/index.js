@@ -10,7 +10,6 @@ const updateFeed = async (feed) => {
     const tomorrowsDate = new Date(todaysDate.valueOf() + (1000 * 60 * 60 * 24));
 
     const root = await protobuf.load('schedules.proto');
-    const MultipleVehiclesScheduleMessage = root.lookupType('gobbler.MultipleVehiclesScheduleMessage');
     const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
 
     const [
@@ -38,10 +37,6 @@ const updateFeed = async (feed) => {
         .then(res => res.arrayBuffer())
         .then(arrayBuffer => ScheduleMessage.decode(new Uint8Array(arrayBuffer)))
     ));
-
-    const vehicleSchedule = await fetch(`https://gobblerstatic.transitstat.us/schedules/${feed}/vehicles.pbf`)
-      .then(res => res.arrayBuffer())
-      .then(arrayBuffer => MultipleVehiclesScheduleMessage.decode(new Uint8Array(arrayBuffer)));
 
     let stoppingPatternTimes = {};
     staticMetaData.stoppingPatterns.forEach((pattern, patternIndex) => {
@@ -116,9 +111,9 @@ const updateFeed = async (feed) => {
       });
     };
 
-    fillInScheduleData(todaysStopData, nowDate, yesterdaysDate);
+    fillInScheduleData(yesterdaysStopData, nowDate, yesterdaysDate);
     fillInScheduleData(todaysStopData, nowDate, todaysDate);
-    fillInScheduleData(todaysStopData, nowDate, tomorrowsDate);
+    fillInScheduleData(tomorrowsStopData, nowDate, tomorrowsDate);
 
     return {
       scheduledVehicles,
