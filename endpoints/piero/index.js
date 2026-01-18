@@ -12,7 +12,7 @@ const update = (async () => {
       'http://localhost:3000/metra/transitStatus',
       `https://gks.pgm.sh/api/v1/piero_trains?t=${Date.now()}`
     ].map((url) =>
-      fetch(url).then(res => res.json())
+      fetch(url, { cache: "no-store" }).then(res => res.json())
     ));
 
     const lastUpdated = new Date().toISOString();
