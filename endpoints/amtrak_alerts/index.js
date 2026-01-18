@@ -74,6 +74,8 @@ const updateFeed = async (updateConfig) => {
       },
     };
 
+    return responseObject;
+
     const trainIDs = await nodeFetch('https://api.amtraker.com/v3/ids').then((res) => res.json());
 
     const setupFetchRes = await fetch("https://www.amtrak.com/ZzY0YSohgsiiSOBLfokUxQFA/EcVimLtpw4pLSmV9/Zj0JAg/MT/tLNElwEB8B", {
