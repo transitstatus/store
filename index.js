@@ -82,7 +82,7 @@ fastify.after(() => {
         }
 
         const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
-        if (!config) data_configs[endpoint] = config;
+        if (config) data_configs[endpoint] = config;
 
         if (config.disabled) {
           console.log(`Endpoint ${endpoint} is disabled, skipping`)
