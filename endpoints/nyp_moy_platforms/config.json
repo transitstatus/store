@@ -5,5 +5,9 @@
   "apiVersion": 3,
   "configVersion": 0,
   "disabled": false,
-  "default": {}
+  "default": {
+    "stations": {
+      "NYP": {}
+    }
+  }
 }

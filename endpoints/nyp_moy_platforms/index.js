@@ -36,11 +36,17 @@ const updateFeed = async () => {
     })
 
     console.log(`Finished updating Moynihan Tracks`)
-    return responseObject;
+    return {
+      stations: {
+        NYP: responseObject
+      }
+    };
   } catch (e) {
     console.log(e);
     return {
-      stations: {}
+      stations: {
+        NYP: {}
+      }
     };
   }
 };
