@@ -1,23 +1,71 @@
 const updateFeed = async () => {
   try {
     let responseObject = {
-      stations: {},
-      stations_w_src: {},
+      stations: {
+        TRE: {},
+        PHL: {},
+        NYP: {},
+        EWR: {},
+        MET: {},
+        NWK: {},
+        ANA: {},
+        BUR: {},
+        CML: {},
+        CWT: {},
+        BBK: {},
+        FUL: {},
+        GDL: {},
+        IRV: {},
+        LAX: {},
+        MPK: {},
+        NRG: {},
+        OXN: {},
+        RIV: {},
+        SNC: {},
+        SNA: {},
+        SIM: {},
+        VNC: {}
+      },
+      stations_w_src: {
+        TRE: {},
+        PHL: {},
+        NYP: {},
+        EWR: {},
+        MET: {},
+        NWK: {},
+        ANA: {},
+        BUR: {},
+        CML: {},
+        CWT: {},
+        BBK: {},
+        FUL: {},
+        GDL: {},
+        IRV: {},
+        LAX: {},
+        MPK: {},
+        NRG: {},
+        OXN: {},
+        RIV: {},
+        SNC: {},
+        SNA: {},
+        SIM: {},
+        VNC: {}
+      },
     };
-
-    return responseObject;
 
     //fetching data
     const resultingData = await Promise.all([
       'https://store.transitstat.us/njt_rail_platforms',
       'https://store.transitstat.us/nyp_moy_platforms',
+      'https://store.transitstat.us/metrolink_platforms'
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
 
     const sourceNames = [
-      'New Jersey Transit',
+      'NJ Transit',
       'Moynihan Train Hall',
+      'LA Metrolink'
     ];
 
     resultingData.forEach((source, sourceIndex) => {
@@ -45,7 +93,56 @@ const updateFeed = async () => {
   } catch (e) {
     console.log(e);
     return {
-      stations: {}
+      stations: {
+        TRE: {},
+        PHL: {},
+        NYP: {},
+        EWR: {},
+        MET: {},
+        NWK: {},
+        ANA: {},
+        BUR: {},
+        CML: {},
+        CWT: {},
+        BBK: {},
+        FUL: {},
+        GDL: {},
+        IRV: {},
+        LAX: {},
+        MPK: {},
+        NRG: {},
+        OXN: {},
+        RIV: {},
+        SNC: {},
+        SNA: {},
+        SIM: {},
+        VNC: {}
+      },
+      stations_w_src: {
+        TRE: {},
+        PHL: {},
+        NYP: {},
+        EWR: {},
+        MET: {},
+        NWK: {},
+        ANA: {},
+        BUR: {},
+        CML: {},
+        CWT: {},
+        BBK: {},
+        FUL: {},
+        GDL: {},
+        IRV: {},
+        LAX: {},
+        MPK: {},
+        NRG: {},
+        OXN: {},
+        RIV: {},
+        SNC: {},
+        SNA: {},
+        SIM: {},
+        VNC: {}
+      },
     };
   }
 };

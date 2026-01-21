@@ -46,7 +46,8 @@ const updateFeed = async () => {
 
     console.log(`Finished updating Metrolink tracks`)
     return {
-      stations: responseObject
+      stations: responseObject,
+      unknownStations
     };
   } catch (e) {
     console.log(e);
@@ -69,7 +70,8 @@ const updateFeed = async () => {
         "SNA": {},
         "SIM": {},
         "VNC": {}
-      }
+      },
+      unknownStations: [],
     };
   }
 };
