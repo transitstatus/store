@@ -1,3 +1,11 @@
 https://www.up.com/dynamic/coldfusion/steam_map_stops.txt
 https://www.up.com/dynamic/coldfusion/unp/up-steam/steam.xml
 https://www.up.com/cs/groups/public/@uprr/@corprel/documents/up_pdf_nativedocs/xml_up_steam_track_gps_status.xml
+
+https://www.uprr.com/arcgis/rest/services/Public/TNM_Mapbuilder/MapServer?f=json
+https://www.uprr.com/arcgis/rest/services/Public/TNM_Steam_Train_MB_Tiles/MapServer?f=json
+https://www.uprr.com/arcgis/rest/services/Public/TNM_Steam_Train_MB_Closeup/MapServer?f=json -- seemingly same as last
+
+
+https://www.uprr.com/arcgis/rest/services/Public/TNM_Mapbuilder/MapServer/16/query?f=geojson&where=1%3D1&outFields=*
+https://www.uprr.com/arcgis/rest/services/Public/TNM_Steam_Train_MB_Tiles/MapServer/4/query?f=geojson&where=1%3D1&outFields=*&resultOffset=0
