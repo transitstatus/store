@@ -18,13 +18,19 @@ const update = async () => {
   let cancelledTrains = {};
 
   try {
-    const [tripUpdatesData, positionsData, alertsData] = await Promise.all(
+    const [tripUpdatesDataRaw, positionsDataRaw, alertsDataRaw] = await Promise.all(
       [
         `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json`,
         `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json`,
         `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json`,
-      ].map((url) => fetch(url).then((res) => res.json())),
+      ].map((url) => fetch(url).then((res) => res.text())),
     );
+
+    console.log(`tripUpdatesDataRaw: "${tripUpdatesDataRaw}"`);
+    console.log(`positionsDataRaw: "${positionsDataRaw}"`);
+    console.log(`alertsDataRaw: "${alertsDataRaw}"`);
+    
+    const [tripUpdatesData, positionsData, alertsData] = [tripUpdatesDataRaw, positionsDataRaw, alertsDataRaw].map((raw) => JSON.parse(raw));
 
     let vehiclePositionsDict = {};
     positionsData.entity.forEach((position) => {
@@ -195,7 +201,7 @@ const update = async () => {
         },
       };
     });
-    
+
     //adding any stations without trains to transitStatus object
     Object.keys(staticRoutesData).forEach((routeID) => {
       const route = staticRoutesData[routeID];
