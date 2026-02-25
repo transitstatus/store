@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const trainNumberRegex = new RegExp(/\d+/);
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 const scheduleRelationshipEnums = {
   0: "SCHEDULED",
   2: "UNSCHEDULED",
@@ -38,9 +40,11 @@ const update = async () => {
     const tripUpdatesDataRaw = await totallyRealUserFetch(
       "https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json",
     ).then((res) => res.text());
+    await sleep(100);
     const positionsDataRaw = await totallyRealUserFetch(
       "https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json",
     ).then((res) => res.text());
+    await sleep(100);
     const alertsDataRaw = await totallyRealUserFetch(
       "https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json",
     ).then((res) => res.text());
