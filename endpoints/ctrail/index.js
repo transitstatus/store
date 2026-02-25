@@ -42,6 +42,7 @@ const update = async () => {
       ),
     );
 
+    /*
     let vehiclePositionsDict = {};
     positionsData.entity.forEach((position) => {
       if (position.vehicle) {
@@ -51,6 +52,7 @@ const update = async () => {
         }
       }
     });
+    */
 
     const [
       staticStopsData,
@@ -89,10 +91,10 @@ const update = async () => {
       };
     });
 
+    /*
+
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
-      return; // later
-
       const trainNumber =
         train.tripUpdate?.trip?.tripId.match(trainNumberRegex);
       if (!trainNumber) return; //no train ig
@@ -214,6 +216,9 @@ const update = async () => {
       };
     });
 
+    */
+   // end temp
+
     //adding any stations without trains to transitStatus object
     Object.keys(staticRoutesData).forEach((routeID) => {
       const route = staticRoutesData[routeID];
@@ -251,6 +256,7 @@ const update = async () => {
         transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
 
+    /*
     // alerts
     transitStatus.alerts = alertsData.entity.map((alert) => {
       const lineCode =
@@ -308,6 +314,7 @@ const update = async () => {
           .trim(),
       };
     });
+    */
 
     const lastUpdated = new Date().toISOString();
 
