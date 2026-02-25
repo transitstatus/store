@@ -39,7 +39,7 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
-  const only_testing = []//; ['ctrail', 'gtfs_sch_acc'];
+  const only_testing = []//['ctrail', 'gtfs_sch_acc'];
   const exclude_from_root = ['gtfs_sch', 'gtfs_sch_acc', 'chicago_snowplow_routes', 'atlas_routes', 'amtrak_fetch_proxy']; // won't be returned to lighten the load, can be overridden
 
   let data = {};

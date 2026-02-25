@@ -15,34 +15,17 @@ const scheduleRelationshipEnums = {
 };
 
 const update = async () => {
-  const gtfsRealtimeRoot = await protobuf.load("gtfs-rt.proto");
-  const FeedMessage = gtfsRealtimeRoot.lookupType(
-    "transit_realtime.FeedMessage",
-  );
-
   let cancelledTrains = {};
 
   try {
     const [tripUpdatesData, positionsData, alertsData] = await Promise.all(
       [
-        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.pb`,
-        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.pb`,
-        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.pb`,
-      ].map((url) =>
-        fetch(url)
-          .then((res) => res.arrayBuffer())
-          .then((arrayBuffer) =>
-            FeedMessage.decode(new Uint8Array(arrayBuffer)),
-          )
-          .catch((e) => {
-            fetch(url)
-              .then((res) => res.text())
-              .then((errorFromURL) => console.log("CTRail:", errorFromURL));
-          }),
-      ),
+        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json`,
+        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json`,
+        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json`,
+      ].map((url) => fetch(url).then((res) => res.json())),
     );
 
-    /*
     let vehiclePositionsDict = {};
     positionsData.entity.forEach((position) => {
       if (position.vehicle) {
@@ -52,7 +35,6 @@ const update = async () => {
         }
       }
     });
-    */
 
     const [
       staticStopsData,
@@ -90,8 +72,6 @@ const update = async () => {
         },
       };
     });
-
-    /*
 
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
@@ -215,10 +195,7 @@ const update = async () => {
         },
       };
     });
-
-    */
-   // end temp
-
+    
     //adding any stations without trains to transitStatus object
     Object.keys(staticRoutesData).forEach((routeID) => {
       const route = staticRoutesData[routeID];
