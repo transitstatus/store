@@ -81,7 +81,7 @@ const update = (async () => {
     }).then((res) => res.json());
 
     secretRadarData.forEach((train) => {
-      console.log(train.train_id, train.railroad, train.train_num)
+      //console.log(train.train_id, train.railroad, train.train_num)
 
       trainConsists[train.train_num] = train.consist.cars;
     })

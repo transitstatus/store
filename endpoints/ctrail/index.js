@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 require("dotenv").config();
 
 const trainNumberRegex = new RegExp(/\d+/);
@@ -18,13 +16,9 @@ const update = async () => {
   let cancelledTrains = {};
 
   try {
-    const [tripUpdatesDataRaw, positionsDataRaw, alertsDataRaw] = await Promise.all(
-      [
-        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json`,
-        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json`,
-        `https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json`,
-      ].map((url) => fetch(url).then((res) => res.text())),
-    );
+    const tripUpdatesDataRaw = await fetch('https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json').then((res) => res.text());
+    const positionsDataRaw = await fetch('https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json').then((res) => res.text());
+    const alertsDataRaw = await fetch('https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json').then((res) => res.text());
 
     console.log(`tripUpdatesDataRaw: "${tripUpdatesDataRaw}"`);
     console.log(`positionsDataRaw: "${positionsDataRaw}"`);
