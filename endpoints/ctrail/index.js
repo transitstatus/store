@@ -1,4 +1,4 @@
-const protobuf = require("protobufjs");
+const fetch = require('node-fetch');
 
 require("dotenv").config();
 
