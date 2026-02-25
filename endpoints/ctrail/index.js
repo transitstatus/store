@@ -15,16 +15,44 @@ const scheduleRelationshipEnums = {
 const update = async () => {
   let cancelledTrains = {};
 
+  const totallyRealUserFetch = (url) =>
+    fetch(url, {
+      credentials: "omit",
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "If-Modified-Since": "Wed, 25 Feb 2026 01:30:43 GMT",
+        "If-None-Match": '"b718b95bf6a5dc1:0"',
+        Priority: "u=0, i",
+      },
+    });
+
   try {
-    const tripUpdatesDataRaw = await fetch('https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json').then((res) => res.text());
-    const positionsDataRaw = await fetch('https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json').then((res) => res.text());
-    const alertsDataRaw = await fetch('https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json').then((res) => res.text());
+    const tripUpdatesDataRaw = await totallyRealUserFetch(
+      "https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/TripUpdate/TripUpdates.json",
+    ).then((res) => res.text());
+    const positionsDataRaw = await totallyRealUserFetch(
+      "https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Vehicle/VehiclePositions.json",
+    ).then((res) => res.text());
+    const alertsDataRaw = await totallyRealUserFetch(
+      "https://cttprdtmgtfs.ctttrpcloud.com/TMGTFSRealTimeWebService/Alert/Alerts.json",
+    ).then((res) => res.text());
 
     console.log(`tripUpdatesDataRaw: "${tripUpdatesDataRaw}"`);
     console.log(`positionsDataRaw: "${positionsDataRaw}"`);
     console.log(`alertsDataRaw: "${alertsDataRaw}"`);
-    
-    const [tripUpdatesData, positionsData, alertsData] = [tripUpdatesDataRaw, positionsDataRaw, alertsDataRaw].map((raw) => JSON.parse(raw));
+
+    const [tripUpdatesData, positionsData] = [
+      tripUpdatesDataRaw,
+      positionsDataRaw,
+    ].map((raw) => JSON.parse(raw));
 
     let vehiclePositionsDict = {};
     positionsData.entity.forEach((position) => {
