@@ -31,6 +31,9 @@
     },
     "mnrr": {
       "scheduledVehicles": {}
+    },
+    "ctrail_hartford": {
+      "scheduledVehicles": {}
     }
   },
   "variables": [
@@ -60,6 +63,9 @@
     ],
     [
       "mnrr"
+    ],
+    [
+      "ctrail_hartford"
     ]
   ]
 }
