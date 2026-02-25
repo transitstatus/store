@@ -1,7 +1,7 @@
 {
   "name": "CTRail Train Tracker",
   "script": "index.js",
-  "interval": 10000,
+  "interval": 60000,
   "apiVersion": 3,
   "configVersion": 0,
   "default": {
