@@ -10,6 +10,19 @@
       "stations": {},
       "lines": {},
       "lastUpdated": "1970-01-01T00:00:00.000Z"
+    },
+    "amtrakPlatforms": {
+      "stations": {
+        "BRP": {},
+        "CRT": {},
+        "NHV": {},
+        "NRO": {},
+        "NYP": {},
+        "POU": {},
+        "STM": {},
+        "STS": {},
+        "YNY": {}
+      }
     }
   }
 }

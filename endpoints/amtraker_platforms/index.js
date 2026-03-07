@@ -24,7 +24,16 @@ const updateFeed = async () => {
         SNC: {},
         SNA: {},
         SIM: {},
-        VNC: {}
+        VNC: {},
+        BRP: {},
+        CRT: {},
+        NHV: {},
+        NRO: {},
+        NYP: {},
+        POU: {},
+        STM: {},
+        STS: {},
+        YNY: {},
       },
       stations_w_src: {
         TRE: {},
@@ -49,30 +58,37 @@ const updateFeed = async () => {
         SNC: {},
         SNA: {},
         SIM: {},
-        VNC: {}
+        VNC: {},
+        BRP: {},
+        CRT: {},
+        NHV: {},
+        NRO: {},
+        NYP: {},
+        POU: {},
+        STM: {},
+        STS: {},
+        YNY: {},
       },
     };
 
     //fetching data
-    const resultingData = await Promise.all([
-      'https://store.transitstat.us/njt_rail_platforms',
-      'https://store.transitstat.us/nyp_moy_platforms',
-      'https://store.transitstat.us/metrolink_platforms'
-    ].map((url) =>
-      fetch(url).then(res => res.json())
-    ));
+    const resultingData = await Promise.all(
+      [
+        "http://localhost:3000/njt_rail_platforms",
+        "http://localhost:3000/nyp_moy_platforms",
+        "http://localhost:3000/metrolink_platforms",
+        "http://localhost:3000/mnrr/amtrakPlatforms"
+      ].map((url) => fetch(url).then((res) => res.json())),
+    );
 
-    const sourceNames = [
-      'NJ Transit',
-      'Moynihan Train Hall',
-      'LA Metrolink'
-    ];
+    const sourceNames = ["NJ Transit", "Moynihan Train Hall", "LA Metrolink", "Metro North"];
 
     resultingData.forEach((source, sourceIndex) => {
       Object.keys(source.stations).forEach((stationCode) => {
-
-        if (!responseObject.stations[stationCode]) responseObject.stations[stationCode] = {};
-        if (!responseObject.stations_w_src[stationCode]) responseObject.stations_w_src[stationCode] = {};
+        if (!responseObject.stations[stationCode])
+          responseObject.stations[stationCode] = {};
+        if (!responseObject.stations_w_src[stationCode])
+          responseObject.stations_w_src[stationCode] = {};
 
         Object.keys(source.stations[stationCode]).forEach((trainNumber) => {
           const trainTrack = source.stations[stationCode][trainNumber];
@@ -82,13 +98,13 @@ const updateFeed = async () => {
             responseObject.stations_w_src[stationCode][trainNumber] = {
               platform: trainTrack,
               source: sourceNames[sourceIndex],
-            }
+            };
           }
         });
       });
     });
 
-    console.log(`Finished updating All Amtraker Tracks`)
+    console.log(`Finished updating All Amtraker Tracks`);
     return responseObject;
   } catch (e) {
     console.log(e);
@@ -116,7 +132,7 @@ const updateFeed = async () => {
         SNC: {},
         SNA: {},
         SIM: {},
-        VNC: {}
+        VNC: {},
       },
       stations_w_src: {
         TRE: {},
@@ -141,7 +157,7 @@ const updateFeed = async () => {
         SNC: {},
         SNA: {},
         SIM: {},
-        VNC: {}
+        VNC: {},
       },
     };
   }
