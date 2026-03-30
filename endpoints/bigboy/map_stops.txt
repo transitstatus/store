@@ -1,12 +1,12 @@
 
 <input type='hidden' name='type2' id='type2' value='LATLON' />
 <input type='hidden' name='title2' id='title2' value='Scheduled Stop' />
-<input type='hidden' name='stations2' id='stations2' value='41.139,-100.7574,41.55489,-95.88783,41.23905,-103.6616,41.12351,-101.7187,41.18416,-104.0682,41.42881,-96.49643,40.85716,-99.98609,41.42792,-97.35833,40.98532,-102.2631,42.01058,-95.35534,42.06535,-94.87241,41.79341,-93.52648,40.69485,-99.08181,41.59125,-93.58168,41.73829,-92.70795,41.57085,-91.26727,41.51529,-90.41354' />
+<input type='hidden' name='stations2' id='stations2' value='39.086,-94.5851290226,29.76764,-95.36743,32.74538,-97.33039,31.30602,-96.89437,39.066117,-95.668482,38.84718,-97.61724,35.7474,-95.36816,33.98735,-96.37653,30.08149,-95.42109,30.38666,-96.08938,30.62421,-96.356,36.30751,-95.61085,38.49652,-94.95211,39.73661,-104.3211,30.09837,-96.07967,38.82506,-98.47391,40.42254,-104.6881,31.80475,-97.09185,39.11043,-100.4651' />
 <input type='hidden' name='symbol2' id='symbol2' value='DIAMOND' />
 <input type='hidden' name='color2' id='color2' value='WHITE' />
 <input type='hidden' name='size2' id='size2' value='8' />
 <input type='hidden' name='name21' id='name21' value='Location' />
-<input type='hidden' name='value21' id='value21' value='North Platte%2c%20NE,Missouri Valley%2c%20IA,Kimball%2c%20NE,Ogallala%2c%20NE,Pine Bluffs%2c%20WY,Fremont%2c%20NE,Cozad%2c%20NE,Columbus%2c%20NE,Julesburg%2c%20CO,Denison%2c%20IA,Carroll%2c%20IA,Elkhart%2c%20IA,Kearney%2c%20NE,Des Moines%2c%20IA,Grinnell%2c%20IA,West Liberty%2c%20IA,Silvis%2c%20IL ' />
+<input type='hidden' name='value21' id='value21' value='Kansas City%2c%20MO,Houston%2c%20TX,Fort Worth%2c%20TX,Marlin%2c%20TX,Topeka%2c%20KS,Salina%2c%20KS,Muskogee%2c%20OK,Durant%2c%20OK,Spring%2c%20TX,Navasota%2c%20TX,Bryan%2c%20TX,Claremore%2c%20OK,Osawatomie%2c%20KS,Strasburg%2c%20CO,Hempstead%2c%20TX,Wilson%2c%20KS,Greeley%2c%20CO,West%2c%20TX,Grainfield%2c%20KS ' />
 <input type='hidden' name='name22' id='name22' value='Address' />
-<input type='hidden' name='value22' id='value22' value=' Downtown on E. Front St.<br/>Between N. Chestnut and N. Poplar Sts., 6th Street Crossing, E. 1st St. & S. Walnut St., S. Spruce St. Crossing, Main St. Crossing, 10 S. Main St., Meridian & Hwy 30, 26th Avenue Crossing,Julesburg Depot Museum<br/>201 W. 1st St., Main Street Crossing,Old CNW Depot<br/>407 W. 5th St., Main St. Crossing, Central Ave. Crossing, Dean Ave. Crossing,Old Depot<br/>Penrose St. Crossing,Old Depot<br/>407 N. Elm St.,Railroading Heritage of Midwest America Shops<br/>300 9th St ' />
-<!-- Updated at Tuesday, November 8, 2022 06:05:13 --> 
+<input type='hidden' name='value22' id='value22' value='Union Station<br/>30 W. Pershing Rd.,Amtrak Depot<br/>902 Washington Avenue, 275 W. Lancaster at Jennings Ave., Wood St.,Overland Station<br/>701 N. Kansas Ave.,Old Depot<br/>400 N. 13th St, Okmulgee St. Crossing, Louisiana St. Crossing, Elm St. Crossing, E McAlpine St. & S. Railroad St., Wellborn Road & F&B Road, Florence Ave. Crossing, W. Pacific Ave. Crossing, Monroe St. Crossing, Wilkins St. Crossing, Avenue E Crossing, 10th St. Crossing, Broadway St. Crossing, Main St. Crossing ' />
+<!-- Updated at Sunday, September 29, 2024 06:06:01 --> 
