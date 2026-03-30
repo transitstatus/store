@@ -142,8 +142,8 @@ const update = async () => {
           ],
         },
       },
-      lat: stop.lat,
-      lon: stop.lon,
+      lat: parseFloat(stop.lat),
+      lon: parseFloat(stop.lon),
       tz: stop.tz,
     };
 
