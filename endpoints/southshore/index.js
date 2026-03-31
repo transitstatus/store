@@ -84,15 +84,20 @@ const updateFeed = async () => {
     fetchedData.southshoreTimes.entity.forEach((trip) => {
       const scheduledVehicle = fetchedData.southshoreSchedule[trip.tripUpdate.trip.tripId];
 
+      console.log(trip)
+      console.log(trip)
+
       if (!scheduledVehicle) return; // either the server is starting up or we dont have scheduled times
       
       const actualStops = trip.tripUpdate.stopTimeUpdate.map((stop) => {
+        console.log(stop)
+
         const actualStop = scheduledVehicle.predictions[stop.stopSequence - 1];
 
         return {
           ...stop,
           departure: {
-            time: actualStop.actualETA
+            time: actualStop.actualETA + (stop.arrival.delay * 1000)
           },
           stopId: actualStop.stationID
         }

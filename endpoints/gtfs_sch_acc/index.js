@@ -102,7 +102,7 @@ const updateFeed = async (feed) => {
         const lastStop = individualTrains[runNumber].predictions[individualTrains[runNumber].predictions.length - 1];
 
         if (
-          nowNumber < lastStop.actualETA &&
+          nowNumber < (lastStop.actualETA + 1000 * 60 * 15) &&
           nowNumber + (1000 * 60 * 60 * 24) >= firstStop.actualETA &&
           !scheduledVehicles[runNumber]
         ) {
