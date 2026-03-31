@@ -1,0 +1,15 @@
+{
+  "name": "South Shore Line",
+  "script": "index.js",
+  "interval": 30000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "disabled": false,
+  "default": {
+    "v1": {
+      "trains": {},
+      "stations": {},
+      "lines": {}
+    }
+  }
+}

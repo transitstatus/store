@@ -1,7 +1,7 @@
 const protobuf = require('protobufjs');
 
 const updateFeed = async (feed) => {
-  if (feed == 'southshore') return false;
+  // if (feed == 'southshore') return false;
 
   try {
     const nowDate = new Date();
