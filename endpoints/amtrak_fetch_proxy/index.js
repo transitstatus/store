@@ -103,11 +103,23 @@ const updateFeed = async (updateConfig) => {
         return JSON.parse(initialStateText);
     }
 
+    const now = new Date();
+
     return {
-      trainStations: { type: "FeatureCollection", features: [] },
       trainDataMain: { type: "FeatureCollection", features: [] },
+      trainStations: { type: "FeatureCollection", features: [] },
       trainDataASMAD: { type: "FeatureCollection", features: [] },
-      updatedAt: Date.now(),
+      trainDataVIA: {},
+      ipAddress: "0.0.0.0",
+      updatedTime: {
+        updatedAt: now.valueOf(),
+        updatedAtISO: now.toISOString(),
+        updatedAtChicagoPlain: now.toLocaleString("en-US", {
+          dateStyle: "full",
+          timeStyle: "long",
+          timeZone: "America/Chicago",
+        }),
+      },
     };
   }
 };
