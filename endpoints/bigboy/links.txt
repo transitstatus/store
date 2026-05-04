@@ -9,3 +9,6 @@ https://www.uprr.com/arcgis/rest/services/Public/TNM_Steam_Train_MB_Closeup/MapS
 
 https://www.uprr.com/arcgis/rest/services/Public/TNM_Mapbuilder/MapServer/16/query?f=geojson&where=1%3D1&outFields=*
 https://www.uprr.com/arcgis/rest/services/Public/TNM_Steam_Train_MB_Tiles/MapServer/4/query?f=geojson&where=1%3D1&outFields=*&resultOffset=0
+
+
+ROUTE https://www.uprr.com/arcgis/rest/services/Public/TNM_Steam_Train_MB_Tiles/MapServer/0/query?f=geojson&where=1%3D1&outFields=*&resultOffset=0

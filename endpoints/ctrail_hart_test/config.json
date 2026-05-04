@@ -1,0 +1,11 @@
+{
+  "name": "CTRail Hartford Line TEst",
+  "script": "index.js",
+  "interval": 6000000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "disabled": true,
+  "default": {
+    "videos": {}
+  }
+}

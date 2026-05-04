@@ -39,7 +39,7 @@ const getAllKeysWithParents = (obj, parentKey = '') => {
 
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
-  const only_testing = [];
+  const only_testing = []; //['nyct_subway'];
   const exclude_from_root = ['gtfs_sch', 'gtfs_sch_acc', 'chicago_snowplow_routes', 'atlas_routes', 'amtrak_fetch_proxy', 'mbta']; // won't be returned to lighten the load, can be overridden
 
   let data = {};
@@ -81,8 +81,15 @@ fastify.after(() => {
           return;
         }
 
+        const now = new Date();
+
         const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
-        if (config) data_configs[endpoint] = config;
+        if (config) data_configs[endpoint] = {
+          ...config,
+          lastUpdatedUnix: now.valueOf(),
+          lastUpdatedISO: now.toISOString(),
+          lastUpdatedUSLocale: now.toLocaleString(['en-US']),
+        }
 
         if (config.disabled) {
           console.log(`Endpoint ${endpoint} is disabled, skipping`)
