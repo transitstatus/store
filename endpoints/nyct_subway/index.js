@@ -202,7 +202,7 @@ const update = async () => {
 
       //adding stations to tsv1 object
       tsv1.stations[stop.properties.station_id] = {
-        stationId: stop.properties.station_id,
+        stationID: stop.properties.station_id,
         stationName: stop.properties.stop_name,
         lat: stop.geometry.coordinates[1],
         lon: stop.geometry.coordinates[0],
@@ -266,7 +266,7 @@ const update = async () => {
         //if (thisStop.stationId == '25' || thisStop.stationId == '174') console.log(trip.direction, thisStop.stationId, stop.sectionId, stop.platformEdges[0])
 
         finalTrain.predictions.push({
-          stationId: stop.stationId,
+          stationID: stop.stationId,
           stationName: thisStop.stationName,
           actualETA: stop.estArriveAt * 1000,
           noETA: false,
