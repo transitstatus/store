@@ -97,6 +97,13 @@ const update = (async () => {
 
     secretRadarData.forEach((train) => {
       trainConsists[train.train_num] = train.consist.cars;
+
+      vehiclePositionsDict[train.train_num] = {
+        longitude: train.location.longitude,
+        latitude: train.location.latitude,
+        bearing: 0,
+        label:  train.consist.cars.length > 0 ? train.consist.cars[0].number.toString() : '',
+      }
     })
 
     const holidayVehiclesArray = holidayVehicles.error ? [] : holidayVehicles.response.object;
@@ -138,7 +145,7 @@ const update = (async () => {
         return;
       }
 
-      const position = vehiclePositionsDict[train?.tripUpdate?.trip?.tripId] ?? {
+      const position = vehiclePositionsDict[train?.tripUpdate?.trip?.tripId] ?? vehiclePositionsDict[trainNumber] ?? {
         latitude: 0,
         longitude: 0,
         bearing: 0,

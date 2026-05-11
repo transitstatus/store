@@ -256,7 +256,7 @@ const update = async () => {
         type: "train",
         extra: {
           holidayChristmas: false,
-          consist: [],
+          consist: trip.consist,
         },
       };
 
@@ -287,6 +287,7 @@ const update = async () => {
           destination: finalTrain.dest,
           extra: {
             holidayChristmas: false,
+            consist: [],
           },
         });
       });
