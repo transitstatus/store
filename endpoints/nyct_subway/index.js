@@ -232,7 +232,7 @@ const update = async () => {
 
     //adding trains to tsv1 object
     heliumData.trips.forEach((trip) => {
-      const runNumber = trip.tripId.replaceAll(" ", "_");
+      const runNumber = trip.tripId.replaceAll(" ", "_").replaceAll('/', '_');
 
       if (trip.routeId == "SI") {
         if (trip.direction == "WEST") trip.direction = "NORTH";
