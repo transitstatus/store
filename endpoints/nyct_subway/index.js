@@ -269,7 +269,7 @@ const update = async () => {
         },
       };
 
-      trip.stops.forEach((stop) => {
+      trip.stops.filter((stop) => now < (stop.estArriveAt + 60) * 1000).forEach((stop) => {
         const thisStop = tsv1.stations[stop.stationId];
 
         //if (thisStop.stationId == '25' || thisStop.stationId == '174') console.log(trip.direction, thisStop.stationId, stop.sectionId, stop.platformEdges[0])
