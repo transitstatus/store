@@ -225,14 +225,16 @@ const update = async () => {
         lineNameLong: route.routeLongName,
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
-        stations: route.routeStations.map((gtfsCode) => gtfsToStationID[gtfsCode]),
+        stations: route.routeStations.map(
+          (gtfsCode) => gtfsToStationID[gtfsCode],
+        ),
         hasActiveTrains: false,
       };
     });
 
     //adding trains to tsv1 object
     heliumData.trips.forEach((trip) => {
-      const runNumber = trip.tripId.replaceAll(" ", "_").replaceAll('/', '_');
+      const runNumber = trip.tripId.replaceAll(" ", "_").replaceAll("/", "_");
 
       if (trip.routeId == "SI") {
         if (trip.direction == "WEST") trip.direction = "NORTH";
@@ -256,7 +258,14 @@ const update = async () => {
         type: "train",
         extra: {
           holidayChristmas: false,
-          consist: trip.consist,
+          consist: trip.consistCars
+            ? trip.consistCars.map((car) => {
+                return {
+                  type: car.type,
+                  number: car.number,
+                };
+              })
+            : [],
         },
       };
 
@@ -287,7 +296,7 @@ const update = async () => {
           destination: finalTrain.dest,
           extra: {
             holidayChristmas: false,
-            consist: [],
+            consist: finalTrain.extra.consist,
           },
         });
       });
