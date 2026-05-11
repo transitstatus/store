@@ -1,67 +1,40 @@
-const protobuf = require("protobufjs");
-
-const scheduleRelationshipEnums = {
-  0: "SCHEDULED",
-  2: "UNSCHEDULED",
-  3: "CANCELED",
-  4: "REPLACEMENT",
-  5: "DUPLICATED",
-  6: "NEW",
-  7: "DELETED",
-};
+const stationsMetaArray = require("./stations.json");
+const along = require("@turf/along").default;
+const length = require("@turf/length").default;
+const { lineString } = require("@turf/helpers");
 
 const update = async () => {
-  const gtfsRealtimeRoot = await protobuf.load("gtfs-realtime-NYCT.proto");
-  const FeedMessage = gtfsRealtimeRoot.lookupType(
-    "transit_realtime.FeedMessage",
-  );
+  const now = new Date();
+
+  let stationsMetaDict = {};
+  let gtfsToStationID = {};
+  stationsMetaArray.features.forEach((feature) => {
+    gtfsToStationID[feature.properties.gtfs_stop_id] =
+      feature.properties.station_id;
+
+    if (!stationsMetaDict[feature.properties.station_id]) {
+      stationsMetaDict[feature.properties.station_id] = {
+        ...feature.properties,
+        position: feature.geometry.coordinates,
+        allGtfsIds: [feature.properties.gtfs_stop_id],
+      };
+    } else {
+      stationsMetaDict[feature.properties.station_id].allGtfsIds.push(
+        feature.properties.gtfs_stop_id,
+      );
+    }
+  });
 
   try {
-    const fetchedFeeds = await Promise.all(
-      [
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-ace",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-g",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-bdfm",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-jz",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-l",
-        "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-si",
-      ].map((url) =>
-        fetch(url)
-          .then((res) => res.arrayBuffer())
-          .then((arrayBuffer) =>
-            FeedMessage.decode(new Uint8Array(arrayBuffer)),
-          ),
-      ),
-    );
-
-    const mergedFeeds = fetchedFeeds.flatMap((feed) => feed.entity);
-    const positionsData = mergedFeeds.filter((entity) => entity.vehicle);
-    const tripUpdatesData = mergedFeeds.filter((entity) => entity.tripUpdate);
-
-    let vehiclePositionsDict = {};
-    positionsData.forEach((position) => {
-      if (position.vehicle) {
-        const id = position.vehicle?.trip['.transit_realtime.nyctTripDescriptor']?.trainId;
-        console.log(position.vehicle?.trip['.transit_realtime.nyctTripDescriptor'])
-        if (!id) {
-          console.log(position.vehicle.trip)
-          return;
-        }
-        if (position.vehicle.vehicle && position.vehicle.position) {
-          vehiclePositionsDict[id] =
-            position.vehicle.position;
-        }
-      }
-    });
-
-    const [staticStopsData, staticRoutesData] = await Promise.all(
-      [
-        "https://gtfs.piemadd.com/data/nyct_subway/stops.json",
-        "https://gtfs.piemadd.com/data/nyct_subway/routes.json",
-      ].map((url) => fetch(url).then((res) => res.json())),
-    );
+    const [staticStopsData, staticRoutesData, staticSegmentsData, heliumData] =
+      await Promise.all(
+        [
+          "https://gtfs.piemadd.com/data/nyct_subway/stops.json",
+          "https://gtfs.piemadd.com/data/nyct_subway/routes.json",
+          "https://gtfs.piemadd.com/data/nyct_subway/segments.json",
+          "https://helium-prod.mylirr.org/v1/subway/trips",
+        ].map((url) => fetch(url).then((res) => res.json())),
+      );
 
     let tsv1 = {
       trains: {},
@@ -70,78 +43,243 @@ const update = async () => {
       alerts: [],
     };
 
-    Object.values(staticStopsData).forEach((stop) => {
+    const findMatchingSegmentFromStationId = (
+      firstStationId,
+      secondStationId,
+    ) => {
+      let allSegmentKeyPossibilities = [];
+      stationsMetaDict[firstStationId].allGtfsIds.forEach((firstId) => {
+        stationsMetaDict[secondStationId].allGtfsIds.forEach((secondId) => {
+          allSegmentKeyPossibilities.push(`${firstId}_${secondId}`);
+        });
+      });
+
+      return allSegmentKeyPossibilities.find(
+        (key) => staticSegmentsData.segments[key],
+      );
+    };
+
+    const findMatchingSegment = (trip, lastDepartedLocationIndex) => {
+      return findMatchingSegmentFromStationId(
+        trip.stops[lastDepartedLocationIndex].stationId,
+        trip.stops[lastDepartedLocationIndex + 1].stationId,
+      );
+    };
+
+    // calculating fake positions
+    let positionsDict = {};
+    heliumData.trips.forEach((trip) => {
+      if (trip.estimatedLongitude && trip.estimatedLatitude) {
+        // official data from the MTA will likely be the best data...i hope
+        positionsDict[trip.tripId] = [
+          trip.estimatedLongitude,
+          trip.estimatedLatitude,
+        ];
+        return;
+      }
+
+      const atStationLocation = trip.stops.find(
+        (stop) => stop.stopStatus == "AT_STATION",
+      );
+      const lastDepartedLocationIndex = trip.stops.findLastIndex((stop) =>
+        stop.stopStatus.includes("DEPARTED"),
+      );
+
+      if (trip.stops[0].stopStatus == "EN_ROUTE") {
+        positionsDict[trip.tripId] =
+          stationsMetaDict[trip.stops[0].stationId].position;
+      } else if (
+        trip.stops[trip.stops.length - 1].stopStatus.includes("DEPARTED")
+      ) {
+        positionsDict[trip.tripId] =
+          stationsMetaDict[
+            trip.stops[trip.stops.length - 1].stationId
+          ].position;
+      } else if (atStationLocation) {
+        positionsDict[trip.tripId] =
+          stationsMetaDict[atStationLocation.stationId].position;
+      } else if (lastDepartedLocationIndex > -1) {
+        const segmentKey = findMatchingSegment(trip, lastDepartedLocationIndex);
+        let segment = null;
+
+        if (!segmentKey) {
+          // we are in a god-awful stupid state where there is some cursed skip-stop pattern going on that isnt in the regular gtfs
+          // thankfully, the trip object *does* have an array of segments we can use to make one megasegment to use
+          // massive pain in the ass? absolutely. better than nothing? also yes.
+
+          // first, we need to find the segment that has the "last departed" stop as the beginning
+          // as well as the last segment that has the next "en route" station as the ending
+          const firstSegmentIndex = trip.shapeSegmentIds.findIndex(
+            (segmentKey) =>
+              segmentKey.startsWith(
+                trip.stops[lastDepartedLocationIndex].stationId,
+              ),
+          );
+          const lastSegmentIndex = trip.shapeSegmentIds.findIndex(
+            (segmentKey, i) => {
+              if (i < firstSegmentIndex) return false;
+              return segmentKey.endsWith(
+                trip.stops[lastDepartedLocationIndex + 1].stationId,
+              );
+            },
+          );
+
+          let allSegments = [];
+          for (let i = firstSegmentIndex; i <= lastSegmentIndex; i++) {
+            allSegments.push(trip.shapeSegmentIds[i]);
+          }
+
+          const allSegmentsConverted = allSegments
+            .map((segment) => {
+              return findMatchingSegmentFromStationId(...segment.split("-"));
+            })
+            .map((key) => staticSegmentsData.segments[key]);
+
+          let finalSegment = {
+            seconds: 0,
+            meters: 0,
+            shape: [],
+          };
+
+          allSegmentsConverted.forEach((segment, i) => {
+            if (i == 0) finalSegment.shape.push(...segment.shape);
+            else finalSegment.shape.push(...segment.shape.slice(1));
+
+            finalSegment.seconds += segment.seconds;
+            finalSegment.meters += segment.meters;
+          });
+          segment = finalSegment;
+        } else {
+          segment = staticSegmentsData.segments[segmentKey];
+        }
+
+        // overwriting the segment time using the difference in ETAs because why not
+        const dep = trip.stops[lastDepartedLocationIndex].estArriveAt;
+        const arr = trip.stops[lastDepartedLocationIndex + 1].estArriveAt;
+
+        segment.seconds = arr - dep;
+
+        // actually
+        const nowTime = trip.updatedAt;
+
+        const percentAlong = Math.min(
+          Math.max((nowTime - dep) / (arr - dep), 0),
+          1,
+        );
+
+        if (percentAlong == 0)
+          positionsDict[trip.tripId] =
+            stationsMetaDict[
+              trip.stops[lastDepartedLocationIndex].stationId
+            ].position;
+        else if (percentAlong == 0)
+          positionsDict[trip.tripId] =
+            stationsMetaDict[
+              trip.stops[lastDepartedLocationIndex + 1].stationId
+            ].position;
+        else {
+          const segmentGeoJSON = lineString(segment.shape);
+
+          const position = along(
+            segmentGeoJSON,
+            length(segmentGeoJSON, { units: "meters" }) * percentAlong,
+            { units: "meters" },
+          );
+          positionsDict[trip.tripId] = position.geometry.coordinates;
+        }
+      }
+    });
+
+    stationsMetaArray.features.forEach((stop) => {
+      const northDirectionLabel =
+        stop.properties.north_direction_label == "Last Stop"
+          ? stop.properties.stop_name
+          : stop.properties.north_direction_label;
+      const southDirectionLabel =
+        stop.properties.south_direction_label == "Last Stop"
+          ? stop.properties.stop_name
+          : stop.properties.south_direction_label;
+
       //adding stations to tsv1 object
-      tsv1.stations[stop.stopID] = {
-        stationID: stop.stopID,
-        stationName: stop.stopName,
-        lat: stop.stopLat,
-        lon: stop.stopLon,
+      tsv1.stations[stop.properties.station_id] = {
+        stationId: stop.properties.station_id,
+        stationName: stop.properties.stop_name,
+        lat: stop.geometry.coordinates[1],
+        lon: stop.geometry.coordinates[0],
         destinations: {
-          default: { trains: [] },
+          [northDirectionLabel]: { trains: [] },
+          [southDirectionLabel]: { trains: [] },
+        },
+        directionLabels: {
+          NORTH: northDirectionLabel,
+          SOUTH: southDirectionLabel,
         },
       };
     });
 
-    //adding trains to tsv1 object
-    tripUpdatesData.forEach((train, i) => {
-      const runNumber = train.tripUpdate.trip['.transit_realtime.nyctTripDescriptor'].trainId;
-      //const isInbound = parseInt(trainNumber[0]) % 2 == 0;
-      //const trainDirection = isInbound ? 'Inbound' : 'Outbound';
-      const trainDirection = "default";
-
-      const position = vehiclePositionsDict[runNumber] ?? {
-        latitude: 0,
-        longitude: 0,
-        bearing: 0,
+    //adding lines to tsv1 object
+    Object.values(staticRoutesData).forEach((route) => {
+      tsv1.lines[route.routeID] = {
+        lineCode: route.routeID,
+        lineNameShort: route.routeShortName,
+        lineNameLong: route.routeLongName,
+        routeColor: route.routeColor,
+        routeTextColor: route.routeTextColor,
+        stations: route.routeStations,
+        hasActiveTrains: false,
       };
-      delete vehiclePositionsDict[train.tripUpdate?.vehicle?.id];
+    });
+
+    //adding trains to tsv1 object
+    heliumData.trips.forEach((trip) => {
+      const runNumber = trip.tripId.replaceAll(" ", "_");
+
+      if (trip.routeId == "SI") {
+        if (trip.direction == "WEST") trip.direction = "NORTH";
+        if (trip.direction == "EAST") trip.direction = "SOUTH";
+      }
+
+      const position = positionsDict[trip.tripId];
 
       let finalTrain = {
-        lat: position.latitude,
-        lon: position.longitude,
-        heading: position.bearing,
-        realTime: true,
+        lat: position[1],
+        lon: position[0],
+        heading: 0,
+        realTime: trip.isAssigned,
         deadMileage: false,
-        line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
-        lineCode: train.tripUpdate?.trip?.routeId,
-        lineColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeColor,
-        lineTextColor:
-          staticRoutesData[train.tripUpdate?.trip?.routeId].routeTextColor,
-        dest: "Unknown Dest",
+        line: staticRoutesData[trip.routeId].routeLongName,
+        lineCode: trip.routeId,
+        lineColor: staticRoutesData[trip.routeId].routeColor,
+        lineTextColor: staticRoutesData[trip.routeId].routeTextColor,
+        dest: trip.headsign,
         predictions: [],
         type: "train",
         extra: {
           holidayChristmas: false,
-          cabCar: null,
+          consist: [],
         },
       };
 
-      //adding predictions to tsv1 object
-      train.tripUpdate?.stopTimeUpdate?.reverse().filter((stop) => staticStopsData[stop.stopId]).forEach((stop, i) => {
-        if (i == 0) finalTrain.dest = staticStopsData[stop.stopId].stopName;
+      trip.stops.forEach((stop) => {
+        const thisStop = tsv1.stations[stop.stationId];
 
-        const arr = stop.arrival
-          ? new Date(stop.arrival.time?.low).valueOf()
-          : 0;
-        const dep = stop.departure
-          ? new Date(stop.departure.time?.low).valueOf()
-          : 0;
-        const time = Math.max(arr, dep) * 1000;
+        //if (thisStop.stationId == '25' || thisStop.stationId == '174') console.log(trip.direction, thisStop.stationId, stop.sectionId, stop.platformEdges[0])
 
         finalTrain.predictions.push({
-          stationID: stop.stopId,
-          stationName: staticStopsData[stop.stopId].stopName,
-          actualETA: time,
-          noETA: !time,
-          realTime: true,
+          stationId: stop.stationId,
+          stationName: thisStop.stationName,
+          actualETA: stop.estArriveAt * 1000,
+          noETA: false,
+          realTime: trip.isAssigned,
         });
 
-        tsv1.stations[stop.stopId].destinations[trainDirection].trains.push({
+        tsv1.stations[stop.stationId].destinations[
+          thisStop.directionLabels[trip.direction]
+        ].trains.push({
           runNumber: runNumber,
-          actualETA: time,
-          noETA: !time,
-          realTime: true,
+          actualETA: stop.estArriveAt * 1000,
+          noETA: false,
+          realTime: trip.isAssigned,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
@@ -153,121 +291,17 @@ const update = async () => {
         });
       });
 
-      finalTrain.predictions = finalTrain.predictions.reverse();
+      tsv1.lines[finalTrain.lineCode].hasActiveTrains = true;
+
       tsv1.trains[runNumber] = finalTrain;
     });
-    /*
-    Object.keys(vehiclePositionsDict).forEach((vehicleID) => {
-      const position = vehiclePositionsDict[vehicleID] ?? {
-        latitude: 0,
-        longitude: 0,
-        bearing: 0,
-      };
-      delete vehiclePositionsDict[vehicleID];
 
-      tsv1.trains['DM-' + vehicleID] = {
-        lat: position.latitude,
-        lon: position.longitude,
-        heading: position.bearing,
-        realTime: false,
-        deadMileage: true,
-        line: 'METX',
-        lineCode: 'METX',
-        lineColor: '111111',
-        lineTextColor: 'FFFFFF',
-        dest: "Nowhere",
-        predictions: [],
-        type: 'train',
-        extra: {
-          holidayChristmas: holidayVehiclesArray.includes(vehicleID),
-          cabCar: vehicleID,
-          //scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
-          //scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
-        }
-      };
-    });
-    */
-
-    //adding any stations without trains to tsv1 object
-    Object.keys(staticRoutesData).forEach((routeID) => {
-      const route = staticRoutesData[routeID];
-
-      tsv1.lines[routeID] = {
-        lineCode: routeID,
-        lineNameShort: route.routeShortName,
-        lineNameLong: route.routeLongName,
-        routeColor: route.routeColor,
-        routeTextColor: route.routeTextColor,
-        stations: route.routeStations,
-        hasActiveTrains: false,
-      };
-
-      route.routeStations.forEach((stationID) => {
-        if (!tsv1.stations[stationID]) {
-          tsv1.stations[stationID] = {
-            stationID: stationID,
-            stationName: staticStopsData[stationID].stopName,
-            lat: staticStopsData[stationID].stopLat,
-            lon: staticStopsData[stationID].stopLon,
-            destinations: {
-              default: { trains: [] },
-            },
-          };
-        }
-      });
-    });
-
-    Object.keys(tsv1.trains).forEach((train) => {
-      const trainData = tsv1.trains[train];
-
-      if (tsv1.lines[trainData.lineCode])
-        tsv1.lines[trainData.lineCode].hasActiveTrains = true;
-    });
-
-    // alerts
-    /*
-    tsv1.alerts = alertsData.map((alert) => {
-      const lineCode = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
-      const runNumber = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
-      const stationID = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
-
-      const additionalRunNumbers = Object.keys(tsv1.trains).filter((trainID) => {
-        const train = tsv1.trains[trainID];
-        const stopIDs = train.predictions.map((prediction) => prediction.stationID);
-        if (lineCode == train.lineCode) return true;
-        if (stopIDs.includes(stationID)) return true;
-        return false;
-      });
-
-      const additionalStationIDs = Object.values(tsv1.stations).filter((station) => {
-        const stationLines = Object.values(staticRoutesData).filter((line) => line.routeStations.includes(station.stationID)).map((line) => line.routeID);
-        const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
-
-        if (stationLines.includes(lineCode)) return true;
-        if (stationTrains.includes(runNumber)) return true;
-        return false;
-      }).map((station) => station.stationID);
-
-      return {
-        id: alert.id,
-        lineCode,
-        runNumber,
-        stationID,
-        additionalRunNumbers,
-        additionalStationIDs,
-        title: alert.alert.headerText.translation[0].text,
-        message: alert.alert.descriptionText.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
-      }
-    });
-    */
-
-    const lastUpdated = new Date().toISOString();
+    const lastUpdated = now.toISOString();
 
     tsv1.lastUpdated = lastUpdated;
 
     return {
       tsv1,
-      vehiclePositionsDict,
       lastUpdated: lastUpdated,
     };
   } catch (e) {

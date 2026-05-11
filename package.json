@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": { "node": "24" },
+  "engines": {
+    "node": "24"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@turf/along": "^6.5.0",
+    "@turf/helpers": "^7.3.5",
     "@turf/length": "^6.5.0",
     "@turf/nearest-point-on-line": "^6.5.0",
     "@turf/rhumb-bearing": "^6.5.0",
