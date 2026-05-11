@@ -225,7 +225,7 @@ const update = async () => {
         lineNameLong: route.routeLongName,
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
-        stations: route.routeStations,
+        stations: route.routeStations.map((gtfsCode) => gtfsToStationID[gtfsCode]),
         hasActiveTrains: false,
       };
     });
