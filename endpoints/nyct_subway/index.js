@@ -1,5 +1,5 @@
 const stationsMetaArray = require("./stations.json");
-const carsMetaArray = require('./cars.json');
+const carsMetaArray = require("./cars.json");
 const along = require("@turf/along").default;
 const length = require("@turf/length").default;
 const { lineString } = require("@turf/helpers");
@@ -28,7 +28,7 @@ const update = async () => {
 
   let carsMetaDict = {};
   carsMetaArray.forEach((car) => {
-    if (car.retirement_date == 'In-Service') {
+    if (car.retirement_date == "In-Service") {
       carsMetaDict[car.car_number] = car.car_class;
     }
   });
@@ -251,6 +251,41 @@ const update = async () => {
 
       const position = positionsDict[trip.tripId];
 
+      let finalConsist = [];
+      let currentStringOfCars = [];
+      console.log(trip.consistCars)
+      if (trip.consistCars)
+        trip.consistCars.forEach((car, i) => {
+          if (
+            currentStringOfCars.length == 0 ||
+            Math.abs(currentStringOfCars.at(-1).number - car.number) == 1
+          ) {
+            currentStringOfCars.push(car);
+          } else {
+            finalConsist.push({
+              type: currentStringOfCars[0].type,
+              number:
+                currentStringOfCars.length > 1
+                  ? `${currentStringOfCars[0].number}-${currentStringOfCars.at(-1).number}`
+                  : currentStringOfCars[0].number,
+            });
+            currentStringOfCars = [car];
+          }
+
+          if (
+            i == trip.consistCars.length - 1 &&
+            currentStringOfCars.length > 0
+          ) {
+            finalConsist.push({
+              type: currentStringOfCars[0].type,
+              number:
+                currentStringOfCars.length > 1
+                  ? `${currentStringOfCars[0].number}-${currentStringOfCars.at(-1).number}`
+                  : currentStringOfCars[0].number,
+            });
+          }
+        });
+
       let finalTrain = {
         lat: position[1],
         lon: position[0],
@@ -266,20 +301,7 @@ const update = async () => {
         type: "train",
         extra: {
           holidayChristmas: false,
-          consist: trip.consistCars
-            ? trip.consistCars.map((car, i) => {
-                if (i == 0) {
-                  return {
-                    type: carsMetaDict[car.number] ?? car.type,
-                    number: car.number,
-                  };
-                } else {
-                  return {
-                    number: car.number,
-                  };
-                }
-              })
-            : [],
+          consist: finalConsist,
         },
       };
 
