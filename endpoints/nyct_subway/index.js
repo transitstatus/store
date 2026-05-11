@@ -258,7 +258,7 @@ const update = async () => {
         trip.consistCars.forEach((car, i) => {
           if (
             currentStringOfCars.length == 0 ||
-            Math.abs(currentStringOfCars.at(-1).number - car.number) == 1
+            Math.abs(currentStringOfCars.at(-1).number - car.number) <= 2
           ) {
             currentStringOfCars.push(car);
           } else {
