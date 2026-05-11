@@ -1,20 +1,20 @@
-const protobuf = require('protobufjs');
+const protobuf = require("protobufjs");
 
-require('dotenv').config();
+require("dotenv").config();
 
 const scheduleRelationshipEnums = {
-  0: 'SCHEDULED',
-  2: 'UNSCHEDULED',
-  3: 'CANCELED',
-  4: 'REPLACEMENT',
-  5: 'DUPLICATED',
-  6: 'NEW',
-  7: 'DELETED',
-}
+  0: "SCHEDULED",
+  2: "UNSCHEDULED",
+  3: "CANCELED",
+  4: "REPLACEMENT",
+  5: "DUPLICATED",
+  6: "NEW",
+  7: "DELETED",
+};
 
 // checks to see if there is a shared element in either of the arrays
 const crossCheckTwoArrays = (array1, array2) => {
-  return array1.some(element => array2.includes(element));
+  return array1.some((element) => array2.includes(element));
 };
 
 const getTzOffset = () => {
@@ -30,12 +30,16 @@ const getTzOffset = () => {
 };
 
 const startTimeAndDateToDate = (startDate, startTime, timeZone) => {
-  return new Date(`${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6, 8)}T${startTime}${timeZone}`)
+  return new Date(
+    `${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6, 8)}T${startTime}${timeZone}`,
+  );
 };
 
-const update = (async () => {
-  const gtfsRealtimeRoot = await protobuf.load('gtfs-realtime-MTARR.proto');
-  const FeedMessage = gtfsRealtimeRoot.lookupType('transit_realtime.FeedMessage');
+const update = async () => {
+  const gtfsRealtimeRoot = await protobuf.load("gtfs-realtime-MTARR.proto");
+  const FeedMessage = gtfsRealtimeRoot.lookupType(
+    "transit_realtime.FeedMessage",
+  );
 
   const lastUpdatedDate = new Date();
   const lastUpdatedUnix = lastUpdatedDate.valueOf();
@@ -45,27 +49,31 @@ const update = (async () => {
   let cancelledTrains = {};
 
   try {
-    const [
-      tripUpdatesData,
-      alertsData,
-    ] = await Promise.all([
-      `https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/lirr%2Fgtfs-lirr`,
-      `https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Flirr-alerts`,
-    ].map((url) =>
-      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => FeedMessage.decode(new Uint8Array(arrayBuffer)))
-    ));
+    const [tripUpdatesData, alertsData] = await Promise.all(
+      [
+        `https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/lirr%2Fgtfs-lirr`,
+        `https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Flirr-alerts`,
+      ].map((url) =>
+        fetch(url)
+          .then((res) => res.arrayBuffer())
+          .then((arrayBuffer) =>
+            FeedMessage.decode(new Uint8Array(arrayBuffer)),
+          ),
+      ),
+    );
 
     let vehiclePositionsDict = {};
     tripUpdatesData.entity.forEach((position) => {
-      if (position.vehicle) { // position updates only
+      if (position.vehicle) {
+        // position updates only
         //if (position.vehicle.vehicle && position.vehicle.position) {
         //  vehiclePositionsDict[`vehicle_${position.vehicle.vehicle.label}`] = position.vehicle.position
         //}
         if (position.vehicle.trip && position.vehicle.position) {
           vehiclePositionsDict[position.vehicle.trip.tripId] = {
             ...position.vehicle.position,
-            label: position.vehicle?.vehicle?.label
-          }
+            label: position.vehicle?.vehicle?.label,
+          };
         }
       }
     });
@@ -75,25 +83,28 @@ const update = (async () => {
       staticRoutesData,
       scheduledVehicles,
       holidayVehicles,
-    ] = await Promise.all([
-      'https://gtfs.piemadd.com/data/lirr/stops.json',
-      'https://gtfs.piemadd.com/data/lirr/routes.json',
-      'http://localhost:3000/gtfs_sch_acc/lirr/scheduledVehicles',
-      `https://gks.pgm.sh/api/v1/lirr_christmas_sets?t=${Date.now()}`
-    ].map((url) =>
-      fetch(url).then(res => res.json())
-    ));
+    ] = await Promise.all(
+      [
+        "https://gtfs.piemadd.com/data/lirr/stops.json",
+        "https://gtfs.piemadd.com/data/lirr/routes.json",
+        "http://localhost:3000/gtfs_sch_acc/lirr/scheduledVehicles",
+        `https://gks.pgm.sh/api/v1/lirr_christmas_sets?t=${Date.now()}`,
+      ].map((url) => fetch(url).then((res) => res.json())),
+    );
 
     let trainConsists = {};
 
-    const secretRadarData = await fetch("https://backend-unified.mylirr.org/locations?geometry=TRACK_TURF&railroad=LIRR", {
-      "credentials": "omit",
-      "headers": {
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Version": "3.0",
-      }
-    }).then((res) => res.json());
+    const secretRadarData = await fetch(
+      "https://backend-unified.mylirr.org/locations?geometry=TRACK_TURF&railroad=LIRR",
+      {
+        credentials: "omit",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Accept-Language": "en-US,en;q=0.5",
+          "Accept-Version": "3.0",
+        },
+      },
+    ).then((res) => res.json());
 
     secretRadarData.forEach((train) => {
       trainConsists[train.train_num] = train.consist.cars;
@@ -102,11 +113,16 @@ const update = (async () => {
         longitude: train.location.longitude,
         latitude: train.location.latitude,
         bearing: 0,
-        label:  train.consist.cars.length > 0 ? train.consist.cars[0].number.toString() : '',
-      }
-    })
+        label:
+          train.consist.cars.length > 0
+            ? train.consist.cars[0].number.toString()
+            : "",
+      };
+    });
 
-    const holidayVehiclesArray = holidayVehicles.error ? [] : holidayVehicles.response.object;
+    const holidayVehiclesArray = holidayVehicles.error
+      ? []
+      : holidayVehicles.response.object;
 
     let transitStatus = {
       trains: {},
@@ -123,43 +139,82 @@ const update = (async () => {
         lat: stop.stopLat,
         lon: stop.stopLon,
         destinations: {
-          'Eastbound': { trains: [] },
-          'Westbound': { trains: [] },
+          Eastbound: { trains: [] },
+          Westbound: { trains: [] },
         },
       };
-    })
+    });
 
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
       if (train.vehicle) return; // position
 
-      const trainNumber = train.tripUpdate?.trip?.tripId.split('_')[2];
+      const trainNumber = train.tripUpdate?.trip?.tripId.split("_")[2];
       if (!trainNumber) return; //no train ig
 
       const runNumber = trainNumber;
       const isEastbound = parseInt(trainNumber) % 2 == 0;
-      const trainDirection = isEastbound ? 'Eastbound' : 'Westbound';
+      const trainDirection = isEastbound ? "Eastbound" : "Westbound";
 
       if (train.tripUpdate?.trip?.scheduleRelationship == 3) {
         cancelledTrains[trainNumber] = true;
         return;
       }
 
-      const position = vehiclePositionsDict[train?.tripUpdate?.trip?.tripId] ?? vehiclePositionsDict[trainNumber] ?? {
-        latitude: 0,
-        longitude: 0,
-        bearing: 0,
-        label: '',
-      };
+      const position = vehiclePositionsDict[train?.tripUpdate?.trip?.tripId] ??
+        vehiclePositionsDict[trainNumber] ?? {
+          latitude: 0,
+          longitude: 0,
+          bearing: 0,
+          label: "",
+        };
       delete vehiclePositionsDict[train?.tripUpdate?.trip?.tripId];
 
-      const isScheduled = (position.latitude == 0 && position.longitude == 0 && position.bearing == 0);
+      const isScheduled =
+        position.latitude == 0 &&
+        position.longitude == 0 &&
+        position.bearing == 0;
 
       const consist = trainConsists[trainNumber] ?? [];
       const consistBasic = consist.map((car) => (car.number ?? 0).toString());
-      const isHolidayChristmas = holidayVehiclesArray.includes(position.label) || crossCheckTwoArrays(holidayVehiclesArray, consistBasic);
+      const isHolidayChristmas =
+        holidayVehiclesArray.includes(position.label) ||
+        crossCheckTwoArrays(holidayVehiclesArray, consistBasic);
 
       const leadingCar = consist.length > 0 ? consist[0] : null;
+      let finalConsist = [];
+      let currentStringOfCars = [];
+      consist.forEach((car, i) => {
+          if (
+            currentStringOfCars.length == 0 ||
+            Math.abs(currentStringOfCars.at(-1).number - car.number) <= 2
+          ) {
+            currentStringOfCars.push(car);
+          } else {
+            finalConsist.push({
+              type: currentStringOfCars[0].type,
+              number:
+                currentStringOfCars.length > 1
+                  ? `${currentStringOfCars[0].number}-${currentStringOfCars.at(-1).number}`
+                  : currentStringOfCars[0].number,
+            });
+            currentStringOfCars = [car];
+          }
+
+          if (
+            i == consist.length - 1 &&
+            currentStringOfCars.length > 0
+          ) {
+            finalConsist.push({
+              type: currentStringOfCars[0].type,
+              number:
+                currentStringOfCars.length > 1
+                  ? `${currentStringOfCars[0].number}-${currentStringOfCars.at(-1).number}`
+                  : currentStringOfCars[0].number,
+            });
+          }
+        });
+
       let finalTrain = {
         lat: position.latitude,
         lon: position.longitude,
@@ -169,18 +224,32 @@ const update = (async () => {
         line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
         lineCode: train.tripUpdate?.trip?.routeId,
         lineColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeColor,
-        lineTextColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeTextColor,
+        lineTextColor:
+          staticRoutesData[train.tripUpdate?.trip?.routeId].routeTextColor,
         dest: "Unknown Dest",
         predictions: [],
-        type: 'train',
+        type: "train",
         extra: {
           holidayChristmas: isHolidayChristmas,
-          cabCar: leadingCar && !leadingCar.locomotive ? leadingCar.number : (position.label.length == 4 ? position.label : null),
-          engine: leadingCar && leadingCar.locomotive ? leadingCar.number : (position.label.length == 3 ? position.label : null),
-          consist,
+          cabCar:
+            leadingCar && !leadingCar.locomotive
+              ? leadingCar.number
+              : position.label.length == 4
+                ? position.label
+                : null,
+          engine:
+            leadingCar && leadingCar.locomotive
+              ? leadingCar.number
+              : position.label.length == 3
+                ? position.label
+                : null,
+          consist: finalConsist,
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
-          scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
-        }
+          scheduleRelationshipEnum:
+            scheduleRelationshipEnums[
+              train.tripUpdate?.trip?.scheduleRelationship
+            ],
+        },
       };
 
       let trainHasValidStops = false; // gauging whether we can remove noeta stops
@@ -189,11 +258,15 @@ const update = (async () => {
       train.tripUpdate?.stopTimeUpdate?.reverse().forEach((stop, i) => {
         if (i == 0) finalTrain.dest = staticStopsData[stop.stopId].stopName;
 
-        const arr = stop.arrival ? new Date(stop.arrival.time?.low).valueOf() : 0;
-        const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
+        const arr = stop.arrival
+          ? new Date(stop.arrival.time?.low).valueOf()
+          : 0;
+        const dep = stop.departure
+          ? new Date(stop.departure.time?.low).valueOf()
+          : 0;
         const time = Math.max(arr, dep) * 1000;
 
-        // stops are done in reverse order, which is why we can filter as we go instead of 
+        // stops are done in reverse order, which is why we can filter as we go instead of
         // checking and then filtering later
         if (time) trainHasValidStops = true;
         else if (trainHasValidStops) return;
@@ -206,7 +279,9 @@ const update = (async () => {
           realTime: !isScheduled,
         });
 
-        transitStatus.stations[stop.stopId].destinations[trainDirection].trains.push({
+        transitStatus.stations[stop.stopId].destinations[
+          trainDirection
+        ].trains.push({
           runNumber: runNumber,
           actualETA: time,
           noETA: !time,
@@ -218,7 +293,8 @@ const update = (async () => {
           destination: finalTrain.dest,
           extra: {
             holidayChristmas: isHolidayChristmas,
-          }
+            consist: finalConsist,
+          },
         });
       });
 
@@ -271,7 +347,7 @@ const update = (async () => {
         routeColor: route.routeColor,
         routeTextColor: route.routeTextColor,
         stations: route.routeStations,
-        hasActiveTrains: false
+        hasActiveTrains: false,
       };
 
       route.routeStations.forEach((stationID) => {
@@ -282,8 +358,8 @@ const update = (async () => {
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
             destinations: {
-              'Eastbound': { trains: [] },
-              'Westbound': { trains: [] },
+              Eastbound: { trains: [] },
+              Westbound: { trains: [] },
             },
           };
         }
@@ -293,31 +369,51 @@ const update = (async () => {
     Object.keys(transitStatus.trains).forEach((train) => {
       const trainData = transitStatus.trains[train];
 
-      if (transitStatus.lines[trainData.lineCode]) transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+      if (transitStatus.lines[trainData.lineCode])
+        transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
 
     // alerts
     transitStatus.alerts = alertsData.entity.map((alert) => {
-      const lineCode = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
-      const runNumber = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
-      const stationID = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
+      const lineCode =
+        alert.alert.informedEntity.length > 0
+          ? (alert.alert.informedEntity[0].routeId ?? null)
+          : null;
+      const runNumber =
+        alert.alert.informedEntity.length > 0
+          ? (alert.alert.informedEntity[0].trip?.tripId ?? null)
+          : null;
+      const stationID =
+        alert.alert.informedEntity.length > 0
+          ? (alert.alert.informedEntity[0].stopId ?? null)
+          : null;
 
-      const additionalRunNumbers = Object.keys(transitStatus.trains).filter((trainID) => {
-        const train = transitStatus.trains[trainID];
-        const stopIDs = train.predictions.map((prediction) => prediction.stationID);
-        if (lineCode == train.lineCode) return true;
-        if (stopIDs.includes(stationID)) return true;
-        return false;
-      });
+      const additionalRunNumbers = Object.keys(transitStatus.trains).filter(
+        (trainID) => {
+          const train = transitStatus.trains[trainID];
+          const stopIDs = train.predictions.map(
+            (prediction) => prediction.stationID,
+          );
+          if (lineCode == train.lineCode) return true;
+          if (stopIDs.includes(stationID)) return true;
+          return false;
+        },
+      );
 
-      const additionalStationIDs = Object.values(transitStatus.stations).filter((station) => {
-        const stationLines = Object.values(staticRoutesData).filter((line) => line.routeStations.includes(station.stationID)).map((line) => line.routeID);
-        const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
+      const additionalStationIDs = Object.values(transitStatus.stations)
+        .filter((station) => {
+          const stationLines = Object.values(staticRoutesData)
+            .filter((line) => line.routeStations.includes(station.stationID))
+            .map((line) => line.routeID);
+          const stationTrains = Object.values(station.destinations).flatMap(
+            (direction) => direction.trains,
+          );
 
-        if (stationLines.includes(lineCode)) return true;
-        if (stationTrains.includes(runNumber)) return true;
-        return false;
-      }).map((station) => station.stationID);
+          if (stationLines.includes(lineCode)) return true;
+          if (stationTrains.includes(runNumber)) return true;
+          return false;
+        })
+        .map((station) => station.stationID);
 
       return {
         id: alert.id,
@@ -327,15 +423,24 @@ const update = (async () => {
         additionalRunNumbers,
         additionalStationIDs,
         title: alert.alert.headerText.translation[0].text,
-        message: (alert.alert.descriptionText ?? { translation: [{ text: '' }] }).translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
-      }
+        message: (
+          alert.alert.descriptionText ?? { translation: [{ text: "" }] }
+        ).translation[0].text
+          .replaceAll(/<[^>]*>/g, " ")
+          .replaceAll("&nbsp;", " ")
+          .replaceAll(/\s+/g, " ")
+          .trim(),
+      };
     });
 
     transitStatus.lastUpdated = lastUpdated;
 
     Object.keys(scheduledVehicles)
       .sort((aTrip, bTrip) => {
-        return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
+        return (
+          scheduledVehicles[aTrip].predictions[0].actualETA -
+          scheduledVehicles[bTrip].predictions[0].actualETA
+        );
       })
       .forEach((runNumber) => {
         const scheduledVehicle = scheduledVehicles[runNumber];
@@ -344,7 +449,8 @@ const update = (async () => {
         if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
         transitStatus.trains[runNumber] = scheduledVehicle;
 
-        const trainDirection = parseInt(runNumber) % 2 == 0 ? 'Eastbound' : 'Westbound';
+        const trainDirection =
+          parseInt(runNumber) % 2 == 0 ? "Eastbound" : "Westbound";
 
         scheduledVehicle.predictions.forEach((stop) => {
           //adding stations to transitStatus object
@@ -355,15 +461,21 @@ const update = (async () => {
               lat: staticStopsData[stop.stationID].stopLat,
               lon: staticStopsData[stop.stationID].stopLon,
               destinations: {
-                'Eastbound': { trains: [] },
-                'Westbound': { trains: [] },
+                Eastbound: { trains: [] },
+                Westbound: { trains: [] },
               },
             };
-          };
+          }
 
-          if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
+          if (
+            transitStatus.stations[stop.stationID].destinations[trainDirection]
+              .trains.length > 12
+          )
+            return; // too much!
 
-          transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
+          transitStatus.stations[stop.stationID].destinations[
+            trainDirection
+          ].trains.push({
             runNumber: runNumber,
             actualETA: stop.actualETA,
             noETA: false,
@@ -376,16 +488,16 @@ const update = (async () => {
             extra: {},
           });
         });
-      })
+      });
 
     return {
       transitStatus,
       lastUpdated: lastUpdated,
-    }
+    };
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return false;
   }
-})
+};
 
 exports.update = update;

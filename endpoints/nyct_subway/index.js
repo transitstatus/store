@@ -253,7 +253,6 @@ const update = async () => {
 
       let finalConsist = [];
       let currentStringOfCars = [];
-      console.log(trip.consistCars)
       if (trip.consistCars)
         trip.consistCars.forEach((car, i) => {
           if (
