@@ -182,38 +182,22 @@ const update = async () => {
         crossCheckTwoArrays(holidayVehiclesArray, consistBasic);
 
       const leadingCar = consist.length > 0 ? consist[0] : null;
-      let finalConsist = [];
-      let currentStringOfCars = [];
-      consist.forEach((car, i) => {
-          if (
-            currentStringOfCars.length == 0 ||
-            Math.abs(currentStringOfCars.at(-1).number - car.number) <= 2
-          ) {
-            currentStringOfCars.push(car);
-          } else {
-            finalConsist.push({
-              type: currentStringOfCars[0].type,
-              number:
-                currentStringOfCars.length > 1
-                  ? `${currentStringOfCars[0].number}-${currentStringOfCars.at(-1).number}`
-                  : currentStringOfCars[0].number,
-            });
-            currentStringOfCars = [car];
-          }
-
-          if (
-            i == consist.length - 1 &&
-            currentStringOfCars.length > 0
-          ) {
-            finalConsist.push({
-              type: currentStringOfCars[0].type,
-              number:
-                currentStringOfCars.length > 1
-                  ? `${currentStringOfCars[0].number}-${currentStringOfCars.at(-1).number}`
-                  : currentStringOfCars[0].number,
-            });
-          }
-        });
+      const finalConsist = consist.map((car) => {
+        if (car.type == 'DEDM' && car.number.toString().startsWith('4')) car.type = 'DE';
+        if (car.type == 'DEDM' && car.number.toString().startsWith('5')) car.type = 'DE';
+        return car;
+      }).map((car, i) => {
+        if (i == 0) {
+          return {
+            type: car.type,
+            number: car.number,
+          };
+        } else {
+          return {
+            number: car.number,
+          };
+        }
+      });
 
       let finalTrain = {
         lat: position.latitude,
