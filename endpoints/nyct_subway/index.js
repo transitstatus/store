@@ -1,4 +1,5 @@
 const stationsMetaArray = require("./stations.json");
+const carsMetaArray = require('./cars.json');
 const along = require("@turf/along").default;
 const length = require("@turf/length").default;
 const { lineString } = require("@turf/helpers");
@@ -22,6 +23,13 @@ const update = async () => {
       stationsMetaDict[feature.properties.station_id].allGtfsIds.push(
         feature.properties.gtfs_stop_id,
       );
+    }
+  });
+
+  let carsMetaDict = {};
+  carsMetaArray.forEach((car) => {
+    if (car.retirement_date == 'In-Service') {
+      carsMetaDict[car.car_number] = car.car_class;
     }
   });
 
@@ -259,47 +267,55 @@ const update = async () => {
         extra: {
           holidayChristmas: false,
           consist: trip.consistCars
-            ? trip.consistCars.map((car) => {
-                return {
-                  type: car.type,
-                  number: car.number,
-                };
+            ? trip.consistCars.map((car, i) => {
+                if (i == 0) {
+                  return {
+                    type: carsMetaDict[car.number] ?? car.type,
+                    number: car.number,
+                  };
+                } else {
+                  return {
+                    number: car.number,
+                  };
+                }
               })
             : [],
         },
       };
 
-      trip.stops.filter((stop) => now < (stop.estArriveAt + 60) * 1000).forEach((stop) => {
-        const thisStop = tsv1.stations[stop.stationId];
+      trip.stops
+        .filter((stop) => now < (stop.estArriveAt + 60) * 1000)
+        .forEach((stop) => {
+          const thisStop = tsv1.stations[stop.stationId];
 
-        //if (thisStop.stationId == '25' || thisStop.stationId == '174') console.log(trip.direction, thisStop.stationId, stop.sectionId, stop.platformEdges[0])
+          //if (thisStop.stationId == '25' || thisStop.stationId == '174') console.log(trip.direction, thisStop.stationId, stop.sectionId, stop.platformEdges[0])
 
-        finalTrain.predictions.push({
-          stationID: stop.stationId,
-          stationName: thisStop.stationName,
-          actualETA: stop.estArriveAt * 1000,
-          noETA: false,
-          realTime: trip.isAssigned,
+          finalTrain.predictions.push({
+            stationID: stop.stationId,
+            stationName: thisStop.stationName,
+            actualETA: stop.estArriveAt * 1000,
+            noETA: false,
+            realTime: trip.isAssigned,
+          });
+
+          tsv1.stations[stop.stationId].destinations[
+            thisStop.directionLabels[trip.direction]
+          ].trains.push({
+            runNumber: runNumber,
+            actualETA: stop.estArriveAt * 1000,
+            noETA: false,
+            realTime: trip.isAssigned,
+            line: finalTrain.line,
+            lineCode: finalTrain.lineCode,
+            lineColor: finalTrain.lineColor,
+            lineTextColor: finalTrain.lineTextColor,
+            destination: finalTrain.dest,
+            extra: {
+              holidayChristmas: false,
+              consist: finalTrain.extra.consist,
+            },
+          });
         });
-
-        tsv1.stations[stop.stationId].destinations[
-          thisStop.directionLabels[trip.direction]
-        ].trains.push({
-          runNumber: runNumber,
-          actualETA: stop.estArriveAt * 1000,
-          noETA: false,
-          realTime: trip.isAssigned,
-          line: finalTrain.line,
-          lineCode: finalTrain.lineCode,
-          lineColor: finalTrain.lineColor,
-          lineTextColor: finalTrain.lineTextColor,
-          destination: finalTrain.dest,
-          extra: {
-            holidayChristmas: false,
-            consist: finalTrain.extra.consist,
-          },
-        });
-      });
 
       tsv1.lines[finalTrain.lineCode].hasActiveTrains = true;
 
