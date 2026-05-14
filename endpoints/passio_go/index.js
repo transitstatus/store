@@ -70,8 +70,7 @@ const updateFeed = async (feed) => {
         bearing: 0,
       }
 
-      let routeId = train.tripUpdate?.trip?.routeId ?? tripToRouteDict[train.tripUpdate?.trip?.tripId];
-      if (!routeId) routeId = Object.keys(staticRoutesData)[0];
+      let routeId = tripToRouteDict[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.routeId;
 
       let finalTrain = {
         lat: position.latitude,
@@ -234,7 +233,7 @@ const updateFeed = async (feed) => {
       }
     }
   } catch (e) {
-    console.log(e);
+    console.log(e)
     return {
       trains: {},
       stations: {},

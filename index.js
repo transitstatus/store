@@ -108,8 +108,8 @@ fastify.after(() => {
 
             const updateV0 = require(`./endpoints/${endpoint}/${config.script}`).update;
 
-            data[endpoint] = config.default
-            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : config.default;
+            data[endpoint] = structuredClone(config.default)
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : structuredClone(config.default);
 
             try {
               updateV0()
@@ -155,8 +155,8 @@ fastify.after(() => {
             const updateV1 = require(`./endpoints/${endpoint}/${config.script}`).update;
             const variables = config.variables;
 
-            data[endpoint] = config.default
-            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : config.default;
+            data[endpoint] = structuredClone(config.default);
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : structuredClone(config.default);
 
             try {
               variables.forEach((variableSet) => updateV1(...variableSet)
@@ -196,14 +196,14 @@ fastify.after(() => {
 
             const updateV2 = require(`./endpoints/${endpoint}/${config.script}`).update;
 
-            data[endpoint] = config.default;
-            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : config.default;
+            data[endpoint] = structuredClone(config.default);
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : structuredClone(config.default);
 
             try {
               const initialState = await fetch(`https://store.transitstat.us/${endpoint}`)
                 .then((res) => res.json())
                 .catch((e) => {
-                  return config.default; // earlier failure or issue
+                  return structuredClone(config.default); // earlier failure or issue
                 });
 
               data[endpoint] = initialState;
