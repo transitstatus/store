@@ -8,9 +8,6 @@
     "metra": {
       "scheduledVehicles": {}
     },
-    "mbta": {
-      "scheduledVehicles": {}
-    },
     "bart": {
       "scheduledVehicles": {}
     },
@@ -39,9 +36,6 @@
   "variables": [
     [
       "metra"
-    ],
-    [
-      "mbta"
     ],
     [
       "bart"
