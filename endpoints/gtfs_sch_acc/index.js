@@ -1,42 +1,38 @@
-const protobuf = require('protobufjs');
+const protobuf = require("protobufjs");
 
 const updateFeed = async (feed) => {
   // if (feed == 'southshore') return false;
 
+  if (feed == "cta") return { scheduledVehicles: {} };
+
   try {
     const nowDate = new Date();
-    const todaysDate = new Date(new Date(nowDate).toISOString().split('T')[0] + 'T00:00:00.000Z')
-    const yesterdaysDate = new Date(todaysDate.valueOf() - (1000 * 60 * 60 * 24));
-    const tomorrowsDate = new Date(todaysDate.valueOf() + (1000 * 60 * 60 * 24));
+    const todaysDate = new Date(new Date(nowDate).toISOString().split("T")[0] + "T00:00:00.000Z");
+    const yesterdaysDate = new Date(todaysDate.valueOf() - 1000 * 60 * 60 * 24);
+    const tomorrowsDate = new Date(todaysDate.valueOf() + 1000 * 60 * 60 * 24);
 
-    const root = await protobuf.load('schedules.proto');
-    const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
+    const root = await protobuf.load("schedules.proto");
+    const ScheduleMessage = root.lookupType("gobbler.ScheduleMessage");
 
-    const [
-      staticStopsData,
-      staticRoutesData,
-      staticMetaData,
-    ] = await Promise.all([
-      `https://gtfs.piemadd.com/data/${feed}/stops.json`,
-      `https://gtfs.piemadd.com/data/${feed}/routes.json`,
-      `https://gobblerstatic.transitstat.us/schedules/${feed}/metadata.json`,
-    ].map((url) =>
-      fetch(url).then(res => res.json())
-    ));
+    const [staticStopsData, staticRoutesData, staticMetaData] = await Promise.all(
+      [
+        `https://gtfs.piemadd.com/data/${feed}/stops.json`,
+        `https://gtfs.piemadd.com/data/${feed}/routes.json`,
+        `https://gobblerstatic.transitstat.us/schedules/${feed}/metadata.json`
+      ].map((url) => fetch(url).then((res) => res.json()))
+    );
 
-    const [
-      todaysStopData,
-      yesterdaysStopData,
-      tomorrowsStopData,
-    ] = await Promise.all([
-      `https://gobblerstatic.transitstat.us/schedules/${feed}/${todaysDate.toISOString().split('T')[0]}.pbf`,
-      `https://gobblerstatic.transitstat.us/schedules/${feed}/${yesterdaysDate.toISOString().split('T')[0]}.pbf`,
-      `https://gobblerstatic.transitstat.us/schedules/${feed}/${tomorrowsDate.toISOString().split('T')[0]}.pbf`,
-    ].map((url) =>
-      fetch(url)
-        .then(res => res.arrayBuffer())
-        .then(arrayBuffer => ScheduleMessage.decode(new Uint8Array(arrayBuffer)))
-    ));
+    const [todaysStopData, yesterdaysStopData, tomorrowsStopData] = await Promise.all(
+      [
+        `https://gobblerstatic.transitstat.us/schedules/${feed}/${todaysDate.toISOString().split("T")[0]}.pbf`,
+        `https://gobblerstatic.transitstat.us/schedules/${feed}/${yesterdaysDate.toISOString().split("T")[0]}.pbf`,
+        `https://gobblerstatic.transitstat.us/schedules/${feed}/${tomorrowsDate.toISOString().split("T")[0]}.pbf`
+      ].map((url) =>
+        fetch(url)
+          .then((res) => res.arrayBuffer())
+          .then((arrayBuffer) => ScheduleMessage.decode(new Uint8Array(arrayBuffer)))
+      )
+    );
 
     let stoppingPatternTimes = {};
     staticMetaData.stoppingPatterns.forEach((pattern, patternIndex) => {
@@ -63,51 +59,52 @@ const updateFeed = async (feed) => {
 
         (stop.trainMessage ?? []).forEach((train) => {
           currentTimeDiff += train.timeDiff * 1000;
-          if ('runNumber' in train) runNumber = train.runNumber;
-          if ('headsignId' in train) headsign = staticMetaData.headsigns[train.headsignId];
-          if ('routeId' in train) route = staticRoutesData[staticMetaData.routes[train.routeId]];
+          if ("runNumber" in train) runNumber = train.runNumber;
+          if ("headsignId" in train) headsign = staticMetaData.headsigns[train.headsignId];
+          if ("routeId" in train) route = staticRoutesData[staticMetaData.routes[train.routeId]];
 
-          if (!individualTrains[runNumber]) individualTrains[runNumber] = {
-            lat: 0,
-            lon: 0,
-            heading: 0,
-            realTime: false,
-            deadMileage: true,
-            line: route.routeLongName,
-            lineCode: route.routeID,
-            lineColor: route.routeColor,
-            lineTextColor: route.routeTextColor,
-            dest: headsign,
-            predictions: [],
-            type: 'train',
-            extra: {}
-          };
+          if (!individualTrains[runNumber])
+            individualTrains[runNumber] = {
+              lat: 0,
+              lon: 0,
+              heading: 0,
+              realTime: false,
+              deadMileage: true,
+              line: route.routeLongName,
+              lineCode: route.routeID,
+              lineColor: route.routeColor,
+              lineTextColor: route.routeTextColor,
+              dest: headsign,
+              predictions: [],
+              type: "train",
+              extra: {}
+            };
 
           individualTrains[runNumber].predictions.push({
             stationID: stop.stopId,
             stationName: stopData.stopName,
             actualETA: currentTimeDiff,
             noETA: false,
-            realTime: false,
-          })
+            realTime: false
+          });
         });
       });
 
       Object.keys(individualTrains).forEach((runNumber) => {
-        individualTrains[runNumber].predictions = individualTrains[runNumber].predictions.sort((a, b) =>
-          a.actualETA - b.actualETA,
-        )
+        individualTrains[runNumber].predictions = individualTrains[runNumber].predictions.sort(
+          (a, b) => a.actualETA - b.actualETA
+        );
 
         const firstStop = individualTrains[runNumber].predictions[0];
         const lastStop = individualTrains[runNumber].predictions[individualTrains[runNumber].predictions.length - 1];
 
         if (
-          nowNumber < (lastStop.actualETA + 1000 * 60 * 15) &&
-          nowNumber + (1000 * 60 * 60 * 24) >= firstStop.actualETA &&
+          nowNumber < lastStop.actualETA + 1000 * 60 * 15 &&
+          nowNumber + 1000 * 60 * 60 * 24 >= firstStop.actualETA &&
           !scheduledVehicles[runNumber]
         ) {
           scheduledVehicles[runNumber] = individualTrains[runNumber];
-        };
+        }
       });
     };
 
@@ -115,15 +112,11 @@ const updateFeed = async (feed) => {
     fillInScheduleData(todaysStopData, nowDate, todaysDate);
     fillInScheduleData(tomorrowsStopData, nowDate, tomorrowsDate);
 
-    return {
-      scheduledVehicles,
-    };
+    return { scheduledVehicles };
   } catch (e) {
     console.log(e);
-    console.log(feed)
-    return {
-      scheduledVehicles: {}
-    };
+    console.log(feed);
+    return { scheduledVehicles: {} };
   }
 };
 
@@ -135,6 +128,6 @@ const updateFeedInd = async (feedKey) => {
   console.timeEnd(`GTFS schedules for ${feedKey}`);
 
   return feedData;
-}
+};
 
 exports.update = updateFeedInd;
