@@ -37,8 +37,10 @@ const getDecryptedData = (data) => {
 
   const decryptedData = decrypt(mainContent, privateKey);
 
+  //console.log(decryptedData)
+
   if (decryptedData.length > 0) return JSON.parse(decryptedData);
-  return {};
+  return { type: "FeatureCollection", features: [] };
 };
 
 const updateFeed = async (updateConfig) => {
@@ -68,7 +70,7 @@ const updateFeed = async (updateConfig) => {
       },
       trainStations: getDecryptedData(fetchedData.trainStations)
         .StationsDataResponse ?? { type: "FeatureCollection", features: [] },
-      trainDataASMAD: JSON.parse(fetchedData.trainDataASMAD) ?? {
+      trainDataASMAD: JSON.parse(fetchedData.trainDataASMAD.length > 0 ? fetchedData.trainDataASMAD : '{"type":"FeatureCollection","features":[]}') ?? {
         type: "FeatureCollection",
         features: [],
       },
@@ -87,12 +89,14 @@ const updateFeed = async (updateConfig) => {
     console.log(`Finished updating Amtraker Proxy`);
     return responseObject;
   } catch (e) {
-    console.log("Error with Amtraker Proxy Alerts");
+    console.log("Error with Amtrak Fetch Proxy");
+
+    console.log(e)
 
     const errorMessage = e.message;
     const errorString = e.toString();
 
-    if (updateConfig.firstUpdate) {
+    if (false && updateConfig.firstUpdate) {
       const initialStateText = await fetch(
         "https://store.transitstat.us/amtrak_fetch_proxy",
       ).then((res) => res.text());
@@ -120,6 +124,7 @@ const updateFeed = async (updateConfig) => {
           timeZone: "America/Chicago",
         }),
       },
+      errorString,
     };
   }
 };
