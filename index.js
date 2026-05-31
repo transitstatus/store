@@ -1,7 +1,7 @@
-const domainReplacements = require('./domainReplacements.json');
+const domainReplacements = require("./domainReplacements.json");
 
-const fs = require('fs');
-const fastify = require('fastify')({
+const fs = require("fs");
+const fastify = require("fastify")({
   logger: false,
   rewriteUrl: (request) => {
     if (domainReplacements[request.headers.host]) {
@@ -12,61 +12,72 @@ const fastify = require('fastify')({
   }
 });
 
-const lcache = require('fastify-lcache');
+const lcache = require("fastify-lcache");
 
 fastify.register(lcache, {
-  ttlInMinutes: 0.5, // set cached data lifetime to 30 seconds
+  ttlInMinutes: 0.5 // set cached data lifetime to 30 seconds
   //excludeRoutes: ['/']
 });
 
-require('dotenv').config();
+require("dotenv").config();
 
-const getAllKeysWithParents = (obj, parentKey = '') => {
+const getAllKeysWithParents = (obj, parentKey = "") => {
   let keys = [];
 
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
       const currentKey = parentKey ? `${parentKey}/${key}` : key;
       keys.push(currentKey);
-      if (typeof obj[key] === 'object') {
+      if (typeof obj[key] === "object") {
         keys = keys.concat(getAllKeysWithParents(obj[key], currentKey));
       }
     }
   }
 
   return keys;
-}
+};
+
+let topIPs = {};
 
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [];
-  const exclude_from_root = ['gtfs_sch', 'gtfs_sch_acc', 'chicago_snowplow_routes', 'atlas_routes', 'amtrak_fetch_proxy', 'mbta']; // won't be returned to lighten the load, can be overridden
+  const exclude_from_root = [
+    "gtfs_sch",
+    "gtfs_sch_acc",
+    "chicago_snowplow_routes",
+    "atlas_routes",
+    "amtrak_fetch_proxy",
+    "mbta"
+  ]; // won't be returned to lighten the load, can be overridden
 
   let data = {};
   let data_reduced = {};
   let data_configs = {};
 
   // getting folders within scripts folder
-  const endpoints = fs.readdirSync('./endpoints');
+  const endpoints = fs.readdirSync("./endpoints");
 
-  if (process.env.PROXY_MODE == 'true') {
+  if (process.env.PROXY_MODE == "true") {
     const updateInProxyMode = () => {
-      fetch('https://store.transitstat.us/?showAll=true')
-        .then((result) => {
-          if (result !== false) {
-            data = result;
+      fetch("https://store.transitstat.us/?showAll=true").then((res) => res.json()).then((result) => {
+        if (result !== false) {
+          data = result;
+          
+          console.log("Finished updating in proxy mode");
 
-            console.log('Finished updating in proxy mode')
-
-            console.log(`Destroying /GET`)
-            fastify.lcache.reset(`/GET`)
-          }
-        })
+          console.log(`Destroying /GET`);
+          fastify.lcache.reset(`/GET`);
+        }
+      });
     };
 
     updateInProxyMode();
-    setInterval(() => { updateInProxyMode() }, process.env.PROXY_MODE_INTERVAL ?? 60000);
-  } else { // normal operation
+    setInterval(() => {
+      updateInProxyMode();
+    }, process.env.PROXY_MODE_INTERVAL ?? 60000);
+  } else {
+    // normal operation
     // going through endpoints and setting up update jobs
     endpoints.forEach(async (endpoint) => {
       if (only_testing.length > 0 && !only_testing.includes(endpoint)) return;
@@ -74,7 +85,7 @@ fastify.after(() => {
       console.log(`Loading endpoint: ${endpoint}`);
       if (fs.lstatSync(`./endpoints/${endpoint}`).isDirectory()) {
         console.log(`${endpoint} is a directory`);
-        console.log(`Reading ${endpoint} config file`)
+        console.log(`Reading ${endpoint} config file`);
 
         if (!fs.existsSync(`./endpoints/${endpoint}/config.json`)) {
           console.log(`No config file found for ${endpoint}, not continuing`);
@@ -84,15 +95,16 @@ fastify.after(() => {
         const now = new Date();
 
         const config = JSON.parse(fs.readFileSync(`./endpoints/${endpoint}/config.json`));
-        if (config) data_configs[endpoint] = {
-          ...config,
-          lastUpdatedUnix: now.valueOf(),
-          lastUpdatedISO: now.toISOString(),
-          lastUpdatedUSLocale: now.toLocaleString(['en-US']),
-        }
+        if (config)
+          data_configs[endpoint] = {
+            ...config,
+            lastUpdatedUnix: now.valueOf(),
+            lastUpdatedISO: now.toISOString(),
+            lastUpdatedUSLocale: now.toLocaleString(["en-US"])
+          };
 
         if (config.disabled) {
-          console.log(`Endpoint ${endpoint} is disabled, skipping`)
+          console.log(`Endpoint ${endpoint} is disabled, skipping`);
           return;
         }
 
@@ -108,26 +120,29 @@ fastify.after(() => {
 
             const updateV0 = require(`./endpoints/${endpoint}/${config.script}`).update;
 
-            data[endpoint] = structuredClone(config.default)
-            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : structuredClone(config.default);
+            data[endpoint] = structuredClone(config.default);
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+              ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+              : structuredClone(config.default);
 
             try {
-              updateV0()
-                .then((result) => {
-                  if (result !== false) {
-                    data[endpoint] = result;
-                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
+              updateV0().then((result) => {
+                if (result !== false) {
+                  data[endpoint] = result;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : result;
 
-                    const keys = getAllKeysWithParents(config.default);
+                  const keys = getAllKeysWithParents(config.default);
 
-                    console.log(`Destroying /${endpoint}GET`)
-                    fastify.lcache.reset(`/${endpoint}GET`)
-                    keys.forEach((key) => {
-                      console.log(`Destroying /${endpoint}/${key}GET`)
-                      fastify.lcache.reset(`/${endpoint}/${key}GET`)
-                    })
-                  }
-                })
+                  console.log(`Destroying /${endpoint}GET`);
+                  fastify.lcache.reset(`/${endpoint}GET`);
+                  keys.forEach((key) => {
+                    console.log(`Destroying /${endpoint}/${key}GET`);
+                    fastify.lcache.reset(`/${endpoint}/${key}GET`);
+                  });
+                }
+              });
             } catch (e) {
               console.log(`error updating data for ${endpoint}`);
               console.log(e);
@@ -135,13 +150,14 @@ fastify.after(() => {
 
             setInterval(() => {
               try {
-                updateV0()
-                  .then((result) => {
-                    if (result === false) return;
+                updateV0().then((result) => {
+                  if (result === false) return;
 
-                    data[endpoint] = result;
-                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
-                  })
+                  data[endpoint] = result;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : result;
+                });
               } catch (e) {
                 console.log(`error updating data for ${endpoint}`);
                 console.log(e);
@@ -156,20 +172,22 @@ fastify.after(() => {
             const variables = config.variables;
 
             data[endpoint] = structuredClone(config.default);
-            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : structuredClone(config.default);
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+              ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+              : structuredClone(config.default);
 
             try {
-              variables.forEach((variableSet) => updateV1(...variableSet)
-                .then((result) => {
+              variables.forEach((variableSet) =>
+                updateV1(...variableSet).then((result) => {
                   if (result === false) return;
 
                   data[endpoint][variableSet[0]] = result;
                   if (!exclude_from_root.includes(endpoint)) data_reduced[endpoint][variableSet[0]] = result;
 
-                  console.log(`Destroying /${endpoint}/${variableSet[0]}GET`)
+                  console.log(`Destroying /${endpoint}/${variableSet[0]}GET`);
                   fastify.lcache.reset(`/${endpoint}/${variableSet[0]}GET`);
-                }))
-
+                })
+              );
             } catch (e) {
               console.log(`error updating data for ${endpoint}`);
               console.log(e);
@@ -177,13 +195,14 @@ fastify.after(() => {
 
             setInterval(() => {
               try {
-                variables.forEach((variableSet) => updateV1(...variableSet)
-                  .then((result) => {
+                variables.forEach((variableSet) =>
+                  updateV1(...variableSet).then((result) => {
                     if (result === false) return;
 
                     data[endpoint][variableSet[0]] = result;
                     if (!exclude_from_root.includes(endpoint)) data_reduced[endpoint][variableSet[0]] = result;
-                  }))
+                  })
+                );
               } catch (e) {
                 console.log(`error updating data for ${endpoint}`);
                 console.log(e);
@@ -197,7 +216,9 @@ fastify.after(() => {
             const updateV2 = require(`./endpoints/${endpoint}/${config.script}`).update;
 
             data[endpoint] = structuredClone(config.default);
-            data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : structuredClone(config.default);
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+              ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+              : structuredClone(config.default);
 
             try {
               const initialState = await fetch(`https://store.transitstat.us/${endpoint}`)
@@ -207,27 +228,32 @@ fastify.after(() => {
                 });
 
               data[endpoint] = initialState;
-              data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : initialState;
+              data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                : initialState;
 
-              updateV2({ firstUpdate: true })
-                .then((result) => {
-                  if (result === false) {
-                    data[endpoint] = initialState;
-                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : initialState;
-                  } else {
-                    data[endpoint] = result;
-                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
+              updateV2({ firstUpdate: true }).then((result) => {
+                if (result === false) {
+                  data[endpoint] = initialState;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : initialState;
+                } else {
+                  data[endpoint] = result;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : result;
 
-                    const keys = getAllKeysWithParents(config.default);
+                  const keys = getAllKeysWithParents(config.default);
 
-                    console.log(`Destroying /${endpoint}GET`)
-                    fastify.lcache.reset(`/${endpoint}GET`)
-                    keys.forEach((key) => {
-                      console.log(`Destroying /${endpoint}/${key}GET`)
-                      fastify.lcache.reset(`/${endpoint}/${key}GET`)
-                    })
-                  }
-                })
+                  console.log(`Destroying /${endpoint}GET`);
+                  fastify.lcache.reset(`/${endpoint}GET`);
+                  keys.forEach((key) => {
+                    console.log(`Destroying /${endpoint}/${key}GET`);
+                    fastify.lcache.reset(`/${endpoint}/${key}GET`);
+                  });
+                }
+              });
             } catch (e) {
               console.log(`error updating data for ${endpoint}`);
               console.log(e);
@@ -235,13 +261,14 @@ fastify.after(() => {
 
             setInterval(() => {
               try {
-                updateV2({ firstUpdate: false })
-                  .then((result) => {
-                    if (result === false) return;
+                updateV2({ firstUpdate: false }).then((result) => {
+                  if (result === false) return;
 
-                    data[endpoint] = result;
-                    data_reduced[endpoint] = exclude_from_root.includes(endpoint) ? `Not returned due to large size. Visit '/${endpoint}' for data.` : result;
-                  })
+                  data[endpoint] = result;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : result;
+                });
               } catch (e) {
                 console.log(`error updating data for ${endpoint}`);
                 console.log(e);
@@ -259,31 +286,60 @@ fastify.after(() => {
     });
   }
 
-  fastify.get('*', (request, reply) => {
-    let path = request.url.split('?')[0];
+  // IPS
+  const cleanUpIPs = () => {
+    Object.keys(topIPs)
+      .sort((a, b) => topIPs[b].count - topIPs[a].count)
+      .slice(50)
+      .forEach((ip) => {
+        delete topIPs[ip];
+      });
+  };
 
-    console.log(`Returning data for ${path}`)
+  setInterval(() => cleanUpIPs(), 300 * 1000);
 
-    if (path === '/') {
-      reply.header('Access-Control-Allow-Origin', '*');
-      if (request.query?.showAll == 'true') reply.send(data)
+  fastify.get("/ips", (request, reply) => {
+    if (request.url.endsWith(process.env.SUPER_SECRET_ACCESS_KEY)) {
+      reply.send(
+        Object.keys(topIPs)
+          .sort((a, b) => topIPs[b].count - topIPs[a].count)
+          .map((ip) => [ip, topIPs[ip].count, topIPs[ip].headers])
+      );
+    } else {
+      reply.send("Not found");
+    }
+  });
+
+  fastify.get("*", (request, reply) => {
+    let path = request.url.split("?")[0];
+
+    const ipAddr = request.headers["cf-connecting-ip"] ?? request.ip;
+
+    if (!topIPs[ipAddr]) topIPs[ipAddr] = { count: 0, headers: request.headers };
+    topIPs[ipAddr].count++;
+
+    console.log(`Returning data for ${path}`);
+
+    if (path === "/") {
+      reply.header("Access-Control-Allow-Origin", "*");
+      if (request.query?.showAll == "true") reply.send(data);
       else reply.send(data_reduced);
       return;
     }
 
     //remove leading slash first
-    const pathArray = path.substring(1).split('/');
+    const pathArray = path.substring(1).split("/");
     let dataToReturn = data;
 
     try {
       pathArray.forEach((path) => {
-        if (path === '') return; //trailing slash
+        if (path === "") return; //trailing slash
 
-        if (path === '_ts_store_meta') {
+        if (path === "_ts_store_meta") {
           let roughSizesOfKeys = {};
 
           Object.keys(dataToReturn).forEach((key) => {
-            roughSizesOfKeys[key] = JSON.stringify(dataToReturn[key]).length
+            roughSizesOfKeys[key] = JSON.stringify(dataToReturn[key]).length;
           });
 
           dataToReturn = {
@@ -292,24 +348,24 @@ fastify.after(() => {
             config: data_configs[pathArray[0]] ?? null
           };
           return;
-        };
+        }
 
         dataToReturn = dataToReturn[path];
 
         if (dataToReturn === undefined) {
-          throw new Error('Not found');
+          throw new Error("Not found");
         }
       });
     } catch (e) {
       //console.log(e);
-      console.log('Not found:', path)
-      reply.header('Access-Control-Allow-Origin', '*');
+      console.log("Not found:", path);
+      reply.header("Access-Control-Allow-Origin", "*");
       reply.code(404);
-      reply.send('Not found');
+      reply.send("Not found");
       return;
     }
 
-    reply.header('Access-Control-Allow-Origin', '*');
+    reply.header("Access-Control-Allow-Origin", "*");
     reply.send(dataToReturn);
   });
 
@@ -317,13 +373,13 @@ fastify.after(() => {
   //this isnt needed, but tbh i dont trust this cache implementation
   for (let i = 5; i <= 60; i += 5) {
     setTimeout(() => {
-      console.log('Hard resetting cache')
+      console.log("Hard resetting cache");
       fastify.lcache.reset();
-    }, i * 1000)
+    }, i * 1000);
   }
 });
 
-fastify.listen({ port: process.env.PORT ?? 3000, host: '0.0.0.0', }, (err, address) => {
-  if (err) throw err
+fastify.listen({ port: process.env.PORT ?? 3000, host: "0.0.0.0" }, (err, address) => {
+  if (err) throw err;
   console.log(`Server is now listening on ${address}`);
-})
+});
