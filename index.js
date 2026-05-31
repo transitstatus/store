@@ -303,7 +303,7 @@ fastify.after(() => {
       reply.send(
         Object.keys(topIPs)
           .sort((a, b) => topIPs[b].count - topIPs[a].count)
-          .map((ip) => [ip, topIPs[ip].count, topIPs[ip].headers])
+          .map((ip) => [ip, topIPs[ip].count, topIPs[ip].headers, topIPs[ip].paths])
       );
     } else {
       reply.send("Not found");
