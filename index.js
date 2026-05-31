@@ -296,8 +296,9 @@ fastify.after(() => {
       });
   };
 
-  setInterval(() => cleanUpIPs(), 300 * 1000);
+  //setInterval(() => cleanUpIPs(), 300 * 1000);
 
+  /*
   fastify.get("/ips", (request, reply) => {
     if (request.url.endsWith(process.env.SUPER_SECRET_ACCESS_KEY)) {
       reply.send(
@@ -309,17 +310,19 @@ fastify.after(() => {
       reply.send("Not found");
     }
   });
+  */
 
   fastify.get("*", (request, reply) => {
     let path = request.url.split("?")[0];
 
+    /*
     const ipAddr = request.headers["cf-connecting-ip"] ?? request.ip;
 
     if (!topIPs[ipAddr]) topIPs[ipAddr] = { count: 0, paths: {}, headers: request.headers };
     topIPs[ipAddr].paths[path] ??= 0;
     topIPs[ipAddr].paths[path]++;
     topIPs[ipAddr].count++;
-
+    */
 
     console.log(`Returning data for ${path}`);
 
