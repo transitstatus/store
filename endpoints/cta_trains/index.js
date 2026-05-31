@@ -152,11 +152,11 @@ const processData = async () => {
 
     const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
     const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
-    const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/metadata.json');
+    //const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/metadata.json');
 
     const routesData = await routesReq.json();
     const stationsData = await stationsReq.json();
-    const staticMetaData = await staticMetaRes.json();
+    //const staticMetaData = await staticMetaRes.json();
 
     /*
     const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.pbf`);
@@ -175,6 +175,7 @@ const processData = async () => {
         stations: {},
         lines: {}
       },
+      train_blocks: [],
     };
 
     data.dataObject.forEach((line) => {
@@ -182,6 +183,12 @@ const processData = async () => {
         if (train.IsSched) return; //we're not meant to get these anyways but in case we do i no no wanna
 
         let stationPastLoop = false;
+
+        processedData.train_blocks.push({
+          id: train.RunNumber,
+          current: train.CurrentStationId,
+          next: train.ExitStationId,
+        })
 
         const reverseColors = train.DestName.split('&')[0] == 'Cottage Grove' || train.DestName.split('&')[0] == 'UIC-Halsted';
         const route = routesData[validLinesReverse[line.Line]];

@@ -5,9 +5,7 @@
   "apiVersion": 3,
   "configVersion": 0,
   "default": {
-    "lines": {},
-    "stations": {},
-    "trains": {},
+    "train_blocks": [],
     "transitStatus": {
       "trains": {},
       "stations": {},
