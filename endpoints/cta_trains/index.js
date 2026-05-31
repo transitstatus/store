@@ -147,7 +147,8 @@ const processData = async () => {
         processedData.train_blocks.push({
           id: train.RunNumber,
           current: train.CurrentStationId,
-          next: train.ExitStationId
+          lat: train.Position.Lat,
+          lon: train.Position.Lng,
         });
 
         const reverseColors =
