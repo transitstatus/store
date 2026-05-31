@@ -63,7 +63,7 @@ fastify.after(() => {
       fetch("https://store.transitstat.us/?showAll=true").then((res) => res.json()).then((result) => {
         if (result !== false) {
           data = result;
-          
+
           console.log("Finished updating in proxy mode");
 
           console.log(`Destroying /GET`);
@@ -315,8 +315,11 @@ fastify.after(() => {
 
     const ipAddr = request.headers["cf-connecting-ip"] ?? request.ip;
 
-    if (!topIPs[ipAddr]) topIPs[ipAddr] = { count: 0, headers: request.headers };
+    if (!topIPs[ipAddr]) topIPs[ipAddr] = { count: 0, paths: {}, headers: request.headers };
+    topIPs[ipAddr].paths[path] ??= 0;
+    topIPs[ipAddr].paths[path]++;
     topIPs[ipAddr].count++;
+
 
     console.log(`Returning data for ${path}`);
 
