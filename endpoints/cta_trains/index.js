@@ -64,32 +64,50 @@ const randomizeArray = (unshuffled) =>
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 
+const reqInfo = {
+  credentials: "include",
+  headers: {
+    "User-Agent": "not-node-fetch-trust-piero-at-piemadd-dot-com",
+    Accept: "application/json, text/javascript, */*; q=0.01",
+    "Accept-Language": "en-US,en;q=0.5",
+    "X-Requested-With": "XMLHttpRequest",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    Pragma: "no-cache",
+    "Cache-Control": "no-cache"
+  },
+  referrer: "https://www.transitchicago.com/traintrackermap/",
+  method: "GET",
+  mode: "cors"
+};
+
 const processData = async () => {
   const linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
   try {
     const req = await fetch(
-      `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40&currentTime=${Date.now()}`,
-      {
-        credentials: "include",
-        headers: {
-          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
-          Accept: "application/json, text/javascript, */*; q=0.01",
-          "Accept-Language": "en-US,en;q=0.5",
-          "X-Requested-With": "XMLHttpRequest",
-          "Sec-Fetch-Dest": "empty",
-          "Sec-Fetch-Mode": "cors",
-          "Sec-Fetch-Site": "same-origin",
-          Pragma: "no-cache",
-          "Cache-Control": "no-cache"
-        },
-        referrer: "https://www.transitchicago.com/traintrackermap/",
-        method: "GET",
-        mode: "cors"
-      }
+      `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40`,
+      reqInfo
     );
 
-    const raw = await req.text();
+    let raw = await req.text();
 
+    if (raw.includes("challenges.cloudflare.com")) {
+      console.log("CTA BLOCKED CLOUDFLARE CHALLENGE");
+      await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 500)));
+
+      const newReq = await fetch(
+        `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40`,
+        reqInfo
+      );
+      raw = await newReq.text();
+    }
+
+    if (raw.includes("challenges.cloudflare.com")) {
+      console.log("CTA BLOCKED CLOUDFLARE CHALLENGE AGAIN");
+      return false; // nothing we can do
+    }
+    
     const data = JSON.parse(raw);
 
     if (data?.status !== "OK") return {};

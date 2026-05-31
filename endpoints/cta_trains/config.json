@@ -1,7 +1,7 @@
 {
   "name": "CTA Trains",
   "script": "index.js",
-  "interval": 10000,
+  "interval": 15100,
   "apiVersion": 3,
   "configVersion": 0,
   "default": {
