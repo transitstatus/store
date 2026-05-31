@@ -1,157 +1,106 @@
-const protobuf = require('protobufjs');
-const fetch = require('node-fetch');
+const protobuf = require("protobufjs");
+const fetch = require("node-fetch");
 
-const actualLines = {
-  'R': 'Red',
-  'P': "Purple",
-  'Y': 'Yellow',
-  'B': 'Blue',
-  'V': 'Pink',
-  'G': 'Green',
-  'T': 'Brown',
-  'O': 'Orange',
-};
+const actualLines = { R: "Red", P: "Purple", Y: "Yellow", B: "Blue", V: "Pink", G: "Green", T: "Brown", O: "Orange" };
 
-const validLines = {
-  'Red': 'R',
-  'P': 'P',
-  'Y': 'Y',
-  'Blue': 'B',
-  'Pink': 'V',
-  'G': 'G',
-  'Brn': 'T',
-  'Org': 'O',
-};
+const validLines = { Red: "R", P: "P", Y: "Y", Blue: "B", Pink: "V", G: "G", Brn: "T", Org: "O" };
 
-const validLinesReverse = {
-  'R': 'Red',
-  'P': 'P',
-  'Y': 'Y',
-  'B': 'Blue',
-  'V': 'Pink',
-  'G': 'G',
-  'T': 'Brn',
-  'O': 'Org',
-};
+const validLinesReverse = { R: "Red", P: "P", Y: "Y", B: "Blue", V: "Pink", G: "G", T: "Brn", O: "Org" };
 
-const lineShortNames = {
-  'Red': 'Red',
-  'P': 'Pur',
-  'Y': 'Yel',
-  'Blue': 'Blu',
-  'Pink': 'Pnk',
-  'G': 'Grn',
-  'Brn': 'Brn',
-  'Org': 'Org',
-}
+const lineShortNames = { Red: "Red", P: "Pur", Y: "Yel", Blue: "Blu", Pink: "Pnk", G: "Grn", Brn: "Brn", Org: "Org" };
 
 const regularDestinations = [
-  'Howard',
-  '95th/Dan Ryan',
-  'Linden',
-  '54th/Cermak',
-  'Kimball',
-  'Midway',
-  'Loop',
-  'Harlem/Lake',
-  'Ashland/63rd',
-  'Cottage Grove',
-  'Forest Park',
-  'O\'Hare',
-  'UIC-Halsted',
-  'Dempster-Skokie',
-  'Skokie'
+  "Howard",
+  "95th/Dan Ryan",
+  "Linden",
+  "54th/Cermak",
+  "Kimball",
+  "Midway",
+  "Loop",
+  "Harlem/Lake",
+  "Ashland/63rd",
+  "Cottage Grove",
+  "Forest Park",
+  "O'Hare",
+  "UIC-Halsted",
+  "Dempster-Skokie",
+  "Skokie"
 ];
 
 const actualDestinationsFromGTFS = {
-  'Howard': 'Howard',
-  '95th/Dan Ryan': '95th/Dan Ryan',
-  'Linden': 'Linden',
-  '54th/Cermak': '54th/Cermak',
-  'Kimball': 'Kimball',
-  'Midway': 'Midway',
-  'Loop': 'Loop',
-  'Harlem/Lake': 'Harlem/Lake',
-  'Ashland/63rd': 'Ashland/63rd',
-  'Cottage Grove': 'Cottage Grove',
-  'Forest Park': 'Forest Park',
-  'O\'Hare': 'O\'Hare',
-  'UIC-Halsted': 'UIC-Halsted',
-  'Dempster-Skokie': 'Dempster-Skokie',
-  'Skokie': 'Skokie'
+  Howard: "Howard",
+  "95th/Dan Ryan": "95th/Dan Ryan",
+  Linden: "Linden",
+  "54th/Cermak": "54th/Cermak",
+  Kimball: "Kimball",
+  Midway: "Midway",
+  Loop: "Loop",
+  "Harlem/Lake": "Harlem/Lake",
+  "Ashland/63rd": "Ashland/63rd",
+  "Cottage Grove": "Cottage Grove",
+  "Forest Park": "Forest Park",
+  "O'Hare": "O'Hare",
+  "UIC-Halsted": "UIC-Halsted",
+  "Dempster-Skokie": "Dempster-Skokie",
+  Skokie: "Skokie"
 };
 
-const inTheLoop = [
-  40040,
-  40160,
-  40260,
-  40380,
-  40680,
-  40730,
-  40850,
-  41700,
-]
+const inTheLoop = [40040, 40160, 40260, 40380, 40680, 40730, 40850, 41700];
 
 const lineMeta = {
-  'P': {
-    loopLimit: 40460.0,
-    postLoopAlt: 'Linden'
-  },
-  'V': {
-    loopLimit: 41160.0,
-    postLoopAlt: '54th/Cermak'
-  },
-  'T': {
-    loopLimit: 40460.0,
-    postLoopAlt: 'Kimball'
-  },
-  'O': {
-    loopLimit: 41400.0,
-    postLoopAlt: 'Midway'
-  }
+  P: { loopLimit: 40460.0, postLoopAlt: "Linden" },
+  V: { loopLimit: 41160.0, postLoopAlt: "54th/Cermak" },
+  T: { loopLimit: 40460.0, postLoopAlt: "Kimball" },
+  O: { loopLimit: 41400.0, postLoopAlt: "Midway" }
 };
 
-const additionalStops = {
-  'B': {
-    'Forest Park': 'UIC-Halsted',
-  }
-};
+const additionalStops = { B: { "Forest Park": "UIC-Halsted" } };
 
-const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
+const calcAvgHeadway = (array) => array.reduce((a, b) => a + b) / array.length;
+
+const randomizeArray = (unshuffled) =>
+  unshuffled
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
 
 const processData = async () => {
+  const linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
   try {
-    const req = await fetch(`https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=33&currentTime=${Date.now()}`, {
-      "credentials": "include",
-      "headers": {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
-        "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Accept-Language": "en-US,en;q=0.5",
-        "X-Requested-With": "XMLHttpRequest",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache"
-      },
-      "referrer": "https://www.transitchicago.com/traintrackermap/",
-      "method": "GET",
-      "mode": "cors"
-    });
+    const req = await fetch(
+      `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40&currentTime=${Date.now()}`,
+      {
+        credentials: "include",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
+          Accept: "application/json, text/javascript, */*; q=0.01",
+          "Accept-Language": "en-US,en;q=0.5",
+          "X-Requested-With": "XMLHttpRequest",
+          "Sec-Fetch-Dest": "empty",
+          "Sec-Fetch-Mode": "cors",
+          "Sec-Fetch-Site": "same-origin",
+          Pragma: "no-cache",
+          "Cache-Control": "no-cache"
+        },
+        referrer: "https://www.transitchicago.com/traintrackermap/",
+        method: "GET",
+        mode: "cors"
+      }
+    );
 
     const raw = await req.text();
 
     const data = JSON.parse(raw);
 
-    if (data?.status !== 'OK') return {};
+    if (data?.status !== "OK") return {};
 
     /*
     const root = await protobuf.load('schedules.proto');
     const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
     */
 
-    const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
-    const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
+    const routesReq = await fetch("https://gtfs.piemadd.com/data/cta/routes.json");
+    const stationsReq = await fetch("https://gtfs.piemadd.com/data/cta/stops.json");
     //const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/metadata.json');
 
     const routesData = await routesReq.json();
@@ -169,14 +118,7 @@ const processData = async () => {
     });
     */
 
-    let processedData = {
-      transitStatus: {
-        trains: {},
-        stations: {},
-        lines: {}
-      },
-      train_blocks: [],
-    };
+    let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, train_blocks: [] };
 
     data.dataObject.forEach((line) => {
       line.Markers.forEach((train) => {
@@ -187,10 +129,11 @@ const processData = async () => {
         processedData.train_blocks.push({
           id: train.RunNumber,
           current: train.CurrentStationId,
-          next: train.ExitStationId,
-        })
+          next: train.ExitStationId
+        });
 
-        const reverseColors = train.DestName.split('&')[0] == 'Cottage Grove' || train.DestName.split('&')[0] == 'UIC-Halsted';
+        const reverseColors =
+          train.DestName.split("&")[0] == "Cottage Grove" || train.DestName.split("&")[0] == "UIC-Halsted";
         const route = routesData[validLinesReverse[line.Line]];
 
         processedData.transitStatus.trains[train.RunNumber] = {
@@ -203,20 +146,20 @@ const processData = async () => {
           lineCode: line.Line,
           lineColor: reverseColors ? route.routeTextColor : route.routeColor,
           lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
-          dest: train.DestName.split('&')[0],
+          dest: train.DestName.split("&")[0],
           predictions: [],
-          type: 'train',
-          extra: {
-            holidayChristmas: train.RunNumber == 1225,
-          }
+          type: "train",
+          extra: { holidayChristmas: train.RunNumber == 1225 }
         };
 
         const now = Date.now();
 
         train.Predictions.forEach((prediction, i, arr) => {
-          let dest = train.DestName.split('&')[0];
-          const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
-          const actualETA = now + (eta * 60000);
+          let dest = train.DestName.split("&")[0];
+          const eta = Number(
+            prediction[2].replaceAll("Due", "1").replaceAll("<b>", "").replaceAll("</b>", "").split(" ")[0]
+          );
+          const actualETA = now + eta * 60000;
 
           if (!isNaN(eta)) {
             // changing destination if past station before loop
@@ -227,7 +170,7 @@ const processData = async () => {
           //checking if train is past loop
           if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
             stationPastLoop = true;
-          };
+          }
 
           const isRealtime = !train.IsSched;
 
@@ -236,7 +179,7 @@ const processData = async () => {
             stationID: prediction[0],
             stationName: prediction[1],
             actualETA: actualETA,
-            noETA: isNaN(eta),
+            noETA: isNaN(eta)
           });
 
           //adding train to stations
@@ -244,14 +187,12 @@ const processData = async () => {
             processedData.transitStatus.stations[prediction[0]] = {
               stationID: prediction[0],
               stationName: prediction[1],
-              destinations: {},
-            }
+              destinations: {}
+            };
           }
 
           if (!processedData.transitStatus.stations[prediction[0]].destinations[dest]) {
-            processedData.transitStatus.stations[prediction[0]].destinations[dest] = {
-              trains: [],
-            }
+            processedData.transitStatus.stations[prediction[0]].destinations[dest] = { trains: [] };
           }
 
           processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
@@ -263,13 +204,11 @@ const processData = async () => {
             lineCode: line.Line,
             lineColor: reverseColors ? route.routeTextColor : route.routeColor,
             lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
-            extra: {
-              holidayChristmas: train.RunNumber == 1225,
-            }
+            extra: { holidayChristmas: train.RunNumber == 1225 }
           });
         });
       });
-    })
+    });
 
     Object.keys(validLines).forEach((lineCode) => {
       const lineData = routesData[lineCode];
@@ -293,7 +232,7 @@ const processData = async () => {
         processedData.transitStatus.stations[stationID] = {
           stationID: stationID,
           stationName: stationsData[stationID].stopName,
-          destinations: {},
+          destinations: {}
         };
       }
 
@@ -309,10 +248,8 @@ const processData = async () => {
         lineDestinations.forEach((destination) => {
           if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
             if (regularDestinations.includes(destination)) {
-              if (inTheLoop.includes(stationID) && destination === 'Loop') return;
-              processedData.transitStatus.stations[stationID].destinations[destination] = {
-                trains: [],
-              };
+              if (inTheLoop.includes(stationID) && destination === "Loop") return;
+              processedData.transitStatus.stations[stationID].destinations[destination] = { trains: [] };
             }
           }
         });
@@ -394,11 +331,7 @@ const processData = async () => {
       lines: {},
       stations: {},
       trains: {},
-      transitStatus: {
-        trains: {},
-        stations: {},
-        lines: {}
-      },
+      transitStatus: { trains: {}, stations: {}, lines: {} },
       interval: 30000,
       lastUpdated: updated,
       versionNumberAPI: "2.0.0"
