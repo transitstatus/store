@@ -101,7 +101,7 @@ const update = async () => {
         lineNameLong: "UP Big Boy",
         routeColor: "feca00",
         routeTextColor: "000000",
-        stations: stopsFromCSV.map((stop) => stop.code),
+        stations: [],
         hasActiveTrains: true,
       },
     },
@@ -109,6 +109,8 @@ const update = async () => {
   };
 
   stopsFromCSV.forEach((stop) => {
+    return;
+
     const arrivalTime =
       stop.arr_raw.length > 0
         ? new Date(`${stop.date_arr_raw} ${stop.arr_raw}`).valueOf()
