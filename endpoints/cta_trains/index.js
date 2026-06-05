@@ -168,7 +168,7 @@ const processData = async () => {
           dest: train.DestName.split("&")[0],
           predictions: [],
           type: "train",
-          extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: train.RunNumber == 919 }
+          extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: true || train.RunNumber == 919 }
         };
 
         const now = Date.now();
@@ -223,7 +223,7 @@ const processData = async () => {
             lineCode: line.Line,
             lineColor: reverseColors ? route.routeTextColor : route.routeColor,
             lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
-            extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: train.RunNumber == 919 }
+            extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: true || train.RunNumber == 919 }
           });
         });
       });
