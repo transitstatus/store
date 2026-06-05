@@ -107,7 +107,7 @@ const processData = async () => {
       console.log("CTA BLOCKED CLOUDFLARE CHALLENGE AGAIN");
       return false; // nothing we can do
     }
-    
+
     const data = JSON.parse(raw);
 
     if (data?.status !== "OK") return {};
@@ -148,7 +148,7 @@ const processData = async () => {
           id: train.RunNumber,
           current: train.CurrentStationId,
           lat: train.Position.Lat,
-          lon: train.Position.Lng,
+          lon: train.Position.Lng
         });
 
         const reverseColors =
@@ -168,7 +168,7 @@ const processData = async () => {
           dest: train.DestName.split("&")[0],
           predictions: [],
           type: "train",
-          extra: { holidayChristmas: train.RunNumber == 1225 }
+          extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: train.RunNumber == 919 }
         };
 
         const now = Date.now();
@@ -223,7 +223,7 @@ const processData = async () => {
             lineCode: line.Line,
             lineColor: reverseColors ? route.routeTextColor : route.routeColor,
             lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
-            extra: { holidayChristmas: train.RunNumber == 1225 }
+            extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: train.RunNumber == 919 }
           });
         });
       });
