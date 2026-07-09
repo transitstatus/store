@@ -1,21 +1,17 @@
 {
-  "name": "CTA Trains",
+  "name": "CTA Bus Tracker",
   "script": "index.js",
-  "disabled": true,
-  "interval": 30000,
+  "interval": 10000,
   "apiVersion": 3,
   "configVersion": 0,
   "default": {
-    "lines": {},
-    "stations": {},
-    "trains": {},
     "transitStatus": {
       "trains": {},
       "stations": {},
-      "lines": {}
+      "lines": {},
+      "lastUpdated": "1970-01-01T00:00:00.000Z"
     },
-    "interval": 30000,
-    "lastUpdated": "1970-01-01T00:00:00.000Z",
-    "versionNumberAPI": "2.0.0"
-  }
+    "lastUpdated": "1970-01-01T00:00:00.000Z"
+  },
+  "disabled": true
 }

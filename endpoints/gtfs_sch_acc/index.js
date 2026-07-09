@@ -77,7 +77,9 @@ const updateFeed = async (feed) => {
               dest: headsign,
               predictions: [],
               type: "train",
-              extra: {}
+              extra: {
+                startDate: new Date(currentTimeDiff).toISOString().split('T')[0].replaceAll('-', ''),
+              }
             };
 
           individualTrains[runNumber].predictions.push({

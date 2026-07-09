@@ -1,407 +1,384 @@
-const fetch = require('node-fetch');
+const protobuf = require("protobufjs");
 
-const actualLines = {
-  'R': 'Red',
-  'P': "Purple",
-  'Y': 'Yellow',
-  'B': 'Blue',
-  'V': 'Pink',
-  'G': 'Green',
-  'T': 'Brown',
-  'O': 'Orange',
+require("dotenv").config();
+
+const trainNumberRegex = new RegExp(/\d+/);
+
+const scheduleRelationshipEnums = {
+  0: "SCHEDULED",
+  2: "UNSCHEDULED",
+  3: "CANCELED",
+  4: "REPLACEMENT",
+  5: "DUPLICATED",
+  6: "NEW",
+  7: "DELETED"
 };
 
-const validLines = {
-  'Red': 'R',
-  'P': 'P',
-  'Y': 'Y',
-  'Blue': 'B',
-  'Pink': 'V',
-  'G': 'G',
-  'Brn': 'T',
-  'Org': 'O',
-};
+const update = async () => {
+  if (!process.env.metra_token) return false;
 
-const validLinesReverse = {
-  'R': 'Red',
-  'P': 'P',
-  'Y': 'Y',
-  'B': 'Blue',
-  'V': 'Pink',
-  'G': 'G',
-  'T': 'Brn',
-  'O': 'Org',
-};
+  const gtfsRealtimeRoot = await protobuf.load("gtfs-rt.proto");
+  const FeedMessage = gtfsRealtimeRoot.lookupType("transit_realtime.FeedMessage");
 
-const lineShortNames = {
-  'Red': 'Red',
-  'P': 'Pur',
-  'Y': 'Yel',
-  'Blue': 'Blu',
-  'Pink': 'Pnk',
-  'G': 'Grn',
-  'Brn': 'Brn',
-  'Org': 'Org',
-}
+  let cancelledTrains = {};
 
-const regularDestinations = [
-  'Howard',
-  '95th/Dan Ryan',
-  'Linden',
-  '54th/Cermak',
-  'Kimball',
-  'Midway',
-  'Loop',
-  'Harlem/Lake',
-  'Ashland/63rd',
-  'Cottage Grove',
-  'Forest Park',
-  'O\'Hare',
-  'UIC-Halsted',
-  'Dempster-Skokie',
-  'Skokie'
-]
-
-const inTheLoop = [
-  40040,
-  40160,
-  40260,
-  40380,
-  40680,
-  40730,
-  40850,
-  41700,
-]
-
-const lineMeta = {
-  'P': {
-    loopLimit: 40460.0,
-    postLoopAlt: 'Linden'
-  },
-  'V': {
-    loopLimit: 41160.0,
-    postLoopAlt: '54th/Cermak'
-  },
-  'T': {
-    loopLimit: 40460.0,
-    postLoopAlt: 'Kimball'
-  },
-  'O': {
-    loopLimit: 41400.0,
-    postLoopAlt: 'Midway'
-  }
-};
-
-const additionalStops = {
-  'B': {
-    'Forest Park': 'UIC-Halsted',
-  }
-};
-
-const calcAvgHeadway = array => array.reduce((a, b) => a + b) / array.length;
-
-const processData = async () => {
   try {
-    const req = await fetch('https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=R%2CP%2CY%2CB%2CV%2CG%2CT%2CO&MaxPredictions=2000');
-    const raw = await req.text();
-    const data = JSON.parse(raw);
+    const fetchRealtimeFromURL = (url) => {
+      return fetch(url)
+        .then((res) => {
+          if (!res.ok) {
+            res.text().then(console.log);
+            throw new Error("Invalid response from CTA GTFS-RT API.");
+          }
 
-    if (data?.status !== 'OK') return {};
+          //res.text().then(console.log);
 
-    const routesReq = await fetch('https://gtfs.piemadd.com/data/cta/routes.json');
-    const stationsReq = await fetch('https://gtfs.piemadd.com/data/cta/stops.json');
-
-    const routesData = await routesReq.json();
-    const stationsData = await stationsReq.json();
-
-    let processedData = {
-      lines: {},
-      stations: {},
-      trains: {},
-      transitStatus: {
-        trains: {},
-        stations: {},
-        lines: {}
-      },
-      interval: 30000,
+          return res.arrayBuffer();
+        })
+        .then((arrayBuffer) => FeedMessage.decode(new Uint8Array(arrayBuffer)))
+        .catch((e) => {
+          console.log(e);
+        });
     };
 
-    data.dataObject.forEach((line) => {
-      let stations = {};
-      let headways = {};
-      let trains = {};
+    const tripUpdatesData = await fetchRealtimeFromURL(
+      `https://transitdata.transitchicago.com/GtfsRealtime/TripUpdates.pb?key=${process.env.cta_bus_gtfs_rt_key}`
+    );
+    const positionsData = await fetchRealtimeFromURL(
+      `https://transitdata.transitchicago.com/GtfsRealtime/VehiclePositions.pb?key=${process.env.cta_bus_gtfs_rt_key}`
+    );
+    const alertsData = await fetchRealtimeFromURL(
+      `https://transitdata.transitchicago.com/GtfsRealtime/ServiceAlerts.pb?key=${process.env.cta_bus_gtfs_rt_key}`
+    );
 
-      line.Markers.forEach((train) => {
-        if (train.IsSched) return;
+    /*
+    const [
+      tripUpdatesData,
+      positionsData,
+      alertsData,
+    ] = await Promise.all([
+      `https://transitdata.transitchicago.com/GtfsRealtime/TripUpdates.pb?key=${process.env.cta_bus_gtfs_rt_key}`,
+      `https://transitdata.transitchicago.com/GtfsRealtime/VehiclePositions.pb?key=${process.env.cta_bus_gtfs_rt_key}`,
+      `https://transitdata.transitchicago.com/GtfsRealtime/ServiceAlerts.pb?key=${process.env.cta_bus_gtfs_rt_key}`,
+    ].map((url) =>
+      fetch(url).then(res => {
+        if (!res.ok) {
+          res.text().then(console.log)
+          throw new Error('Invalid response from CTA GTFS-RT API.');
+        }
 
-        let stationPastLoop = false;
+        res.text().then(console.log)
+        
+        return res.arrayBuffer()}).then(arrayBuffer => FeedMessage.decode(new Uint8Array(arrayBuffer))).catch((e) => {
+          console.log(e);
+        })
+    ));
+    */
 
-        processedData.trains[train.RunNumber] = {
-          lat: train.Position.Lat,
-          lon: train.Position.Lng,
-          heading: ((2 * Math.PI - train.Direction) / (2 * Math.PI)) * 360 + 90,
-          line: actualLines[line.Line],
-        };
+    /*
+    const [tripUpdatesData, positionsData, alertsData] = await Promise.all(
+      [
+        `https://transitdata.transitchicago.com/GtfsRealtime/TripUpdates.pb?key=${process.env.cta_bus_gtfs_rt_key}`,
+        `https://transitdata.transitchicago.com/GtfsRealtime/VehiclePositions.pb?key=${process.env.cta_bus_gtfs_rt_key}`,
+        `https://transitdata.transitchicago.com/GtfsRealtime/ServiceAlerts.pb?key=${process.env.cta_bus_gtfs_rt_key}`
+      ].map((url) =>
+        fetch(url)
+          .then((res) => res.arrayBuffer())
+          .then((arrayBuffer) => FeedMessage.decode(new Uint8Array(arrayBuffer)))
+          .catch((e) => {
+            console.log(e);
+          })
+      )
+    );
+    */
 
-        processedData.transitStatus.trains[train.RunNumber] = {
-          lat: train.Position.Lat,
-          lon: train.Position.Lng,
-          heading: ((2 * Math.PI - train.Direction) / (2 * Math.PI)) * 360 + 90,
-          realTime: true,
-          deadMileage: false,
-          line: actualLines[line.Line],
-          lineCode: line.Line,
-          lineColor: routesData[validLinesReverse[line.Line]].routeColor,
-          lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
-          dest: train.DestName.split('&')[0],
-          predictions: [],
-          type: 'train',
-        };
+    if (!tripUpdatesData || !positionsData) return false; // issue fetching data, handle this properly with a TransitStatusShitsFucked
 
-        train.Predictions.forEach((prediction, i, arr) => {
+    let vehiclePositionsDict = {};
+    positionsData.entity.forEach((position) => {
+      if (position.vehicle) {
+        if (position.vehicle.vehicle && position.vehicle.position) {
+          vehiclePositionsDict[position.vehicle.vehicle.id] = position.vehicle.position;
+        }
+      }
+    });
 
-          let dest = train.DestName.split('&')[0];
-          const eta = Number(prediction[2].replaceAll('Due', '1').replaceAll('<b>', '').replaceAll('</b>', '').split(' ')[0]);
+    const [
+      staticStopsData,
+      staticRoutesData
+      //scheduledVehicles,
+    ] = await Promise.all(
+      [
+        "https://gtfs.piemadd.com/data/cta/stops.json",
+        "https://gtfs.piemadd.com/data/cta/routes.json"
+        //'http://localhost:3000/gtfs_sch_acc/cta/scheduledVehicles',
+      ].map((url) => fetch(url).then((res) => res.json()))
+    );
 
-          const now = new Date().valueOf();
-          const actualETA = now + (eta * 60000);
+    //const holidayVehiclesArray = holidayVehicles.error ? [] : holidayVehicles.response.object;
 
-          if (!isNaN(eta)) {
-            //setting up station if it doesn't exist
-            if (!stations[parseInt(prediction[0])]) {
-              stations[parseInt(prediction[0])] = {
-                dest: {},
-                stationName: prediction[1],
-              };
-            };
+    let transitStatus = { trains: {}, stations: {}, lines: {}, alerts: [] };
 
-            // changing destination if past station before loop
-            if (stationPastLoop) {
-              dest = lineMeta[line.Line].postLoopAlt;
-            }
-
-            //setting up destination if it doesn't exist
-            if (!stations[parseInt(prediction[0])]['dest'][dest]) {
-              stations[parseInt(prediction[0])]['dest'][dest] = {
-                etas: [],
-                headways: [],
-                avgHeadway: 0,
-                runNumbers: [],
-              };
-            };
-
-            //adding headway to station
-            stations[parseInt(prediction[0])]['dest'][dest].etas.push(eta);
-
-            //adding run number to station
-            stations[parseInt(prediction[0])]['dest'][dest].runNumbers.push(train.RunNumber);
-
-            //if final station, adding headway to line
-            if (i === arr.length - 1 || (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit)) {
-              if (!headways[dest]) {
-                headways[dest] = {
-                  etas: [],
-                  headways: [],
-                  avgHeadway: 0,
-                  runNumbers: [],
-                };
-              };
-
-              headways[dest].etas.push(eta);
-              headways[dest].runNumbers.push(train.RunNumber);
-            }
-
-            if (additionalStops[line.Line] && additionalStops[line.Line][prediction[1]]) {
-              if (!headways[additionalStops[line.Line][prediction[1]]]) {
-                headways[additionalStops[line.Line][prediction[1]]] = {
-                  etas: [],
-                  headways: [],
-                  avgHeadway: 0,
-                  runNumbers: [],
-                };
-              }
-
-              headways[additionalStops[line.Line][prediction[1]]].etas.push(eta);
-              headways[additionalStops[line.Line][prediction[1]]].runNumbers.push(train.RunNumber);
-            }
-          }
-
-          //checking if train is past loop
-          if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
-            stationPastLoop = true;
-          };
-
-          //adding prediction to train
-          processedData.transitStatus.trains[train.RunNumber].predictions.push({
-            stationID: prediction[0],
-            stationName: prediction[1],
-            //eta: eta,
-            actualETA: actualETA,
-            noETA: isNaN(eta),
-            realTime: true,
-          });
-
-          //adding train to stations
-          if (!processedData.transitStatus.stations[prediction[0]]) {
-            processedData.transitStatus.stations[prediction[0]] = {
-              stationID: prediction[0],
-              stationName: prediction[1],
-              destinations: {},
-            }
-          }
-
-          if (!processedData.transitStatus.stations[prediction[0]].destinations[dest]) {
-            processedData.transitStatus.stations[prediction[0]].destinations[dest] = {
-              trains: [],
-            }
-          }
-
-          processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
-            runNumber: train.RunNumber,
-            //eta: eta,
-            actualETA: actualETA,
-            noETA: isNaN(eta),
-            realTime: true,
-            line: actualLines[line.Line],
-            lineCode: line.Line,
-            lineColor: routesData[validLinesReverse[line.Line]].routeColor,
-            lineTextColor: routesData[validLinesReverse[line.Line]].routeTextColor,
-          });
-        });
-      });
-
-      //looping through stations
-      Object.keys(stations).forEach((station) => {
-        Object.keys(stations[station]['dest']).forEach((dest) => {
-          //sorting ETAs
-          stations[station]['dest'][dest].etas.sort((a, b) => a - b);
-
-          //calculating headways
-          stations[station]['dest'][dest].etas.forEach((eta, i, arr) => {
-            if (i === 0) stations[station]['dest'][dest].headways.push(eta);
-            else stations[station]['dest'][dest].headways.push(eta - arr[i - 1]);
-          });
-
-          //calculating average headway
-          stations[station]['dest'][dest].avgHeadway = calcAvgHeadway(stations[station]['dest'][dest].headways);
-        });
-      });
-
-      //looping through headways
-      Object.keys(headways).forEach((dest) => {
-        //sorting ETAs
-        headways[dest].etas.sort((a, b) => a - b);
-
-        //calculating headways
-        headways[dest].etas.forEach((eta, i, arr) => {
-          if (i === 0) headways[dest].headways.push(eta);
-          else headways[dest].headways.push(eta - arr[i - 1]);
-        });
-
-        //calculating average headway
-        headways[dest].avgHeadway = calcAvgHeadway(headways[dest].headways);
-      });
-
-      //adding stations to processedData
-      Object.keys(stations).forEach((station) => {
-        if (!processedData.stations[station]) {
-          processedData.stations[station] = {
-            stationName: stations[station].stationName,
-            lines: {},
-          };
-        };
-
-        processedData.stations[station].lines[actualLines[line.Line]] = stations[station].dest;
-      });
-
-      //adding headways to processedData
-      processedData.lines[actualLines[line.Line]] = headways;
-      console.log('Data updated!')
-    })
-
-    Object.keys(validLines).forEach((lineCode) => {
-      const lineData = routesData[lineCode];
-
-      processedData.transitStatus.lines[validLines[lineCode]] = {
-        lineCode: validLines[lineCode],
-        lineNameShort: lineShortNames[lineCode],
-        lineNameLong: lineData.routeLongName,
-        routeColor: lineData.routeColor,
-        routeTextColor: lineData.routeTextColor,
-        stations: lineData.routeStations,
-        hasActiveTrains: false
+    Object.values(staticStopsData).forEach((stop) => {
+      //adding stations to transitStatus object
+      transitStatus.stations[stop.stopID] = {
+        stationID: stop.stopID,
+        stationName: stop.stopName,
+        lat: stop.stopLat,
+        lon: stop.stopLon,
+        destinations: { Inbound: { trains: [] }, Outbound: { trains: [] } }
       };
     });
 
-    //adding stations not in the tracking data
-    Object.keys(stationsData).forEach((stationID) => {
-      if (stationID < 40000 || stationID >= 50000) return;
+    //adding trains to transitStatus object
+    tripUpdatesData.entity.forEach((train, i) => {
+      //const trainNumber = train.tripUpdate?.trip?.tripId.match(trainNumberRegex);
+      //if (!trainNumber) return; //no train ig
 
-      if (!processedData.transitStatus.stations[stationID]) {
-        processedData.transitStatus.stations[stationID] = {
-          stationID: stationID,
-          stationName: stationsData[stationID].stopName,
-          destinations: {},
-        };
+      const runNumber = train.tripUpdate?.trip?.tripId;
+
+      //const runNumber = `${train.tripUpdate?.trip?.routeId.replaceAll('-', '')}-${trainNumber[0]}`;
+      const isInbound = true; //parseInt(trainNumber[0]) % 2 == 0;
+      const trainDirection = isInbound ? "Inbound" : "Outbound";
+
+      if (train.tripUpdate?.trip?.scheduleRelationship == 3) {
+        cancelledTrains[runNumber] = true;
+        return;
       }
 
-      processedData.transitStatus.stations[stationID].lat = stationsData[stationID].stopLat;
-      processedData.transitStatus.stations[stationID].lon = stationsData[stationID].stopLon;
+      const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? { latitude: 0, longitude: 0, bearing: 0 };
+      delete vehiclePositionsDict[train.tripUpdate?.vehicle?.id];
 
-      //adding destinations
-      Object.keys(routesData).forEach((lineCode) => {
-        if (!routesData[lineCode].routeStations.includes(stationID)) return;
+      //console.log(train.tripUpdate?.trip)
+      if (!train.tripUpdate?.trip.routeId) {
+        console.log(train.tripUpdate);
+      }
 
-        const lineDestinations = routesData[lineCode].destinations;
+      let finalTrain = {
+        lat: position.latitude,
+        lon: position.longitude,
+        heading: position.bearing,
+        realTime: true,
+        deadMileage: false,
+        line: staticRoutesData[train.tripUpdate?.trip?.routeId].routeLongName,
+        lineCode: train.tripUpdate?.trip?.routeId,
+        lineColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeColor,
+        lineTextColor: staticRoutesData[train.tripUpdate?.trip?.routeId].routeTextColor,
+        dest: "Unknown Dest",
+        predictions: [],
+        type: "train",
+        extra: {
+          holidayChristmas: false,
+          cabCar: null, //train.tripUpdate?.vehicle?.id,
+          scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
+          scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship]
+        }
+      };
 
-        lineDestinations.forEach((destination) => {
-          if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
-            if (regularDestinations.includes(destination)) {
-              if (inTheLoop.includes(stationID) && destination === 'Loop') return;
-              processedData.transitStatus.stations[stationID].destinations[destination] = {
-                trains: [],
-              };
-            }
+      //adding predictions to transitStatus object
+      train.tripUpdate?.stopTimeUpdate?.reverse().forEach((stop, i) => {
+        if (i == 0) finalTrain.dest = staticStopsData[stop.stopId.length > 0 ? stop.stopId : "1"].stopName;
+
+        const arr = stop.arrival ? new Date(stop.arrival.time?.low).valueOf() : 0;
+        const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
+        const time = Math.max(arr, dep) * 1000;
+
+        if (!staticStopsData[stop.stopId]) {
+          console.log(stop.stopId, stop.stopId.length > 0 ? stop.stopId : "1", staticStopsData[stop.stopId]);
+          console.log(train.tripUpdate)
+        }
+
+        finalTrain.predictions.push({
+          stationID: stop.stopId,
+          stationName: staticStopsData[stop.stopId].stopName,
+          actualETA: time,
+          noETA: !time,
+          realTime: true
+        });
+
+        transitStatus.stations[stop.stopId].destinations[trainDirection].trains.push({
+          runNumber: runNumber,
+          actualETA: time,
+          noETA: !time,
+          realTime: true,
+          line: finalTrain.line,
+          lineCode: finalTrain.lineCode,
+          lineColor: finalTrain.lineColor,
+          lineTextColor: finalTrain.lineTextColor,
+          destination: finalTrain.dest,
+          extra: {
+            holidayChristmas: false //holidayVehiclesArray.includes(train.tripUpdate?.vehicle?.id),
           }
         });
       });
+
+      finalTrain.predictions = finalTrain.predictions.reverse();
+      transitStatus.trains[runNumber] = finalTrain;
     });
 
-    //console.log(processedData)
+    Object.keys(vehiclePositionsDict).forEach((vehicleID) => {
+      const position = vehiclePositionsDict[vehicleID] ?? { latitude: 0, longitude: 0, bearing: 0 };
+      delete vehiclePositionsDict[vehicleID];
 
-    Object.keys(processedData.transitStatus.trains).forEach((train) => {
-      const trainData = processedData.transitStatus.trains[train];
-
-      processedData.transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+      transitStatus.trains["DM-" + vehicleID] = {
+        lat: position.latitude,
+        lon: position.longitude,
+        heading: position.bearing,
+        realTime: false,
+        deadMileage: true,
+        line: "METX",
+        lineCode: "METX",
+        lineColor: "111111",
+        lineTextColor: "FFFFFF",
+        dest: "Nowhere",
+        predictions: [],
+        type: "train",
+        extra: {
+          holidayChristmas: holidayVehiclesArray.includes(vehicleID),
+          cabCar: vehicleID
+          //scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
+          //scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
+        }
+      };
     });
 
-    const updated = new Date().toISOString();
+    //adding any stations without trains to transitStatus object
+    Object.keys(staticRoutesData).forEach((routeID) => {
+      const route = staticRoutesData[routeID];
 
-    processedData.lastUpdated = updated;
-    processedData.transitStatus.lastUpdated = updated;
-    processedData.versionNumberAPI = '2.0.0'
+      transitStatus.lines[routeID] = {
+        lineCode: routeID,
+        lineNameShort: route.routeShortName,
+        lineNameLong: route.routeLongName,
+        routeColor: route.routeColor,
+        routeTextColor: route.routeTextColor,
+        stations: route.routeStations,
+        hasActiveTrains: false
+      };
 
-    return processedData;
+      route.routeStations.forEach((stationID) => {
+        if (!transitStatus.stations[stationID]) {
+          transitStatus.stations[stationID] = {
+            stationID: stationID,
+            stationName: staticStopsData[stationID].stopName,
+            lat: staticStopsData[stationID].stopLat,
+            lon: staticStopsData[stationID].stopLon,
+            destinations: { Inbound: { trains: [] }, Outbound: { trains: [] } }
+          };
+        }
+      });
+    });
+
+    Object.keys(transitStatus.trains).forEach((train) => {
+      const trainData = transitStatus.trains[train];
+
+      if (transitStatus.lines[trainData.lineCode]) transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+    });
+
+    // alerts
+    transitStatus.alerts = alertsData.entity.map((alert) => {
+      const lineCode = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
+      const runNumber =
+        alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
+      const stationID = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
+
+      const additionalRunNumbers = Object.keys(transitStatus.trains).filter((trainID) => {
+        const train = transitStatus.trains[trainID];
+        const stopIDs = train.predictions.map((prediction) => prediction.stationID);
+        if (lineCode == train.lineCode) return true;
+        if (stopIDs.includes(stationID)) return true;
+        return false;
+      });
+
+      const additionalStationIDs = Object.values(transitStatus.stations)
+        .filter((station) => {
+          const stationLines = Object.values(staticRoutesData)
+            .filter((line) => line.routeStations.includes(station.stationID))
+            .map((line) => line.routeID);
+          const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
+
+          if (stationLines.includes(lineCode)) return true;
+          if (stationTrains.includes(runNumber)) return true;
+          return false;
+        })
+        .map((station) => station.stationID);
+
+      return {
+        id: alert.id,
+        lineCode,
+        runNumber,
+        stationID,
+        additionalRunNumbers,
+        additionalStationIDs,
+        title: alert.alert.headerText.translation[0].text,
+        message: alert.alert.descriptionText.translation[0].text
+          .replaceAll(/<[^>]*>/g, " ")
+          .replaceAll("&nbsp;", " ")
+          .replaceAll(/\s+/g, " ")
+          .trim()
+      };
+    });
+
+    const lastUpdated = new Date().toISOString();
+
+    transitStatus.lastUpdated = lastUpdated;
+
+    /*
+    Object.keys(scheduledVehicles)
+      .sort((aTrip, bTrip) => {
+        return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA
+      })
+      .forEach((runNumber) => {
+        const scheduledVehicle = scheduledVehicles[runNumber];
+
+        const trainNumber = runNumber.match(trainNumberRegex);
+        if (!trainNumber) return; //no train ig
+        const actualRunNumber = `${scheduledVehicle.lineCode.replaceAll('-', '')}-${trainNumber[0]}`;
+
+        if (transitStatus.trains[actualRunNumber]) return; // train exists
+        if (cancelledTrains[actualRunNumber]) return; // cancelled - TODO handle this better
+        transitStatus.trains[actualRunNumber] = scheduledVehicle;
+
+        const trainDirection = parseInt(actualRunNumber.split('-')[1]) % 2 == 0 ? 'Inbound' : 'Outbound';
+
+        scheduledVehicle.predictions.forEach((stop) => {
+          //adding stations to transitStatus object
+          if (!transitStatus.stations[stop.stationID]) {
+            transitStatus.stations[stop.stationID] = {
+              stationID: stop.stationID,
+              stationName: staticStopsData[stop.stationID].stopName,
+              lat: staticStopsData[stop.stationID].stopLat,
+              lon: staticStopsData[stop.stationID].stopLon,
+              destinations: {
+                'Inbound': { trains: [] },
+                'Outbound': { trains: [] },
+              },
+            };
+          };
+
+          if (transitStatus.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
+
+          transitStatus.stations[stop.stationID].destinations[trainDirection].trains.push({
+            runNumber: actualRunNumber,
+            actualETA: stop.actualETA,
+            noETA: false,
+            realTime: false,
+            line: scheduledVehicle.line,
+            lineCode: scheduledVehicle.lineCode,
+            lineColor: scheduledVehicle.lineColor,
+            lineTextColor: scheduledVehicle.lineTextColor,
+            destination: scheduledVehicle.dest,
+            extra: {},
+          });
+        });
+      })
+        */
+
+    return { transitStatus, lastUpdated: lastUpdated };
   } catch (e) {
     console.log(e);
-
-    const updated = new Date().toISOString();
-
     return false;
-    return {
-      lines: {},
-      stations: {},
-      trains: {},
-      transitStatus: {
-        trains: {},
-        stations: {},
-        lines: {}
-      },
-      interval: 30000,
-      lastUpdated: updated,
-      versionNumberAPI: "2.0.0"
-    };
   }
 };
 
-exports.update = processData;
+exports.update = update;

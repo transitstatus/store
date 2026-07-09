@@ -1,31 +1,38 @@
-const update = (async () => {
+const update = async () => {
   try {
-
-    const [
-      staticStopsData,
-      staticRoutesData,
-      metraTrainData,
-      pieroTrainsList,
-    ] = await Promise.all([
-      'https://gtfs.piemadd.com/data/metra/stops.json',
-      'https://gtfs.piemadd.com/data/metra/routes.json',
-      'http://localhost:3000/metra/transitStatus',
-      `https://gks.pgm.sh/api/v1/piero_trains?t=${Date.now()}`
-    ].map((url) =>
-      fetch(url, { cache: "no-store" }).then(res => res.json())
-    ));
+    const [staticStopsData, staticRoutesData, metraTrainData, pieroTrainsListRaw] = await Promise.all(
+      [
+        "https://gtfs.piemadd.com/data/metra/stops.json",
+        "https://gtfs.piemadd.com/data/metra/routes.json",
+        "http://localhost:3000/metra/transitStatus",
+        `https://gks.pgm.sh/api/v1/piero_trains?t=${Date.now()}`
+      ].map((url) =>
+        fetch(url, { cache: "no-store" })
+          .then((res) => res.json())
+          .catch((e) => {
+            // likely pgm.sh getting blocked
+            console.log(url);
+            console.log(e);
+          })
+      )
+    );
 
     const lastUpdated = new Date().toISOString();
+    const pieroTrainsList =
+      !pieroTrainsListRaw || pieroTrainsListRaw.error
+        ? ["DATE:20260709", "RI-300", "RI-613", "RI-624", "RI-705"]
+        : pieroTrainsListRaw.response.object;
 
-    let transitStatus = {
-      trains: {},
-      stations: {},
-      lines: {},
-      alerts: [],
-      lastUpdated,
-    };
+    let dateToUse = null;
+    pieroTrainsList.forEach((item) => {
+      if (item.startsWith("DATE:")) {
+        dateToUse = item.split(":")[1];
+      }
+    });
 
-    if (pieroTrainsList.error) return { v1: transitStatus };
+    dateToUse == dateToUse ?? ""; // backup
+
+    let transitStatus = { trains: {}, stations: {}, lines: {}, alerts: [], lastUpdated };
 
     Object.values(staticStopsData).forEach((stop) => {
       //adding stations to transitStatus object
@@ -34,10 +41,7 @@ const update = (async () => {
         stationName: stop.stopName,
         lat: stop.stopLat,
         lon: stop.stopLon,
-        destinations: {
-          'Inbound': { trains: [] },
-          'Outbound': { trains: [] },
-        },
+        destinations: { Inbound: { trains: [] }, Outbound: { trains: [] } }
       };
     });
 
@@ -46,13 +50,15 @@ const update = (async () => {
       const finalTrain = metraTrainData.trains[runNumber];
 
       if (
-        !pieroTrainsList.response.object.includes(runNumber) &&
-        !pieroTrainsList.response.object.includes(finalTrain.extra?.cabCar)
-      ) return;
+        finalTrain.extra?.startDate != dateToUse ||
+        (!pieroTrainsList.includes(runNumber) && !pieroTrainsList.includes(finalTrain.extra?.cabCar))
+      ) {
+        return;
+      }
 
-      const trainNumber = runNumber.split('-')[1];
+      const trainNumber = runNumber.split("-")[1];
       const isInbound = parseInt(trainNumber) % 2 == 0;
-      const trainDirection = isInbound ? 'Inbound' : 'Outbound';
+      const trainDirection = isInbound ? "Inbound" : "Outbound";
 
       finalTrain.predictions.forEach((prediciton) => {
         transitStatus.stations[prediciton.stationID].destinations[trainDirection].trains.push({
@@ -95,21 +101,18 @@ const update = (async () => {
             stationName: staticStopsData[stationID].stopName,
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
-            destinations: {
-              'Inbound': { trains: [] },
-              'Outbound': { trains: [] },
-            },
+            destinations: { Inbound: { trains: [] }, Outbound: { trains: [] } }
           };
         }
       });
     });
 
-    transitStatus.lines['DEADMILEAGE'] = {
-      lineCode: 'DEADMILEAGE',
-      lineNameShort: 'Dead Mileage',
-      lineNameLong: 'Dead Mileage',
-      routeColor: '111111',
-      routeTextColor: 'ffffff',
+    transitStatus.lines["DEADMILEAGE"] = {
+      lineCode: "DEADMILEAGE",
+      lineNameShort: "Dead Mileage",
+      lineNameLong: "Dead Mileage",
+      routeColor: "111111",
+      routeTextColor: "ffffff",
       stations: [],
       hasActiveTrains: false
     };
@@ -120,11 +123,11 @@ const update = (async () => {
       if (transitStatus.lines[trainData.lineCode]) transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
     });
 
-    return { v1: transitStatus }
+    return { v1: transitStatus };
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return false;
   }
-})
+};
 
 exports.update = update;

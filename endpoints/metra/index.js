@@ -72,10 +72,14 @@ const update = (async () => {
       'http://localhost:3000/gtfs_sch_acc/metra/scheduledVehicles',
       `https://gks.pgm.sh/api/v1/metra_christmas_sets?t=${Date.now()}`
     ].map((url) =>
-      fetch(url).then(res => res.json())
-    ));
+      fetch(url).then(res => res.json()).catch((e) => {
+        // likely pgm.sh getting blocked
+        //console.log(url)
+        console.log(e)
+      })
+    )); 
 
-    const holidayVehiclesArray = holidayVehicles.error ? [] : holidayVehicles.response.object;
+    const holidayVehiclesArray = !holidayVehicles || holidayVehicles.error ? [] : holidayVehicles.response.object;
 
     let transitStatus = {
       trains: {},
@@ -137,9 +141,10 @@ const update = (async () => {
           cabCar: train.tripUpdate?.vehicle?.id,
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
+          startDate: train.tripUpdate?.trip.startDate,
         }
       };
-
+      
       //adding predictions to transitStatus object
       train.tripUpdate?.stopTimeUpdate?.reverse().forEach((stop, i) => {
         if (i == 0) finalTrain.dest = staticStopsData[stop.stopId].stopName;
