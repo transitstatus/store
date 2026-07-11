@@ -20,17 +20,8 @@ const update = async () => {
     const lastUpdated = new Date().toISOString();
     const pieroTrainsList =
       !pieroTrainsListRaw || pieroTrainsListRaw.error
-        ? ["DATE:20260709", "RI-300", "RI-613", "RI-624", "RI-705"]
+        ? []
         : pieroTrainsListRaw.response.object;
-
-    let dateToUse = null;
-    pieroTrainsList.forEach((item) => {
-      if (item.startsWith("DATE:")) {
-        dateToUse = item.split(":")[1];
-      }
-    });
-
-    dateToUse == dateToUse ?? ""; // backup
 
     let transitStatus = { trains: {}, stations: {}, lines: {}, alerts: [], lastUpdated };
 
@@ -49,10 +40,7 @@ const update = async () => {
     Object.keys(metraTrainData.trains).forEach((runNumber) => {
       const finalTrain = metraTrainData.trains[runNumber];
 
-      if (
-        finalTrain.extra.startDate != dateToUse ||
-        (!pieroTrainsList.includes(runNumber) && !pieroTrainsList.includes(finalTrain.extra?.cabCar))
-      ) {
+      if (!pieroTrainsList.includes(finalTrain.extra?.runNumDate) && !pieroTrainsList.includes(finalTrain.extra?.cabCar)) {
         return;
       }
 

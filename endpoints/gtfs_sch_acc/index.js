@@ -41,6 +41,8 @@ const updateFeed = async (feed) => {
       stoppingPatternTimes[patternIndex] = totalTime;
     });
 
+    const dateStringFormatter = new Intl.DateTimeFormat("en-US", { day: "numeric", timeZone: staticMetaData.agencyTZ ?? 'America/Chicago' });
+
     let scheduledVehicles = {};
 
     const fillInScheduleData = (dateSchedule, now, todayStart) => {
@@ -78,7 +80,8 @@ const updateFeed = async (feed) => {
               predictions: [],
               type: "train",
               extra: {
-                startDate: new Date(currentTimeDiff).toISOString().split('T')[0].replaceAll('-', ''),
+                startDate: new Date(currentTimeDiff).toISOString().split("T")[0].replaceAll("-", ""),
+                runNumDate: `${runNumber}-${dateStringFormatter.format(new Date(currentTimeDiff))}`,
               }
             };
 

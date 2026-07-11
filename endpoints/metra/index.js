@@ -142,6 +142,7 @@ const update = (async () => {
           scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
           startDate: train.tripUpdate?.trip.startDate,
+          runNumDate: `${runNumber}-${train.tripUpdate?.trip.startDate.substring(6)}`
         }
       };
       
