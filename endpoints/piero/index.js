@@ -50,6 +50,7 @@ const update = async () => {
       const finalTrain = metraTrainData.trains[runNumber];
 
       if (
+        finalTrain.extra.startDate != dateToUse ||
         (!pieroTrainsList.includes(runNumber) && !pieroTrainsList.includes(finalTrain.extra?.cabCar))
       ) {
         return;
