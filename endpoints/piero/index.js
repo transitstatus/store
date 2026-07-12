@@ -1,27 +1,30 @@
 const update = async () => {
   try {
-    const [staticStopsData, staticRoutesData, metraTrainData, pieroTrainsListRaw] = await Promise.all(
-      [
-        "https://gtfs.piemadd.com/data/metra/stops.json",
-        "https://gtfs.piemadd.com/data/metra/routes.json",
-        "http://localhost:3000/metra/transitStatus",
-        `https://gks.pgm.sh/api/v1/piero_trains?t=${Date.now()}`
-      ].map((url) =>
-        fetch(url, { cache: "no-store" })
-          .then((res) => res.json())
-          .catch((e) => {
-            // likely pgm.sh getting blocked
-            console.log(url);
-            console.log(e);
-          })
-      )
-    );
+    const [staticStopsData, staticRoutesData, metraTrainData, pieroTrainsListRaw, pieroUnscheduledTrainsListRaw] =
+      await Promise.all(
+        [
+          "https://gtfs.piemadd.com/data/metra/stops.json",
+          "https://gtfs.piemadd.com/data/metra/routes.json",
+          "http://localhost:3000/metra/transitStatus",
+          `https://gks.pgm.sh/api/v1/piero_trains?t=${Date.now()}`,
+          `https://gks.pgm.sh/api/v1/piero_trains_unsched?t=${Date.now()}`
+        ].map((url) =>
+          fetch(url, { cache: "no-store" })
+            .then((res) => res.json())
+            .catch((e) => {
+              // likely pgm.sh getting blocked
+              console.log(url);
+              console.log(e);
+            })
+        )
+      );
 
     const lastUpdated = new Date().toISOString();
-    const pieroTrainsList =
-      !pieroTrainsListRaw || pieroTrainsListRaw.error
+    const pieroTrainsList = !pieroTrainsListRaw || pieroTrainsListRaw.error ? [] : pieroTrainsListRaw.response.object;
+    const pieroUnschedTrainsList =
+      !pieroUnscheduledTrainsListRaw || pieroUnscheduledTrainsListRaw.error
         ? []
-        : pieroTrainsListRaw.response.object;
+        : pieroUnscheduledTrainsListRaw.response.object;
 
     let transitStatus = { trains: {}, stations: {}, lines: {}, alerts: [], lastUpdated };
 
@@ -36,11 +39,71 @@ const update = async () => {
       };
     });
 
+    //parsing unscheduled trains
+    let rawUnschedTrains = [];
+    let currentUnschedTrain = {};
+
+    pieroUnschedTrainsList.forEach((item) => {
+      if (item == "END_TRAIN") {
+        rawUnschedTrains.push(currentUnschedTrain);
+        currentUnschedTrain = JSON.parse("{}");
+        return;
+      }
+
+      const itemSplit = item.split(":");
+
+      currentUnschedTrain[itemSplit[0]] = itemSplit.slice(1).join(":");
+    });
+
+    //adding unscheduled trains
+    rawUnschedTrains.forEach((train) => {
+      const depTime = new Date(`${train.train_date}T${train.dep_time}`).valueOf();
+      const arrTime = new Date(`${train.train_date}T${train.arr_time}`).valueOf();
+      const now = Date.now();
+      const enroute = true; //depTime - (1000 * 60 * 15) <= now && arrTime + (1000 * 60 * 5) >= now;
+
+      const lineCode = train.train_id.split('-')[0];
+      const lineData = metraTrainData.lines[lineCode] ?? {};
+
+      let posData = {
+        lat: 0,
+        lon: 0,
+        heading: 0,
+        realTime: false,
+      }
+
+      if (enroute && metraTrainData.trains[`DM-${train.cabcar}`]) {
+        posData = metraTrainData.trains[`DM-${train.cabcar}`];
+      }
+
+      transitStatus.trains[train.train_id] = {
+        lat: posData.lat,
+        lon: posData.lon,
+        heading: posData.heading,
+        realTime: posData.realTime,
+        deadMileage: false,
+        line: lineData.lineNameLong,
+        lineCode,
+        lineColor: lineData.routeColor,
+        lineTextColor: lineData.routeTextColor,
+        dest: metraTrainData.stations[train.arr_loc]?.stationName,
+        predictions: [
+          { stationID: train.dep_loc, stationName: metraTrainData.stations[train.dep_loc]?.stationName, actualETA: depTime, noETA: false, realTime: false },
+          { stationID: train.arr_loc, stationName: metraTrainData.stations[train.arr_loc]?.stationName, actualETA: arrTime, noETA: false, realTime: false },
+        ],
+        type: "train",
+        extra: {}
+      };
+    });
+
     //adding trains to transitStatus object
     Object.keys(metraTrainData.trains).forEach((runNumber) => {
       const finalTrain = metraTrainData.trains[runNumber];
 
-      if (!pieroTrainsList.includes(finalTrain.extra?.runNumDate) && !pieroTrainsList.includes(finalTrain.extra?.cabCar)) {
+      if (
+        !pieroTrainsList.includes(finalTrain.extra?.runNumDate) &&
+        !pieroTrainsList.includes(finalTrain.extra?.cabCar)
+      ) {
         return;
       }
 

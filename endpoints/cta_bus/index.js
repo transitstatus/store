@@ -1,4 +1,5 @@
 const protobuf = require("protobufjs");
+const fs = require("fs");
 
 require("dotenv").config();
 
@@ -130,12 +131,23 @@ const update = async () => {
       };
     });
 
+    const trainRouteIDs = ["Y", "G", "Blue", "Pink", "Brn", "P", "Org", "Red"];
+
+    fs.writeFileSync("./endpoints/cta_bus/tripUpdates.json", JSON.stringify(tripUpdatesData.toJSON(), null, 2), {
+      encoding: "utf8"
+    });
+    fs.writeFileSync("./endpoints/cta_bus/positions.json", JSON.stringify(positionsData.toJSON(), null, 2), {
+      encoding: "utf8"
+    });
+
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
       //const trainNumber = train.tripUpdate?.trip?.tripId.match(trainNumberRegex);
       //if (!trainNumber) return; //no train ig
 
       const runNumber = train.tripUpdate?.trip?.tripId;
+      const routeID = train.tripUpdate?.trip?.routeId;
+      if (!routeID || !trainRouteIDs.includes(routeID)) return; // not a train
 
       //const runNumber = `${train.tripUpdate?.trip?.routeId.replaceAll('-', '')}-${trainNumber[0]}`;
       const isInbound = true; //parseInt(trainNumber[0]) % 2 == 0;
@@ -185,7 +197,7 @@ const update = async () => {
 
         if (!staticStopsData[stop.stopId]) {
           console.log(stop.stopId, stop.stopId.length > 0 ? stop.stopId : "1", staticStopsData[stop.stopId]);
-          console.log(train.tripUpdate)
+          console.log(train.tripUpdate);
         }
 
         finalTrain.predictions.push({
@@ -234,7 +246,7 @@ const update = async () => {
         predictions: [],
         type: "train",
         extra: {
-          holidayChristmas: holidayVehiclesArray.includes(vehicleID),
+          holidayChristmas: false, //holidayVehiclesArray.includes(vehicleID),
           cabCar: vehicleID
           //scheduleRelationship: train.tripUpdate?.trip?.scheduleRelationship,
           //scheduleRelationshipEnum: scheduleRelationshipEnums[train.tripUpdate?.trip?.scheduleRelationship],
