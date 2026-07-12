@@ -65,6 +65,10 @@ const update = async () => {
       const lineCode = train.train_id.split('-')[0];
       const lineData = metraTrainData.lines[lineCode] ?? {};
 
+      const trainNumber = train.train_id.split("-")[1].replace('DH', '');
+      const isInbound = parseInt(trainNumber) % 2 == 0;
+      const trainDirection = isInbound ? "Inbound" : "Outbound";
+
       let posData = {
         lat: 0,
         lon: 0,
@@ -74,6 +78,7 @@ const update = async () => {
 
       if (enroute && metraTrainData.trains[`DM-${train.cabcar}`]) {
         posData = metraTrainData.trains[`DM-${train.cabcar}`];
+        posData.realTime = true;
       }
 
       transitStatus.trains[train.train_id] = {
@@ -88,12 +93,27 @@ const update = async () => {
         lineTextColor: lineData.routeTextColor,
         dest: metraTrainData.stations[train.arr_loc]?.stationName,
         predictions: [
-          { stationID: train.dep_loc, stationName: metraTrainData.stations[train.dep_loc]?.stationName, actualETA: depTime, noETA: false, realTime: false },
-          { stationID: train.arr_loc, stationName: metraTrainData.stations[train.arr_loc]?.stationName, actualETA: arrTime, noETA: false, realTime: false },
+          { stationID: train.dep_loc, stationName: metraTrainData.stations[train.dep_loc]?.stationName, actualETA: depTime, noETA: false, realTime: posData.realTime },
+          { stationID: train.arr_loc, stationName: metraTrainData.stations[train.arr_loc]?.stationName, actualETA: arrTime, noETA: false, realTime: posData.realTime },
         ],
         type: "train",
         extra: {}
       };
+
+      transitStatus.trains[train.train_id].predictions.forEach((prediction) => {
+        transitStatus.stations[prediciton.stationID].destinations[trainDirection].trains.push({
+          runNumber: train.train_id,
+          actualETA: prediciton.actualETA,
+          noETA: prediciton.noETA,
+          realTime: prediciton.realTime,
+          line: finalTrain.line,
+          lineCode: finalTrain.lineCode,
+          lineColor: finalTrain.lineColor,
+          lineTextColor: finalTrain.lineTextColor,
+          destination: finalTrain.dest,
+          extra: {}
+        });
+      })
     });
 
     //adding trains to transitStatus object
