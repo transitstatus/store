@@ -81,7 +81,7 @@ const update = async () => {
         posData.realTime = true;
       }
 
-      transitStatus.trains[train.train_id] = {
+      const finalTrain = {
         lat: posData.lat,
         lon: posData.lon,
         heading: posData.heading,
@@ -100,12 +100,12 @@ const update = async () => {
         extra: {}
       };
 
-      transitStatus.trains[train.train_id].predictions.forEach((prediction) => {
-        transitStatus.stations[prediciton.stationID].destinations[trainDirection].trains.push({
+      finalTrain.predictions.forEach((prediction) => {
+        transitStatus.stations[prediction.stationID].destinations[trainDirection].trains.push({
           runNumber: train.train_id,
-          actualETA: prediciton.actualETA,
-          noETA: prediciton.noETA,
-          realTime: prediciton.realTime,
+          actualETA: prediction.actualETA,
+          noETA: prediction.noETA,
+          realTime: prediction.realTime,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
@@ -113,6 +113,8 @@ const update = async () => {
           destination: finalTrain.dest,
           extra: {}
         });
+
+        transitStatus.trains[train.train_id] = finalTrain;
       })
     });
 
@@ -131,12 +133,12 @@ const update = async () => {
       const isInbound = parseInt(trainNumber) % 2 == 0;
       const trainDirection = isInbound ? "Inbound" : "Outbound";
 
-      finalTrain.predictions.forEach((prediciton) => {
-        transitStatus.stations[prediciton.stationID].destinations[trainDirection].trains.push({
+      finalTrain.predictions.forEach((prediction) => {
+        transitStatus.stations[prediction.stationID].destinations[trainDirection].trains.push({
           runNumber: runNumber,
-          actualETA: prediciton.actualETA,
-          noETA: prediciton.noETA,
-          realTime: prediciton.realTime,
+          actualETA: prediction.actualETA,
+          noETA: prediction.noETA,
+          realTime: prediction.realTime,
           line: finalTrain.line,
           lineCode: finalTrain.lineCode,
           lineColor: finalTrain.lineColor,
