@@ -60,7 +60,7 @@ const update = async () => {
       const depTime = new Date(`${train.train_date}T${train.dep_time}`).valueOf();
       const arrTime = new Date(`${train.train_date}T${train.arr_time}`).valueOf();
       const now = Date.now();
-      const enroute = true; //depTime - (1000 * 60 * 15) <= now && arrTime + (1000 * 60 * 5) >= now;
+      const enroute = depTime - (1000 * 60 * 15) <= now && arrTime + (1000 * 60 * 5) >= now;
 
       const lineCode = train.train_id.split('-')[0];
       const lineData = metraTrainData.lines[lineCode] ?? {};
