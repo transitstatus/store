@@ -5,9 +5,9 @@
   "apiVersion": 3,
   "configVersion": 1,
   "default": {
-    "brightline": { "trainsByNum": {} },
-    "amtrak": { "trainsByNum": {} },
-    "via_rail": { "trainsByNum": {} }
+    "brightline": { "trainsByNum": {}, "trainsByName": {} },
+    "amtrak": { "trainsByNum": {}, "trainsByName": {} },
+    "via_rail": { "trainsByNum": {}, "trainsByName": {} }
   },
   "variables": [["brightline"], ["amtrak"], ["via_rail"]]
 }
