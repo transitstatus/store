@@ -1,5 +1,11 @@
 const { viaTrainNames } = require("./viaTrainNames.js");
 
+const providers = {
+  'amtrak': 'Amtrak',
+  'brightline': 'Brightline',
+  'via_rail': 'Via'
+}
+
 const updateFeed = async (feed) => {
   //DEBUG
   //if (feed != "amtrak") return false;
