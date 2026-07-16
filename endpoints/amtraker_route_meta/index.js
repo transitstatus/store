@@ -1,3 +1,5 @@
+const { viaTrainNames } = require("./viaTrainNames.js");
+
 const updateFeed = async (feed) => {
   //DEBUG
   //if (feed != "amtrak") return false;
@@ -17,13 +19,28 @@ const updateFeed = async (feed) => {
     const stopIDPrefix = feed == "brightline" ? "B" : "";
 
     let trainsByNum = {};
+    let trainsByName = {};
 
     Object.values(atlasRoutesData).forEach((route) => {
-      Object.keys(route.routeTrips).forEach((trainNum) => {
+      const routeTrips = Object.keys(route.routeTrips);
+
+      let actualTrainName =
+        feed == "via_rail" && viaTrainNames[routeTrips[0]] ? viaTrainNames[routeTrips[0]] : route.routeLongName;
+
+      if (!trainsByName[actualTrainName]) {
+        trainsByName[actualTrainName] = { routeName: actualTrainName, trainNums: [], stations: [] };
+      }
+
+      trainsByName[actualTrainName].stations.push(...route.routeStations);
+
+      routeTrips.forEach((trainNum) => {
         const realTrainNum = `${trainNumPrefix}${trainNum}`;
+
+         trainsByName[actualTrainName].trainNums.push(realTrainNum);
+
         const thisTrain = route.routeTrips[trainNum];
         trainsByNum[realTrainNum] = {
-          routeName: route.routeLongName,
+          routeName: actualTrainName,
           trainNum: realTrainNum,
           trainNumRaw: trainNum,
           origIndex: 0,
@@ -41,7 +58,15 @@ const updateFeed = async (feed) => {
       });
     });
 
-    return { trainsByNum };
+    Object.keys(trainsByName).forEach((trainName) => {
+      trainsByName[trainName].stations = [...new Set(trainsByName[trainName].stations)].sort().map((code) => {
+        const thisStop = amtrakerStopsData[code];
+        const thisStopAlt = staticStopsData[code];
+        return { name: thisStop?.name ?? thisStopAlt?.stopName, code: code, tz: thisStop?.tz ?? thisStopAlt?.stopTZ };
+      });
+    });
+
+    return { trainsByNum, trainsByName };
   } catch (e) {
     console.log(e);
     console.log(feed);
