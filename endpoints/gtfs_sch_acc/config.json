@@ -31,6 +31,9 @@
     },
     "ctrail_hartford": {
       "scheduledVehicles": {}
+    },
+    "amtrak": {
+      "scheduledVehicles": {}
     }
   },
   "variables": [
@@ -60,6 +63,9 @@
     ],
     [
       "ctrail_hartford"
+    ],
+    [
+      "amtrak"
     ]
   ]
 }
