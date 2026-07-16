@@ -1,10 +1,6 @@
 const { viaTrainNames } = require("./viaTrainNames.js");
 
-const providers = {
-  'amtrak': 'Amtrak',
-  'brightline': 'Brightline',
-  'via_rail': 'Via'
-}
+const providers = { amtrak: "Amtrak", brightline: "Brightline", via_rail: "Via" };
 
 const updateFeed = async (feed) => {
   //DEBUG
@@ -34,7 +30,12 @@ const updateFeed = async (feed) => {
         feed == "via_rail" && viaTrainNames[routeTrips[0]] ? viaTrainNames[routeTrips[0]] : route.routeLongName;
 
       if (!trainsByName[actualTrainName]) {
-        trainsByName[actualTrainName] = { routeName: actualTrainName, trainNums: [], stations: [] };
+        trainsByName[actualTrainName] = {
+          routeName: actualTrainName,
+          trainNums: [],
+          stations: [],
+          provider: providers[feed]
+        };
       }
 
       trainsByName[actualTrainName].stations.push(...route.routeStations);
@@ -42,7 +43,7 @@ const updateFeed = async (feed) => {
       routeTrips.forEach((trainNum) => {
         const realTrainNum = `${trainNumPrefix}${trainNum}`;
 
-         trainsByName[actualTrainName].trainNums.push(realTrainNum);
+        trainsByName[actualTrainName].trainNums.push(realTrainNum);
 
         const thisTrain = route.routeTrips[trainNum];
         trainsByNum[realTrainNum] = {
