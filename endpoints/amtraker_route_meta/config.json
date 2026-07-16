@@ -1,0 +1,13 @@
+{
+  "name": "Amtraker Atlas Routes Data",
+  "script": "index.js",
+  "interval": 10000,
+  "apiVersion": 3,
+  "configVersion": 1,
+  "default": {
+    "brightline": { "trainsByNum": {} },
+    "amtrak": { "trainsByNum": {} },
+    "via_rail": { "trainsByNum": {} }
+  },
+  "variables": [["brightline"], ["amtrak"], ["via_rail"]]
+}
