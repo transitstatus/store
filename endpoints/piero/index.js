@@ -60,23 +60,18 @@ const update = async () => {
       const depTime = new Date(`${train.train_date}T${train.dep_time}`).valueOf();
       const arrTime = new Date(`${train.train_date}T${train.arr_time}`).valueOf();
       const now = Date.now();
-      const enroute = depTime - (1000 * 60 * 15) <= now && arrTime + (1000 * 60 * 5) >= now;
+      const enroute = depTime - 1000 * 60 * 15 <= now && arrTime + 1000 * 60 * 5 >= now;
+      
+      if (arrTime + (1000 * 60 * 5) <= now) return; // train has already arrived, don't add it
 
-      if (arrTime + (1000 * 60 * 5) >= now) return; // train has already arrived, don't add it
-
-      const lineCode = train.train_id.split('-')[0];
+      const lineCode = train.train_id.split("-")[0];
       const lineData = metraTrainData.lines[lineCode] ?? {};
 
-      const trainNumber = train.train_id.split("-")[1].replace('DH', '');
+      const trainNumber = train.train_id.split("-")[1].replace("DH", "");
       const isInbound = parseInt(trainNumber) % 2 == 0;
       const trainDirection = isInbound ? "Inbound" : "Outbound";
 
-      let posData = {
-        lat: 0,
-        lon: 0,
-        heading: 0,
-        realTime: false,
-      }
+      let posData = { lat: 0, lon: 0, heading: 0, realTime: false };
 
       if (enroute && metraTrainData.trains[`DM-${train.cabcar}`]) {
         posData = metraTrainData.trains[`DM-${train.cabcar}`];
@@ -95,8 +90,20 @@ const update = async () => {
         lineTextColor: lineData.routeTextColor,
         dest: metraTrainData.stations[train.arr_loc]?.stationName,
         predictions: [
-          { stationID: train.dep_loc, stationName: metraTrainData.stations[train.dep_loc]?.stationName, actualETA: depTime, noETA: false, realTime: posData.realTime },
-          { stationID: train.arr_loc, stationName: metraTrainData.stations[train.arr_loc]?.stationName, actualETA: arrTime, noETA: false, realTime: posData.realTime },
+          {
+            stationID: train.dep_loc,
+            stationName: metraTrainData.stations[train.dep_loc]?.stationName,
+            actualETA: depTime,
+            noETA: false,
+            realTime: posData.realTime
+          },
+          {
+            stationID: train.arr_loc,
+            stationName: metraTrainData.stations[train.arr_loc]?.stationName,
+            actualETA: arrTime,
+            noETA: false,
+            realTime: posData.realTime
+          }
         ],
         type: "train",
         extra: {}
@@ -117,7 +124,7 @@ const update = async () => {
         });
 
         transitStatus.trains[train.train_id] = finalTrain;
-      })
+      });
     });
 
     //adding trains to transitStatus object
