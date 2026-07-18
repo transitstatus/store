@@ -62,6 +62,8 @@ const update = async () => {
       const now = Date.now();
       const enroute = depTime - (1000 * 60 * 15) <= now && arrTime + (1000 * 60 * 5) >= now;
 
+      if (arrTime + (1000 * 60 * 5) >= now) return; // train has already arrived, don't add it
+
       const lineCode = train.train_id.split('-')[0];
       const lineData = metraTrainData.lines[lineCode] ?? {};
 
