@@ -1,7 +1,7 @@
 const protobuf = require("protobufjs");
 
 const updateFeed = async (feed) => {
-  if (feed != 'amtrak') return false;
+  //if (feed != 'amtrak') return false;
   if (feed == "cta") return { scheduledVehicles: {} };
 
   try {
