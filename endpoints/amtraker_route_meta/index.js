@@ -51,6 +51,7 @@ const updateFeed = async (feed) => {
           trainNum: realTrainNum,
           trainNumRaw: trainNum,
           origIndex: 0,
+          provider: providers[feed],
           destIndex: thisTrain.stoppingPattern.length - 1,
           stops: thisTrain.stoppingPattern.map((code) => {
             const thisStop = amtrakerStopsData[code];
