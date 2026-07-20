@@ -2,7 +2,7 @@ const protobuf = require('protobufjs');
 
 const updateFeed = async (feed) => {
   //DEBUG
-  //if (feed != 'via_rail') return false;
+  //if (feed != 'amtrak') return false;
 
   try {
     const root = await protobuf.load('schedules.proto');
@@ -13,11 +13,13 @@ const updateFeed = async (feed) => {
       staticRoutesData,
       staticSegmentsData,
       staticMetaData,
+      tripToShortTrip,
     ] = await Promise.all([
       `https://gtfs.piemadd.com/data/${feed}/stops.json`,
       `https://gtfs.piemadd.com/data/${feed}/routes.json`,
       `https://gtfs.piemadd.com/data/${feed}/segments.json`,
       `https://gobblerstatic.transitstat.us/schedules/${feed}/metadata.json`,
+      `https://gobblerstatic.transitstat.us/schedules/${feed}/tripToShortTrip.json`
     ].map((url) =>
       fetch(url).then(res => res.json())
     ));
@@ -39,6 +41,10 @@ const updateFeed = async (feed) => {
     vehicleSchedule
       .toJSON()
       .vehicleScheduleMessage
+      .map((vehicle) => {
+        if (tripToShortTrip[vehicle.runNumber]) vehicle.runNumber = tripToShortTrip[vehicle.runNumber];
+        return vehicle;
+      })
       .filter((vehicle) => {
         if (vehicle.runNumber == '97-64' || vehicle.runNumber == '98-63') return false;
         return true;
