@@ -34,7 +34,7 @@ const updateFeed = async (feed) => {
       const routeTrips = Object.keys(route.routeTrips);
 
       let actualTrainName =
-        feed == "via_rail" && viaTrainNames[routeTrips[0]] ? viaTrainNames[routeTrips[0]] : route.routeLongName.replace('Amtrak').trim();
+        feed == "via_rail" && viaTrainNames[routeTrips[0]] ? viaTrainNames[routeTrips[0]] : route.routeLongName.replace('Amtrak', '').trim();
 
       if (!trainsByName[actualTrainName]) {
         trainsByName[actualTrainName] = {
