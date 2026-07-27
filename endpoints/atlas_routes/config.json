@@ -7,7 +7,8 @@
   "default": {
     "brightline": { "routeDataFinal": {}, "tripToRoute": {}, "segments": {}, "staticStopsData": {} },
     "amtrak": { "routeDataFinal": {}, "tripToRoute": {}, "segments": {}, "staticStopsData": {} },
-    "via_rail": { "routeDataFinal": {}, "tripToRoute": {}, "segments": {}, "staticStopsData": {} }
+    "via_rail": { "routeDataFinal": {}, "tripToRoute": {}, "segments": {}, "staticStopsData": {} },
+    "goldrunner": { "routeDataFinal": {}, "tripToRoute": {}, "segments": {}, "staticStopsData": {} }
   },
-  "variables": [["brightline"], ["amtrak"], ["via_rail"]]
+  "variables": [["brightline"], ["amtrak"], ["via_rail"], ["goldrunner"]]
 }
