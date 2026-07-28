@@ -44,6 +44,7 @@ const updateFeed = async (feed) => {
       const routeID = route.routeID;
       Object.keys(route.routeTrips).forEach((trip) => {
         tripToRouteDict[trip] = routeID;
+        tripToRouteDict[trip.split(':')[0]] = routeID;
       });
     });
 
@@ -56,7 +57,7 @@ const updateFeed = async (feed) => {
 
       const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? { latitude: 0, longitude: 0, bearing: 0 };
 
-      let routeId = tripToRouteDict[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.routeId;
+      let routeId = tripToRouteDict[train.tripUpdate?.trip?.tripId] ?? tripToRouteDict[train.tripUpdate?.trip?.tripId.split(':')[0]] ?? train.tripUpdate?.trip?.routeId;
 
       let finalTrain = {
         lat: position.latitude,
