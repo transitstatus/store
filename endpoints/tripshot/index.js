@@ -8,9 +8,9 @@ const updateFeed = async (feed) => {
 
     const [tripUpdatesData, positionsData, alertsData] = await Promise.all(
       [
-        `http://${feed.id}.tripshot.com/v1/gtfs/realtime/tripUpdate/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`,
-        `http://${feed.id}.tripshot.com/v1/gtfs/realtime/vehiclePosition/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`,
-        `http://${feed.id}.tripshot.com/v1/gtfs/realtime/serviceAlert/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`
+        `https://${feed.id}.tripshot.com/v1/gtfs/realtime/tripUpdate/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`,
+        `https://${feed.id}.tripshot.com/v1/gtfs/realtime/vehiclePosition/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`,
+        `https://${feed.id}.tripshot.com/v1/gtfs/realtime/serviceAlert/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`
       ].map((url) =>
         fetch(url)
           .then((res) => res.arrayBuffer())
