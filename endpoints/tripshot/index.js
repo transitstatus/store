@@ -1,25 +1,27 @@
-const fs = require('fs');
-const protobuf = require('protobufjs');
+const fs = require("fs");
+const protobuf = require("protobufjs");
 
 const updateFeed = async (feed) => {
   try {
-    const gtfsRealtimeRoot = await protobuf.load('gtfs-rt.proto');
-    const FeedMessage = gtfsRealtimeRoot.lookupType('transit_realtime.FeedMessage');
+    const gtfsRealtimeRoot = await protobuf.load("gtfs-rt.proto");
+    const FeedMessage = gtfsRealtimeRoot.lookupType("transit_realtime.FeedMessage");
 
-    const [
-      tripUpdatesData,
-      positionsData,
-      alertsData,
-    ] = await Promise.all([
-      `https://passio3.com/${feed.id}/passioTransit/gtfs/realtime/tripUpdates`,
-      `https://passio3.com/${feed.id}/passioTransit/gtfs/realtime/vehiclePositions`,
-      `https://passio3.com/${feed.id}/passioTransit/gtfs/realtime/serviceAlerts`,
-    ].map((url) =>
-      fetch(url).then(res => res.arrayBuffer()).then(arrayBuffer => FeedMessage.decode(new Uint8Array(arrayBuffer))).then(data => data.toJSON()).catch((e) => {
-        console.log(feed)
-        console.log(e)
-      })
-    ));
+    const [tripUpdatesData, positionsData, alertsData] = await Promise.all(
+      [
+        `http://${feed.id}.tripshot.com/v1/gtfs/realtime/tripUpdate/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`,
+        `http://${feed.id}.tripshot.com/v1/gtfs/realtime/vehiclePosition/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`,
+        `http://${feed.id}.tripshot.com/v1/gtfs/realtime/serviceAlert/CA558DDC-D7F2-4B48-9CAC-DEEA1134F820`
+      ].map((url) =>
+        fetch(url)
+          .then((res) => res.arrayBuffer())
+          .then((arrayBuffer) => FeedMessage.decode(new Uint8Array(arrayBuffer)))
+          .then((data) => data.toJSON())
+          .catch((e) => {
+            console.log(feed);
+            console.log(e);
+          })
+      )
+    );
 
     let vehiclePositionsDict = {};
     (positionsData.entity ?? []).forEach((position) => {
@@ -30,40 +32,29 @@ const updateFeed = async (feed) => {
       }
     });
 
-    const [
-      staticStopsData,
-      staticRoutesData,
-    ] = await Promise.all([
-      `https://gtfs.piemadd.com/data/${feed.gtfsKey ?? feed.id}/stops.json`,
-      `https://gtfs.piemadd.com/data/${feed.gtfsKey ?? feed.id}/routes.json`
-    ].map((url) =>
-      fetch(url).then(res => res.json())
-    ));
+    const [staticStopsData, staticRoutesData] = await Promise.all(
+      [
+        `https://gtfs.piemadd.com/data/${feed.id}/stops.json`,
+        `https://gtfs.piemadd.com/data/${feed.id}/routes.json`
+      ].map((url) => fetch(url).then((res) => res.json()))
+    );
 
     let tripToRouteDict = {};
     Object.values(staticRoutesData).forEach((route) => {
       const routeID = route.routeID;
       Object.keys(route.routeTrips).forEach((trip) => {
         tripToRouteDict[trip] = routeID;
-      })
+      });
     });
 
-    let transitStatus = {
-      trains: {},
-      stations: {},
-      lines: {},
-      alerts: [],
-    };
+    let transitStatus = { trains: {}, stations: {}, lines: {}, alerts: [] };
 
     //adding trains to transitStatus object
     (tripUpdatesData.entity ?? []).forEach((train, i) => {
-      const runNumber = train.tripUpdate?.vehicle?.label ?? train.tripUpdate?.vehicle?.id ?? `X${(i + 1).toString().padStart(3, '0')}`;
+      const runNumber =
+        train.tripUpdate?.vehicle?.label ?? train.tripUpdate?.vehicle?.id ?? `X${(i + 1).toString().padStart(3, "0")}`;
 
-      const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? {
-        latitude: 0,
-        longitude: 0,
-        bearing: 0,
-      }
+      const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? { latitude: 0, longitude: 0, bearing: 0 };
 
       let routeId = tripToRouteDict[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.routeId;
 
@@ -79,17 +70,20 @@ const updateFeed = async (feed) => {
         lineTextColor: staticRoutesData[routeId].routeTextColor,
         dest: "Unknown Dest",
         predictions: [],
-        type: 'bus',
+        type: "bus",
         extra: {
           load: null,
           cap: null,
-          info: extraBusInfo[feed.id] && extraBusInfo[feed.id][runNumber] ? extraBusInfo[feed.id][runNumber] : null,
+          info: null, //extraBusInfo[feed.id] && extraBusInfo[feed.id][runNumber] ? extraBusInfo[feed.id][runNumber] : null
         }
       };
 
       //adding predictions to transitStatus object
       train.tripUpdate?.stopTimeUpdate?.forEach((stop, i, array) => {
-        if (i == 0) finalTrain.dest = headsignReplacements[feed.id]?.[finalTrain.lineCode]?.replacements[stop.stopId] ?? staticStopsData[array[array.length - 1].stopId].stopName;
+        if (i == 0)
+          finalTrain.dest =
+            //headsignReplacements[feed.id]?.[finalTrain.lineCode]?.replacements[stop.stopId] ??
+            staticStopsData[array[array.length - 1].stopId].stopName;
 
         const arr = stop.arrival ? parseInt(stop.arrival.time) : 0;
         const dep = stop.departure ? parseInt(stop.departure.time) : 0;
@@ -97,7 +91,7 @@ const updateFeed = async (feed) => {
 
         const thisStopData = staticStopsData[stop.stopId] ?? {
           stopID: stop.stopId,
-          stopName: 'Unknown Stop',
+          stopName: "Unknown Stop",
           stopLat: 0,
           stoPLon: 0,
           stopTZ: ""
@@ -108,7 +102,7 @@ const updateFeed = async (feed) => {
           stationName: thisStopData.stopName,
           actualETA: time,
           noETA: !time,
-          realTime: true,
+          realTime: true
         });
 
         //adding stations to transitStatus object
@@ -118,14 +112,15 @@ const updateFeed = async (feed) => {
             stationName: thisStopData.stopName,
             lat: thisStopData.stopLat,
             lon: thisStopData.stopLon,
-            destinations: {},
+            destinations: {}
           };
         }
 
-        const destFromThisStop = headsignReplacements[feed.id]?.[finalTrain.lineCode]?.replacements[stop.stopId] ?? finalTrain.dest;
+        const destFromThisStop = finalTrain.dest; 
+          //headsignReplacements[feed.id]?.[finalTrain.lineCode]?.replacements[stop.stopId] ?? finalTrain.dest;
 
         if (!transitStatus.stations[stop.stopId].destinations[destFromThisStop]) {
-          transitStatus.stations[stop.stopId].destinations[destFromThisStop] = { trains: [] }
+          transitStatus.stations[stop.stopId].destinations[destFromThisStop] = { trains: [] };
         }
 
         transitStatus.stations[stop.stopId].destinations[destFromThisStop].trains.push({
@@ -166,10 +161,7 @@ const updateFeed = async (feed) => {
             stationName: staticStopsData[stationID].stopName,
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
-            destinations: {
-              'Inbound': { trains: [] },
-              'Outbound': { trains: [] },
-            },
+            destinations: { Inbound: { trains: [] }, Outbound: { trains: [] } }
           };
         }
       });
@@ -184,7 +176,8 @@ const updateFeed = async (feed) => {
     // alerts
     transitStatus.alerts = (alertsData.entity ?? []).map((alert) => {
       const lineCode = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
-      const runNumber = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
+      const runNumber =
+        alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
       const stationID = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
 
       const additionalRunNumbers = Object.keys(transitStatus.trains).filter((trainID) => {
@@ -195,14 +188,18 @@ const updateFeed = async (feed) => {
         return false;
       });
 
-      const additionalStationIDs = Object.values(transitStatus.stations).filter((station) => {
-        const stationLines = Object.values(staticRoutesData).filter((line) => line.routeStations.includes(station.stationID)).map((line) => line.routeID);
-        const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
+      const additionalStationIDs = Object.values(transitStatus.stations)
+        .filter((station) => {
+          const stationLines = Object.values(staticRoutesData)
+            .filter((line) => line.routeStations.includes(station.stationID))
+            .map((line) => line.routeID);
+          const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
 
-        if (stationLines.includes(lineCode)) return true;
-        if (stationTrains.includes(runNumber)) return true;
-        return false;
-      }).map((station) => station.stationID);
+          if (stationLines.includes(lineCode)) return true;
+          if (stationTrains.includes(runNumber)) return true;
+          return false;
+        })
+        .map((station) => station.stationID);
 
       return {
         id: alert.id,
@@ -212,23 +209,21 @@ const updateFeed = async (feed) => {
         additionalRunNumbers,
         additionalStationIDs,
         title: alert.alert.headerText.translation[0].text,
-        message: alert.alert.descriptionText.translation[0].text.replaceAll(/<[^>]*>/g, ' ').replaceAll('&nbsp;', ' ').replaceAll(/\s+/g, ' ').trim(),
-      }
+        message: alert.alert.descriptionText.translation[0].text
+          .replaceAll(/<[^>]*>/g, " ")
+          .replaceAll("&nbsp;", " ")
+          .replaceAll(/\s+/g, " ")
+          .trim()
+      };
     });
 
     const lastUpdated = new Date().toISOString();
 
     transitStatus.lastUpdated = lastUpdated;
 
-    return {
-      ...transitStatus,
-      shitsFucked: {
-        shitIsFucked: false,
-        message: '.'
-      }
-    }
+    return { ...transitStatus, shitsFucked: { shitIsFucked: false, message: "." } };
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return {
       trains: {},
       stations: {},
@@ -242,11 +237,8 @@ const updateFeed = async (feed) => {
   }
 };
 
-const updateFeedInd = async (feedKey, gtfsKey) => {
-  let feed = {
-    id: feedKey,
-    gtfsKey,
-  };
+const updateFeedInd = async (feedKey) => {
+  let feed = { id: feedKey};
 
   //if (feedKey !=)
 
@@ -255,6 +247,6 @@ const updateFeedInd = async (feedKey, gtfsKey) => {
   console.log(`Finished updating ${feedKey}`);
 
   return feedData;
-}
+};
 
 exports.update = updateFeedInd;

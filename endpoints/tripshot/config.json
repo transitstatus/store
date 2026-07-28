@@ -8,5 +8,5 @@
     "rutgers": {}
   },
   "variables": [["rutgers"]],
-  "disabled": true
+  "disabled": false
 }
