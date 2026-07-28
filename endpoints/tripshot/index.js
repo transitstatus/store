@@ -232,7 +232,7 @@ const updateFeed = async (feed) => {
       lastUpdated: new Date().toISOString(),
       shitsFucked: {
         shitIsFucked: true,
-        message: `There was an error fetching data for ${feed.id} from Passio. Please try again in a few minutes. If this error persists please email me at piero@piemadd.com.`
+        message: `There was an error fetching data for ${feed.id} from Tripshot. Please try again in a few minutes. If this error persists please email me at piero@piemadd.com.`
       }
     };
   }
