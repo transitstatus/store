@@ -20,9 +20,9 @@ const updateFeed = async (feed) => {
       );
 
     let shortTripToTrip = {};
-    Object.values(atlasNextDeps).forEach((trip) => {
-      shortTripToTrip[trip.trip.shortTripID] = trip.trip.tripID;
-    });
+    //Object.values(atlasNextDeps).forEach((trip) => {
+    //  shortTripToTrip[trip.trip.shortTripID] = trip.trip.tripID;
+    //});
 
     const trainNumPrefix = feed.substring(0, 1).replace("a", "");
     const stopIDPrefix = feed == "brightline" ? "B" : "";
@@ -69,7 +69,7 @@ const updateFeed = async (feed) => {
               tz: thisStop?.tz ?? thisStopAlt?.stopTZ
             };
           }),
-          nextDep: atlasNextDeps[shortTripToTrip[trainNum]]?.time ?? null
+          nextDep: 0, //atlasNextDeps[shortTripToTrip[trainNum]]?.time ?? null
         };
       });
     });
