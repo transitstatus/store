@@ -20,9 +20,10 @@ const updateFeed = async (feed) => {
       );
 
     let shortTripToTrip = {};
-    //Object.values(atlasNextDeps).forEach((trip) => {
-    //  shortTripToTrip[trip.trip.shortTripID] = trip.trip.tripID;
-    //});
+    Object.keys(atlasNextDeps).forEach((tripID) => {
+      const trip = atlasNextDeps[tripID];
+      shortTripToTrip[trip.shortTripID] = tripID;
+    });
 
     const trainNumPrefix = feed.substring(0, 1).replace("a", "");
     const stopIDPrefix = feed == "brightline" ? "B" : "";
@@ -34,7 +35,9 @@ const updateFeed = async (feed) => {
       const routeTrips = Object.keys(route.routeTrips);
 
       let actualTrainName =
-        feed == "via_rail" && viaTrainNames[routeTrips[0]] ? viaTrainNames[routeTrips[0]] : route.routeLongName.replace('Amtrak', '').trim();
+        feed == "via_rail" && viaTrainNames[routeTrips[0]]
+          ? viaTrainNames[routeTrips[0]]
+          : route.routeLongName.replace("Amtrak", "").trim();
 
       if (!trainsByName[actualTrainName]) {
         trainsByName[actualTrainName] = {
@@ -69,7 +72,9 @@ const updateFeed = async (feed) => {
               tz: thisStop?.tz ?? thisStopAlt?.stopTZ
             };
           }),
-          nextDep: 0, //atlasNextDeps[shortTripToTrip[trainNum]]?.time ?? null
+          nextDep: atlasNextDeps[shortTripToTrip[trainNum]]
+            ? atlasNextDeps[shortTripToTrip[trainNum]]?.times.find((time) => time > Date.now())
+            : null
         };
       });
     });
