@@ -64,11 +64,13 @@ const updateFeed = async (feed) => {
           provider: providers[feed],
           destIndex: thisTrain.stoppingPattern.length - 1,
           stops: thisTrain.stoppingPattern.map((code) => {
-            const thisStop = amtrakerStopsData[code];
+            const actualCode = `${stopIDPrefix}${staticStopsData[code].stopCode ?? code}`;
+
+            const thisStop = amtrakerStopsData[actualCode];
             const thisStopAlt = staticStopsData[code];
             return {
               name: thisStop?.name ?? thisStopAlt?.stopName,
-              code: code,
+              code: actualCode,
               tz: thisStop?.tz ?? thisStopAlt?.stopTZ
             };
           }),
@@ -81,9 +83,12 @@ const updateFeed = async (feed) => {
 
     Object.keys(trainsByName).forEach((trainName) => {
       trainsByName[trainName].stations = [...new Set(trainsByName[trainName].stations)].sort().map((code) => {
-        const thisStop = amtrakerStopsData[code];
+        const actualCode = `${stopIDPrefix}${staticStopsData[code].stopCode ?? code}`;
+
+        const thisStop = amtrakerStopsData[actualCode];
         const thisStopAlt = staticStopsData[code];
-        return { name: thisStop?.name ?? thisStopAlt?.stopName, code: code, tz: thisStop?.tz ?? thisStopAlt?.stopTZ };
+
+        return { name: thisStop?.name ?? thisStopAlt?.stopName, code: actualCode, tz: thisStop?.tz ?? thisStopAlt?.stopTZ };
       });
     });
 
