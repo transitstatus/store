@@ -149,7 +149,7 @@ const update = async () => {
 
       const runNumber = train.tripUpdate?.trip?.tripId;
       const routeID = train.tripUpdate?.trip?.routeId;
-      if (!routeID || !trainRouteIDs.includes(routeID)) return; // not a train
+      //if (!routeID || !trainRouteIDs.includes(routeID)) return; // not a train
 
       //const runNumber = `${train.tripUpdate?.trip?.routeId.replaceAll('-', '')}-${trainNumber[0]}`;
       const isInbound = true; //parseInt(trainNumber[0]) % 2 == 0;
@@ -191,15 +191,21 @@ const update = async () => {
 
       //adding predictions to transitStatus object
       train.tripUpdate?.stopTimeUpdate?.reverse().forEach((stop, i) => {
+        if (!staticStopsData[stop.stopId]) {
+          console.log(stop, i)
+        }
+
         if (i == 0) finalTrain.dest = staticStopsData[stop.stopId.length > 0 ? stop.stopId : "1"].stopName;
 
         const arr = stop.arrival ? new Date(stop.arrival.time?.low).valueOf() : 0;
         const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
         const time = Math.max(arr, dep) * 1000;
 
+        if (stop.stopId.length == 0) return; // empty stop
+
         if (!staticStopsData[stop.stopId]) {
-          console.log(stop.stopId, stop.stopId.length > 0 ? stop.stopId : "1", staticStopsData[stop.stopId]);
           console.log(train.tripUpdate);
+          console.log(stop, stop.stopId.length > 0 ? stop.stopId : "1", staticStopsData[stop.stopId]);
         }
 
         finalTrain.predictions.push({
