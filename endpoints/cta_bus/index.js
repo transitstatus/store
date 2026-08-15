@@ -133,12 +133,14 @@ const update = async () => {
 
     const trainRouteIDs = ["Y", "G", "Blue", "Pink", "Brn", "P", "Org", "Red"];
 
+    /*
     fs.writeFileSync("./endpoints/cta_bus/tripUpdates.json", JSON.stringify(tripUpdatesData.toJSON(), null, 2), {
       encoding: "utf8"
     });
     fs.writeFileSync("./endpoints/cta_bus/positions.json", JSON.stringify(positionsData.toJSON(), null, 2), {
       encoding: "utf8"
     });
+    */
 
     //adding trains to transitStatus object
     tripUpdatesData.entity.forEach((train, i) => {
