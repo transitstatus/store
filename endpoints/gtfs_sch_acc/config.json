@@ -2,8 +2,8 @@
   "name": "Parsed GTFS Schedules",
   "script": "index.js",
   "interval": 600000,
-  "apiVersion": 3,
-  "configVersion": 2,
+  "apiVersion": 2,
+  "configVersion": 1,
   "default": {
     "metra": {
       "scheduledVehicles": {}
