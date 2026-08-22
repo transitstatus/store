@@ -3,7 +3,7 @@
   "script": "index.js",
   "interval": 600000,
   "apiVersion": 3,
-  "configVersion": 1,
+  "configVersion": 2,
   "default": {
     "metra": {
       "scheduledVehicles": {}
