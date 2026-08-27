@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fast-csv/parse": "^5.0.7",
     "@turf/along": "^6.5.0",
     "@turf/helpers": "^7.3.5",
     "@turf/length": "^6.5.0",

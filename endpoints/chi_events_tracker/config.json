@@ -1,0 +1,11 @@
+{
+  "name": "Chicago Events Tracker",
+  "script": "index.js",
+  "interval": 10000,
+  "apiVersion": 3,
+  "configVersion": 3,
+  "disabled": true,
+  "default": {
+      "events": []
+  }
+}

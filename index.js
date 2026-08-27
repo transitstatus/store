@@ -276,6 +276,72 @@ fastify.after(() => {
             }, config.interval);
 
             break;
+          case 3:
+            console.log(`Config version 3 detected for ${endpoint}`);
+
+            const updateV3 = require(`./endpoints/${endpoint}/${config.script}`).update;
+
+            data[endpoint] = structuredClone(config.default);
+            data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+              ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+              : structuredClone(config.default);
+
+            try {
+              const initialState = await fetch(`https://store.transitstat.us/${endpoint}`)
+                .then((res) => res.json())
+                .catch((e) => {
+                  return structuredClone(config.default); // earlier failure or issue
+                });
+
+              data[endpoint] = initialState;
+              data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                : initialState;
+
+              updateV3({ firstUpdate: true, lastState: config.default }).then((result) => {
+                if (result === false) {
+                  data[endpoint] = initialState;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : initialState;
+                } else {
+                  data[endpoint] = result;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : result;
+
+                  const keys = getAllKeysWithParents(config.default);
+
+                  console.log(`Destroying /${endpoint}GET`);
+                  fastify.lcache.reset(`/${endpoint}GET`);
+                  keys.forEach((key) => {
+                    console.log(`Destroying /${endpoint}/${key}GET`);
+                    fastify.lcache.reset(`/${endpoint}/${key}GET`);
+                  });
+                }
+              });
+            } catch (e) {
+              console.log(`error updating data for ${endpoint}`);
+              console.log(e);
+            }
+
+            setInterval(() => {
+              try {
+                updateV3({ firstUpdate: false, lastState: data[endpoint] }).then((result) => {
+                  if (result === false) return;
+
+                  data[endpoint] = result;
+                  data_reduced[endpoint] = exclude_from_root.includes(endpoint)
+                    ? `Not returned due to large size. Visit '/${endpoint}' for data.`
+                    : result;
+                });
+              } catch (e) {
+                console.log(`error updating data for ${endpoint}`);
+                console.log(e);
+              }
+            }, config.interval);
+
+            break;
           default:
             console.log(`No known config version detected for ${endpoint}`);
             break;
