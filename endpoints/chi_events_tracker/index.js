@@ -99,7 +99,7 @@ const fetchTicketmaster = async () => {
 };
 
 const fetchESPNFootball = async () => {
-  
+
 };
 
 const updateFeed = async (updateConfig) => {
