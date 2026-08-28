@@ -68,10 +68,11 @@ const updateFeed = async () => {
           })
           .on("data", (row) => {
             if (
-              row.VENUE_STATE_CODE == "IL" &&
+              //row.VENUE_STATE_CODE == "IL" &&
               //row.VENUE_CITY == "Chicago" &&
               new Date(row.EVENT_START_DATETIME).valueOf() < now + 1000 * 60 * 60 * 24 * 31 &&
-              venueIDs.includes(row.VENUE_ID)
+              (row.CLASSIFICATION_GENRE == 'Football' || row.CLASSIFICATION_GENRE == 'Baseball' || row.CLASSIFICATION_GENRE == 'Soccer')
+              //venueIDs.includes(row.VENUE_ID)
             ) {
               rawEvents.push({ ...row, RELATIONS: venues[row.VENUE_ID] });
             }

@@ -55,6 +55,27 @@ const fetchTicketmaster = async () => {
   return data.map((event) => {
     switch (event.CLASSIFICATION_GENRE) {
       case "Football":
+      case "Baseball":
+        return {
+          id: event.EVENT_ID,
+          name: event.EVENT_NAME,
+          start_date: event.EVENT_START_DATETIME,
+          category: event.CLASSIFICATION_SEGMENT,
+          genre: event.CLASSIFICATION_GENRE,
+          sub_genre: event.CLASSIFICATION_SUB_GENRE,
+          teamsList: event.ATTRACTION_CLASSIFICATION_SUB_TYPE != "Team" ? event.ATTRACTION_NAME.split("|") : null,
+          image_url: event.EVENT_IMAGE_URL,
+          venue: {
+            id: event.VENUE_ID,
+            name: event.VENUE_NAME,
+            lat: parseFloat(event.VENUE_LATITUDE),
+            lon: parseFloat(event.VENUE_LONGITUDE)
+          },
+          score: null,
+          additionalVenueInfo: { espn: event.RELATIONS.rel_espn, mlb: event.RELATIONS.rel_mlb }
+        };
+      default:
+        //console.log(`No CLASSIFICATION_GENRE "${event.CLASSIFICATION_GENRE}"`);
         return {
           id: event.EVENT_ID,
           name: event.EVENT_NAME,
@@ -71,13 +92,14 @@ const fetchTicketmaster = async () => {
             lon: parseFloat(event.VENUE_LONGITUDE)
           },
           score: null,
-          additionalVenueInfo: { espn: event.RELATIONS.rel_espn }
+          additionalVenueInfo: {}
         };
-        break;
-      default:
-        console.log(`No CLASSIFICATION_GENRE "${event.CLASSIFICATION_GENRE}"`);
     }
   });
+};
+
+const fetchESPNFootball = async () => {
+  
 };
 
 const updateFeed = async (updateConfig) => {
