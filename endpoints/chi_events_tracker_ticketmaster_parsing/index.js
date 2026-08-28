@@ -4,8 +4,8 @@ const { Readable } = require("node:stream");
 require("dotenv").config();
 
 const venues = {
-  ZFr9jZe1vk: { name: "Wrigley Field", rel_mlb: "", rel_espn: "16" },
-  KovZpaFPJe: { name: "Rate Field", rel_mlb: "", rel_espn: "4" },
+  ZFr9jZe1vk: { name: "Wrigley Field", rel_mlb: "17", rel_espn: "16" },
+  KovZpaFPJe: { name: "Rate Field", rel_mlb: "4", rel_espn: "4" },
   KovZpZAF6tIA: { name: "Soldier Field", rel_espn: "3933" },
   KovZ917AI5F: { name: "The Salt Shed Indoors (Shed)" },
   KovZ917Amf0: { name: "The Salt Shed Outdoors (Fairgrounds)" },
@@ -13,8 +13,8 @@ const venues = {
   KovZpZAF6alA: { name: "Apollos Theater" },
   KovZpZA6AJ6A: { name: "The Chicago Theatre" },
   KovZpZAEA7IA: { name: "Huntington Bank Pavilion at Northerly Island" },
-  KovZ917A2S0: { name: "Wintrust Arena", rel_espn: "" },
-  KovZpa2M7e: { name: "United Center", rel_espn: "" },
+  KovZ917A2S0: { name: "Wintrust Arena", rel_espn: "5427" },
+  KovZpa2M7e: { name: "United Center", rel_espn: "1847" },
   ZFr9jZeeFF: { name: "Navy Pier" }
 };
 const venueIDs = Object.keys(venues);
@@ -69,7 +69,7 @@ const updateFeed = async () => {
           .on("data", (row) => {
             if (
               row.VENUE_STATE_CODE == "IL" &&
-              row.VENUE_CITY == "Chicago" &&
+              //row.VENUE_CITY == "Chicago" &&
               new Date(row.EVENT_START_DATETIME).valueOf() < now + 1000 * 60 * 60 * 24 * 31 &&
               venueIDs.includes(row.VENUE_ID)
             ) {

@@ -1,0 +1,805 @@
+{
+  "id": "401873298",
+  "uid": "s:20~l:28~e:401873298",
+  "date": "2026-08-27T23:00Z",
+  "name": "Pittsburgh Steelers at Buffalo Bills",
+  "shortName": "PIT @ BUF",
+  "season": { "year": 2026, "type": 1, "slug": "preseason" },
+  "week": { "number": 4 },
+  "competitions": [
+    {
+      "id": "401873298",
+      "uid": "s:20~l:28~e:401873298~c:401873298",
+      "date": "2026-08-27T23:00Z",
+      "attendance": 0,
+      "type": { "id": "1", "abbreviation": "STD" },
+      "timeValid": true,
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "playByPlayAvailable": false,
+      "recent": false,
+      "venue": {
+        "id": "11938",
+        "fullName": "Highmark Stadium",
+        "address": { "city": "Orchard Park", "state": "NY", "country": "USA" },
+        "indoor": false
+      },
+      "competitors": [
+        {
+          "id": "2",
+          "uid": "s:20~l:28~t:2",
+          "type": "team",
+          "order": 0,
+          "homeAway": "home",
+          "team": {
+            "id": "2",
+            "uid": "s:20~l:28~t:2",
+            "location": "Buffalo",
+            "name": "Bills",
+            "abbreviation": "BUF",
+            "displayName": "Buffalo Bills",
+            "shortDisplayName": "Bills",
+            "color": "00338d",
+            "alternateColor": "d50a0a",
+            "isActive": true,
+            "venue": { "id": "3883" },
+            "links": [
+              {
+                "rel": ["clubhouse", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/_/name/buf/buffalo-bills",
+                "text": "Clubhouse",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["roster", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/roster/_/name/buf/buffalo-bills",
+                "text": "Roster",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["roster", "sportscenter", "app", "team"],
+                "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:2&section=roster",
+                "text": "Roster",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["stats", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/stats/_/name/buf/buffalo-bills",
+                "text": "Statistics",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["stats", "sportscenter", "app", "team"],
+                "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:2&section=stats",
+                "text": "Statistics",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["schedule", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/schedule/_/name/buf",
+                "text": "Schedule",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["schedule", "sportscenter", "app", "team"],
+                "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:2&section=scores",
+                "text": "Schedule",
+                "isExternal": false,
+                "isPremium": false
+              }
+            ],
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png"
+          },
+          "score": "0",
+          "curatedRank": { "current": 99 },
+          "statistics": [],
+          "records": [
+            { "name": "overall", "abbreviation": "Any", "type": "total", "summary": "2-0" },
+            { "name": "Home", "type": "home", "summary": "1-0" },
+            { "name": "Road", "type": "road", "summary": "1-0" }
+          ],
+          "leaders": [
+            {
+              "name": "passingLeader",
+              "displayName": "Passing Leader",
+              "shortDisplayName": "PASS",
+              "abbreviation": "PYDS",
+              "leaders": [
+                {
+                  "displayValue": "10/12, 128 YDS, 1 TD",
+                  "value": { "source": "128.0", "parsedValue": 128 },
+                  "athlete": {
+                    "id": "3115293",
+                    "fullName": "Kyle Allen",
+                    "displayName": "Kyle Allen",
+                    "shortName": "K. Allen",
+                    "links": [
+                      {
+                        "rel": ["playercard", "desktop", "athlete"],
+                        "href": "https://www.espn.com/nfl/player/_/id/3115293/kyle-allen"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/3115293.png",
+                    "jersey": "11",
+                    "position": { "abbreviation": "QB" },
+                    "team": { "id": "2" },
+                    "active": true
+                  },
+                  "team": { "id": "2" }
+                }
+              ]
+            },
+            {
+              "name": "rushingLeader",
+              "displayName": "Rushing Leader",
+              "shortDisplayName": "RUSH",
+              "abbreviation": "RYDS",
+              "leaders": [
+                {
+                  "displayValue": "14 CAR, 56 YDS",
+                  "value": { "source": "56.0", "parsedValue": 56 },
+                  "athlete": {
+                    "id": "4579554",
+                    "fullName": "Ian Wheeler",
+                    "displayName": "Ian Wheeler",
+                    "shortName": "I. Wheeler",
+                    "links": [
+                      {
+                        "rel": ["playercard", "desktop", "athlete"],
+                        "href": "https://www.espn.com/nfl/player/_/id/4579554/ian-wheeler"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/4579554.png",
+                    "jersey": "27",
+                    "position": { "abbreviation": "RB" },
+                    "team": { "id": "2" },
+                    "active": true
+                  },
+                  "team": { "id": "2" }
+                }
+              ]
+            },
+            {
+              "name": "receivingLeader",
+              "displayName": "Receiving Leader",
+              "shortDisplayName": "REC",
+              "abbreviation": "RECYDS",
+              "leaders": [
+                {
+                  "displayValue": "2 REC, 108 YDS, 1 TD",
+                  "value": { "source": "108.0", "parsedValue": 108 },
+                  "athlete": {
+                    "id": "4430270",
+                    "fullName": "Ja'Mori Maclin",
+                    "displayName": "Ja'Mori Maclin",
+                    "shortName": "J. Maclin",
+                    "links": [
+                      {
+                        "rel": ["playercard", "desktop", "athlete"],
+                        "href": "https://www.espn.com/nfl/player/_/id/4430270/jamori-maclin"
+                      }
+                    ],
+                    "jersey": "84",
+                    "position": { "abbreviation": "WR" },
+                    "team": { "id": "2" },
+                    "active": true
+                  },
+                  "team": { "id": "2" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "23",
+          "uid": "s:20~l:28~t:23",
+          "type": "team",
+          "order": 1,
+          "homeAway": "away",
+          "team": {
+            "id": "23",
+            "uid": "s:20~l:28~t:23",
+            "location": "Pittsburgh",
+            "name": "Steelers",
+            "abbreviation": "PIT",
+            "displayName": "Pittsburgh Steelers",
+            "shortDisplayName": "Steelers",
+            "color": "000000",
+            "alternateColor": "ffb612",
+            "isActive": true,
+            "venue": { "id": "3752" },
+            "links": [
+              {
+                "rel": ["clubhouse", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/_/name/pit/pittsburgh-steelers",
+                "text": "Clubhouse",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["roster", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/roster/_/name/pit/pittsburgh-steelers",
+                "text": "Roster",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["roster", "sportscenter", "app", "team"],
+                "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:23&section=roster",
+                "text": "Roster",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["stats", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/stats/_/name/pit/pittsburgh-steelers",
+                "text": "Statistics",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["stats", "sportscenter", "app", "team"],
+                "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:23&section=stats",
+                "text": "Statistics",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["schedule", "desktop", "team"],
+                "href": "https://www.espn.com/nfl/team/schedule/_/name/pit",
+                "text": "Schedule",
+                "isExternal": false,
+                "isPremium": false
+              },
+              {
+                "rel": ["schedule", "sportscenter", "app", "team"],
+                "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:23&section=scores",
+                "text": "Schedule",
+                "isExternal": false,
+                "isPremium": false
+              }
+            ],
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png"
+          },
+          "score": "0",
+          "curatedRank": { "current": 99 },
+          "statistics": [],
+          "records": [
+            { "name": "overall", "abbreviation": "Any", "type": "total", "summary": "1-1" },
+            { "name": "Home", "type": "home", "summary": "1-1" },
+            { "name": "Road", "type": "road", "summary": "0-0" }
+          ],
+          "leaders": [
+            {
+              "name": "passingLeader",
+              "displayName": "Passing Leader",
+              "shortDisplayName": "PASS",
+              "abbreviation": "PYDS",
+              "leaders": [
+                {
+                  "displayValue": "11/23, 110 YDS",
+                  "value": { "source": "110.0", "parsedValue": 110 },
+                  "athlete": {
+                    "id": "4714771",
+                    "fullName": "Drew Allar",
+                    "displayName": "Drew Allar",
+                    "shortName": "D. Allar",
+                    "links": [
+                      {
+                        "rel": ["playercard", "desktop", "athlete"],
+                        "href": "https://www.espn.com/nfl/player/_/id/4714771/drew-allar"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/4714771.png",
+                    "jersey": "16",
+                    "position": { "abbreviation": "QB" },
+                    "team": { "id": "23" },
+                    "active": true
+                  },
+                  "team": { "id": "23" }
+                }
+              ]
+            },
+            {
+              "name": "rushingLeader",
+              "displayName": "Rushing Leader",
+              "shortDisplayName": "RUSH",
+              "abbreviation": "RYDS",
+              "leaders": [
+                {
+                  "displayValue": "10 CAR, 39 YDS",
+                  "value": { "source": "39.0", "parsedValue": 39 },
+                  "athlete": {
+                    "id": "4819231",
+                    "fullName": "Kaleb Johnson",
+                    "displayName": "Kaleb Johnson",
+                    "shortName": "K. Johnson",
+                    "links": [
+                      {
+                        "rel": ["playercard", "desktop", "athlete"],
+                        "href": "https://www.espn.com/nfl/player/_/id/4819231/kaleb-johnson"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/4819231.png",
+                    "jersey": "20",
+                    "position": { "abbreviation": "RB" },
+                    "team": { "id": "23" },
+                    "active": true
+                  },
+                  "team": { "id": "23" }
+                }
+              ]
+            },
+            {
+              "name": "receivingLeader",
+              "displayName": "Receiving Leader",
+              "shortDisplayName": "REC",
+              "abbreviation": "RECYDS",
+              "leaders": [
+                {
+                  "displayValue": "2 REC, 46 YDS",
+                  "value": { "source": "46.0", "parsedValue": 46 },
+                  "athlete": {
+                    "id": "4566198",
+                    "fullName": "Lake McRee",
+                    "displayName": "Lake McRee",
+                    "shortName": "L. McRee",
+                    "links": [
+                      {
+                        "rel": ["playercard", "desktop", "athlete"],
+                        "href": "https://www.espn.com/nfl/player/_/id/4566198/lake-mcree"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/4566198.png",
+                    "jersey": "81",
+                    "position": { "abbreviation": "TE" },
+                    "team": { "id": "23" },
+                    "active": true
+                  },
+                  "team": { "id": "23" }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "status": {
+        "clock": { "source": "0.0", "parsedValue": 0 },
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, August 27th at 7:00 PM EDT",
+          "shortDetail": "8/27 - 7:00 PM EDT"
+        },
+        "isTBDFlex": false
+      },
+      "broadcasts": [
+        { "market": "national", "names": ["NFL Net"] },
+        { "market": "away", "names": ["KDKA-TV"] }
+      ],
+      "leaders": [
+        {
+          "name": "passingYards",
+          "displayName": "Passing Leader",
+          "shortDisplayName": "PASS",
+          "abbreviation": "PYDS",
+          "leaders": [
+            {
+              "displayValue": "128 YDS, 1 TD",
+              "value": { "source": "128.0", "parsedValue": 128 },
+              "athlete": {
+                "id": "3115293",
+                "fullName": "Kyle Allen",
+                "displayName": "Kyle Allen",
+                "shortName": "K. Allen",
+                "links": [
+                  {
+                    "rel": ["playercard", "desktop", "athlete"],
+                    "href": "https://www.espn.com/nfl/player/_/id/3115293/kyle-allen"
+                  }
+                ],
+                "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/3115293.png",
+                "jersey": "11",
+                "position": { "abbreviation": "QB" },
+                "team": { "id": "2" },
+                "active": true
+              },
+              "team": { "id": "2" }
+            }
+          ]
+        },
+        {
+          "name": "rushingYards",
+          "displayName": "Rushing Leader",
+          "shortDisplayName": "RUSH",
+          "abbreviation": "RYDS",
+          "leaders": [
+            {
+              "displayValue": "14 CAR, 56 YDS",
+              "value": { "source": "56.0", "parsedValue": 56 },
+              "athlete": {
+                "id": "4579554",
+                "fullName": "Ian Wheeler",
+                "displayName": "Ian Wheeler",
+                "shortName": "I. Wheeler",
+                "links": [
+                  {
+                    "rel": ["playercard", "desktop", "athlete"],
+                    "href": "https://www.espn.com/nfl/player/_/id/4579554/ian-wheeler"
+                  }
+                ],
+                "headshot": "https://a.espncdn.com/i/headshots/nfl/players/full/4579554.png",
+                "jersey": "27",
+                "position": { "abbreviation": "RB" },
+                "team": { "id": "2" },
+                "active": true
+              },
+              "team": { "id": "2" }
+            }
+          ]
+        },
+        {
+          "name": "receivingYards",
+          "displayName": "Receiving Leader",
+          "shortDisplayName": "REC",
+          "abbreviation": "RECYDS",
+          "leaders": [
+            {
+              "displayValue": "2 REC, 108 YDS, 1 TD",
+              "value": { "source": "108.0", "parsedValue": 108 },
+              "athlete": {
+                "id": "4430270",
+                "fullName": "Ja'Mori Maclin",
+                "displayName": "Ja'Mori Maclin",
+                "shortName": "J. Maclin",
+                "links": [
+                  {
+                    "rel": ["playercard", "desktop", "athlete"],
+                    "href": "https://www.espn.com/nfl/player/_/id/4430270/jamori-maclin"
+                  }
+                ],
+                "jersey": "84",
+                "position": { "abbreviation": "WR" },
+                "team": { "id": "2" },
+                "active": true
+              },
+              "team": { "id": "2" }
+            }
+          ]
+        }
+      ],
+      "format": { "regulation": { "periods": 4 } },
+      "tickets": [
+        {
+          "summary": "Tickets as low as $55",
+          "numberAvailable": 2029,
+          "links": [
+            {
+              "href": "https://www.vividseats.com/buffalo-bills-tickets-highmark-stadium-8-18-2026--sports-nfl-football/production/6585209?wsUser=717"
+            },
+            { "href": "https://www.vividseats.com/highmark-stadium-tickets/venue/1385?wsUser=717" }
+          ]
+        }
+      ],
+      "startDate": "2026-08-27T23:00Z",
+      "broadcast": "NFL Net",
+      "geoBroadcasts": [
+        {
+          "type": { "id": "1", "shortName": "TV" },
+          "market": { "id": "1", "type": "National" },
+          "media": {
+            "shortName": "NFL Net",
+            "logo": "https://a.espncdn.com/guid/8281947e-bd6c-3a8a-9b1d-6fc957d1709a/logos/default.png",
+            "darkLogo": "https://a.espncdn.com/guid/8281947e-bd6c-3a8a-9b1d-6fc957d1709a/logos/default-dark.png"
+          },
+          "lang": "en",
+          "region": "us"
+        },
+        {
+          "type": { "id": "1", "shortName": "TV" },
+          "market": { "id": "3", "type": "Away" },
+          "media": { "shortName": "KDKA-TV" },
+          "lang": "en",
+          "region": "us"
+        }
+      ],
+      "odds": [
+        {
+          "provider": {
+            "id": "100",
+            "name": "DraftKings",
+            "priority": 1,
+            "logos": [
+              { "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg", "rel": ["light"] },
+              { "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg", "rel": ["dark"] }
+            ],
+            "displayName": "DraftKings"
+          },
+          "details": "BUF -3.5",
+          "overUnder": 34.5,
+          "spread": -3.5,
+          "awayTeamOdds": {
+            "favorite": false,
+            "underdog": true,
+            "team": {
+              "id": "23",
+              "uid": "s:20~l:28~t:23",
+              "abbreviation": "PIT",
+              "name": "Steelers",
+              "displayName": "Pittsburgh Steelers",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png"
+            },
+            "favoriteAtOpen": false
+          },
+          "homeTeamOdds": {
+            "favorite": true,
+            "underdog": false,
+            "team": {
+              "id": "2",
+              "uid": "s:20~l:28~t:2",
+              "abbreviation": "BUF",
+              "name": "Bills",
+              "displayName": "Buffalo Bills",
+              "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png"
+            },
+            "favoriteAtOpen": true
+          },
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "-159",
+                "link": {
+                  "language": "en-US",
+                  "rel": ["home", "desktop", "bets", "draftkings"],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186%3Foutcomes%3D0ML85036969_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873298,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": { "odds": "-130" }
+            },
+            "away": {
+              "close": {
+                "odds": "+132",
+                "link": {
+                  "language": "en-US",
+                  "rel": ["away", "desktop", "bets", "draftkings"],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186%3Foutcomes%3D0ML85036969_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873298,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": { "odds": "+110" }
+            }
+          },
+          "pointSpread": {
+            "displayName": "Spread",
+            "shortDisplayName": "Spread",
+            "home": {
+              "close": {
+                "line": "-3.5",
+                "odds": "-108",
+                "link": {
+                  "language": "en-US",
+                  "rel": ["homeSpread", "desktop", "bets"],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186%3Foutcomes%3D0HC85036969N350_1",
+                  "text": "Home Point Spread",
+                  "shortText": "Home Point Spread",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873298,
+                      "betSide": "none",
+                      "betType": "straight",
+                      "betDetails": "Spread:BUF-3.5"
+                    }
+                  }
+                }
+              },
+              "open": { "line": "-1.5", "odds": "-110" }
+            },
+            "away": {
+              "close": {
+                "line": "+3.5",
+                "odds": "-112",
+                "link": {
+                  "language": "en-US",
+                  "rel": ["awaySpread", "desktop", "bets"],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186%3Foutcomes%3D0HC85036969P350_3",
+                  "text": "Away Point Spread",
+                  "shortText": "Away Point Spread",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873298,
+                      "betSide": "none",
+                      "betType": "straight",
+                      "betDetails": "Spread:PIT+3.5"
+                    }
+                  }
+                }
+              },
+              "open": { "line": "+1.5", "odds": "-110" }
+            }
+          },
+          "total": {
+            "displayName": "Total",
+            "shortDisplayName": "Total",
+            "over": {
+              "close": {
+                "line": "o34.5",
+                "odds": "-105",
+                "link": {
+                  "language": "en-US",
+                  "rel": ["over", "desktop", "bets"],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186%3Foutcomes%3D0OU85036969O3450_1",
+                  "text": "Over Odds",
+                  "shortText": "Over Odds",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873298,
+                      "betSide": "over",
+                      "betType": "straight",
+                      "betDetails": "Over:34.5"
+                    }
+                  }
+                }
+              },
+              "open": { "line": "o35.5", "odds": "-110" }
+            },
+            "under": {
+              "close": {
+                "line": "u34.5",
+                "odds": "-115",
+                "link": {
+                  "language": "en-US",
+                  "rel": ["under", "desktop", "bets"],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186%3Foutcomes%3D0OU85036969U3450_3",
+                  "text": "Under Odds",
+                  "shortText": "Under Odds",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nfl",
+                      "sport": "football",
+                      "gameId": 401873298,
+                      "betSide": "under",
+                      "betType": "straight",
+                      "betDetails": "Under:34.5"
+                    }
+                  }
+                }
+              },
+              "open": { "line": "u35.5", "odds": "-110" }
+            }
+          },
+          "link": {
+            "language": "en-US",
+            "rel": ["game", "desktop", "bets"],
+            "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34240186",
+            "text": "See More Odds",
+            "shortText": "Game",
+            "isExternal": true,
+            "isPremium": false,
+            "tracking": {
+              "campaign": "betting-integrations",
+              "tags": {
+                "league": "nfl",
+                "sport": "football",
+                "gameId": 401873298,
+                "betSide": "none",
+                "betType": "straight"
+              }
+            }
+          },
+          "header": {
+            "logo": {
+              "dark": "https://a.espncdn.com/i/espnbet/dark/espn-bet-square-off.svg",
+              "light": "https://a.espncdn.com/i/espnbet/espn-bet-square-off.svg",
+              "exclusivesLogoDark": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg",
+              "exclusivesLogoLight": "https://a.espncdn.com/i/espnbet/espn-bet-square-mint.svg"
+            },
+            "text": "Game Odds"
+          },
+          "footer": {
+            "disclaimer": "GAMBLING PROBLEM? CALL 1-800-GAMBLER or 1-800-MY-RESET, (800) 327-5050 or visit gamblinghelplinema.org (MA). Call 877-8-HOPENY/text HOPENY (467369) (NY). Call 888-789-7777/visit ccpg.org (CT), or visit www.mdgamblinghelp.org (MD), 1-800-981-0023 (PR). 21+ and present in most states. (18+ DC/KY/NH/PR/WY). Void in ONT. Eligibility restrictions apply. Terms: draftkings.com/sportsbook. On behalf of Boot Hill Casino (KS). Pass-thru of per wager tax may apply in IL."
+          }
+        }
+      ],
+      "highlights": []
+    }
+  ],
+  "links": [
+    {
+      "language": "en-US",
+      "rel": ["summary", "desktop", "event"],
+      "href": "https://www.espn.com/nfl/game/_/gameId/401873298/steelers-bills",
+      "text": "Gamecast",
+      "shortText": "Gamecast",
+      "isExternal": false,
+      "isPremium": false
+    }
+  ],
+  "weather": {
+    "displayValue": "3",
+    "temperature": 79,
+    "highTemperature": 79,
+    "conditionId": "Partly sunny",
+    "link": {
+      "language": "en-US",
+      "rel": ["14127"],
+      "href": "http://www.accuweather.com/en/us/highmark-stadium-ny/14127/current-weather/43037_poi?lang=en-us",
+      "text": "Weather",
+      "shortText": "Weather",
+      "isExternal": true,
+      "isPremium": false
+    }
+  },
+  "status": {
+    "clock": { "source": "0.0", "parsedValue": 0 },
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+      "id": "1",
+      "name": "STATUS_SCHEDULED",
+      "state": "pre",
+      "completed": false,
+      "description": "Scheduled",
+      "detail": "Thu, August 27th at 7:00 PM EDT",
+      "shortDetail": "8/27 - 7:00 PM EDT"
+    }
+  }
+}

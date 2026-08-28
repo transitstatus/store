@@ -1,6 +1,8 @@
-- espn: https://site.api.espn.com/apis/site/v2/sports/football/nfl/events?dates=2026
+- espn: https://site.api.espn.com/apis/site/v2/sports/football/nfl/events?dates=2026 <- list of events
+  - http://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873298 <- detailed info
   - https://github.com/pseudo-r/Public-ESPN-API/tree/main/espn_service
   - https://gist.github.com/akeaswaran/b48b02f1c94f873c6655e7129910fc3b?permalink_comment_id=4975902
+  - states: https://gist.github.com/akeaswaran/b48b02f1c94f873c6655e7129910fc3b?permalink_comment_id=5019450#gistcomment-5019450
   - football nfl
   - football college-football
   - basketball nba
@@ -15,4 +17,5 @@
 - mlb scores and info (if espn doesnt have):
   - cubs https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=112&hydrate=team,venue,linescore
   - sox https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=145&hydrate=team,venue,linescore
+  - https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=112&startDate=2026-08-27&endDate=2026-09-05&hydrate=team,venue,linescore
   - url included (ie "/api/v1.1/game/824556/feed/live") for more detailed info if we end up needing it
