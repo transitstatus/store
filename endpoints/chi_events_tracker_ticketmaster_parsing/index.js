@@ -71,10 +71,7 @@ const updateFeed = async () => {
               //row.VENUE_STATE_CODE == "IL" &&
               //row.VENUE_CITY == "Chicago" &&
               new Date(row.EVENT_START_DATETIME).valueOf() < now + 1000 * 60 * 60 * 24 * 14 &&
-              ((row.CLASSIFICATION_GENRE == "Football" && row.CLASSIFICATION_SUB_GENRE == "NFL") ||
-                (row.CLASSIFICATION_GENRE == "Baseball" && row.CLASSIFICATION_SUB_GENRE == "MLB") ||
-                (row.CLASSIFICATION_GENRE == "Soccer" && row.CLASSIFICATION_SUB_GENRE == "MLS"))
-              //venueIDs.includes(row.VENUE_ID)
+              venueIDs.includes(row.VENUE_ID)
             ) {
               rawEvents.push({ ...row, RELATIONS: venues[row.VENUE_ID] ?? null });
             }
