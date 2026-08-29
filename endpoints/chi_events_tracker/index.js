@@ -289,7 +289,7 @@ const updateFeed = async () => {
     const ticketmasterEvents = await fetchTicketmaster();
 
     ticketmasterEvents.forEach((event) => {
-      if (event.category == "Sports") {
+      if (event.CLASSIFICATION_SEGMENT == "Sports") {
         finalEventsSports[event.id] = event;
       } else {
         finalEventsNonSports[event.id] = event;
