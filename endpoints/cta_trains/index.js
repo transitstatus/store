@@ -67,7 +67,7 @@ const randomizeArray = (unshuffled) =>
 const reqInfo = {
   credentials: "include",
   headers: {
-    "User-Agent": "not-node-fetch-trust-piero-at-piemadd-dot-com",
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:154.0) Gecko/20100101 Firefox/154.0",
     Accept: "application/json, text/javascript, */*; q=0.01",
     "Accept-Language": "en-US,en;q=0.5",
     "X-Requested-With": "XMLHttpRequest",
