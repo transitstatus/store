@@ -76,7 +76,7 @@ const updateFeed = async () => {
                 (row.CLASSIFICATION_GENRE == "Soccer" && row.CLASSIFICATION_SUB_GENRE == "MLS"))
               //venueIDs.includes(row.VENUE_ID)
             ) {
-              rawEvents.push({ ...row, RELATIONS: venues[row.VENUE_ID] });
+              rawEvents.push({ ...row, RELATIONS: venues[row.VENUE_ID] ?? null });
             }
           })
           .on("end", (rowCount) => {
