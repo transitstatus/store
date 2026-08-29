@@ -104,15 +104,17 @@ const fetchTicketmaster = async () => {
 };
 
 const fetchESPNFootball = async (league) => {
-  const eventsList = await fetch(`http://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/events`).then(
+  const eventsList = await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/events`).then(
     (res) => res.json()
   );
 
   const finalEvents = await Promise.all(
     eventsList.events.map(async (event) => {
       const eventDetails = await fetch(
-        `http://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/summary?event=${event.id}`
+        `https://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/summary?event=${event.id}`
       ).then((res) => res.json());
+
+      let competitorsObj = {};
 
       return {
         id: event.id,
@@ -122,6 +124,7 @@ const fetchESPNFootball = async (league) => {
         genre: "Football",
         sub_genre: league[0],
         teams_list: event.competitors.map((team) => {
+          competitorsObj[team.homeAway] = { name: team.displayName, code: team.abbreviation, logo: team.logoDark };
           return { name: team.displayName, code: team.abbreviation, logo: team.logoDark };
         }),
         image_url: null,
@@ -138,12 +141,12 @@ const fetchESPNFootball = async (league) => {
                 type: "football",
                 home: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).homeScore : 0,
                 away: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).awayScore : 0,
-                ball: "home",
+                ball: eventDetails.drives.current.team.abbreviation,
                 quarter: event.fullStatus.period,
                 timeLeft: event.fullStatus.displayClock,
                 downAnd: eventDetails.drives.current.plays.at(-1).start.shortDownDistanceText,
-                positionSide: eventDetails.drives.current.end.text.split(" ")[0],
-                yardNumber: Math.abs(eventDetails.drives.current.end.yardLine - 50),
+                positionSide: (eventDetails.drives?.current?.end?.text ?? `${eventDetails.drives.current.team.abbreviation} `).split(" ")[0],
+                yardNumber: Math.abs((eventDetails.drives?.current?.end?.yardLine ?? 100) - 50),
                 gameComplete: false,
                 gameStarted: true
               }
@@ -152,7 +155,7 @@ const fetchESPNFootball = async (league) => {
                   type: "football",
                   home: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).homeScore : 0,
                   away: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).awayScore : 0,
-                  ball: "home",
+                  ball: competitorsObj['home'].abbreviation,
                   quarter: event.fullStatus.period,
                   timeLeft: event.fullStatus.displayClock,
                   downAnd: null,
@@ -165,7 +168,7 @@ const fetchESPNFootball = async (league) => {
                   type: "football",
                   home: 0,
                   away: 0,
-                  ball: "home",
+                  ball: competitorsObj['home'].abbreviation,
                   quarter: 1,
                   timeLeft: "15:00",
                   downAnd: "1st & 20",
@@ -183,14 +186,14 @@ const fetchESPNFootball = async (league) => {
 };
 
 const fetchESPNBaseball = async (league) => {
-  const eventsList = await fetch(`http://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/events`).then(
+  const eventsList = await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/events`).then(
     (res) => res.json()
   );
 
   const finalEvents = await Promise.all(
     eventsList.events.map(async (event) => {
       const eventDetails = await fetch(
-        `http://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/summary?event=${event.id}`
+        `https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/summary?event=${event.id}`
       ).then((res) => res.json());
 
       const thisInningPlays =
