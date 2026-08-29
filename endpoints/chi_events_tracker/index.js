@@ -124,8 +124,8 @@ const fetchESPNFootball = async (league) => {
         genre: "Football",
         sub_genre: league[0],
         teams_list: event.competitors.map((team) => {
-          competitorsObj[team.homeAway] = { name: team.displayName, code: team.abbreviation, logo: team.logoDark };
-          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark };
+          competitorsObj[team.homeAway] = { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway, };
+          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway, };
         }),
         image_url: null,
         venue: {
