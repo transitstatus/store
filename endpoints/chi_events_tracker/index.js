@@ -51,8 +51,8 @@ const espnsLeagueStrings = { football: [["NFL", "nfl"]], baseball: [["MLB", "mlb
 let allevents = {};
 
 const fetchTicketmaster = async () => {
-  //const TICKETMASTER_URL = 'http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events';
-  const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
+  const TICKETMASTER_URL = 'http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events';
+  //const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
 
   const data = await fetch(TICKETMASTER_URL).then((res) => res.json());
 
@@ -351,10 +351,10 @@ const updateFeed = async () => {
 
     return {
       events: [...Object.values(finalEventsNonSports), ...Object.values(finalEventsSports)].sort((a, b) => {
-        const aNum = new Date(a.date).valueOf();
-        const bNum = new Date(b.date).valueOf();
+        const aNum = new Date(a.start_date).valueOf();
+        const bNum = new Date(b.start_date).valueOf();
 
-        return bNum - aNum;
+        return aNum - bNum;
       })
     };
   } catch (e) {
