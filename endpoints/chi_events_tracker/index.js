@@ -248,6 +248,7 @@ const fetchESPNBaseball = async (league) => {
                 },
                 gameComplete: false,
                 gameStarted: true
+                latestWallClock: eventDetails.plays.at(-1)?.wallclock,
               }
             : event.fullStatus?.type?.completed == true
               ? {
@@ -265,7 +266,8 @@ const fetchESPNBaseball = async (league) => {
                     outs: null
                   },
                   gameComplete: true,
-                  gameStarted: true
+                  gameStarted: true,
+                  latestWallClock: eventDetails.plays.at(-1)?.wallclock,
                 }
               : {
                   type: "baseball",
@@ -277,7 +279,8 @@ const fetchESPNBaseball = async (league) => {
                   topOfInning: true, // away is batting
                   thisInning: { runs: 0, balls: 0, strikes: 0, outs: 0 },
                   gameComplete: false,
-                  gameStarted: false
+                  gameStarted: false,
+                  latestWallClock: event.date,
                 },
         additionalVenueInfo: null
       };
