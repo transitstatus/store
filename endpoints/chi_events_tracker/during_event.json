@@ -1,66 +1,76 @@
 {
-  "id": "401816711",
-  "uid": "s:1~l:10~e:401816711~c:401816711",
-  "date": "2026-08-28T18:20:00Z",
-  "timeValid": true,
-  "name": "Cincinnati Reds at Chicago Cubs",
-  "shortName": "CIN @ CHC",
-  "links": [
-    {
-      "rel": ["live", "desktop", "event"],
-      "href": "https://www.espn.com/mlb/game/_/gameId/401816711",
-      "text": "Gamecast",
-      "shortText": "Gamecast"
-    },
-    {
-      "rel": ["live", "sportscenter", "app", "event"],
-      "href": "sportscenter://x-callback-url/showGame?sportName=baseball&leagueAbbrev=mlb&gameId=401816711",
-      "text": "Gamecast",
-      "shortText": "Gamecast"
+      "id": "761768",
+      "uid": "s:600~l:770~e:761768~c:761768",
+      "date": "2026-08-30T02:30:00Z",
+      "timeValid": true,
+      "name": "2026 MLS",
+      "shortName": "2026 MLS",
+      "links": [
+        {
+          "rel": [
+            "live",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/match/_/gameId/761768",
+          "text": "Gamecast",
+          "shortText": "Live"
+        },
+        {
+          "rel": [
+            "live",
+            "sportscenter",
+            "app",
+            "event"
+          ],
+          "href": "sportscenter://x-callback-url/showGame?sportName=soccer&leagueAbbrev=usa.1&gameId=761768",
+          "text": "Gamecast",
+          "shortText": "Live"
+        }
+      ],
+      "fullStatus": {
+        "clock": 2820.0,
+        "addedClock": 0.0,
+        "displayClock": "47'",
+        "period": 2,
+        "displayPeriod": "2nd",
+        "type": {
+          "id": "26",
+          "name": "STATUS_SECOND_HALF",
+          "state": "in",
+          "completed": false,
+          "description": "Second Half",
+          "detail": "47'",
+          "shortDetail": "47'"
+        }
+      },
+      "competitors": [
+        {
+          "id": "20906",
+          "guid": "ea2b097a-74d8-3164-b55e-7fd490d63b46",
+          "uid": "s:600~t:20906",
+          "order": 1,
+          "homeAway": "away",
+          "winner": false,
+          "displayName": "Austin FC",
+          "abbreviation": "ATX",
+          "score": "1",
+          "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20906.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/20906.png"
+        },
+        {
+          "id": "9723",
+          "guid": "67f3641d-0e73-f4c3-39ca-e0ad4020d315",
+          "uid": "s:600~t:9723",
+          "order": 0,
+          "homeAway": "home",
+          "winner": false,
+          "displayName": "Portland Timbers",
+          "abbreviation": "POR",
+          "score": "0",
+          "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9723.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/9723.png"
+        }
+      ],
+      "neutralSite": false
     }
-  ],
-  "outsText": "2 Outs",
-  "fullStatus": {
-    "period": 5,
-    "displayPeriod": "5th",
-    "type": {
-      "id": "2",
-      "name": "STATUS_IN_PROGRESS",
-      "state": "in",
-      "completed": false,
-      "description": "In Progress",
-      "detail": "Top 5th",
-      "shortDetail": "Top 5th"
-    },
-    "periodPrefix": "Top"
-  },
-  "competitors": [
-    {
-      "id": "17",
-      "guid": "04b65a0b-3cca-d795-0e21-23606470418a",
-      "uid": "s:1~l:10~t:17",
-      "order": 1,
-      "homeAway": "away",
-      "winner": false,
-      "displayName": "Cincinnati Reds",
-      "abbreviation": "CIN",
-      "score": "2",
-      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cin.png",
-      "logoDark": "https://a.espncdn.com/i/teamlogos/mlb/500-dark/scoreboard/cin.png"
-    },
-    {
-      "id": "16",
-      "guid": "5cda5067-7075-66b1-4b94-2333ab8d9807",
-      "uid": "s:1~l:10~t:16",
-      "order": 0,
-      "homeAway": "home",
-      "winner": false,
-      "displayName": "Chicago Cubs",
-      "abbreviation": "CHC",
-      "score": "3",
-      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png",
-      "logoDark": "https://a.espncdn.com/i/teamlogos/mlb/500-dark/scoreboard/chc.png"
-    }
-  ],
-  "neutralSite": false
-}

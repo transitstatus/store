@@ -142,9 +142,11 @@ const fetchESPNFootball = async (league) => {
           lon: null,
           city: eventDetails.gameInfo?.venue?.address?.city,
           state: eventDetails.gameInfo?.venue?.address?.state,
-          zipCode: eventDetails.gameInfo?.venue?.address?.zipCode,
+          zipCode: eventDetails.gameInfo?.venue?.address?.zipCode
         },
-        isChicagoEvent: eventDetails.gameInfo?.venue?.address?.city == 'Chicago' && eventDetails.gameInfo?.venue?.address?.state == "Illinois",
+        isChicagoEvent:
+          eventDetails.gameInfo?.venue?.address?.city == "Chicago" &&
+          eventDetails.gameInfo?.venue?.address?.state == "Illinois",
         attendance: eventDetails.gameInfo?.attendance,
         score:
           event.fullStatus && eventDetails.drives?.current
@@ -236,9 +238,11 @@ const fetchESPNBaseball = async (league) => {
           lon: null,
           city: eventDetails.gameInfo?.venue?.address?.city,
           state: eventDetails.gameInfo?.venue?.address?.state,
-          zipCode: eventDetails.gameInfo?.venue?.address?.zipCode,
+          zipCode: eventDetails.gameInfo?.venue?.address?.zipCode
         },
-        isChicagoEvent: eventDetails.gameInfo?.venue?.address?.city == 'Chicago' && eventDetails.gameInfo?.venue?.address?.state == "Illinois",
+        isChicagoEvent:
+          eventDetails.gameInfo?.venue?.address?.city == "Chicago" &&
+          eventDetails.gameInfo?.venue?.address?.state == "Illinois",
         attendance: eventDetails.gameInfo?.attendance,
         score:
           event.fullStatus?.type?.state == "in"
@@ -258,7 +262,7 @@ const fetchESPNBaseball = async (league) => {
                 },
                 gameComplete: false,
                 gameStarted: true,
-                latestWallClock: eventDetails.plays.at(-1)?.wallclock,
+                latestWallClock: eventDetails.plays.at(-1)?.wallclock
               }
             : event.fullStatus?.type?.completed == true
               ? {
@@ -277,7 +281,7 @@ const fetchESPNBaseball = async (league) => {
                   },
                   gameComplete: true,
                   gameStarted: true,
-                  latestWallClock: eventDetails.plays.at(-1)?.wallclock,
+                  latestWallClock: eventDetails.plays.at(-1)?.wallclock
                 }
               : {
                   type: "baseball",
@@ -290,7 +294,7 @@ const fetchESPNBaseball = async (league) => {
                   thisInning: { runs: 0, balls: 0, strikes: 0, outs: 0 },
                   gameComplete: false,
                   gameStarted: false,
-                  latestWallClock: event.date,
+                  latestWallClock: event.date
                 },
         additionalVenueInfo: null
       };
@@ -306,6 +310,7 @@ const updateFeed = async () => {
 
     let finalEventsNonSports = {};
     let finalEventsSports = {};
+    let finalEventsSportsNonTicketmaster = {};
     let eventsForComparison = [];
 
     //ticketmaster
@@ -334,6 +339,7 @@ const updateFeed = async () => {
         espnEvents.forEach((espnEvent) => {
           const possibleMatchingEvents = eventsForComparison
             .filter((ticketmasterEvent) => {
+              return false; // we dont want any matches, ticketmaster data is garbage
               if (ticketmasterEvent.genre != genre || ticketmasterEvent.sub_genre != league[[0]]) return false;
               if (!ticketmasterEvent.name.includes(espnEvent.teams_list[0].name)) return false;
               if (!ticketmasterEvent.name.includes(espnEvent.teams_list[1].name)) return false;
@@ -363,7 +369,7 @@ const updateFeed = async () => {
 
             finalEventsSports[bestMatch.ticketmasterId] = newTicketmasterEvent;
           } else {
-            finalEventsSports[`espn_${espnEvent.id}`] = { ...espnEvent, id: `espn_${espnEvent.id}` };
+            finalEventsSportsNonTicketmaster[`espn_${espnEvent.id}`] = { ...espnEvent, id: `espn_${espnEvent.id}` };
           }
         });
       }
@@ -373,17 +379,17 @@ const updateFeed = async () => {
     await integrateEspnData("Baseball", espnsLeagueStrings.baseball, fetchESPNBaseball);
 
     return {
-      events: [...Object.values(finalEventsNonSports).map((event) => {
-        return {
-          ...event,
-          ticketmasterType: 'non-sport',
-        }
-      }), ...Object.values(finalEventsSports).map((event) => {
-        return {
-          ...event,
-          ticketmasterType: 'sport',
-        }
-      })].sort((a, b) => {
+      events: [
+        ...Object.values(finalEventsNonSports).map((event) => {
+          return { ...event, ticketmasterType: "non-sport" };
+        }),
+        ...Object.values(finalEventsSports).map((event) => {
+          return { ...event, ticketmasterType: "sport" };
+        }),
+        ...Object.values(finalEventsSportsNonTicketmaster).map((event) => {
+          return { ...event, ticketmasterType: "sport-nonticketmaster" };
+        })
+      ].sort((a, b) => {
         const aNum = new Date(a.start_date).valueOf();
         const bNum = new Date(b.start_date).valueOf();
 

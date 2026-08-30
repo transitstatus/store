@@ -1,65 +1,86 @@
 {
-  "id": "401816706",
-  "uid": "s:1~l:10~e:401816706~c:401816706",
-  "date": "2026-08-28T22:40:00Z",
-  "timeValid": true,
-  "name": "Los Angeles Dodgers at Detroit Tigers",
-  "shortName": "LAD @ DET",
-  "links": [
-    {
-      "rel": ["summary", "desktop", "event"],
-      "href": "https://www.espn.com/mlb/game/_/gameId/401816706/dodgers-tigers",
-      "text": "Gamecast",
-      "shortText": "Summary"
-    },
-    {
-      "rel": ["summary", "sportscenter", "app", "event"],
-      "href": "sportscenter://x-callback-url/showGame?sportName=baseball&leagueAbbrev=mlb&gameId=401816706",
-      "text": "Gamecast",
-      "shortText": "Summary"
+      "id": "761765",
+      "uid": "s:600~l:770~e:761765~c:761765",
+      "date": "2026-08-30T00:30:00Z",
+      "timeValid": true,
+      "name": "2026 MLS",
+      "shortName": "2026 MLS",
+      "links": [
+        {
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/match/_/gameId/761765/san-jose-earthquakes-houston-dynamo-fc",
+          "text": "Summary",
+          "shortText": "Summary"
+        },
+        {
+          "rel": [
+            "summary",
+            "mobile",
+            "event"
+          ],
+          "href": "https://m.espn.com/soccer/match?gameId=761765&action=summary",
+          "text": "Summary",
+          "shortText": "Summary"
+        },
+        {
+          "rel": [
+            "summary",
+            "sportscenter",
+            "app",
+            "event"
+          ],
+          "href": "sportscenter://x-callback-url/showGame?sportName=soccer&leagueAbbrev=usa.1&gameId=761765",
+          "text": "Summary",
+          "shortText": "Summary"
+        }
+      ],
+      "fullStatus": {
+        "clock": 5400.0,
+        "addedClock": 600.0,
+        "displayClock": "90'+10'",
+        "period": 2,
+        "displayPeriod": "2nd",
+        "type": {
+          "id": "28",
+          "name": "STATUS_FULL_TIME",
+          "state": "post",
+          "completed": true,
+          "description": "Full Time",
+          "detail": "FT",
+          "shortDetail": "FT"
+        }
+      },
+      "competitors": [
+        {
+          "id": "191",
+          "guid": "87299c06-238c-1547-80f9-50a863934184",
+          "uid": "s:600~t:191",
+          "order": 1,
+          "homeAway": "away",
+          "winner": false,
+          "displayName": "San Jose Earthquakes",
+          "abbreviation": "SJ",
+          "score": "0",
+          "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/191.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/191.png"
+        },
+        {
+          "id": "6077",
+          "guid": "0e8d06de-2103-a264-4cea-e715072c75f6",
+          "uid": "s:600~t:6077",
+          "order": 0,
+          "homeAway": "home",
+          "winner": false,
+          "displayName": "Houston Dynamo FC",
+          "abbreviation": "HOU",
+          "score": "0",
+          "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6077.png",
+          "logoDark": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/6077.png"
+        }
+      ],
+      "neutralSite": false
     }
-  ],
-  "fullStatus": {
-    "period": 1,
-    "displayPeriod": "1st",
-    "type": {
-      "id": "1",
-      "name": "STATUS_SCHEDULED",
-      "state": "pre",
-      "completed": false,
-      "description": "Scheduled",
-      "detail": "Fri, August 28th at 6:40 PM EDT",
-      "shortDetail": "8/28 - 6:40 PM EDT"
-    },
-    "periodPrefix": "Top"
-  },
-  "competitors": [
-    {
-      "id": "19",
-      "guid": "fb7cf413-5156-9fc2-abe0-2273b89f70db",
-      "uid": "s:1~l:10~t:19",
-      "order": 1,
-      "homeAway": "away",
-      "winner": false,
-      "displayName": "Los Angeles Dodgers",
-      "abbreviation": "LAD",
-      "score": "",
-      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/lad.png",
-      "logoDark": "https://a.espncdn.com/i/teamlogos/mlb/500-dark/scoreboard/lad.png"
-    },
-    {
-      "id": "6",
-      "guid": "b27c64bf-4f18-f713-ba06-db1bce2394e7",
-      "uid": "s:1~l:10~t:6",
-      "order": 0,
-      "homeAway": "home",
-      "winner": false,
-      "displayName": "Detroit Tigers",
-      "abbreviation": "DET",
-      "score": "",
-      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/det.png",
-      "logoDark": "https://a.espncdn.com/i/teamlogos/mlb/500-dark/scoreboard/det.png"
-    }
-  ],
-  "neutralSite": false
-}
