@@ -231,6 +231,7 @@ const fetchESPNBaseball = async (league) => {
                 away: parseInt(event.competitors.find((team) => team.homeAway == "away").score),
                 atBat: event.fullStatus?.periodPrefix == "Top" ? "away" : "home",
                 inning: event.fullStatus?.period,
+                inningText: event.fullStatus?.displayPeriod,
                 topOfInning: event.fullStatus?.periodPrefix == "Top", // away is batting
                 thisInning: {
                   runs: thisInningPlays ? thisInningPlays.filter((play) => play.type.text).length : 0,
