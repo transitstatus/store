@@ -247,7 +247,7 @@ const fetchESPNBaseball = async (league) => {
                   outs: eventDetails.situation.outs
                 },
                 gameComplete: false,
-                gameStarted: true
+                gameStarted: true,
                 latestWallClock: eventDetails.plays.at(-1)?.wallclock,
               }
             : event.fullStatus?.type?.completed == true
