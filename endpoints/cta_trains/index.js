@@ -97,7 +97,7 @@ const processData = async () => {
       await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 500)));
 
       const newReq = await fetch(
-        `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40`,
+        `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=41`,
         reqInfo
       );
       raw = await newReq.text();
