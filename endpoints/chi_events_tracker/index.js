@@ -51,8 +51,8 @@ const espnsLeagueStrings = { football: [["NFL", "nfl"]], baseball: [["MLB", "mlb
 let allevents = {};
 
 const fetchTicketmaster = async () => {
-  //const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
-  const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
+  const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
+  //const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
 
   const data = await fetch(TICKETMASTER_URL).then((res) => res.json());
 
@@ -106,12 +106,32 @@ const fetchTicketmaster = async () => {
 };
 
 const fetchESPNFootball = async (league) => {
+  let fetchedEventsDict = {};
+
+  const yesterday = new Date(Date.now() - 1000 * 60 * 60 * 24);
+  const inAWeek = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
+
+  for (let i = yesterday.valueOf(); i <= inAWeek.valueOf(); i += 1000 * 60 * 60 * 24) {
+    const todayString = new Date(i).toISOString().split("T")[0].replaceAll("-", "");
+    const scoreboard = await fetch(
+      `https://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/scoreboard?dates=${todayString}`
+    ).then((res) => res.json());
+
+    scoreboard.events.forEach((event) => {
+      fetchedEventsDict[event.id] = event;
+    });
+  }
+
+  /*
   const eventsList = await fetch(`https://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/events`).then(
     (res) => res.json()
   );
+  */
 
   const finalEvents = await Promise.all(
-    eventsList.events.map(async (event) => {
+    Object.values(fetchedEventsDict).map(async (event) => {
+      const subEvent = event.competitions[0];
+
       const eventDetails = await fetch(
         `https://site.api.espn.com/apis/site/v2/sports/football/${league[1]}/summary?event=${event.id}`
       ).then((res) => res.json());
@@ -125,14 +145,14 @@ const fetchESPNFootball = async (league) => {
         category: "Sports",
         genre: "Football",
         sub_genre: league[0],
-        teams_list: event.competitors.map((team) => {
+        teams_list: subEvent.competitors.map((team) => {
           competitorsObj[team.homeAway] = {
-            name: team.displayName,
-            code: team.abbreviation,
-            logo: team.logoDark,
+            name: team.team.displayName,
+            code: team.team.abbreviation,
+            logo: team.team.logo.replace('500', '500-dark'),
             homeAway: team.homeAway
           };
-          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway };
+          return { name: team.team.displayName, code: team.team.abbreviation, logo: team.team.logo.replace('500', '500-dark'), homeAway: team.homeAway };
         }),
         image_url: null,
         venue: {
@@ -149,14 +169,15 @@ const fetchESPNFootball = async (league) => {
           eventDetails.gameInfo?.venue?.address?.state == "Illinois",
         attendance: eventDetails.gameInfo?.attendance,
         score:
-          event.fullStatus && eventDetails.drives?.current
+          subEvent.status?.type?.state == "in"
             ? {
                 type: "football",
                 home: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).homeScore : 0,
                 away: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).awayScore : 0,
                 ball: eventDetails.drives.current.team.abbreviation,
-                quarter: event.fullStatus.period,
-                timeLeft: event.fullStatus.displayClock,
+                quarter: subEvent.status?.period,
+                quarterText: 'PLACEHOLDER',
+                  timeLeft: subEvent.status?.displayClock,
                 downAnd: eventDetails.drives.current.plays.at(-1).start.shortDownDistanceText,
                 positionSide: (
                   eventDetails.drives?.current?.end?.text ?? `${eventDetails.drives.current.team.abbreviation} `
@@ -165,14 +186,15 @@ const fetchESPNFootball = async (league) => {
                 gameComplete: false,
                 gameStarted: true
               }
-            : eventDetails.drives?.previous
+            : subEvent.status?.type?.state == "post"
               ? {
                   type: "football",
                   home: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).homeScore : 0,
                   away: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).awayScore : 0,
                   ball: competitorsObj["home"].abbreviation,
-                  quarter: event.fullStatus.period,
-                  timeLeft: event.fullStatus.displayClock,
+                  quarter: subEvent.status?.period,
+                  quarterText: null,
+                  timeLeft: subEvent.status?.displayClock,
                   downAnd: null,
                   positionSide: null,
                   yardNumber: null,
@@ -187,7 +209,7 @@ const fetchESPNFootball = async (league) => {
                   quarter: 1,
                   timeLeft: "15:00",
                   downAnd: "1st & 20",
-                  positionSide: event.competitors[0].abbreviation,
+                  positionSide: competitorsObj["home"].abbreviation,
                   yardNumber: 50,
                   gameComplete: false,
                   gameStarted: false
@@ -211,10 +233,10 @@ const fetchESPNBaseball = async (league) => {
   for (let i = yesterday.valueOf(); i <= inAWeek.valueOf(); i += 1000 * 60 * 60 * 24) {
     const todayString = new Date(i).toISOString().split("T")[0].replaceAll("-", "");
     const scoreboard = await fetch(
-      `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${todayString}`
+      `https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/scoreboard?dates=${todayString}`
     ).then((res) => res.json());
 
-    scoreboard.events.forEach((event) => {
+    (scoreboard.events ?? []).forEach((event) => {
       fetchedEventsDict[event.id] = event;
     });
   }
@@ -244,7 +266,7 @@ const fetchESPNBaseball = async (league) => {
           return {
             name: team.team?.displayName,
             code: team.team?.abbreviation,
-            logo: team.team?.logo,
+            logo: team.team?.logo.replace('500', '500-dark'),
             homeAway: team.homeAway
           };
         }),
@@ -288,7 +310,7 @@ const fetchESPNBaseball = async (league) => {
                   away: parseInt(subEvent.competitors.find((team) => team.homeAway == "away").score),
                   atBat: subEvent.status?.type?.detail.startsWith("Top") ? "away" : "home",
                   inning: subEvent.status?.period,
-                  inningText: subEvent.status?.type?.detail.split(" ")[1],
+                  inningText: null,
                   topOfInning: subEvent.status?.type?.detail.startsWith("Top"), // away is batting
                   thisInning: { balls: null, strikes: null, outs: null },
                   gameComplete: true,
