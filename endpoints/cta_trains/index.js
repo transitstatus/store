@@ -67,7 +67,7 @@ const randomizeArray = (unshuffled) =>
 const reqInfo = {
   credentials: "include",
   headers: {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:154.0) Gecko/20100101 Firefox/154.0",
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/154.0",
     Accept: "application/json, text/javascript, */*; q=0.01",
     "Accept-Language": "en-US,en;q=0.5",
     "X-Requested-With": "XMLHttpRequest",
@@ -83,7 +83,7 @@ const reqInfo = {
 };
 
 const processData = async () => {
-  const linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
+  let linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
   try {
     const req = await fetch(
       `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40`,
@@ -94,7 +94,8 @@ const processData = async () => {
 
     if (raw.includes("challenges.cloudflare.com")) {
       console.log("CTA BLOCKED CLOUDFLARE CHALLENGE");
-      await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 500)));
+      await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 2500)));
+      linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
 
       const newReq = await fetch(
         `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=41`,
