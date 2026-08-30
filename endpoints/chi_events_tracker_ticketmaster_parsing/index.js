@@ -10,7 +10,7 @@ const venues = {
   KovZ917AI5F: { name: "The Salt Shed Indoors (Shed)" },
   KovZ917Amf0: { name: "The Salt Shed Outdoors (Fairgrounds)" },
   KovZpZAEAIlA: { name: "House of Blues Chicago" },
-  KovZpZAF6alA: { name: "Apollos Theater" },
+  //KovZpZAF6alA: { name: "Apollo Theater" },
   KovZpZA6AJ6A: { name: "The Chicago Theatre" },
   KovZpZAEA7IA: { name: "Huntington Bank Pavilion at Northerly Island" },
   KovZ917A2S0: { name: "Wintrust Arena", rel_espn: "5427" },

@@ -213,7 +213,7 @@ const fetchESPNBaseball = async (league) => {
         genre: "Baseball",
         sub_genre: league[0],
         teams_list: event.competitors.map((team) => {
-          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark };
+          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway, };
         }),
         image_url: null,
         venue: {
