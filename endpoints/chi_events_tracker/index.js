@@ -149,10 +149,15 @@ const fetchESPNFootball = async (league) => {
           competitorsObj[team.homeAway] = {
             name: team.team.displayName,
             code: team.team.abbreviation,
-            logo: team.team.logo.replace('500', '500-dark'),
+            logo: team.team.logo.replace("500", "500-dark"),
             homeAway: team.homeAway
           };
-          return { name: team.team.displayName, code: team.team.abbreviation, logo: team.team.logo.replace('500', '500-dark'), homeAway: team.homeAway };
+          return {
+            name: team.team.displayName,
+            code: team.team.abbreviation,
+            logo: team.team.logo.replace("500", "500-dark"),
+            homeAway: team.homeAway
+          };
         }),
         image_url: null,
         venue: {
@@ -176,15 +181,17 @@ const fetchESPNFootball = async (league) => {
                 away: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).awayScore : 0,
                 ball: eventDetails.drives.current.team.abbreviation,
                 quarter: subEvent.status?.period,
-                quarterText: 'PLACEHOLDER',
-                  timeLeft: subEvent.status?.displayClock,
+                quarterText: "PLACEHOLDER",
+                timeLeft: subEvent.status?.displayClock,
                 downAnd: eventDetails.drives.current.plays.at(-1).start.shortDownDistanceText,
                 positionSide: (
                   eventDetails.drives?.current?.end?.text ?? `${eventDetails.drives.current.team.abbreviation} `
                 ).split(" ")[0],
                 yardNumber: Math.abs((eventDetails.drives?.current?.end?.yardLine ?? 100) - 50),
                 gameComplete: false,
-                gameStarted: true
+                gameStarted: true,
+                latestWallClock: (eventDetails.drives?.current ?? eventDetails.drives?.previous)?.at(-1)?.plays?.at(-1)
+                  ?.wallclock
               }
             : subEvent.status?.type?.state == "post"
               ? {
@@ -199,7 +206,10 @@ const fetchESPNFootball = async (league) => {
                   positionSide: null,
                   yardNumber: null,
                   gameComplete: true,
-                  gameStarted: true
+                  gameStarted: true,
+                  latestWallClock: (eventDetails.drives?.current ?? eventDetails.drives?.previous)
+                    ?.at(-1)
+                    ?.plays?.at(-1)?.wallclock
                 }
               : {
                   type: "football",
@@ -212,7 +222,8 @@ const fetchESPNFootball = async (league) => {
                   positionSide: competitorsObj["home"].abbreviation,
                   yardNumber: 50,
                   gameComplete: false,
-                  gameStarted: false
+                  gameStarted: false,
+                  latestWallClock: event.date
                 },
         additionalVenueInfo: null
       };
@@ -266,7 +277,7 @@ const fetchESPNBaseball = async (league) => {
           return {
             name: team.team?.displayName,
             code: team.team?.abbreviation,
-            logo: team.team?.logo.replace('500', '500-dark'),
+            logo: team.team?.logo.replace("500", "500-dark"),
             homeAway: team.homeAway
           };
         }),
