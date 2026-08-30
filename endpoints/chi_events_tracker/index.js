@@ -394,9 +394,9 @@ const updateFeed = async () => {
         ...Object.values(finalEventsNonSports).map((event) => {
           return { ...event, ticketmasterType: "non-sport" };
         }),
-        ...Object.values(finalEventsSports).map((event) => {
-          return { ...event, ticketmasterType: "sport" };
-        }),
+        //...Object.values(finalEventsSports).map((event) => {
+        //  return { ...event, ticketmasterType: "sport" };
+        //}),
         ...Object.values(finalEventsSportsNonTicketmaster).map((event) => {
           return { ...event, ticketmasterType: "sport-nonticketmaster" };
         })
