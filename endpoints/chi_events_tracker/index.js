@@ -51,8 +51,8 @@ const espnsLeagueStrings = { football: [["NFL", "nfl"]], baseball: [["MLB", "mlb
 let allevents = {};
 
 const fetchTicketmaster = async () => {
-  const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
-  //const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
+  //const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
+  const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
 
   const data = await fetch(TICKETMASTER_URL).then((res) => res.json());
 
@@ -201,24 +201,36 @@ const fetchESPNFootball = async (league) => {
 };
 
 const fetchESPNBaseball = async (league) => {
+  // fetching a more complete list of events because the /events endpoint only shows the current week
+
+  let fetchedEventsDict = {};
+
+  const yesterday = new Date(Date.now() - 1000 * 60 * 60 * 24);
+  const inAWeek = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
+
+  for (let i = yesterday; i <= inAWeek; i += 1000 * 60 * 60 * 24) {
+    const todayString = new Date(i).toISOString().split("T")[0].replaceAll("-", "");
+
+    const scoreboard = await fetch(
+      `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${todayString}`
+    ).then((res) => res.json());
+
+    scoreboard.events.forEach((event) => {
+      fetchedEventsDict[event.id] = event;
+    });
+  }
+
   const eventsList = await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/events`).then(
     (res) => res.json()
   );
 
   const finalEvents = await Promise.all(
-    eventsList.events.map(async (event) => {
+    Object.values(fetchedEventsDict).map(async (event) => {
+      const subEvent = event.competitions[0];
+
       const eventDetails = await fetch(
         `https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/summary?event=${event.id}`
       ).then((res) => res.json());
-
-      const thisInningPlays =
-        eventDetails.plays?.length > 0
-          ? eventDetails.plays.filter(
-              (play) =>
-                event.fullStatus?.periodPrefix == play.period.type && event.fullStatus?.period == play.period.number
-            )
-          : null;
-      const mostRecentPlay = eventDetails.plays?.length > 0 ? eventDetails.plays.at(-1) : null;
 
       return {
         id: event.id,
@@ -227,8 +239,13 @@ const fetchESPNBaseball = async (league) => {
         category: "Sports",
         genre: "Baseball",
         sub_genre: league[0],
-        teams_list: event.competitors.map((team) => {
-          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway };
+        teams_list: subEvent.competitors.map((team) => {
+          return {
+            name: team.team?.displayName,
+            code: team.team?.abbreviation,
+            logo: team.team?.logo,
+            homeAway: team.homeAway
+          };
         }),
         image_url: null,
         venue: {
@@ -245,17 +262,16 @@ const fetchESPNBaseball = async (league) => {
           eventDetails.gameInfo?.venue?.address?.state == "Illinois",
         attendance: eventDetails.gameInfo?.attendance,
         score:
-          event.fullStatus?.type?.state == "in"
+          subEvent.status?.type?.state == "in"
             ? {
                 type: "baseball",
-                home: parseInt(event.competitors.find((team) => team.homeAway == "home").score),
-                away: parseInt(event.competitors.find((team) => team.homeAway == "away").score),
-                atBat: event.fullStatus?.periodPrefix == "Top" ? "away" : "home",
-                inning: event.fullStatus?.period,
-                inningText: event.fullStatus?.displayPeriod,
-                topOfInning: event.fullStatus?.periodPrefix == "Top", // away is batting
+                home: parseInt(subEvent.competitors.find((team) => team.homeAway == "home").score),
+                away: parseInt(subEvent.competitors.find((team) => team.homeAway == "away").score),
+                atBat: subEvent.status?.type?.detail.startsWith("Top") ? "away" : "home",
+                inning: subEvent.status?.period,
+                inningText: subEvent.status?.type?.detail.split(" ")[1],
+                topOfInning: subEvent.status?.type?.detail.startsWith("Top"), // away is batting
                 thisInning: {
-                  runs: thisInningPlays ? thisInningPlays.filter((play) => play.type.text).length : 0,
                   balls: eventDetails.situation.balls,
                   strikes: eventDetails.situation.strikes,
                   outs: eventDetails.situation.outs
@@ -264,21 +280,16 @@ const fetchESPNBaseball = async (league) => {
                 gameStarted: true,
                 latestWallClock: eventDetails.plays.at(-1)?.wallclock
               }
-            : event.fullStatus?.type?.completed == true
+            : event.status?.type?.completed == true
               ? {
                   type: "baseball",
-                  home: parseInt(event.competitors.find((team) => team.homeAway == "home").score),
-                  away: parseInt(event.competitors.find((team) => team.homeAway == "away").score),
-                  atBat: event.fullStatus?.periodPrefix == "Top" ? "away" : "home",
-                  inning: event.fullStatus?.period,
-                  inningText: event.fullStatus?.displayPeriod,
-                  topOfInning: event.fullStatus?.periodPrefix == "Top", // away is batting
-                  thisInning: {
-                    runs: thisInningPlays ? thisInningPlays.filter((play) => play.type.text).length : 0,
-                    balls: null,
-                    strikes: null,
-                    outs: null
-                  },
+                  home: parseInt(subEvent.competitors.find((team) => team.homeAway == "home").score),
+                  away: parseInt(subEvent.competitors.find((team) => team.homeAway == "away").score),
+                  atBat: subEvent.status?.type?.detail.startsWith("Top") ? "away" : "home",
+                  inning: subEvent.status?.period,
+                  inningText: subEvent.status?.type?.detail.split(" ")[1],
+                  topOfInning: subEvent.status?.type?.detail.startsWith("Top"), // away is batting
+                  thisInning: { balls: null, strikes: null, outs: null },
                   gameComplete: true,
                   gameStarted: true,
                   latestWallClock: eventDetails.plays.at(-1)?.wallclock
@@ -291,10 +302,10 @@ const fetchESPNBaseball = async (league) => {
                   inning: 1,
                   inningText: "1st",
                   topOfInning: true, // away is batting
-                  thisInning: { runs: 0, balls: 0, strikes: 0, outs: 0 },
+                  thisInning: { balls: 0, strikes: 0, outs: 0 },
                   gameComplete: false,
                   gameStarted: false,
-                  latestWallClock: event.date
+                  latestWallClock: subEvent.date
                 },
         additionalVenueInfo: null
       };
