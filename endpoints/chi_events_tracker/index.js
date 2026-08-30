@@ -75,6 +75,7 @@ const fetchTicketmaster = async () => {
             lat: parseFloat(event.VENUE_LATITUDE),
             lon: parseFloat(event.VENUE_LONGITUDE)
           },
+          isChicagoEvent: true,
           attendance: null,
           score: null,
           additionalVenueInfo: { espn: event.RELATIONS?.rel_espn, mlb: event.RELATIONS?.rel_mlb }
@@ -95,6 +96,7 @@ const fetchTicketmaster = async () => {
             lat: parseFloat(event.VENUE_LATITUDE),
             lon: parseFloat(event.VENUE_LONGITUDE)
           },
+          isChicagoEvent: true,
           attendance: null,
           score: null,
           additionalVenueInfo: {}
@@ -137,8 +139,12 @@ const fetchESPNFootball = async (league) => {
           id: eventDetails.gameInfo?.venue?.id,
           name: eventDetails.gameInfo?.venue?.fullName,
           lat: null,
-          lon: null
+          lon: null,
+          city: eventDetails.gameInfo?.venue?.address?.city,
+          state: eventDetails.gameInfo?.venue?.address?.state,
+          zipCode: eventDetails.gameInfo?.venue?.address?.zipCode,
         },
+        isChicagoEvent: eventDetails.gameInfo?.venue?.address?.city == 'Chicago' && eventDetails.gameInfo?.venue?.address?.state == "Illinois",
         attendance: eventDetails.gameInfo?.attendance,
         score:
           event.fullStatus && eventDetails.drives?.current
@@ -227,8 +233,12 @@ const fetchESPNBaseball = async (league) => {
           id: eventDetails.gameInfo?.venue?.id,
           name: eventDetails.gameInfo?.venue?.fullName,
           lat: null,
-          lon: null
+          lon: null,
+          city: eventDetails.gameInfo?.venue?.address?.city,
+          state: eventDetails.gameInfo?.venue?.address?.state,
+          zipCode: eventDetails.gameInfo?.venue?.address?.zipCode,
         },
+        isChicagoEvent: eventDetails.gameInfo?.venue?.address?.city == 'Chicago' && eventDetails.gameInfo?.venue?.address?.state == "Illinois",
         attendance: eventDetails.gameInfo?.attendance,
         score:
           event.fullStatus?.type?.state == "in"
