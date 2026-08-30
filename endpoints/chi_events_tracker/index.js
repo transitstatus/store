@@ -363,7 +363,17 @@ const updateFeed = async () => {
     await integrateEspnData("Baseball", espnsLeagueStrings.baseball, fetchESPNBaseball);
 
     return {
-      events: [...Object.values(finalEventsNonSports), ...Object.values(finalEventsSports)].sort((a, b) => {
+      events: [...Object.values(finalEventsNonSports).map((event) => {
+        return {
+          ...event,
+          ticketmasterType: 'non-sport',
+        }
+      }), ...Object.values(finalEventsSports).map((event) => {
+        return {
+          ...event,
+          ticketmasterType: 'sport',
+        }
+      })].sort((a, b) => {
         const aNum = new Date(a.start_date).valueOf();
         const bNum = new Date(b.start_date).valueOf();
 
