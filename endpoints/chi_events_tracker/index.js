@@ -208,9 +208,8 @@ const fetchESPNBaseball = async (league) => {
   const yesterday = new Date(Date.now() - 1000 * 60 * 60 * 24);
   const inAWeek = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
 
-  for (let i = yesterday; i <= inAWeek; i += 1000 * 60 * 60 * 24) {
+  for (let i = yesterday.valueOf(); i <= inAWeek.valueOf(); i += 1000 * 60 * 60 * 24) {
     const todayString = new Date(i).toISOString().split("T")[0].replaceAll("-", "");
-
     const scoreboard = await fetch(
       `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${todayString}`
     ).then((res) => res.json());
@@ -220,9 +219,11 @@ const fetchESPNBaseball = async (league) => {
     });
   }
 
+  /*
   const eventsList = await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/events`).then(
     (res) => res.json()
   );
+  */
 
   const finalEvents = await Promise.all(
     Object.values(fetchedEventsDict).map(async (event) => {
