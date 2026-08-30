@@ -51,7 +51,7 @@ const espnsLeagueStrings = { football: [["NFL", "nfl"]], baseball: [["MLB", "mlb
 let allevents = {};
 
 const fetchTicketmaster = async () => {
-  const TICKETMASTER_URL = 'http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events';
+  const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
   //const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
 
   const data = await fetch(TICKETMASTER_URL).then((res) => res.json());
@@ -124,8 +124,13 @@ const fetchESPNFootball = async (league) => {
         genre: "Football",
         sub_genre: league[0],
         teams_list: event.competitors.map((team) => {
-          competitorsObj[team.homeAway] = { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway, };
-          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway, };
+          competitorsObj[team.homeAway] = {
+            name: team.displayName,
+            code: team.abbreviation,
+            logo: team.logoDark,
+            homeAway: team.homeAway
+          };
+          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway };
         }),
         image_url: null,
         venue: {
@@ -145,7 +150,9 @@ const fetchESPNFootball = async (league) => {
                 quarter: event.fullStatus.period,
                 timeLeft: event.fullStatus.displayClock,
                 downAnd: eventDetails.drives.current.plays.at(-1).start.shortDownDistanceText,
-                positionSide: (eventDetails.drives?.current?.end?.text ?? `${eventDetails.drives.current.team.abbreviation} `).split(" ")[0],
+                positionSide: (
+                  eventDetails.drives?.current?.end?.text ?? `${eventDetails.drives.current.team.abbreviation} `
+                ).split(" ")[0],
                 yardNumber: Math.abs((eventDetails.drives?.current?.end?.yardLine ?? 100) - 50),
                 gameComplete: false,
                 gameStarted: true
@@ -155,7 +162,7 @@ const fetchESPNFootball = async (league) => {
                   type: "football",
                   home: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).homeScore : 0,
                   away: eventDetails.scoringPlays ? eventDetails.scoringPlays.at(-1).awayScore : 0,
-                  ball: competitorsObj['home'].abbreviation,
+                  ball: competitorsObj["home"].abbreviation,
                   quarter: event.fullStatus.period,
                   timeLeft: event.fullStatus.displayClock,
                   downAnd: null,
@@ -168,7 +175,7 @@ const fetchESPNFootball = async (league) => {
                   type: "football",
                   home: 0,
                   away: 0,
-                  ball: competitorsObj['home'].abbreviation,
+                  ball: competitorsObj["home"].abbreviation,
                   quarter: 1,
                   timeLeft: "15:00",
                   downAnd: "1st & 20",
@@ -213,7 +220,7 @@ const fetchESPNBaseball = async (league) => {
         genre: "Baseball",
         sub_genre: league[0],
         teams_list: event.competitors.map((team) => {
-          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway, };
+          return { name: team.displayName, code: team.abbreviation, logo: team.logoDark, homeAway: team.homeAway };
         }),
         image_url: null,
         venue: {
@@ -249,6 +256,7 @@ const fetchESPNBaseball = async (league) => {
                   away: parseInt(event.competitors.find((team) => team.homeAway == "away").score),
                   atBat: event.fullStatus?.periodPrefix == "Top" ? "away" : "home",
                   inning: event.fullStatus?.period,
+                  inningText: event.fullStatus?.displayPeriod,
                   topOfInning: event.fullStatus?.periodPrefix == "Top", // away is batting
                   thisInning: {
                     runs: thisInningPlays ? thisInningPlays.filter((play) => play.type.text).length : 0,
@@ -265,6 +273,7 @@ const fetchESPNBaseball = async (league) => {
                   away: 0,
                   atBat: "away",
                   inning: 1,
+                  inningText: "1st",
                   topOfInning: true, // away is batting
                   thisInning: { runs: 0, balls: 0, strikes: 0, outs: 0 },
                   gameComplete: false,
