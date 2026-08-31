@@ -160,15 +160,12 @@ const processData = async () => {
 
       if (!trainID || trainID.length > 3) return; // not a train
 
-      const position = positions[trainID] ?? { lat: "0", lon: "0", heading: "0" };
+      const position = positions[trainID]?.train ?? { lat: "0", lon: "0", heading: "0" };
       const isCancelled = message.tripUpdate?.trip?.scheduleRelationship == 3;
       const route = routesData[message.tripUpdate?.trip?.routeId];
 
       let destName = position.destNm ?? "Unknown";
-      const finalDestName =
-        stationsData[message?.tripUpdate?.stopTimeUpdate?.at(-1)?.stopId]?.stopName ??
-        route?.routeTrips?.[message.tripUpdate?.trip?.tripid]?.headsign ??
-        "Unknown";
+      const finalDestName = stationsData[position.destSt]?.stopName ?? "Unknown";
 
       if (!route) return; // idk at this point
       if (!processedData.transitStatus.lines[route.routeID]) return; // probably a protato
@@ -184,9 +181,9 @@ const processData = async () => {
       processedData.transitStatus.lines[route.routeID].hasActiveTrains = true;
 
       processedData.transitStatus.trains[trainID] = {
-        lat: position.latitude,
-        lon: position.longitude,
-        heading: 0,
+        lat: parseFloat(position.lat),
+        lon: parseFloat(position.lon),
+        heading: parseFloat(position.heading),
         realTime: true,
         isCancelled,
         deadMileage: false,
@@ -198,7 +195,7 @@ const processData = async () => {
         predictions: message?.tripUpdate?.stopTimeUpdate.map((stopTime) => {
           const eta = (stopTime.arrival ?? stopTime.departure).time?.low * 1000;
 
-          const parentStopID = stationsData[stopTime.stopid]?.parentStation;
+          const parentStopID = stationsData[stopTime.stopId]?.parentStation;
 
           //adding to actual station
           if (processedData.transitStatus.stations[parentStopID]?.destinations?.[destName]) {
