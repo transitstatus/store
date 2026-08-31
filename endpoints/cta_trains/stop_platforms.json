@@ -92,13 +92,13 @@
   "30016": {
     "stopID": "30016",
     "parentStationID": "40080",
-    "platformName": "Howard Bound",
+    "platformName": "Outbound",
     "stopName": "Sheridan"
   },
   "30017": {
     "stopID": "30017",
     "parentStationID": "40080",
-    "platformName": "95th Bound",
+    "platformName": "Inbound",
     "stopName": "Sheridan"
   },
   "30018": {
@@ -602,13 +602,13 @@
   "30105": {
     "stopID": "30105",
     "parentStationID": "40540",
-    "platformName": "Howard Bound",
+    "platformName": "Outbound",
     "stopName": "Wilson"
   },
   "30106": {
     "stopID": "30106",
     "parentStationID": "40540",
-    "platformName": "95th Bound",
+    "platformName": "Inbound",
     "stopName": "Wilson"
   },
   "30107": {
@@ -998,25 +998,25 @@
   "30173": {
     "stopID": "30173",
     "parentStationID": "40900",
-    "platformName": "Terminal arrival",
+    "platformName": "Outbound",
     "stopName": "Howard"
   },
   "30174": {
     "stopID": "30174",
     "parentStationID": "40900",
-    "platformName": "95th-Bound",
+    "platformName": "Inbound",
     "stopName": "Howard"
   },
   "30175": {
     "stopID": "30175",
     "parentStationID": "40900",
-    "platformName": "Linden, Skokie Bound",
+    "platformName": "Outbound",
     "stopName": "Howard"
   },
   "30176": {
     "stopID": "30176",
     "parentStationID": "40900",
-    "platformName": "Terminal arrival",
+    "platformName": "Inbound",
     "stopName": "Howard"
   },
   "30177": {
@@ -1358,25 +1358,25 @@
   "30233": {
     "stopID": "30233",
     "parentStationID": "41220",
-    "platformName": "Howard Bound",
+    "platformName": "Outbound",
     "stopName": "Fullerton"
   },
   "30234": {
     "stopID": "30234",
     "parentStationID": "41220",
-    "platformName": "95th Bound",
+    "platformName": "Inbound",
     "stopName": "Fullerton"
   },
   "30235": {
     "stopID": "30235",
     "parentStationID": "41220",
-    "platformName": "Kimball-Linden Bound",
+    "platformName": "Outbound",
     "stopName": "Fullerton"
   },
   "30236": {
     "stopID": "30236",
     "parentStationID": "41220",
-    "platformName": "Loop Bound",
+    "platformName": "Inbound",
     "stopName": "Fullerton"
   },
   "30237": {
@@ -1490,25 +1490,25 @@
   "30255": {
     "stopID": "30255",
     "parentStationID": "41320",
-    "platformName": "Howard Bound",
+    "platformName": "Outbound",
     "stopName": "Belmont"
   },
   "30256": {
     "stopID": "30256",
     "parentStationID": "41320",
-    "platformName": "95th Bound",
+    "platformName": "Inbound",
     "stopName": "Belmont"
   },
   "30257": {
     "stopID": "30257",
     "parentStationID": "41320",
-    "platformName": "Kimball-Linden Bound",
+    "platformName": "Outbound",
     "stopName": "Belmont"
   },
   "30258": {
     "stopID": "30258",
     "parentStationID": "41320",
-    "platformName": "Loop Bound",
+    "platformName": "Inbound",
     "stopName": "Belmont"
   },
   "30259": {
@@ -1718,13 +1718,13 @@
   "30293": {
     "stopID": "30293",
     "parentStationID": "40080",
-    "platformName": "Howard-Linden Bound",
+    "platformName": "Outbound",
     "stopName": "Sheridan"
   },
   "30294": {
     "stopID": "30294",
     "parentStationID": "40080",
-    "platformName": "Loop Bound",
+    "platformName": "Inbound",
     "stopName": "Sheridan"
   },
   "30295": {
@@ -1790,13 +1790,13 @@
   "30385": {
     "stopID": "30385",
     "parentStationID": "40540",
-    "platformName": "Loop Bound",
+    "platformName": "Inbound",
     "stopName": "Wilson"
   },
   "30386": {
     "stopID": "30386",
     "parentStationID": "40540",
-    "platformName": "Linden Bound",
+    "platformName": "Outbound",
     "stopName": "Wilson"
   },
   "30387": {
