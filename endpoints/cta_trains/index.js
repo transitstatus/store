@@ -1,3 +1,4 @@
+const stopPlatforms = require("./stop_platforms.json");
 const protobuf = require("protobufjs");
 
 const actualLines = { R: "Red", P: "Purple", Y: "Yellow", B: "Blue", V: "Pink", G: "Green", T: "Brown", O: "Orange" };
@@ -60,6 +61,8 @@ const lineMeta = {
   Org: { loopLimit: 41400, postLoopAlt: "Midway" }
 };
 
+let stationToStopDict = {};
+
 const processData = async () => {
   try {
     const gtfsRealtimeRoot = await protobuf.load("gtfs-rt.proto");
@@ -117,42 +120,43 @@ const processData = async () => {
       };
     });
 
+    //filling in stop data
+    Object.keys(stationsData).forEach((stationID) => {
+      if (stationID < 30000 || stationID >= 40000) return;
+
+      if (!stationToStopDict[stationsData[stationID]?.parentStation])
+        stationToStopDict[stationsData[stationID]?.parentStation] = [];
+      stationToStopDict[stationsData[stationID]?.parentStation].push(stationID);
+    });
+
     //adding stations to the tracking data
     Object.keys(stationsData).forEach((stationID) => {
       if (stationID < 40000 || stationID >= 50000) return;
 
-      if (!processedData.transitStatus.stations[stationID]) {
-        processedData.transitStatus.stations[stationID] = {
-          stationID: stationID,
-          stationName: stationsData[stationID].stopName,
-          destinations: {}
-        };
-      }
+      const finalStation = {
+        stationID: stationID,
+        stationName: stationsData[stationID].stopName,
+        destinations: {},
+        lat: stationsData[stationID].stopLat,
+        lon: stationsData[stationID].stopLon
+      };
 
-      processedData.transitStatus.stations[stationID].lat = stationsData[stationID].stopLat;
-      processedData.transitStatus.stations[stationID].lon = stationsData[stationID].stopLon;
+      const thisStationStops = stationToStopDict[stationID];
 
-      //adding destinations
-      Object.keys(routesData).forEach((lineCode) => {
-        if (!routesData[lineCode].routeStations.includes(stationID)) return;
+      thisStationStops.forEach((stop) => {
+        const stopPlatformData = stopPlatforms[stop];
 
-        const lineDestinations = routesData[lineCode].destinations;
-
-        lineDestinations.forEach((destination) => {
-          if (!processedData.transitStatus.stations[stationID].destinations[destination]) {
-            if (regularDestinations.includes(destination)) {
-              if (inTheLoop.includes(stationID) && destination === "Loop") return;
-              processedData.transitStatus.stations[stationID].destinations[destination] = { trains: [] };
-            }
-          }
-        });
+        finalStation.destinations[stopPlatformData.platformName] = { trains: [], stopID: stopPlatformData.stopID };
       });
+
+      processedData.transitStatus.stations[stationID] = finalStation;
     });
 
     alternativePositionsData.ctatt.route
       .flatMap((route) => route.train)
       .forEach((train) => {
-        positions[train.rn] = { train };
+        if (!train) return;
+        positions[train.rn] = train;
       });
 
     tripUpdatesData.entity.forEach((message) => {
@@ -160,7 +164,7 @@ const processData = async () => {
 
       if (!trainID || trainID.length > 3) return; // not a train
 
-      const position = positions[trainID]?.train ?? { lat: "0", lon: "0", heading: "0" };
+      const position = positions[trainID] ?? { lat: "0", lon: "0", heading: "0" };
       const isCancelled = message.tripUpdate?.trip?.scheduleRelationship == 3;
       const route = routesData[message.tripUpdate?.trip?.routeId];
 
@@ -196,10 +200,11 @@ const processData = async () => {
           const eta = (stopTime.arrival ?? stopTime.departure).time?.low * 1000;
 
           const parentStopID = stationsData[stopTime.stopId]?.parentStation;
+          const stopPlatformName = stopPlatforms[stopTime.stopId]?.platformName ?? 'Unknown';
 
           //adding to actual station
-          if (processedData.transitStatus.stations[parentStopID]?.destinations?.[destName]) {
-            processedData.transitStatus.stations[parentStopID]?.destinations?.[destName]?.trains.push({
+          if (processedData.transitStatus.stations[parentStopID]?.destinations?.[stopPlatformName]) {
+            processedData.transitStatus.stations[parentStopID]?.destinations?.[stopPlatformName]?.trains.push({
               runNumber: trainID,
               actualETA: eta,
               noETA: isNaN(eta),
@@ -208,7 +213,7 @@ const processData = async () => {
               lineCode: route.routeID,
               lineColor: route.routeColor,
               lineTextColor: route.routeTextColor,
-              //destination: destName,
+              destination: destName,
               extra: {}
             });
           }

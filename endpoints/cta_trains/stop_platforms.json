@@ -1,0 +1,1814 @@
+{
+  "30001": {
+    "stopID": "30001",
+    "parentStationID": "40010",
+    "platformName": "O'Hare Bound",
+    "stopName": "Austin"
+  },
+  "30002": {
+    "stopID": "30002",
+    "parentStationID": "40010",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Austin"
+  },
+  "30003": {
+    "stopID": "30003",
+    "parentStationID": "40020",
+    "platformName": "63rd Bound",
+    "stopName": "Harlem"
+  },
+  "30004": {
+    "stopID": "30004",
+    "parentStationID": "40020",
+    "platformName": "Terminal arrival",
+    "stopName": "Harlem"
+  },
+  "30005": {
+    "stopID": "30005",
+    "parentStationID": "40030",
+    "platformName": "63rd Bound",
+    "stopName": "Pulaski"
+  },
+  "30006": {
+    "stopID": "30006",
+    "parentStationID": "40030",
+    "platformName": "Harlem Bound",
+    "stopName": "Pulaski"
+  },
+  "30007": {
+    "stopID": "30007",
+    "parentStationID": "40040",
+    "platformName": "Inner Loop",
+    "stopName": "Quincy/Wells"
+  },
+  "30008": {
+    "stopID": "30008",
+    "parentStationID": "40040",
+    "platformName": "Outer Loop",
+    "stopName": "Quincy/Wells"
+  },
+  "30009": {
+    "stopID": "30009",
+    "parentStationID": "40480",
+    "platformName": "Harlem Bound",
+    "stopName": "Cicero"
+  },
+  "30010": {
+    "stopID": "30010",
+    "parentStationID": "40050",
+    "platformName": "Linden Bound",
+    "stopName": "Davis"
+  },
+  "30011": {
+    "stopID": "30011",
+    "parentStationID": "40050",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Davis"
+  },
+  "30012": {
+    "stopID": "30012",
+    "parentStationID": "40060",
+    "platformName": "O'Hare Bound",
+    "stopName": "Belmont (O'Hare Branch)"
+  },
+  "30013": {
+    "stopID": "30013",
+    "parentStationID": "40060",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Belmont (O'Hare Branch)"
+  },
+  "30014": {
+    "stopID": "30014",
+    "parentStationID": "40070",
+    "platformName": "O'Hare Bound",
+    "stopName": "Jackson/Dearborn"
+  },
+  "30015": {
+    "stopID": "30015",
+    "parentStationID": "40070",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Jackson/Dearborn"
+  },
+  "30016": {
+    "stopID": "30016",
+    "parentStationID": "40080",
+    "platformName": "Howard Bound",
+    "stopName": "Sheridan"
+  },
+  "30017": {
+    "stopID": "30017",
+    "parentStationID": "40080",
+    "platformName": "95th Bound",
+    "stopName": "Sheridan"
+  },
+  "30018": {
+    "stopID": "30018",
+    "parentStationID": "40090",
+    "platformName": "Kimball Bound",
+    "stopName": "Damen"
+  },
+  "30019": {
+    "stopID": "30019",
+    "parentStationID": "40090",
+    "platformName": "Loop Bound",
+    "stopName": "Damen"
+  },
+  "30020": {
+    "stopID": "30020",
+    "parentStationID": "40100",
+    "platformName": "Howard Bound",
+    "stopName": "Morse"
+  },
+  "30021": {
+    "stopID": "30021",
+    "parentStationID": "40100",
+    "platformName": "95th Bound",
+    "stopName": "Morse"
+  },
+  "30022": {
+    "stopID": "30022",
+    "parentStationID": "40120",
+    "platformName": "Loop Bound",
+    "stopName": "35th/Archer"
+  },
+  "30023": {
+    "stopID": "30023",
+    "parentStationID": "40120",
+    "platformName": "Midway Bound",
+    "stopName": "35th/Archer"
+  },
+  "30024": {
+    "stopID": "30024",
+    "parentStationID": "40130",
+    "platformName": "Harlem Bound",
+    "stopName": "51st"
+  },
+  "30025": {
+    "stopID": "30025",
+    "parentStationID": "40130",
+    "platformName": "63rd Bound",
+    "stopName": "51st"
+  },
+  "30026": {
+    "stopID": "30026",
+    "parentStationID": "40140",
+    "platformName": "Arrival",
+    "stopName": "Dempster-Skokie"
+  },
+  "30027": {
+    "stopID": "30027",
+    "parentStationID": "40140",
+    "platformName": "Howard Bound",
+    "stopName": "Dempster-Skokie"
+  },
+  "30028": {
+    "stopID": "30028",
+    "parentStationID": "40150",
+    "platformName": "Loop Bound",
+    "stopName": "Pulaski"
+  },
+  "30029": {
+    "stopID": "30029",
+    "parentStationID": "40150",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Pulaski"
+  },
+  "30030": {
+    "stopID": "30030",
+    "parentStationID": "40160",
+    "platformName": "Outer Loop",
+    "stopName": "LaSalle/Van Buren"
+  },
+  "30031": {
+    "stopID": "30031",
+    "parentStationID": "40160",
+    "platformName": "Inner Loop",
+    "stopName": "LaSalle/Van Buren"
+  },
+  "30032": {
+    "stopID": "30032",
+    "parentStationID": "40170",
+    "platformName": "Loop-63rd Bound",
+    "stopName": "Ashland"
+  },
+  "30033": {
+    "stopID": "30033",
+    "parentStationID": "40170",
+    "platformName": "Harlem-54th/Cermak Bound",
+    "stopName": "Ashland"
+  },
+  "30034": {
+    "stopID": "30034",
+    "parentStationID": "40180",
+    "platformName": "O'Hare Bound",
+    "stopName": "Oak Park"
+  },
+  "30035": {
+    "stopID": "30035",
+    "parentStationID": "40180",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Oak Park"
+  },
+  "30036": {
+    "stopID": "30036",
+    "parentStationID": "40190",
+    "platformName": "Howard Bound",
+    "stopName": "Sox-35th"
+  },
+  "30037": {
+    "stopID": "30037",
+    "parentStationID": "40190",
+    "platformName": "95th Bound",
+    "stopName": "Sox-35th"
+  },
+  "30040": {
+    "stopID": "30040",
+    "parentStationID": "40210",
+    "platformName": "Loop Bound",
+    "stopName": "Damen"
+  },
+  "30041": {
+    "stopID": "30041",
+    "parentStationID": "40210",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Damen"
+  },
+  "30042": {
+    "stopID": "30042",
+    "parentStationID": "40220",
+    "platformName": "O'Hare Bound",
+    "stopName": "Western (Forest Pk Branch)"
+  },
+  "30043": {
+    "stopID": "30043",
+    "parentStationID": "40220",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Western (Forest Pk Branch)"
+  },
+  "30044": {
+    "stopID": "30044",
+    "parentStationID": "40230",
+    "platformName": "O'Hare Bound",
+    "stopName": "Cumberland"
+  },
+  "30045": {
+    "stopID": "30045",
+    "parentStationID": "40230",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Cumberland"
+  },
+  "30046": {
+    "stopID": "30046",
+    "parentStationID": "40240",
+    "platformName": "Howard Bound",
+    "stopName": "79th"
+  },
+  "30047": {
+    "stopID": "30047",
+    "parentStationID": "40240",
+    "platformName": "95th Bound",
+    "stopName": "79th"
+  },
+  "30048": {
+    "stopID": "30048",
+    "parentStationID": "40250",
+    "platformName": "O'Hare Bound",
+    "stopName": "Kedzie-Homan"
+  },
+  "30049": {
+    "stopID": "30049",
+    "parentStationID": "40250",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Kedzie-Homan"
+  },
+  "30050": {
+    "stopID": "30050",
+    "parentStationID": "40260",
+    "platformName": "Inner Loop",
+    "stopName": "State/Lake"
+  },
+  "30051": {
+    "stopID": "30051",
+    "parentStationID": "40260",
+    "platformName": "Outer Loop",
+    "stopName": "State/Lake"
+  },
+  "30052": {
+    "stopID": "30052",
+    "parentStationID": "40270",
+    "platformName": "Linden Bound",
+    "stopName": "Main"
+  },
+  "30053": {
+    "stopID": "30053",
+    "parentStationID": "40270",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Main"
+  },
+  "30054": {
+    "stopID": "30054",
+    "parentStationID": "40280",
+    "platformName": "63rd Bound",
+    "stopName": "Central"
+  },
+  "30055": {
+    "stopID": "30055",
+    "parentStationID": "40280",
+    "platformName": "Harlem Bound",
+    "stopName": "Central"
+  },
+  "30056": {
+    "stopID": "30056",
+    "parentStationID": "40290",
+    "platformName": "Harlem Bound",
+    "stopName": "Ashland/63rd"
+  },
+  "30057": {
+    "stopID": "30057",
+    "parentStationID": "40290",
+    "platformName": "Terminal arrival",
+    "stopName": "Ashland/63rd"
+  },
+  "30058": {
+    "stopID": "30058",
+    "parentStationID": "40300",
+    "platformName": "Harlem Bound",
+    "stopName": "Indiana"
+  },
+  "30059": {
+    "stopID": "30059",
+    "parentStationID": "40300",
+    "platformName": "63rd Bound",
+    "stopName": "Indiana"
+  },
+  "30060": {
+    "stopID": "30060",
+    "parentStationID": "40310",
+    "platformName": "Loop Bound",
+    "stopName": "Western"
+  },
+  "30061": {
+    "stopID": "30061",
+    "parentStationID": "40310",
+    "platformName": "Midway Bound",
+    "stopName": "Western"
+  },
+  "30062": {
+    "stopID": "30062",
+    "parentStationID": "40320",
+    "platformName": "O'Hare Bound",
+    "stopName": "Division"
+  },
+  "30063": {
+    "stopID": "30063",
+    "parentStationID": "40320",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Division"
+  },
+  "30064": {
+    "stopID": "30064",
+    "parentStationID": "40330",
+    "platformName": "Howard Bound",
+    "stopName": "Grand/State"
+  },
+  "30065": {
+    "stopID": "30065",
+    "parentStationID": "40330",
+    "platformName": "95th Bound",
+    "stopName": "Grand/State"
+  },
+  "30066": {
+    "stopID": "30066",
+    "parentStationID": "40340",
+    "platformName": "Howard Bound",
+    "stopName": "Berwyn"
+  },
+  "30067": {
+    "stopID": "30067",
+    "parentStationID": "4034",
+    "platformName": "95th Bound",
+    "stopName": "Berwyn"
+  },
+  "30068": {
+    "stopID": "30068",
+    "parentStationID": "40350",
+    "platformName": "O'Hare Bound",
+    "stopName": "UIC-Halsted"
+  },
+  "30069": {
+    "stopID": "30069",
+    "parentStationID": "40350",
+    "platformName": "Forest Pk Bound",
+    "stopName": "UIC-Halsted"
+  },
+  "30070": {
+    "stopID": "30070",
+    "parentStationID": "40360",
+    "platformName": "Kimball Bound",
+    "stopName": "Southport"
+  },
+  "30071": {
+    "stopID": "30071",
+    "parentStationID": "40360",
+    "platformName": "Loop Bound",
+    "stopName": "Southport"
+  },
+  "30072": {
+    "stopID": "30072",
+    "parentStationID": "40370",
+    "platformName": "O'Hare Bound",
+    "stopName": "Washington"
+  },
+  "30073": {
+    "stopID": "30073",
+    "parentStationID": "40370",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Washington"
+  },
+  "30074": {
+    "stopID": "30074",
+    "parentStationID": "40380",
+    "platformName": "Inner Loop",
+    "stopName": "Clark/Lake"
+  },
+  "30075": {
+    "stopID": "30075",
+    "parentStationID": "40380",
+    "platformName": "Outer Loop",
+    "stopName": "Clark/Lake"
+  },
+  "30076": {
+    "stopID": "30076",
+    "parentStationID": "40390",
+    "platformName": "O'Hare Bound",
+    "stopName": "Forest Park"
+  },
+  "30077": {
+    "stopID": "30077",
+    "parentStationID": "40390",
+    "platformName": "Terminal Arrival",
+    "stopName": "Forest Park"
+  },
+  "30078": {
+    "stopID": "30078",
+    "parentStationID": "40400",
+    "platformName": "Linden Bound",
+    "stopName": "Noyes"
+  },
+  "30079": {
+    "stopID": "30079",
+    "parentStationID": "40400",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Noyes"
+  },
+  "30080": {
+    "stopID": "30080",
+    "parentStationID": "41400",
+    "platformName": "Loop-Harlem Bound",
+    "stopName": "Roosevelt"
+  },
+  "30081": {
+    "stopID": "30081",
+    "parentStationID": "41400",
+    "platformName": "Midway-63rd Bound",
+    "stopName": "Roosevelt"
+  },
+  "30082": {
+    "stopID": "30082",
+    "parentStationID": "40420",
+    "platformName": "Loop Bound",
+    "stopName": "Cicero"
+  },
+  "30083": {
+    "stopID": "30083",
+    "parentStationID": "40420",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Cicero"
+  },
+  "30084": {
+    "stopID": "30084",
+    "parentStationID": "40430",
+    "platformName": "O'Hare Bound",
+    "stopName": "Clinton"
+  },
+  "30085": {
+    "stopID": "30085",
+    "parentStationID": "40430",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Clinton"
+  },
+  "30086": {
+    "stopID": "30086",
+    "parentStationID": "40440",
+    "platformName": "Loop Bound",
+    "stopName": "California"
+  },
+  "30087": {
+    "stopID": "30087",
+    "parentStationID": "40440",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "California"
+  },
+  "30088": {
+    "stopID": "30088",
+    "parentStationID": "40450",
+    "platformName": "Howard Bound",
+    "stopName": "95th/Dan Ryan"
+  },
+  "30089": {
+    "stopID": "30089",
+    "parentStationID": "40450",
+    "platformName": "95th Bound",
+    "stopName": "95th/Dan Ryan"
+  },
+  "30090": {
+    "stopID": "30090",
+    "parentStationID": "40460",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Merchandise Mart"
+  },
+  "30091": {
+    "stopID": "30091",
+    "parentStationID": "40460",
+    "platformName": "Loop Bound",
+    "stopName": "Merchandise Mart"
+  },
+  "30092": {
+    "stopID": "30092",
+    "parentStationID": "40470",
+    "platformName": "O'Hare Bound",
+    "stopName": "Racine"
+  },
+  "30093": {
+    "stopID": "30093",
+    "parentStationID": "40470",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Racine"
+  },
+  "30094": {
+    "stopID": "30094",
+    "parentStationID": "40480",
+    "platformName": "63rd Bound",
+    "stopName": "Cicero"
+  },
+  "30095": {
+    "stopID": "30095",
+    "parentStationID": "40490",
+    "platformName": "O'Hare Bound",
+    "stopName": "Grand/Milwaukee"
+  },
+  "30096": {
+    "stopID": "30096",
+    "parentStationID": "40490",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Grand/Milwaukee"
+  },
+  "30099": {
+    "stopID": "30099",
+    "parentStationID": "40510",
+    "platformName": "Harlem Bound",
+    "stopName": "Garfield"
+  },
+  "30100": {
+    "stopID": "30100",
+    "parentStationID": "40510",
+    "platformName": "63rd Bound",
+    "stopName": "Garfield"
+  },
+  "30101": {
+    "stopID": "30101",
+    "parentStationID": "40520",
+    "platformName": "Linden Bound",
+    "stopName": "Foster"
+  },
+  "30102": {
+    "stopID": "30102",
+    "parentStationID": "40520",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Foster"
+  },
+  "30103": {
+    "stopID": "30103",
+    "parentStationID": "40530",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Diversey"
+  },
+  "30104": {
+    "stopID": "30104",
+    "parentStationID": "40530",
+    "platformName": "Loop Bound",
+    "stopName": "Diversey"
+  },
+  "30105": {
+    "stopID": "30105",
+    "parentStationID": "40540",
+    "platformName": "Howard Bound",
+    "stopName": "Wilson"
+  },
+  "30106": {
+    "stopID": "30106",
+    "parentStationID": "40540",
+    "platformName": "95th Bound",
+    "stopName": "Wilson"
+  },
+  "30107": {
+    "stopID": "30107",
+    "parentStationID": "40550",
+    "platformName": "O'Hare Bound",
+    "stopName": "Irving Park (O'Hare Branch)"
+  },
+  "30108": {
+    "stopID": "30108",
+    "parentStationID": "40550",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Irving Park (O'Hare Branch)"
+  },
+  "30109": {
+    "stopID": "30109",
+    "parentStationID": "40560",
+    "platformName": "Howard Bound",
+    "stopName": "Jackson/State"
+  },
+  "30110": {
+    "stopID": "30110",
+    "parentStationID": "40560",
+    "platformName": "95th Bound",
+    "stopName": "Jackson/State"
+  },
+  "30111": {
+    "stopID": "30111",
+    "parentStationID": "40570",
+    "platformName": "O'Hare Bound",
+    "stopName": "California"
+  },
+  "30112": {
+    "stopID": "30112",
+    "parentStationID": "40570",
+    "platformName": "Forest Pk Bound",
+    "stopName": "California"
+  },
+  "30113": {
+    "stopID": "30113",
+    "parentStationID": "40580",
+    "platformName": "Loop Bound",
+    "stopName": "54th/Cermak"
+  },
+  "30114": {
+    "stopID": "30114",
+    "parentStationID": "40580",
+    "platformName": "Terminal arrival",
+    "stopName": "54th/Cermak"
+  },
+  "30115": {
+    "stopID": "30115",
+    "parentStationID": "40590",
+    "platformName": "O'Hare Bound",
+    "stopName": "Damen/Milwaukee"
+  },
+  "30116": {
+    "stopID": "30116",
+    "parentStationID": "40590",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Damen/Milwaukee"
+  },
+  "30117": {
+    "stopID": "30117",
+    "parentStationID": "40600",
+    "platformName": "Loop Bound",
+    "stopName": "Kostner"
+  },
+  "30118": {
+    "stopID": "30118",
+    "parentStationID": "40600",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Kostner"
+  },
+  "30119": {
+    "stopID": "30119",
+    "parentStationID": "40610",
+    "platformName": "63rd Bound",
+    "stopName": "Ridgeland"
+  },
+  "30120": {
+    "stopID": "30120",
+    "parentStationID": "40610",
+    "platformName": "Harlem Bound",
+    "stopName": "Ridgeland"
+  },
+  "30121": {
+    "stopID": "30121",
+    "parentStationID": "40630",
+    "platformName": "Howard Bound",
+    "stopName": "Clark/Division"
+  },
+  "30122": {
+    "stopID": "30122",
+    "parentStationID": "40630",
+    "platformName": "95th Bound",
+    "stopName": "Clark/Division"
+  },
+  "30125": {
+    "stopID": "30125",
+    "parentStationID": "40650",
+    "platformName": "Howard Bound",
+    "stopName": "North/Clybourn"
+  },
+  "30126": {
+    "stopID": "30126",
+    "parentStationID": "40650",
+    "platformName": "95th Bound",
+    "stopName": "North/Clybourn"
+  },
+  "30127": {
+    "stopID": "30127",
+    "parentStationID": "40660",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Armitage"
+  },
+  "30128": {
+    "stopID": "30128",
+    "parentStationID": "40660",
+    "platformName": "Loop Bound",
+    "stopName": "Armitage"
+  },
+  "30129": {
+    "stopID": "30129",
+    "parentStationID": "40670",
+    "platformName": "O'Hare Bound",
+    "stopName": "Western (O'Hare Branch)"
+  },
+  "30130": {
+    "stopID": "30130",
+    "parentStationID": "40670",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Western (O'Hare Branch)"
+  },
+  "30131": {
+    "stopID": "30131",
+    "parentStationID": "40680",
+    "platformName": "Outer Loop",
+    "stopName": "Adams/Wabash"
+  },
+  "30132": {
+    "stopID": "30132",
+    "parentStationID": "40680",
+    "platformName": "Inner Loop",
+    "stopName": "Adams/Wabash"
+  },
+  "30133": {
+    "stopID": "30133",
+    "parentStationID": "40690",
+    "platformName": "Linden Bound",
+    "stopName": "Dempster"
+  },
+  "30134": {
+    "stopID": "30134",
+    "parentStationID": "40690",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Dempster"
+  },
+  "30135": {
+    "stopID": "30135",
+    "parentStationID": "40700",
+    "platformName": "63rd Bound",
+    "stopName": "Laramie"
+  },
+  "30136": {
+    "stopID": "30136",
+    "parentStationID": "40700",
+    "platformName": "Harlem Bound",
+    "stopName": "Laramie"
+  },
+  "30137": {
+    "stopID": "30137",
+    "parentStationID": "40710",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Chicago"
+  },
+  "30138": {
+    "stopID": "30138",
+    "parentStationID": "40710",
+    "platformName": "Loop Bound",
+    "stopName": "Chicago"
+  },
+  "30139": {
+    "stopID": "30139",
+    "parentStationID": "40720",
+    "platformName": "Terminal arrival",
+    "stopName": "Cottage Grove"
+  },
+  "30140": {
+    "stopID": "30140",
+    "parentStationID": "40720",
+    "platformName": "Harlem Bound",
+    "stopName": "Cottage Grove"
+  },
+  "30141": {
+    "stopID": "30141",
+    "parentStationID": "40730",
+    "platformName": "Inner Loop",
+    "stopName": "Washington/Wells"
+  },
+  "30142": {
+    "stopID": "30142",
+    "parentStationID": "40730",
+    "platformName": "Outer Loop",
+    "stopName": "Washington/Wells"
+  },
+  "30143": {
+    "stopID": "30143",
+    "parentStationID": "40740",
+    "platformName": "Loop Bound",
+    "stopName": "Western"
+  },
+  "30144": {
+    "stopID": "30144",
+    "parentStationID": "40740",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Western"
+  },
+  "30145": {
+    "stopID": "30145",
+    "parentStationID": "40750",
+    "platformName": "O'Hare Bound",
+    "stopName": "Harlem (O'Hare Branch)"
+  },
+  "30146": {
+    "stopID": "30146",
+    "parentStationID": "40750",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Harlem (O'Hare Branch)"
+  },
+  "30147": {
+    "stopID": "30147",
+    "parentStationID": "40760",
+    "platformName": "Howard Bound",
+    "stopName": "Granville"
+  },
+  "30148": {
+    "stopID": "30148",
+    "parentStationID": "40760",
+    "platformName": "95th Bound",
+    "stopName": "Granville"
+  },
+  "30149": {
+    "stopID": "30149",
+    "parentStationID": "40770",
+    "platformName": "Howard Bound",
+    "stopName": "Lawrence"
+  },
+  "30150": {
+    "stopID": "30150",
+    "parentStationID": "40770",
+    "platformName": "95th Bound",
+    "stopName": "Lawrence"
+  },
+  "30151": {
+    "stopID": "30151",
+    "parentStationID": "40780",
+    "platformName": "Loop Bound",
+    "stopName": "Central Park"
+  },
+  "30152": {
+    "stopID": "30152",
+    "parentStationID": "40780",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Central Park"
+  },
+  "30153": {
+    "stopID": "30153",
+    "parentStationID": "40790",
+    "platformName": "O'Hare Bound",
+    "stopName": "Monroe"
+  },
+  "30154": {
+    "stopID": "30154",
+    "parentStationID": "40790",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Monroe"
+  },
+  "30155": {
+    "stopID": "30155",
+    "parentStationID": "40800",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Sedgwick"
+  },
+  "30156": {
+    "stopID": "30156",
+    "parentStationID": "40800",
+    "platformName": "Loop Bound",
+    "stopName": "Sedgwick"
+  },
+  "30157": {
+    "stopID": "30157",
+    "parentStationID": "40810",
+    "platformName": "O'Hare Bound",
+    "stopName": "Illinois Medical District"
+  },
+  "30158": {
+    "stopID": "30158",
+    "parentStationID": "40810",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Illinois Medical District"
+  },
+  "30159": {
+    "stopID": "30159",
+    "parentStationID": "40820",
+    "platformName": "O'Hare Bound",
+    "stopName": "Rosemont"
+  },
+  "30160": {
+    "stopID": "30160",
+    "parentStationID": "40820",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Rosemont"
+  },
+  "30161": {
+    "stopID": "30161",
+    "parentStationID": "40830",
+    "platformName": "Loop Bound",
+    "stopName": "18th"
+  },
+  "30162": {
+    "stopID": "30162",
+    "parentStationID": "40830",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "18th"
+  },
+  "30163": {
+    "stopID": "30163",
+    "parentStationID": "40840",
+    "platformName": "Linden Bound",
+    "stopName": "South Blvd"
+  },
+  "30164": {
+    "stopID": "30164",
+    "parentStationID": "40840",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "South Blvd"
+  },
+  "30165": {
+    "stopID": "30165",
+    "parentStationID": "40850",
+    "platformName": "Outer Loop",
+    "stopName": "H.W. Library"
+  },
+  "30166": {
+    "stopID": "30166",
+    "parentStationID": "40850",
+    "platformName": "Inner Loop",
+    "stopName": "H.W. Library"
+  },
+  "30167": {
+    "stopID": "30167",
+    "parentStationID": "40870",
+    "platformName": "Kimball Bound",
+    "stopName": "Francisco"
+  },
+  "30168": {
+    "stopID": "30168",
+    "parentStationID": "40870",
+    "platformName": "Loop Bound",
+    "stopName": "Francisco"
+  },
+  "30169": {
+    "stopID": "30169",
+    "parentStationID": "40880",
+    "platformName": "Howard Bound",
+    "stopName": "Thorndale"
+  },
+  "30170": {
+    "stopID": "30170",
+    "parentStationID": "40880",
+    "platformName": "95th Bound",
+    "stopName": "Thorndale"
+  },
+  "30171": {
+    "stopID": "30171",
+    "parentStationID": "40890",
+    "platformName": "Terminal Arrival",
+    "stopName": "O'Hare"
+  },
+  "30172": {
+    "stopID": "30172",
+    "parentStationID": "40890",
+    "platformName": "Forest Pk Bound",
+    "stopName": "O'Hare"
+  },
+  "30173": {
+    "stopID": "30173",
+    "parentStationID": "40900",
+    "platformName": "Terminal arrival",
+    "stopName": "Howard"
+  },
+  "30174": {
+    "stopID": "30174",
+    "parentStationID": "40900",
+    "platformName": "95th-Bound",
+    "stopName": "Howard"
+  },
+  "30175": {
+    "stopID": "30175",
+    "parentStationID": "40900",
+    "platformName": "Linden, Skokie Bound",
+    "stopName": "Howard"
+  },
+  "30176": {
+    "stopID": "30176",
+    "parentStationID": "40900",
+    "platformName": "Terminal arrival",
+    "stopName": "Howard"
+  },
+  "30177": {
+    "stopID": "30177",
+    "parentStationID": "40910",
+    "platformName": "Howard Bound",
+    "stopName": "63rd"
+  },
+  "30178": {
+    "stopID": "30178",
+    "parentStationID": "40910",
+    "platformName": "95th Bound",
+    "stopName": "63rd"
+  },
+  "30179": {
+    "stopID": "30179",
+    "parentStationID": "40920",
+    "platformName": "O'Hare Bound",
+    "stopName": "Pulaski"
+  },
+  "30180": {
+    "stopID": "30180",
+    "parentStationID": "40920",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Pulaski"
+  },
+  "30181": {
+    "stopID": "30181",
+    "parentStationID": "40930",
+    "platformName": "Loop Bound",
+    "stopName": "Midway"
+  },
+  "30182": {
+    "stopID": "30182",
+    "parentStationID": "40930",
+    "platformName": "Arrival",
+    "stopName": "Midway"
+  },
+  "30183": {
+    "stopID": "30183",
+    "parentStationID": "40940",
+    "platformName": "Harlem Bound",
+    "stopName": "Halsted/63rd"
+  },
+  "30184": {
+    "stopID": "30184",
+    "parentStationID": "40940",
+    "platformName": "Ashland Bound",
+    "stopName": "Halsted/63rd"
+  },
+  "30185": {
+    "stopID": "30185",
+    "parentStationID": "40960",
+    "platformName": "Loop Bound",
+    "stopName": "Pulaski"
+  },
+  "30186": {
+    "stopID": "30186",
+    "parentStationID": "40960",
+    "platformName": "Midway Bound",
+    "stopName": "Pulaski"
+  },
+  "30187": {
+    "stopID": "30187",
+    "parentStationID": "40970",
+    "platformName": "O'Hare Bound",
+    "stopName": "Cicero"
+  },
+  "30188": {
+    "stopID": "30188",
+    "parentStationID": "40970",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Cicero"
+  },
+  "30189": {
+    "stopID": "30189",
+    "parentStationID": "40980",
+    "platformName": "O'Hare Bound",
+    "stopName": "Harlem (Forest Pk Branch)"
+  },
+  "30190": {
+    "stopID": "30190",
+    "parentStationID": "40980",
+    "platformName": "Terminal arrival",
+    "stopName": "Harlem (Forest Pk Branch)"
+  },
+  "30191": {
+    "stopID": "30191",
+    "parentStationID": "40990",
+    "platformName": "Howard Bound",
+    "stopName": "69th"
+  },
+  "30192": {
+    "stopID": "30192",
+    "parentStationID": "40990",
+    "platformName": "95th Bound",
+    "stopName": "69th"
+  },
+  "30193": {
+    "stopID": "30193",
+    "parentStationID": "41000",
+    "platformName": "Howard Bound",
+    "stopName": "Cermak-Chinatown"
+  },
+  "30194": {
+    "stopID": "30194",
+    "parentStationID": "41000",
+    "platformName": "95th Bound",
+    "stopName": "Cermak-Chinatown"
+  },
+  "30195": {
+    "stopID": "30195",
+    "parentStationID": "41010",
+    "platformName": "Kimball Bound",
+    "stopName": "Rockwell"
+  },
+  "30196": {
+    "stopID": "30196",
+    "parentStationID": "41010",
+    "platformName": "Loop Bound",
+    "stopName": "Rockwell"
+  },
+  "30197": {
+    "stopID": "30197",
+    "parentStationID": "41020",
+    "platformName": "O'Hare Bound",
+    "stopName": "Logan Square"
+  },
+  "30198": {
+    "stopID": "30198",
+    "parentStationID": "41020",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Logan Square"
+  },
+  "30199": {
+    "stopID": "30199",
+    "parentStationID": "41030",
+    "platformName": "Loop Bound",
+    "stopName": "Polk"
+  },
+  "30200": {
+    "stopID": "30200",
+    "parentStationID": "41030",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Polk"
+  },
+  "30201": {
+    "stopID": "30201",
+    "parentStationID": "41040",
+    "platformName": "Loop Bound",
+    "stopName": "Kedzie"
+  },
+  "30202": {
+    "stopID": "30202",
+    "parentStationID": "41040",
+    "platformName": "54th/Cermak Bound",
+    "stopName": "Kedzie"
+  },
+  "30203": {
+    "stopID": "30203",
+    "parentStationID": "41050",
+    "platformName": "Linden Bound",
+    "stopName": "Linden"
+  },
+  "30204": {
+    "stopID": "30204",
+    "parentStationID": "41050",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Linden"
+  },
+  "30205": {
+    "stopID": "30205",
+    "parentStationID": "41060",
+    "platformName": "Loop Bound",
+    "stopName": "Ashland"
+  },
+  "30206": {
+    "stopID": "30206",
+    "parentStationID": "41060",
+    "platformName": "Midway Bound",
+    "stopName": "Ashland"
+  },
+  "30207": {
+    "stopID": "30207",
+    "parentStationID": "41070",
+    "platformName": "63rd Bound",
+    "stopName": "Kedzie"
+  },
+  "30208": {
+    "stopID": "30208",
+    "parentStationID": "41070",
+    "platformName": "Harlem Bound",
+    "stopName": "Kedzie"
+  },
+  "30209": {
+    "stopID": "30209",
+    "parentStationID": "41080",
+    "platformName": "Harlem Bound",
+    "stopName": "47th"
+  },
+  "30210": {
+    "stopID": "30210",
+    "parentStationID": "41080",
+    "platformName": "63rd Bound",
+    "stopName": "47th"
+  },
+  "30211": {
+    "stopID": "30211",
+    "parentStationID": "41090",
+    "platformName": "Howard Bound",
+    "stopName": "Monroe"
+  },
+  "30212": {
+    "stopID": "30212",
+    "parentStationID": "41090",
+    "platformName": "95th Bound",
+    "stopName": "Monroe"
+  },
+  "30213": {
+    "stopID": "30213",
+    "parentStationID": "41120",
+    "platformName": "Harlem Bound",
+    "stopName": "35-Bronzeville-IIT"
+  },
+  "30214": {
+    "stopID": "30214",
+    "parentStationID": "41120",
+    "platformName": "63rd Bound",
+    "stopName": "35-Bronzeville-IIT"
+  },
+  "30215": {
+    "stopID": "30215",
+    "parentStationID": "41130",
+    "platformName": "Loop Bound",
+    "stopName": "Halsted"
+  },
+  "30216": {
+    "stopID": "30216",
+    "parentStationID": "41130",
+    "platformName": "Midway Bound",
+    "stopName": "Halsted"
+  },
+  "30217": {
+    "stopID": "30217",
+    "parentStationID": "41140",
+    "platformName": "Cottage Grove Bound",
+    "stopName": "King Drive"
+  },
+  "30218": {
+    "stopID": "30218",
+    "parentStationID": "41140",
+    "platformName": "Harlem Bound",
+    "stopName": "King Drive"
+  },
+  "30219": {
+    "stopID": "30219",
+    "parentStationID": "41150",
+    "platformName": "Loop Bound",
+    "stopName": "Kedzie"
+  },
+  "30220": {
+    "stopID": "30220",
+    "parentStationID": "41150",
+    "platformName": "Midway Bound",
+    "stopName": "Kedzie"
+  },
+  "30221": {
+    "stopID": "30221",
+    "parentStationID": "41160",
+    "platformName": "Loop-63rd Bound",
+    "stopName": "Clinton"
+  },
+  "30222": {
+    "stopID": "30222",
+    "parentStationID": "41160",
+    "platformName": "Harlem-54th/Cermak Bound",
+    "stopName": "Clinton"
+  },
+  "30223": {
+    "stopID": "30223",
+    "parentStationID": "41170",
+    "platformName": "Howard Bound",
+    "stopName": "Garfield"
+  },
+  "30224": {
+    "stopID": "30224",
+    "parentStationID": "41170",
+    "platformName": "95th Bound",
+    "stopName": "Garfield"
+  },
+  "30225": {
+    "stopID": "30225",
+    "parentStationID": "41180",
+    "platformName": "Kimball Bound",
+    "stopName": "Kedzie"
+  },
+  "30226": {
+    "stopID": "30226",
+    "parentStationID": "41180",
+    "platformName": "Loop Bound",
+    "stopName": "Kedzie"
+  },
+  "30227": {
+    "stopID": "30227",
+    "parentStationID": "41190",
+    "platformName": "Howard Bound",
+    "stopName": "Jarvis"
+  },
+  "30228": {
+    "stopID": "30228",
+    "parentStationID": "41190",
+    "platformName": "95th Bound",
+    "stopName": "Jarvis"
+  },
+  "30229": {
+    "stopID": "30229",
+    "parentStationID": "41200",
+    "platformName": "Howard Bound",
+    "stopName": "Argyle"
+  },
+  "30230": {
+    "stopID": "30230",
+    "parentStationID": "41200",
+    "platformName": "95th Bound",
+    "stopName": "Argyle"
+  },
+  "30231": {
+    "stopID": "30231",
+    "parentStationID": "41210",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Wellington"
+  },
+  "30232": {
+    "stopID": "30232",
+    "parentStationID": "41210",
+    "platformName": "Loop Bound",
+    "stopName": "Wellington"
+  },
+  "30233": {
+    "stopID": "30233",
+    "parentStationID": "41220",
+    "platformName": "Howard Bound",
+    "stopName": "Fullerton"
+  },
+  "30234": {
+    "stopID": "30234",
+    "parentStationID": "41220",
+    "platformName": "95th Bound",
+    "stopName": "Fullerton"
+  },
+  "30235": {
+    "stopID": "30235",
+    "parentStationID": "41220",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Fullerton"
+  },
+  "30236": {
+    "stopID": "30236",
+    "parentStationID": "41220",
+    "platformName": "Loop Bound",
+    "stopName": "Fullerton"
+  },
+  "30237": {
+    "stopID": "30237",
+    "parentStationID": "41230",
+    "platformName": "Howard Bound",
+    "stopName": "47th"
+  },
+  "30238": {
+    "stopID": "30238",
+    "parentStationID": "41230",
+    "platformName": "95th Bound",
+    "stopName": "47th"
+  },
+  "30239": {
+    "stopID": "30239",
+    "parentStationID": "41240",
+    "platformName": "O'Hare Bound",
+    "stopName": "Addison"
+  },
+  "30240": {
+    "stopID": "30240",
+    "parentStationID": "41240",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Addison"
+  },
+  "30241": {
+    "stopID": "30241",
+    "parentStationID": "41250",
+    "platformName": "Linden Bound",
+    "stopName": "Central"
+  },
+  "30242": {
+    "stopID": "30242",
+    "parentStationID": "41250",
+    "platformName": "Howard-Loop Bound",
+    "stopName": "Central"
+  },
+  "30243": {
+    "stopID": "30243",
+    "parentStationID": "41260",
+    "platformName": "63rd Bound",
+    "stopName": "Austin"
+  },
+  "30244": {
+    "stopID": "30244",
+    "parentStationID": "41260",
+    "platformName": "Harlem Bound",
+    "stopName": "Austin"
+  },
+  "30245": {
+    "stopID": "30245",
+    "parentStationID": "41270",
+    "platformName": "Harlem Bound",
+    "stopName": "43rd"
+  },
+  "30246": {
+    "stopID": "30246",
+    "parentStationID": "41270",
+    "platformName": "63rd Bound",
+    "stopName": "43rd"
+  },
+  "30247": {
+    "stopID": "30247",
+    "parentStationID": "41280",
+    "platformName": "O'Hare Bound",
+    "stopName": "Jefferson Park"
+  },
+  "30248": {
+    "stopID": "30248",
+    "parentStationID": "41280",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Jefferson Park"
+  },
+  "30249": {
+    "stopID": "30249",
+    "parentStationID": "41290",
+    "platformName": "Terminal arrival",
+    "stopName": "Kimball"
+  },
+  "30250": {
+    "stopID": "30250",
+    "parentStationID": "41290",
+    "platformName": "Loop Bound",
+    "stopName": "Kimball"
+  },
+  "30251": {
+    "stopID": "30251",
+    "parentStationID": "41300",
+    "platformName": "Howard Bound",
+    "stopName": "Loyola"
+  },
+  "30252": {
+    "stopID": "30252",
+    "parentStationID": "41300",
+    "platformName": "95th Bound",
+    "stopName": "Loyola"
+  },
+  "30253": {
+    "stopID": "30253",
+    "parentStationID": "41310",
+    "platformName": "Kimball Bound",
+    "stopName": "Paulina"
+  },
+  "30254": {
+    "stopID": "30254",
+    "parentStationID": "41310",
+    "platformName": "Loop Bound",
+    "stopName": "Paulina"
+  },
+  "30255": {
+    "stopID": "30255",
+    "parentStationID": "41320",
+    "platformName": "Howard Bound",
+    "stopName": "Belmont"
+  },
+  "30256": {
+    "stopID": "30256",
+    "parentStationID": "41320",
+    "platformName": "95th Bound",
+    "stopName": "Belmont"
+  },
+  "30257": {
+    "stopID": "30257",
+    "parentStationID": "41320",
+    "platformName": "Kimball-Linden Bound",
+    "stopName": "Belmont"
+  },
+  "30258": {
+    "stopID": "30258",
+    "parentStationID": "41320",
+    "platformName": "Loop Bound",
+    "stopName": "Belmont"
+  },
+  "30259": {
+    "stopID": "30259",
+    "parentStationID": "41330",
+    "platformName": "O'Hare Bound",
+    "stopName": "Montrose"
+  },
+  "30260": {
+    "stopID": "30260",
+    "parentStationID": "41330",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Montrose"
+  },
+  "30261": {
+    "stopID": "30261",
+    "parentStationID": "41340",
+    "platformName": "O'Hare Bound",
+    "stopName": "LaSalle"
+  },
+  "30262": {
+    "stopID": "30262",
+    "parentStationID": "41340",
+    "platformName": "Forest Pk Bound",
+    "stopName": "LaSalle"
+  },
+  "30263": {
+    "stopID": "30263",
+    "parentStationID": "41350",
+    "platformName": "63rd Bound",
+    "stopName": "Oak Park"
+  },
+  "30264": {
+    "stopID": "30264",
+    "parentStationID": "41350",
+    "platformName": "Harlem Bound",
+    "stopName": "Oak Park"
+  },
+  "30265": {
+    "stopID": "30265",
+    "parentStationID": "41360",
+    "platformName": "63rd Bound",
+    "stopName": "California"
+  },
+  "30266": {
+    "stopID": "30266",
+    "parentStationID": "41360",
+    "platformName": "Harlem Bound",
+    "stopName": "California"
+  },
+  "30267": {
+    "stopID": "30267",
+    "parentStationID": "41380",
+    "platformName": "Howard Bound",
+    "stopName": "Bryn Mawr"
+  },
+  "30268": {
+    "stopID": "30268",
+    "parentStationID": "41380",
+    "platformName": "95th Bound",
+    "stopName": "Bryn Mawr"
+  },
+  "30269": {
+    "stopID": "30269",
+    "parentStationID": "41400",
+    "platformName": "Howard Bound",
+    "stopName": "Roosevelt"
+  },
+  "30270": {
+    "stopID": "30270",
+    "parentStationID": "41400",
+    "platformName": "95th Bound",
+    "stopName": "Roosevelt"
+  },
+  "30271": {
+    "stopID": "30271",
+    "parentStationID": "41410",
+    "platformName": "O'Hare Bound",
+    "stopName": "Chicago"
+  },
+  "30272": {
+    "stopID": "30272",
+    "parentStationID": "41410",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Chicago"
+  },
+  "30273": {
+    "stopID": "30273",
+    "parentStationID": "41420",
+    "platformName": "Howard Bound",
+    "stopName": "Addison"
+  },
+  "30274": {
+    "stopID": "30274",
+    "parentStationID": "41420",
+    "platformName": "95th Bound",
+    "stopName": "Addison"
+  },
+  "30275": {
+    "stopID": "30275",
+    "parentStationID": "41430",
+    "platformName": "Howard Bound",
+    "stopName": "87th"
+  },
+  "30276": {
+    "stopID": "30276",
+    "parentStationID": "41430",
+    "platformName": "95th Bound",
+    "stopName": "87th"
+  },
+  "30277": {
+    "stopID": "30277",
+    "parentStationID": "41440",
+    "platformName": "Kimball Bound",
+    "stopName": "Addison"
+  },
+  "30278": {
+    "stopID": "30278",
+    "parentStationID": "41440",
+    "platformName": "Loop Bound",
+    "stopName": "Addison"
+  },
+  "30279": {
+    "stopID": "30279",
+    "parentStationID": "41450",
+    "platformName": "Howard Bound",
+    "stopName": "Chicago"
+  },
+  "30280": {
+    "stopID": "30280",
+    "parentStationID": "41450",
+    "platformName": "95th Bound",
+    "stopName": "Chicago"
+  },
+  "30281": {
+    "stopID": "30281",
+    "parentStationID": "41460",
+    "platformName": "Kimball Bound",
+    "stopName": "Irving Park"
+  },
+  "30282": {
+    "stopID": "30282",
+    "parentStationID": "41460",
+    "platformName": "Loop Bound",
+    "stopName": "Irving Park"
+  },
+  "30283": {
+    "stopID": "30283",
+    "parentStationID": "41480",
+    "platformName": "Kimball Bound",
+    "stopName": "Western"
+  },
+  "30284": {
+    "stopID": "30284",
+    "parentStationID": "41480",
+    "platformName": "Loop Bound",
+    "stopName": "Western"
+  },
+  "30285": {
+    "stopID": "30285",
+    "parentStationID": "41490",
+    "platformName": "Howard Bound",
+    "stopName": "Harrison"
+  },
+  "30286": {
+    "stopID": "30286",
+    "parentStationID": "41490",
+    "platformName": "95th Bound",
+    "stopName": "Harrison"
+  },
+  "30287": {
+    "stopID": "30287",
+    "parentStationID": "41500",
+    "platformName": "Kimball Bound",
+    "stopName": "Montrose"
+  },
+  "30288": {
+    "stopID": "30288",
+    "parentStationID": "41500",
+    "platformName": "Loop Bound",
+    "stopName": "Montrose"
+  },
+  "30289": {
+    "stopID": "30289",
+    "parentStationID": "41660",
+    "platformName": "Howard Bound",
+    "stopName": "Lake"
+  },
+  "30290": {
+    "stopID": "30290",
+    "parentStationID": "41660",
+    "platformName": "95th Bound",
+    "stopName": "Lake"
+  },
+  "30291": {
+    "stopID": "30291",
+    "parentStationID": "41670",
+    "platformName": "63rd Bound",
+    "stopName": "Conservatory"
+  },
+  "30292": {
+    "stopID": "30292",
+    "parentStationID": "41670",
+    "platformName": "Harlem Bound",
+    "stopName": "Conservatory"
+  },
+  "30293": {
+    "stopID": "30293",
+    "parentStationID": "40080",
+    "platformName": "Howard-Linden Bound",
+    "stopName": "Sheridan"
+  },
+  "30294": {
+    "stopID": "30294",
+    "parentStationID": "40080",
+    "platformName": "Loop Bound",
+    "stopName": "Sheridan"
+  },
+  "30295": {
+    "stopID": "30295",
+    "parentStationID": "41510",
+    "platformName": "Loop-63rd Bound",
+    "stopName": "Morgan"
+  },
+  "30296": {
+    "stopID": "30296",
+    "parentStationID": "41510",
+    "platformName": "Harlem-54th/Cermak Bound",
+    "stopName": "Morgan"
+  },
+  "30297": {
+    "stopID": "30297",
+    "parentStationID": "41680",
+    "platformName": "Dempster-Skokie Bound",
+    "stopName": "Oakton-Skokie"
+  },
+  "30298": {
+    "stopID": "30298",
+    "parentStationID": "41680",
+    "platformName": "Howard Bound",
+    "stopName": "Oakton-Skokie"
+  },
+  "30374": {
+    "stopID": "30374",
+    "parentStationID": "40380",
+    "platformName": "Forest Pk Bound",
+    "stopName": "Clark/Lake"
+  },
+  "30375": {
+    "stopID": "30375",
+    "parentStationID": "40380",
+    "platformName": "O'Hare Bound",
+    "stopName": "Clark/Lake"
+  },
+  "30381": {
+    "stopID": "30381",
+    "parentStationID": "41690",
+    "platformName": "Harlem Bound",
+    "stopName": "Cermak-McCormick Place"
+  },
+  "30382": {
+    "stopID": "30382",
+    "parentStationID": "41690",
+    "platformName": "63rd Bound",
+    "stopName": "Cermak-McCormick Place"
+  },
+  "30383": {
+    "stopID": "30383",
+    "parentStationID": "41700",
+    "platformName": "Outer Loop",
+    "stopName": "Washington/Wabash"
+  },
+  "30384": {
+    "stopID": "30384",
+    "parentStationID": "41700",
+    "platformName": "Inner Loop",
+    "stopName": "Washington/Wabash"
+  },
+  "30385": {
+    "stopID": "30385",
+    "parentStationID": "40540",
+    "platformName": "Loop Bound",
+    "stopName": "Wilson"
+  },
+  "30386": {
+    "stopID": "30386",
+    "parentStationID": "40540",
+    "platformName": "Linden Bound",
+    "stopName": "Wilson"
+  },
+  "30387": {
+    "stopID": "30387",
+    "parentStationID": "41710",
+    "platformName": "63rd Bound",
+    "stopName": "Damen"
+  },
+  "30388": {
+    "stopID": "30388",
+    "parentStationID": "41710",
+    "platformName": "Harlem Bound",
+    "stopName": "Damen"
+  }
+}
