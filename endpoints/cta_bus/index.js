@@ -16,7 +16,7 @@ const scheduleRelationshipEnums = {
 };
 
 const update = async () => {
-  if (!process.env.metra_token) return false;
+  if (!process.env.cta_bus_gtfs_rt_key) return false;
 
   const gtfsRealtimeRoot = await protobuf.load("gtfs-rt.proto");
   const FeedMessage = gtfsRealtimeRoot.lookupType("transit_realtime.FeedMessage");

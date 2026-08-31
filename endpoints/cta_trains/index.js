@@ -1,12 +1,8 @@
 const protobuf = require("protobufjs");
-const fetch = require("node-fetch");
 
 const actualLines = { R: "Red", P: "Purple", Y: "Yellow", B: "Blue", V: "Pink", G: "Green", T: "Brown", O: "Orange" };
-
 const validLines = { Red: "R", P: "P", Y: "Y", Blue: "B", Pink: "V", G: "G", Brn: "T", Org: "O" };
-
 const validLinesReverse = { R: "Red", P: "P", Y: "Y", B: "Blue", V: "Pink", G: "G", T: "Brn", O: "Org" };
-
 const lineShortNames = { Red: "Red", P: "Pur", Y: "Yel", Blue: "Blu", Pink: "Pnk", G: "Grn", Brn: "Brn", Org: "Org" };
 
 const regularDestinations = [
@@ -45,195 +41,73 @@ const actualDestinationsFromGTFS = {
   Skokie: "Skokie"
 };
 
+const scheduleRelationshipEnums = {
+  0: "SCHEDULED",
+  2: "UNSCHEDULED",
+  3: "CANCELED",
+  4: "REPLACEMENT",
+  5: "DUPLICATED",
+  6: "NEW",
+  7: "DELETED"
+};
+
 const inTheLoop = [40040, 40160, 40260, 40380, 40680, 40730, 40850, 41700];
 
 const lineMeta = {
-  P: { loopLimit: 40460.0, postLoopAlt: "Linden" },
-  V: { loopLimit: 41160.0, postLoopAlt: "54th/Cermak" },
-  T: { loopLimit: 40460.0, postLoopAlt: "Kimball" },
-  O: { loopLimit: 41400.0, postLoopAlt: "Midway" }
-};
-
-const additionalStops = { B: { "Forest Park": "UIC-Halsted" } };
-
-const calcAvgHeadway = (array) => array.reduce((a, b) => a + b) / array.length;
-
-const randomizeArray = (unshuffled) =>
-  unshuffled
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-
-const reqInfo = {
-  credentials: "include",
-  headers: {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/154.0",
-    Accept: "application/json, text/javascript, */*; q=0.01",
-    "Accept-Language": "en-US,en;q=0.5",
-    "X-Requested-With": "XMLHttpRequest",
-    "Sec-Fetch-Dest": "empty",
-    "Sec-Fetch-Mode": "cors",
-    "Sec-Fetch-Site": "same-origin",
-    Pragma: "no-cache",
-    "Cache-Control": "no-cache"
-  },
-  referrer: "https://www.transitchicago.com/traintrackermap/",
-  method: "GET",
-  mode: "cors"
+  P: { loopLimit: 40460, postLoopAlt: "Linden" },
+  Pink: { loopLimit: 41160, postLoopAlt: "54th/Cermak" },
+  Brn: { loopLimit: 40460, postLoopAlt: "Kimball" },
+  Org: { loopLimit: 41400, postLoopAlt: "Midway" }
 };
 
 const processData = async () => {
-  let linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
   try {
-    const req = await fetch(
-      `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=40`,
-      reqInfo
+    const gtfsRealtimeRoot = await protobuf.load("gtfs-rt.proto");
+    const FeedMessage = gtfsRealtimeRoot.lookupType("transit_realtime.FeedMessage");
+
+    const fetchRealtimeFromURL = (url) => {
+      return fetch(url)
+        .then((res) => {
+          if (!res.ok) {
+            res.text().then(console.log);
+            throw new Error("Invalid response from CTA GTFS-RT API.");
+          }
+
+          //res.text().then(console.log);
+
+          return res.arrayBuffer();
+        })
+        .then((arrayBuffer) => FeedMessage.decode(new Uint8Array(arrayBuffer)))
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+
+    const tripUpdatesData = await fetchRealtimeFromURL(
+      `https://transitdata.transitchicago.com/GtfsRealtime/TripUpdates.pb?key=${process.env.cta_bus_gtfs_rt_key}`
     );
-
-    let raw = await req.text();
-
-    if (raw.includes("challenges.cloudflare.com")) {
-      console.log("CTA BLOCKED CLOUDFLARE CHALLENGE");
-      await new Promise((r) => setTimeout(r, Math.floor(Math.random() * 2500)));
-      linesString = randomizeArray(Object.keys(actualLines)).join("%2C");
-
-      const newReq = await fetch(
-        `https://www.transitchicago.com/traintracker/PredictionMap/tmTrains.aspx?line=${linesString}&MaxPredictions=41`,
-        reqInfo
-      );
-      raw = await newReq.text();
-    }
-
-    if (raw.includes("challenges.cloudflare.com")) {
-      console.log("CTA BLOCKED CLOUDFLARE CHALLENGE AGAIN");
-      return false; // nothing we can do
-    }
-
-    const data = JSON.parse(raw);
-
-    if (data?.status !== "OK") return {};
-
-    /*
-    const root = await protobuf.load('schedules.proto');
-    const ScheduleMessage = root.lookupType('gobbler.ScheduleMessage');
-    */
+    const alertsData = await fetchRealtimeFromURL(
+      `https://transitdata.transitchicago.com/GtfsRealtime/ServiceAlerts.pb?key=${process.env.cta_bus_gtfs_rt_key}`
+    );
+    const alternativePositionsData = await fetch(
+      `https://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=${process.env.cta_tracker_key}&outputType=JSON&rt=${Object.keys(validLines).join(",")}`
+    ).then((res) => res.json());
 
     const routesReq = await fetch("https://gtfs.piemadd.com/data/cta/routes.json");
     const stationsReq = await fetch("https://gtfs.piemadd.com/data/cta/stops.json");
-    //const staticMetaRes = await fetch('https://gobblerstatic.transitstat.us/schedules/cta/metadata.json');
 
     const routesData = await routesReq.json();
     const stationsData = await stationsReq.json();
-    //const staticMetaData = await staticMetaRes.json();
-
-    /*
-    const staticScheduleRes = await fetch(`https://gobblerstatic.transitstat.us/schedules/cta/${new Date().toISOString().split('T')[0]}.pbf`);
-    const staticScheduleArrayBuffer = await staticScheduleRes.arrayBuffer();
-    const staticScheduleArray = ScheduleMessage.decode(new Uint8Array(staticScheduleArrayBuffer));
-
-    let staticScheduleData = {};
-    staticScheduleArray.stopMessage.forEach((stop) => {
-      staticScheduleData[stop.stopId] = stop.trainMessage;
-    });
-    */
 
     let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, train_blocks: [] };
+    let positions = {};
 
-    data.dataObject.forEach((line) => {
-      line.Markers.forEach((train) => {
-        if (train.IsSched) return; //we're not meant to get these anyways but in case we do i no no wanna
-
-        let stationPastLoop = false;
-
-        processedData.train_blocks.push({
-          id: train.RunNumber,
-          current: train.CurrentStationId,
-          lat: train.Position.Lat,
-          lon: train.Position.Lng
-        });
-
-        const reverseColors = false; //train.DestName.split("&")[0] == "Cottage Grove" || train.DestName.split("&")[0] == "UIC-Halsted";
-        const route = routesData[validLinesReverse[line.Line]];
-
-        processedData.transitStatus.trains[train.RunNumber] = {
-          lat: train.Position.Lat,
-          lon: train.Position.Lng,
-          heading: ((2 * Math.PI - train.Direction) / (2 * Math.PI)) * 360 + 90,
-          realTime: true,
-          deadMileage: false,
-          line: actualLines[line.Line],
-          lineCode: line.Line,
-          lineColor: reverseColors ? route.routeTextColor : route.routeColor,
-          lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
-          dest: train.DestName.split("&")[0],
-          predictions: [],
-          type: "train",
-          extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: train.RunNumber == 91999 }
-        };
-
-        const now = Date.now();
-
-        train.Predictions.forEach((prediction, i, arr) => {
-          let dest = train.DestName.split("&")[0];
-          const eta = Number(
-            prediction[2].replaceAll("Due", "1").replaceAll("<b>", "").replaceAll("</b>", "").split(" ")[0]
-          );
-          const actualETA = now + eta * 60000;
-
-          if (!isNaN(eta)) {
-            // changing destination if past station before loop
-            if (stationPastLoop) {
-              dest = lineMeta[line.Line].postLoopAlt;
-            }
-          }
-          //checking if train is past loop
-          if (lineMeta[line.Line] && prediction[0] == lineMeta[line.Line].loopLimit) {
-            stationPastLoop = true;
-          }
-
-          const isRealtime = !train.IsSched;
-
-          //adding prediction to train
-          processedData.transitStatus.trains[train.RunNumber].predictions.push({
-            stationID: prediction[0],
-            stationName: prediction[1],
-            actualETA: actualETA,
-            noETA: isNaN(eta)
-          });
-
-          //adding train to stations
-          if (!processedData.transitStatus.stations[prediction[0]]) {
-            processedData.transitStatus.stations[prediction[0]] = {
-              stationID: prediction[0],
-              stationName: prediction[1],
-              destinations: {}
-            };
-          }
-
-          if (!processedData.transitStatus.stations[prediction[0]].destinations[dest]) {
-            processedData.transitStatus.stations[prediction[0]].destinations[dest] = { trains: [] };
-          }
-
-          processedData.transitStatus.stations[prediction[0]].destinations[dest].trains.push({
-            runNumber: train.RunNumber,
-            actualETA: actualETA,
-            noETA: isNaN(eta),
-            realTime: isRealtime,
-            line: actualLines[line.Line],
-            lineCode: line.Line,
-            lineColor: reverseColors ? route.routeTextColor : route.routeColor,
-            lineTextColor: reverseColors ? route.routeColor : route.routeTextColor,
-            extra: { holidayChristmas: train.RunNumber == 1225, holidayGay: train.RunNumber == 91999 }
-          });
-        });
-      });
-    });
-
+    //adding lines to the tracking data
     Object.keys(validLines).forEach((lineCode) => {
       const lineData = routesData[lineCode];
 
-      processedData.transitStatus.lines[validLines[lineCode]] = {
-        lineCode: validLines[lineCode],
+      processedData.transitStatus.lines[lineCode] = {
+        lineCode: lineCode,
         lineNameShort: lineShortNames[lineCode],
         lineNameLong: lineData.routeLongName,
         routeColor: lineData.routeColor,
@@ -243,7 +117,7 @@ const processData = async () => {
       };
     });
 
-    //adding stations not in the tracking data
+    //adding stations to the tracking data
     Object.keys(stationsData).forEach((stationID) => {
       if (stationID < 40000 || stationID >= 50000) return;
 
@@ -275,69 +149,94 @@ const processData = async () => {
       });
     });
 
-    Object.keys(processedData.transitStatus.trains).forEach((train) => {
-      const trainData = processedData.transitStatus.trains[train];
+    alternativePositionsData.ctatt.route
+      .flatMap((route) => route.train)
+      .forEach((train) => {
+        positions[train.rn] = { train };
+      });
 
-      processedData.transitStatus.lines[trainData.lineCode].hasActiveTrains = true;
+    tripUpdatesData.entity.forEach((message) => {
+      const trainID = message?.tripUpdate?.vehicle?.id;
+
+      if (!trainID || trainID.length > 3) return; // not a train
+
+      const position = positions[trainID] ?? { lat: "0", lon: "0", heading: "0" };
+      const isCancelled = message.tripUpdate?.trip?.scheduleRelationship == 3;
+      const route = routesData[message.tripUpdate?.trip?.routeId];
+
+      let destName = position.destNm ?? "Unknown";
+      const finalDestName =
+        stationsData[message?.tripUpdate?.stopTimeUpdate?.at(-1)?.stopId]?.stopName ??
+        route?.routeTrips?.[message.tripUpdate?.trip?.tripid]?.headsign ??
+        "Unknown";
+
+      if (!route) return; // idk at this point
+      if (!processedData.transitStatus.lines[route.routeID]) return; // probably a protato
+
+      /*
+      use the destName until the 'loopLimit' is hit, then use finalDestName for the rest of the stops
+      the train dest should be destName always
+
+      also thinking about how to label stops as "inbound" and "outbound". TODO look at station vs stop ids
+        realistically this will take a lot of manual work
+      */
+
+      processedData.transitStatus.lines[route.routeID].hasActiveTrains = true;
+
+      processedData.transitStatus.trains[trainID] = {
+        lat: position.latitude,
+        lon: position.longitude,
+        heading: 0,
+        realTime: true,
+        isCancelled,
+        deadMileage: false,
+        line: route.routeLongName,
+        lineCode: route.routeID,
+        lineColor: route.routeColor,
+        lineTextColor: route.routeTextColor,
+        dest: destName,
+        predictions: message?.tripUpdate?.stopTimeUpdate.map((stopTime) => {
+          const eta = (stopTime.arrival ?? stopTime.departure).time?.low * 1000;
+
+          const parentStopID = stationsData[stopTime.stopid]?.parentStation;
+
+          //adding to actual station
+          if (processedData.transitStatus.stations[parentStopID]?.destinations?.[destName]) {
+            processedData.transitStatus.stations[parentStopID]?.destinations?.[destName]?.trains.push({
+              runNumber: trainID,
+              actualETA: eta,
+              noETA: isNaN(eta),
+              realTime: true,
+              line: route.routeLongName,
+              lineCode: route.routeID,
+              lineColor: route.routeColor,
+              lineTextColor: route.routeTextColor,
+              //destination: destName,
+              extra: {}
+            });
+          }
+
+          //checking if train is past loop
+          if (lineMeta[route.routeID] && parentStopID == lineMeta[route.routeID].loopLimit) {
+            destName = finalDestName;
+          }
+
+          return {
+            stationID: parentStopID,
+            stationName: stationsData[parentStopID]?.stopName,
+            actualETA: eta,
+            noETA: isNaN(eta)
+          };
+        }),
+        type: "train",
+        extra: { holidayChristmas: trainID == 1225, holidayGay: trainID == 91999 }
+      };
     });
 
     const updated = new Date().toISOString();
     const lastUpdatedNum = new Date(updated).valueOf();
 
     processedData.transitStatus.lastUpdated = updated;
-
-    //filling in schedule data
-    /*
-    const startOfDay = `${new Date().toISOString().split('T')[0]}T00:00:00.000Z`; // Midnight UTC in ISO-8601
-    Object.keys(processedData.transitStatus.stations).forEach((stationKey) => {
-      if (!staticScheduleData[stationKey]) return;
-
-      let now = new Date(startOfDay).valueOf();
-      let headsign = null; //NOT headsign id
-      let routeID = null;
-
-      let scheduledTrainsCanExist = false;
-
-      const staticStationData = staticScheduleData[stationKey];
-      for (i = 0; i < staticStationData.length; i++) {
-        const thisVehicle = staticStationData[i];
-
-        now += thisVehicle.timeDiff * 1000;
-        headsign = thisVehicle.headsignId || thisVehicle.headsignId == 0 ? staticMetaData.headsigns[thisVehicle.headsignId] : headsign;
-        routeID = thisVehicle.routeId || thisVehicle.routeId == 0 ? staticMetaData.routes[thisVehicle.routeId] : routeID;
-
-        if (now < lastUpdatedNum || now > lastUpdatedNum + (1000 * 60 * 60 * 4)) continue;
-
-        if (!processedData.transitStatus.stations[stationKey]['destinations'][headsign]) continue; // probably a bus
-
-        // readability 0 lol
-        const existingTrains = processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'];
-
-        if (existingTrains.length >= 4) continue; //we dont need all that
-
-        //seeing if this train is before the first tracking train
-        if (!scheduledTrainsCanExist) {
-          if (existingTrains.length == 0 || now > existingTrains[0]['actualETA']) {
-            scheduledTrainsCanExist = true;
-          } else {
-            continue; // train is before first tracking train and thats *probably* not possible so YEET
-          }
-        }
-
-        processedData.transitStatus.stations[stationKey]['destinations'][headsign]['trains'].push({
-          runNumber: "Scheduled",
-          actualETA: now,
-          noETA: false,
-          realTime: false,
-          line: routesData[routeID].routeLongName,
-          lineCode: routeID,
-          lineColor: routesData[routeID].routeColor,
-          lineTextColor: routesData[routeID].routeTextColor,
-          extra: {},
-        })
-      }
-    })
-    */
 
     return processedData;
   } catch (e) {
