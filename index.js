@@ -43,7 +43,8 @@ let topIPs = {};
 fastify.after(() => {
   const only_testing = [
     //'chi_events_tracker',
-    //'cta_trains'
+    //'cta_trains',
+    //'gtfs_sch_acc'
   ];
   const exclude_from_root = [
     "gtfs_sch",
