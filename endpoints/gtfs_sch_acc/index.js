@@ -2,7 +2,7 @@ const protobuf = require("protobufjs");
 
 const updateFeed = async (feed, maxMinutes) => {
   //if (feed != 'metra') return false;
-  //if (feed == "cta") return { scheduledVehicles: {} }; 
+  //if (feed == "cta") return { scheduledVehicles: {} };
 
   try {
     const nowDate = new Date();
@@ -40,7 +40,10 @@ const updateFeed = async (feed, maxMinutes) => {
       stoppingPatternTimes[patternIndex] = totalTime;
     });
 
-    const dateStringFormatter = new Intl.DateTimeFormat("en-US", { day: "numeric", timeZone: staticMetaData.agencyTZ ?? 'America/Chicago' });
+    const dateStringFormatter = new Intl.DateTimeFormat("en-US", {
+      day: "numeric",
+      timeZone: staticMetaData.agencyTZ ?? "America/Chicago"
+    });
 
     let scheduledVehicles = {};
 
@@ -80,7 +83,7 @@ const updateFeed = async (feed, maxMinutes) => {
               type: "train",
               extra: {
                 startDate: new Date(currentTimeDiff).toISOString().split("T")[0].replaceAll("-", ""),
-                runNumDate: `${runNumber}-${dateStringFormatter.format(new Date(currentTimeDiff))}`,
+                runNumDate: `${runNumber}-${dateStringFormatter.format(new Date(currentTimeDiff))}`
               }
             };
 
@@ -124,7 +127,7 @@ const updateFeed = async (feed, maxMinutes) => {
   }
 };
 
-const updateFeedInd = async (feedKey, maxMinutes = ) => {
+const updateFeedInd = async (feedKey, maxMinutes = 1440) => {
   console.time(`GTFS schedules for ${feedKey}`);
   const feedData = await updateFeed(feedKey, maxMinutes);
   console.timeEnd(`GTFS schedules for ${feedKey}`);
