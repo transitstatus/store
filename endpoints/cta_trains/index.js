@@ -102,7 +102,7 @@ const processData = async () => {
     const routesData = await fetch("https://gtfs.piemadd.com/data/cta/routes.json").then((res) => res.json());
     const stationsData = await fetch("https://gtfs.piemadd.com/data/cta/stops.json").then((res) => res.json());
 
-    let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, train_blocks: [] };
+    let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, tripIDToRunNumber: {}, train_blocks: [] };
     let positions = {};
     let cancelledTrains = {};
 
@@ -164,6 +164,8 @@ const processData = async () => {
       const trainID = message?.tripUpdate?.vehicle?.id;
 
       if (!trainID || trainID.length > 3) return; // not a train
+
+      processedData.tripIDToRunNumber[trainID] = message.tripUpdate?.trip?.tripId; // for reference later
 
       const position = positions[trainID] ?? { lat: "0", lon: "0", heading: "0" };
       const isCancelled = message.tripUpdate?.trip?.scheduleRelationship == 3;
@@ -252,7 +254,8 @@ const processData = async () => {
       .forEach((runNumber) => {
         const scheduledVehicle = scheduledVehicles[runNumber];
 
-        if (processedData.transitStatus.trains[runNumber]) return; // train exists
+        if (processedData.transitStatus.trains[processedData.tripIDToRunNumber[runNumber]]) return; // active train exists 
+        if (processedData.transitStatus.trains[runNumber]) return; // scheduled train exists
         if (cancelledTrains[runNumber]) scheduledVehicle.isCancelled = true;
 
         scheduledVehicle.predictions.forEach((stop, i) => {
