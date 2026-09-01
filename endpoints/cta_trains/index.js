@@ -254,9 +254,8 @@ const processData = async () => {
 
         if (processedData.transitStatus.trains[runNumber]) return; // train exists
         if (cancelledTrains[runNumber]) scheduledVehicle.isCancelled = true;
-        processedData.transitStatus.trains[runNumber] = scheduledVehicle;
 
-        scheduledVehicle.predictions = scheduledVehicle.predictions.map((stop) => {
+        scheduledVehicle.predictions.forEach((stop, i) => {
           const parentStopID = stationsData[stop.stationID]?.parentStation;
           const stopPlatformName = stopPlatforms[stop.stationID]?.platformName ?? "Unknown";
 
@@ -281,11 +280,11 @@ const processData = async () => {
             extra: {}
           });
 
-          return {
-            ...stop,
-            stationID: stop.stationID,
-          }
+          scheduledVehicle.predictions[i].stationID = parentStopID;
+          scheduledVehicle.predictions[i].stationName = stationsData[parentStopID];
         });
+
+        processedData.transitStatus.trains[runNumber] = scheduledVehicle;
       });
 
     return processedData;
