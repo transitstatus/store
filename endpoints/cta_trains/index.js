@@ -279,12 +279,18 @@ const processData = async () => {
             destination: scheduledVehicle.dest,
             extra: {}
           });
-
-          scheduledVehicle.predictions[i].stationID = parentStopID;
-          scheduledVehicle.predictions[i].stationName = stationsData[parentStopID];
         });
 
-        processedData.transitStatus.trains[runNumber] = scheduledVehicle;
+        processedData.transitStatus.trains[runNumber] = {
+          ...scheduledVehicle,
+          predictions: scheduledVehicle.predictions.map((predicition) => {
+            return {
+              ...predicition,
+              stationID: stationsData[predicition.stationID]?.parentStation ?? predicition.stationID,
+              stationName: stationsData[stationsData[predicition.stationID]?.parentStation]?.stopName ?? predicition.stationName
+            }
+          })
+        };
       });
 
     return processedData;
