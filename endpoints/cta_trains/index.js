@@ -252,6 +252,8 @@ const processData = async () => {
         return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA;
       })
       .forEach((runNumber) => {
+        return; // data is unreliable
+
         const scheduledVehicle = scheduledVehicles[runNumber];
 
         if (processedData.transitStatus.trains[processedData.tripIDToRunNumber[runNumber]]) return; // active train exists 
@@ -273,7 +275,7 @@ const processData = async () => {
             actualETA: stop.actualETA,
             noETA: false,
             realTime: false,
-            isCancelled: cancelledTrains[runNumber],
+            isCancelled: cancelledTrains[runNumber] ?? false,
             line: scheduledVehicle.line,
             lineCode: scheduledVehicle.lineCode,
             lineColor: scheduledVehicle.lineColor,
@@ -285,7 +287,7 @@ const processData = async () => {
 
         processedData.transitStatus.trains[runNumber] = {
           ...scheduledVehicle,
-          isCancelled: cancelledTrains[runNumber],
+          isCancelled: cancelledTrains[runNumber] ?? false,
           predictions: scheduledVehicle.predictions.map((predicition) => {
             return {
               ...predicition,
