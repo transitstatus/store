@@ -1,7 +1,7 @@
 const protobuf = require("protobufjs");
 
 const updateFeed = async (feed, maxMinutes) => {
-  //if (feed != 'cta') return false;
+  //if (feed != 'metra') return false;
   //if (feed == "cta") return { scheduledVehicles: {} }; 
 
   try {
@@ -104,7 +104,7 @@ const updateFeed = async (feed, maxMinutes) => {
 
         if (
           nowNumber < lastStop.actualETA + 1000 * 60 * 15 &&
-          nowNumber + 1000 * 60 * (maxMinutes ?? (60 * 24)) >= firstStop.actualETA &&
+          nowNumber + 1000 * 60 * maxMinutes >= firstStop.actualETA &&
           !scheduledVehicles[runNumber]
         ) {
           scheduledVehicles[runNumber] = individualTrains[runNumber];
@@ -124,7 +124,7 @@ const updateFeed = async (feed, maxMinutes) => {
   }
 };
 
-const updateFeedInd = async (feedKey, maxMinutes = 60) => {
+const updateFeedInd = async (feedKey, maxMinutes = ) => {
   console.time(`GTFS schedules for ${feedKey}`);
   const feedData = await updateFeed(feedKey, maxMinutes);
   console.timeEnd(`GTFS schedules for ${feedKey}`);
