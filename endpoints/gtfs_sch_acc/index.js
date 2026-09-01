@@ -125,9 +125,6 @@ const updateFeed = async (feed, maxMinutes) => {
 };
 
 const updateFeedInd = async (feedKey, maxMinutes = 60) => {
-  console.log(feedKey)
-
-
   console.time(`GTFS schedules for ${feedKey}`);
   const feedData = await updateFeed(feedKey, maxMinutes);
   console.timeEnd(`GTFS schedules for ${feedKey}`);

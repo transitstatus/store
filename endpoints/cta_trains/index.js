@@ -95,15 +95,16 @@ const processData = async () => {
     const alternativePositionsData = await fetch(
       `https://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=${process.env.cta_tracker_key}&outputType=JSON&rt=${Object.keys(validLines).join(",")}`
     ).then((res) => res.json());
+    const scheduledVehicles = await fetch("http://localhost:3000/gtfs_sch_acc/cta/scheduledVehicles").then((res) =>
+      res.json()
+    );
 
-    const routesReq = await fetch("https://gtfs.piemadd.com/data/cta/routes.json");
-    const stationsReq = await fetch("https://gtfs.piemadd.com/data/cta/stops.json");
-
-    const routesData = await routesReq.json();
-    const stationsData = await stationsReq.json();
+    const routesData = await fetch("https://gtfs.piemadd.com/data/cta/routes.json").then((res) => res.json());
+    const stationsData = await fetch("https://gtfs.piemadd.com/data/cta/stops.json").then((res) => res.json());
 
     let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, train_blocks: [] };
     let positions = {};
+    let cancelledTrains = {};
 
     //adding lines to the tracking data
     Object.keys(validLines).forEach((lineCode) => {
@@ -168,6 +169,11 @@ const processData = async () => {
       const isCancelled = message.tripUpdate?.trip?.scheduleRelationship == 3;
       const route = routesData[message.tripUpdate?.trip?.routeId];
 
+      if (isCancelled) {
+        cancelledTrains[trainID] = true;
+        return;
+      }
+
       let destName = position.destNm ?? "Unknown";
       const finalDestName = stationsData[position.destSt]?.stopName ?? "Unknown";
 
@@ -189,8 +195,8 @@ const processData = async () => {
         lon: parseFloat(position.lon),
         heading: parseFloat(position.heading),
         realTime: true,
-        isCancelled,
         deadMileage: false,
+        isCancelled: false,
         line: route.routeLongName,
         lineCode: route.routeID,
         lineColor: route.routeColor,
@@ -200,7 +206,7 @@ const processData = async () => {
           const eta = (stopTime.arrival ?? stopTime.departure).time?.low * 1000;
 
           const parentStopID = stationsData[stopTime.stopId]?.parentStation;
-          const stopPlatformName = stopPlatforms[stopTime.stopId]?.platformName ?? 'Unknown';
+          const stopPlatformName = stopPlatforms[stopTime.stopId]?.platformName ?? "Unknown";
 
           //adding to actual station
           if (processedData.transitStatus.stations[parentStopID]?.destinations?.[stopPlatformName]) {
@@ -236,9 +242,46 @@ const processData = async () => {
     });
 
     const updated = new Date().toISOString();
-    const lastUpdatedNum = new Date(updated).valueOf();
 
     processedData.transitStatus.lastUpdated = updated;
+
+    Object.keys(scheduledVehicles)
+      .sort((aTrip, bTrip) => {
+        return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA;
+      })
+      .forEach((runNumber) => {
+        const scheduledVehicle = scheduledVehicles[runNumber];
+
+        if (processedData.transitStatus.trains[runNumber]) return; // train exists
+        if (cancelledTrains[runNumber]) scheduledVehicle.isCancelled = true;
+        processedData.transitStatus.trains[runNumber] = scheduledVehicle;
+
+        scheduledVehicle.predictions.forEach((stop) => {
+          const parentStopID = stationsData[stop.stationID]?.parentStation;
+          const stopPlatformName = stopPlatforms[stop.stationID]?.platformName ?? "Unknown";
+
+          if (!processedData.transitStatus.stations[parentStopID]) {
+            return; // shouldnt be here
+          }
+
+          if (processedData.transitStatus.stations[parentStopID].destinations[stopPlatformName].trains.length > 12)
+            return; // too much!
+
+          processedData.transitStatus.stations[parentStopID].destinations[stopPlatformName].trains.push({
+            runNumber: runNumber,
+            actualETA: stop.actualETA,
+            noETA: false,
+            realTime: false,
+            isCancelled: cancelledTrains[runNumber],
+            line: scheduledVehicle.line,
+            lineCode: scheduledVehicle.lineCode,
+            lineColor: scheduledVehicle.lineColor,
+            lineTextColor: scheduledVehicle.lineTextColor,
+            destination: scheduledVehicle.dest,
+            extra: {}
+          });
+        });
+      });
 
     return processedData;
   } catch (e) {
