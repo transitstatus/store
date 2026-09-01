@@ -256,7 +256,7 @@ const processData = async () => {
         if (cancelledTrains[runNumber]) scheduledVehicle.isCancelled = true;
         processedData.transitStatus.trains[runNumber] = scheduledVehicle;
 
-        scheduledVehicle.predictions.forEach((stop) => {
+        scheduledVehicle.predictions = scheduledVehicle.predictions.map((stop) => {
           const parentStopID = stationsData[stop.stationID]?.parentStation;
           const stopPlatformName = stopPlatforms[stop.stationID]?.platformName ?? "Unknown";
 
@@ -280,6 +280,11 @@ const processData = async () => {
             destination: scheduledVehicle.dest,
             extra: {}
           });
+
+          return {
+            ...stop,
+            stationID: stop.stationID,
+          }
         });
       });
 
