@@ -53,7 +53,7 @@ const updateFeed = async (feed, maxMinutes) => {
       const todayStartNumber = todayStart.valueOf();
       const nowNumber = now.valueOf();
 
-      dateSchedule.toJSON().stopMessage.forEach((stop) => {
+      (dateSchedule.toJSON().stopMessage ?? []).forEach((stop) => {
         const stopData = staticStopsData[stop.stopId];
 
         let currentTimeDiff = todayStartNumber;
