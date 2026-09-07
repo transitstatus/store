@@ -271,28 +271,28 @@ const updateFeed = async () => {
         const scheduledVehicle = scheduledVehicles[runNumber];
 
         if (finalBrightlineV1.trains[runNumber]) return; // train exists
+
+        scheduledVehicle.predictions = scheduledVehicle.predictions.map((stop) => {
+          return {
+            ...stop,
+            platform: platformsData[stop.stationID]?.[runNumber] ?? "",
+          }
+        })
+
         finalBrightlineV1.trains[runNumber] = scheduledVehicle;
 
         const trainDirection = parseInt(runNumber) % 2 ? "Southbound" : "Northbound";
 
         scheduledVehicle.predictions.forEach((stop) => {
           //adding stations to transitStatus object
-          if (!finalBrightlineV1.stations[stop.stationID]) {
-            finalBrightlineV1.stations[stop.stationID] = {
-              stationID: stop.stationID,
-              stationName: fetchedData.brightlineStops[stop.stationID].stopName,
-              lat: fetchedData.brightlineStops[stop.stationID].stopLat,
-              lon: fetchedData.brightlineStops[stop.stationID].stopLon,
-              destinations: { Northbound: { trains: [] }, Southbound: { trains: [] } },
-              tz: "America/New_York"
-            };
-          }
+          if (!finalBrightlineV1.stations[stop.stationID]) return; // shouldnt happen
 
           if (finalBrightlineV1.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
 
           finalBrightlineV1.stations[stop.stationID].destinations[trainDirection].trains.push({
             runNumber: runNumber,
             actualETA: stop.actualETA,
+            platform: stop.platform,
             noETA: false,
             realTime: false,
             line: scheduledVehicle.line,
