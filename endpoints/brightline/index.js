@@ -156,6 +156,9 @@ const updateFeed = async () => {
 
       finalBrightlineV1.lines[route.routeID].hasActiveTrains = true;
 
+      let platform = platformsData[stopTime.stopId]?.[trip.id.split('_')[0]] ?? '';
+      if (platform.length == 0) platform = null;
+
       finalBrightlineV1.trains[trip.id.split('_')[0]] = {
         line: route.routeLongName,
         lineCode: route.routeID,
@@ -171,6 +174,7 @@ const updateFeed = async () => {
               dep: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
               arrDelay: (stopTime.arrival ?? stopTime.departure).delay * 1000,
               depDelay: (stopTime.departure ?? stopTime.arrival).delay * 1000,
+              platform,
               noETA: false,
               realTime: true,
               line: route.routeLongName,
@@ -189,6 +193,7 @@ const updateFeed = async () => {
             dep: (stopTime.departure ?? stopTime.arrival).time.toNumber() * 1000,
             arrDelay: (stopTime.arrival ?? stopTime.departure).delay * 1000,
             depDelay: (stopTime.departure ?? stopTime.arrival).delay * 1000,
+            platform,
             noETA: false,
             realTime: true,
             tz: fetchedData.brightlineStops[stopTime.stopId].stopTZ
