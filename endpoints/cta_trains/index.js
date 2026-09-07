@@ -252,7 +252,7 @@ const processData = async () => {
         return scheduledVehicles[aTrip].predictions[0].actualETA - scheduledVehicles[bTrip].predictions[0].actualETA;
       })
       .forEach((runNumber) => {
-        return; // data is unreliable
+        //return; // data is unreliable
 
         const scheduledVehicle = scheduledVehicles[runNumber];
 
