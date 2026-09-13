@@ -76,6 +76,7 @@ const fetchTicketmaster = async () => {
             lon: parseFloat(event.VENUE_LONGITUDE)
           },
           isChicagoEvent: true,
+          isChicagoTeam: true,
           attendance: null,
           score: null,
           additionalVenueInfo: { espn: event.RELATIONS?.rel_espn, mlb: event.RELATIONS?.rel_mlb }
@@ -97,6 +98,7 @@ const fetchTicketmaster = async () => {
             lon: parseFloat(event.VENUE_LONGITUDE)
           },
           isChicagoEvent: true,
+          isChicagoTeam: true,
           attendance: null,
           score: null,
           additionalVenueInfo: {}
