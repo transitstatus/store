@@ -193,7 +193,7 @@ const fetchESPNFootball = async (league) => {
                 yardNumber: Math.abs((eventDetails.drives?.current?.end?.yardLine ?? 100) - 50),
                 gameComplete: false,
                 gameStarted: true,
-                latestWallClock: (eventDetails.drives?.current ?? eventDetails.drives?.previous)?.at(-1)?.plays?.at(-1)
+                latestWallClock: (eventDetails.drives?.current ?? eventDetails.drives?.previous?.at(-1))?.plays?.at(-1)
                   ?.wallclock
               }
             : subEvent.status?.type?.state == "post"
