@@ -210,9 +210,7 @@ const fetchESPNFootball = async (league) => {
                   yardNumber: null,
                   gameComplete: true,
                   gameStarted: true,
-                  latestWallClock: (eventDetails.drives?.current ?? eventDetails.drives?.previous)
-                    ?.at(-1)
-                    ?.plays?.at(-1)?.wallclock
+                  latestWallClock: (eventDetails.drives?.current ?? eventDetails.drives?.previous?.at(-1))?.plays?.at(-1)?.wallclock
                 }
               : {
                   type: "football",
