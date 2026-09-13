@@ -51,8 +51,8 @@ const espnsLeagueStrings = { football: [["NFL", "nfl"]], baseball: [["MLB", "mlb
 let allevents = {};
 
 const fetchTicketmaster = async () => {
-  const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
-  //const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
+  //const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
+  const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
 
   const data = await fetch(TICKETMASTER_URL).then((res) => res.json());
 
@@ -172,6 +172,7 @@ const fetchESPNFootball = async (league) => {
         isChicagoEvent:
           eventDetails.gameInfo?.venue?.address?.city == "Chicago" &&
           eventDetails.gameInfo?.venue?.address?.state == "Illinois",
+        isChicagoTeam: subEvent.competitors.some((team) => team.team.displayName.includes("Chicago")),
         attendance: eventDetails.gameInfo?.attendance,
         score:
           subEvent.status?.type?.state == "in"
@@ -294,6 +295,7 @@ const fetchESPNBaseball = async (league) => {
         isChicagoEvent:
           eventDetails.gameInfo?.venue?.address?.city == "Chicago" &&
           eventDetails.gameInfo?.venue?.address?.state == "Illinois",
+        isChicagoTeam: subEvent.competitors.some((team) => team.team.displayName.includes("Chicago")),
         attendance: eventDetails.gameInfo?.attendance,
         score:
           subEvent.status?.type?.state == "in"
