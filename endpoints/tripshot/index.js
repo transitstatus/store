@@ -220,6 +220,11 @@ const updateFeed = async (feed) => {
       };
     });
 
+    // sorting ETAs for each train
+    Object.keys(transitStatus.trains).forEach((trainID) => {
+      transitStatus.trains[trainID].predictions = transitStatus.trains[trainID].predictions.sort((a, b) => a.actualETA - b.actualETA)
+    })
+
     const lastUpdated = new Date().toISOString();
 
     transitStatus.lastUpdated = lastUpdated;
