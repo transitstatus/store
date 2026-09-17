@@ -44,7 +44,7 @@ const updateFeed = async (feed) => {
       const routeID = route.routeID;
       Object.keys(route.routeTrips).forEach((trip) => {
         tripToRouteDict[trip] = routeID;
-        tripToRouteDict[trip.split(':')[0]] = routeID;
+        tripToRouteDict[trip.split(":")[0]] = routeID;
       });
     });
 
@@ -57,7 +57,10 @@ const updateFeed = async (feed) => {
 
       const position = vehiclePositionsDict[train.tripUpdate?.vehicle?.id] ?? { latitude: 0, longitude: 0, bearing: 0 };
 
-      let routeId = tripToRouteDict[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.routeId ?? tripToRouteDict[train.tripUpdate?.trip?.tripId.split(':')[0]];
+      let routeId =
+        tripToRouteDict[train.tripUpdate?.trip?.tripId] ??
+        train.tripUpdate?.trip?.routeId ??
+        tripToRouteDict[train.tripUpdate?.trip?.tripId.split(":")[0]];
 
       let finalTrain = {
         lat: position.latitude,
@@ -75,7 +78,7 @@ const updateFeed = async (feed) => {
         extra: {
           load: null,
           cap: null,
-          info: null, //extraBusInfo[feed.id] && extraBusInfo[feed.id][runNumber] ? extraBusInfo[feed.id][runNumber] : null
+          info: null //extraBusInfo[feed.id] && extraBusInfo[feed.id][runNumber] ? extraBusInfo[feed.id][runNumber] : null
         }
       };
 
@@ -93,13 +96,15 @@ const updateFeed = async (feed) => {
           stopTZ: ""
         };
 
-        finalTrain.predictions.push({
-          stationID: stop.stopId,
-          stationName: thisStopData.stopName,
-          actualETA: time,
-          noETA: !time,
-          realTime: true
-        });
+        if (time) {
+          finalTrain.predictions.push({
+            stationID: stop.stopId,
+            stationName: thisStopData.stopName,
+            actualETA: time,
+            noETA: !time,
+            realTime: true
+          });
+        }
 
         //adding stations to transitStatus object
         if (!transitStatus.stations[stop.stopId]) {
@@ -116,18 +121,20 @@ const updateFeed = async (feed) => {
           transitStatus.stations[stop.stopId].destinations[finalTrain.dest] = { trains: [] };
         }
 
-        transitStatus.stations[stop.stopId].destinations[finalTrain.dest].trains.push({
-          runNumber: runNumber,
-          actualETA: time,
-          noETA: !time,
-          realTime: true,
-          line: finalTrain.line,
-          lineCode: finalTrain.lineCode,
-          lineColor: finalTrain.lineColor,
-          lineTextColor: finalTrain.lineTextColor,
-          destination: finalTrain.dest,
-          extra: {}
-        });
+        if (time) {
+          transitStatus.stations[stop.stopId].destinations[finalTrain.dest].trains.push({
+            runNumber: runNumber,
+            actualETA: time,
+            noETA: !time,
+            realTime: true,
+            line: finalTrain.line,
+            lineCode: finalTrain.lineCode,
+            lineColor: finalTrain.lineColor,
+            lineTextColor: finalTrain.lineTextColor,
+            destination: finalTrain.dest,
+            extra: {}
+          });
+        }
       });
 
       transitStatus.trains[runNumber] = finalTrain;
@@ -231,7 +238,7 @@ const updateFeed = async (feed) => {
 };
 
 const updateFeedInd = async (feedKey) => {
-  let feed = { id: feedKey};
+  let feed = { id: feedKey };
 
   //if (feedKey !=)
 
