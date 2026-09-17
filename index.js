@@ -45,7 +45,7 @@ fastify.after(() => {
     //'chi_events_tracker',
     //'cta_trains',
     //'gtfs_sch_acc',
-    //'brightline'
+    //'tripshot'
   ];
   const exclude_from_root = [
     "gtfs_sch",

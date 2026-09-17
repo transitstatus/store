@@ -69,7 +69,7 @@ const updateFeed = async (feed) => {
         lineCode: routeId,
         lineColor: staticRoutesData[routeId].routeColor,
         lineTextColor: staticRoutesData[routeId].routeTextColor,
-        dest: "Unknown Dest",
+        dest: staticRoutesData[routeId].routeLongName,
         predictions: [],
         type: "bus",
         extra: {
@@ -81,11 +81,6 @@ const updateFeed = async (feed) => {
 
       //adding predictions to transitStatus object
       train.tripUpdate?.stopTimeUpdate?.forEach((stop, i, array) => {
-        if (i == 0)
-          finalTrain.dest =
-            //headsignReplacements[feed.id]?.[finalTrain.lineCode]?.replacements[stop.stopId] ??
-            staticStopsData[array[array.length - 1].stopId].stopName;
-
         const arr = stop.arrival ? parseInt(stop.arrival.time) : 0;
         const dep = stop.departure ? parseInt(stop.departure.time) : 0;
         const time = Math.max(arr, dep) * 1000;
@@ -117,14 +112,11 @@ const updateFeed = async (feed) => {
           };
         }
 
-        const destFromThisStop = finalTrain.dest; 
-          //headsignReplacements[feed.id]?.[finalTrain.lineCode]?.replacements[stop.stopId] ?? finalTrain.dest;
-
-        if (!transitStatus.stations[stop.stopId].destinations[destFromThisStop]) {
-          transitStatus.stations[stop.stopId].destinations[destFromThisStop] = { trains: [] };
+        if (!transitStatus.stations[stop.stopId].destinations[finalTrain.dest]) {
+          transitStatus.stations[stop.stopId].destinations[finalTrain.dest] = { trains: [] };
         }
 
-        transitStatus.stations[stop.stopId].destinations[destFromThisStop].trains.push({
+        transitStatus.stations[stop.stopId].destinations[finalTrain.dest].trains.push({
           runNumber: runNumber,
           actualETA: time,
           noETA: !time,
@@ -162,7 +154,7 @@ const updateFeed = async (feed) => {
             stationName: staticStopsData[stationID].stopName,
             lat: staticStopsData[stationID].stopLat,
             lon: staticStopsData[stationID].stopLon,
-            destinations: { Inbound: { trains: [] }, Outbound: { trains: [] } }
+            destinations: {}
           };
         }
       });
