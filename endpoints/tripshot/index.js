@@ -60,33 +60,38 @@ const updateFeed = async (feed) => {
       let routeId =
         tripToRouteDict[train.tripUpdate?.trip?.tripId] ??
         train.tripUpdate?.trip?.routeId ??
-        tripToRouteDict[train.tripUpdate?.trip?.tripId.split(":")[0]];
+        tripToRouteDict[train.tripUpdate?.trip?.tripId.split(":")[0]] ??
+        "d66c529d-e078-4516-8629-8a433015d236";
 
-      let finalTrain = {
-        lat: position.latitude,
-        lon: position.longitude,
-        heading: position.bearing,
-        realTime: true,
-        deadMileage: false,
-        line: staticRoutesData[routeId].routeLongName,
-        lineCode: routeId,
-        lineColor: staticRoutesData[routeId].routeColor,
-        lineTextColor: staticRoutesData[routeId].routeTextColor,
-        dest: staticRoutesData[routeId].routeLongName,
-        predictions: [],
-        type: "bus",
-        extra: {
-          load: null,
-          cap: null,
-          info: null //extraBusInfo[feed.id] && extraBusInfo[feed.id][runNumber] ? extraBusInfo[feed.id][runNumber] : null
-        }
-      };
+      if (!transitStatus.trains[runNumber]) {
+        transitStatus.trains[runNumber] = {
+          lat: position.latitude,
+          lon: position.longitude,
+          heading: position.bearing,
+          realTime: true,
+          deadMileage: false,
+          line: staticRoutesData[routeId].routeLongName,
+          lineCode: routeId,
+          lineColor: staticRoutesData[routeId].routeColor,
+          lineTextColor: staticRoutesData[routeId].routeTextColor,
+          dest: staticRoutesData[routeId].routeLongName,
+          predictions: [],
+          type: "bus",
+          extra: {
+            load: null,
+            cap: null,
+            info: null //extraBusInfo[feed.id] && extraBusInfo[feed.id][runNumber] ? extraBusInfo[feed.id][runNumber] : null
+          }
+        };
+      }
 
       //adding predictions to transitStatus object
       train.tripUpdate?.stopTimeUpdate?.forEach((stop, i, array) => {
         const arr = stop.arrival ? parseInt(stop.arrival.time) : 0;
         const dep = stop.departure ? parseInt(stop.departure.time) : 0;
         const time = Math.max(arr, dep) * 1000;
+
+        //if (runNumber == "2745") console.log(stop.stopId, time, new Date(time).toLocaleTimeString(), transitStatus.trains[runNumber].predictions.length);
 
         const thisStopData = staticStopsData[stop.stopId] ?? {
           stopID: stop.stopId,
@@ -97,7 +102,7 @@ const updateFeed = async (feed) => {
         };
 
         if (time) {
-          finalTrain.predictions.push({
+          transitStatus.trains[runNumber].predictions.push({
             stationID: stop.stopId,
             stationName: thisStopData.stopName,
             actualETA: time,
@@ -117,27 +122,25 @@ const updateFeed = async (feed) => {
           };
         }
 
-        if (!transitStatus.stations[stop.stopId].destinations[finalTrain.dest]) {
-          transitStatus.stations[stop.stopId].destinations[finalTrain.dest] = { trains: [] };
+        if (!transitStatus.stations[stop.stopId].destinations[transitStatus.trains[runNumber].dest]) {
+          transitStatus.stations[stop.stopId].destinations[transitStatus.trains[runNumber].dest] = { trains: [] };
         }
 
         if (time) {
-          transitStatus.stations[stop.stopId].destinations[finalTrain.dest].trains.push({
+          transitStatus.stations[stop.stopId].destinations[transitStatus.trains[runNumber].dest].trains.push({
             runNumber: runNumber,
             actualETA: time,
             noETA: !time,
             realTime: true,
-            line: finalTrain.line,
-            lineCode: finalTrain.lineCode,
-            lineColor: finalTrain.lineColor,
-            lineTextColor: finalTrain.lineTextColor,
-            destination: finalTrain.dest,
+            line: transitStatus.trains[runNumber].line,
+            lineCode: transitStatus.trains[runNumber].lineCode,
+            lineColor: transitStatus.trains[runNumber].lineColor,
+            lineTextColor: transitStatus.trains[runNumber].lineTextColor,
+            destination: transitStatus.trains[runNumber].dest,
             extra: {}
           });
         }
       });
-
-      transitStatus.trains[runNumber] = finalTrain;
     });
 
     //adding any stations without trains to transitStatus object
