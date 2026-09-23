@@ -51,8 +51,8 @@ const espnsLeagueStrings = { football: [["NFL", "nfl"]], baseball: [["MLB", "mlb
 let allevents = {};
 
 const fetchTicketmaster = async () => {
-  const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
-  //const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
+  //const TICKETMASTER_URL = "http://localhost:3000/chi_events_tracker_ticketmaster_parsing/events";
+  const TICKETMASTER_URL = "https://store.transitstat.us/chi_events_tracker_ticketmaster_parsing/events";
 
   const data = await fetch(TICKETMASTER_URL).then((res) => res.json());
 
@@ -266,7 +266,7 @@ const fetchESPNBaseball = async (league) => {
       const eventDetails = await fetch(
         `https://site.api.espn.com/apis/site/v2/sports/baseball/${league[1]}/summary?event=${event.id}`
       ).then((res) => res.json());
-
+      
       return {
         id: event.id,
         name: event.name,
@@ -278,7 +278,7 @@ const fetchESPNBaseball = async (league) => {
           return {
             name: team.team?.displayName,
             code: team.team?.abbreviation,
-            logo: team.team?.logo.replace("500", "500-dark"),
+            logo: (team.team?.logo ?? 'https://a.espncdn.com/icons/PWA_ESPN_512x512.png').replace("500", "500-dark"),
             homeAway: team.homeAway
           };
         }),
