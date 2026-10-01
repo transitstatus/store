@@ -16,7 +16,7 @@ const updateFeed = async (feed) => {
           `https://gobblerstatic.transitstat.us/schedules/${feed}/nextDeps.json`,
           `http://localhost:3000/atlas_routes/${feed}/routeDataFinal`,
           `https://api.amtraker.com/v3/stations`
-        ].map((url) => fetch(url).then((res) => res.json()))
+        ].map((url) => fetch(url, { headers: { "User-Agent": "Transitstatus Store/1.0" } }).then((res) => res.json()))
       );
 
     let shortTripToTrip = {};
@@ -88,7 +88,11 @@ const updateFeed = async (feed) => {
         const thisStop = amtrakerStopsData[actualCode];
         const thisStopAlt = staticStopsData[code];
 
-        return { name: thisStop?.name ?? thisStopAlt?.stopName, code: actualCode, tz: thisStop?.tz ?? thisStopAlt?.stopTZ };
+        return {
+          name: thisStop?.name ?? thisStopAlt?.stopName,
+          code: actualCode,
+          tz: thisStop?.tz ?? thisStopAlt?.stopTZ
+        };
       });
     });
 

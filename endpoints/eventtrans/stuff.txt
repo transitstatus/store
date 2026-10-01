@@ -1,0 +1,5 @@
+https://etsapi-v2-dev.azurewebsites.net/api/v2/PassengerApp/GetAllEvents
+https://etsapi-v2-dev.azurewebsites.net/api/v2/DyncAttendeeMessages/GetDyncAttendeeMessageByEventId/777
+https://etsapi-v2-dev.azurewebsites.net/api/v2/PassengerApp/GetNearestHotelsByEventID/777
+https://etsapi-v2-dev.azurewebsites.net/api/v2/TabletInfo/GetPubSubLinkWWS?hubName=stop_848,route_1053&timeofset=2026-10-01T01:05:06.113Z
+https://etsapi-v2-dev.azurewebsites.net/api/v2/PassengerApp/GetEventScheduleByEventIDRouteID?eventID=777&routeID=1053&isCurrectDaySchedulingOnly=false

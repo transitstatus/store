@@ -1,0 +1,22 @@
+{
+  "name": "EventTrans",
+  "script": "index.js",
+  "interval": 600000,
+  "apiVersion": 3,
+  "configVersion": 1,
+  "default": {
+    "TRANSform26": {
+      "trains": {},
+      "stations": {},
+      "lines": {},
+      "alerts": [],
+      "lastUpdated": "1970-01-01T00:00:00",
+      "shitsFucked": {
+        "shitIsFucked": true,
+        "message": "API is not active or is currently initializing."
+      }
+    }
+  },
+  "variables": [["TRANSform26"]],
+  "disabled": true
+}
