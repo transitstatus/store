@@ -60,7 +60,7 @@ const updateFeed = async (updateConfig) => {
 
     const updatedAt = new Date();
     const fetchedData = await fetch(
-      "https://amtraker-fetch-proxy.piero.workers.dev/",
+      `https://amtraker-fetch-proxy.piero.workers.dev/${Date.now/100}.json`,
     ).then((res) => res.json());
     responseObject = {
       ...fetchedData,
