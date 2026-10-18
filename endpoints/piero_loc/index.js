@@ -96,6 +96,7 @@ const update = async () => {
     return status;
   } catch (e) {
     console.log(e);
+    console.log(process.version);
     return { functional: false };
   }
 };
