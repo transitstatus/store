@@ -1,0 +1,11 @@
+{
+  "name": "Where's Piero (GPS)",
+  "script": "index.js",
+  "interval": 15000,
+  "apiVersion": 3,
+  "configVersion": 0,
+  "default": {
+    "functional": false
+  },
+  "disabled": false
+}
