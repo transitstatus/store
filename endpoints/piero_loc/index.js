@@ -58,7 +58,7 @@ const update = async () => {
           positionID: position.id,
           time: position.fixTime,
           lat: position.latitude,
-          lon: position.lon,
+          lon: position.longitude,
           alt: position.altitude,
           heading: position.course,
           acc: position.accuracy
