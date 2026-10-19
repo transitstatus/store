@@ -16,7 +16,7 @@ const update = async () => {
     let devices = {};
     let idToUid = {};
 
-    const startOfTrip = new Date("2026-10-18T06:00:00-05:00");
+    const startOfTrip = new Date("2026-10-18T17:00:00-05:00");
     const now = new Date();
 
     const deviesList = await fetch("https://traccar.pgm.sh/api/devices", {
