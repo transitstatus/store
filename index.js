@@ -49,6 +49,7 @@ fastify.after(() => {
     //'gtfs_sch_acc',
     //'brightline'
     //'piero_loc'
+    //'njt_bus'
   ];
   const exclude_from_root = [
     "gtfs_sch",
