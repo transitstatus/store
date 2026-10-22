@@ -14,23 +14,6 @@ const scheduleRelationshipEnums = {
   7: 'DELETED',
 }
 
-const holidayTrains = [
-  'ME-BX02',
-  'ME-BX03',
-  'ME-BX04',
-  'ME-BX05',
-  'BNSF-9513',
-  'BNSF-9516',
-  'RI-MX01',
-  'RI-MX02',
-  'MDN-NX02',
-  'MDN-NX03',
-  'UPN-8911',
-  'UPN-8914',
-  'UPNW-7902',
-  'UPNW-7903',
-];
-
 const update = (async () => {
   if (!process.env.metra_token) return false;
 
