@@ -15,8 +15,6 @@ const recursivelyParseTrains = (h2) => {
 };
 
 const update = async (updateObject) => {
-  console.log(updateObject);
-
   let returnObject = { ...updateObject.lastState };
   let alreadyFetchedPairs = {};
 
