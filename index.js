@@ -42,13 +42,9 @@ let topIPs = {};
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [
-    //'chi_events_tracker',
-    //'cta_trains',
-    //'gtfs_sch_acc',
-    //'tripshot'
-    //'gtfs_sch_acc',
     //'brightline'
     //'metra',
+    //'cta_trains',
     //'gtfs_sch_acc'
   ];
   const exclude_from_root = [

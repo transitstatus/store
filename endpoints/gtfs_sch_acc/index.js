@@ -18,7 +18,13 @@ const updateFeed = async (feed, maxMinutes) => {
         `https://gtfs.piemadd.com/data/${feed}/stops.json`,
         `https://gtfs.piemadd.com/data/${feed}/routes.json`,
         `https://gobblerstatic.transitstat.us/schedules/${feed}/metadata.json`
-      ].map((url) => fetch(url).then((res) => res.json()))
+      ].map((url) =>
+        fetch(url).then((res) => {
+          if (!res.ok) console.log(`gtfs_sch_acc fetch error ${url}`);
+
+          return res.json();
+        })
+      )
     );
 
     const [todaysStopData, yesterdaysStopData, tomorrowsStopData] = await Promise.all(

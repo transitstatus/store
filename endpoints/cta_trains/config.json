@@ -6,6 +6,8 @@
   "configVersion": 0,
   "default": {
     "train_blocks": [],
+    "alertsRaw": [],
+    "tripIDToRunNumber": {},
     "transitStatus": { "trains": {}, "stations": {}, "lines": {}, "lastUpdated": "1970-01-01T00:00:00.000Z" }
   }
 }

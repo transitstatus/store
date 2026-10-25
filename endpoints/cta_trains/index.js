@@ -102,7 +102,7 @@ const processData = async () => {
     const routesData = await fetch("https://gtfs.piemadd.com/data/cta/routes.json").then((res) => res.json());
     const stationsData = await fetch("https://gtfs.piemadd.com/data/cta/stops.json").then((res) => res.json());
 
-    let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, tripIDToRunNumber: {}, train_blocks: [] };
+    let processedData = { transitStatus: { trains: {}, stations: {}, lines: {} }, tripIDToRunNumber: {}, alertsRaw: alertsData.toJSON()?.entity, train_blocks: [] };
     let positions = {};
     let cancelledTrains = {};
 
