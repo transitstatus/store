@@ -17,8 +17,8 @@ const update = async () => {
     let idToUid = {};
 
     const now = new Date();
-    //const startOfTrip = new Date("2026-10-18T17:00:00-05:00");
-    const startOfTrip = new Date(now.valueOf() - (1000 * 60 * 60 * 24));
+    const startOfTrip = new Date("2026-10-25T05:00:00-05:00");
+    //const startOfTrip = new Date(now.valueOf() - (1000 * 60 * 60 * 24));
 
     const deviesList = await fetch("https://traccar.pgm.sh/api/devices", {
       headers: { Authorization: process.env.traccar_auth }
