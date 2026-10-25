@@ -48,7 +48,7 @@ fastify.after(() => {
     //'tripshot'
     //'gtfs_sch_acc',
     //'brightline'
-    //'piero_loc'
+    //'metra_consists'
   ];
   const exclude_from_root = [
     "gtfs_sch",

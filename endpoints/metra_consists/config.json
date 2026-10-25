@@ -1,12 +1,9 @@
 {
   "name": "Metra Consists",
   "script": "index.js",
-  "interval": 60000,
+  "interval": 300000,
   "apiVersion": 3,
-  "configVersion": 0,
-  "default": {
-    "consists": {},
-    "lastUpdated": "1970-01-01T00:00:00.000Z"
-  },
-  "disabled": true
+  "configVersion": 3,
+  "default": { "consists": {}, "lastUpdated": "1970-01-01T00:00:00.000Z" },
+  "disabled": false
 }
