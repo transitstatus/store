@@ -18,16 +18,18 @@ const update = async (updateObject) => {
   let returnObject = { ...updateObject.lastState };
   let alreadyFetchedPairs = {};
 
+  //console.log(returnObject)
+
   if (!returnObject.consists) returnObject.consists = {};
 
-  //const METRA_TS_URL = "https://store.transitstat.us/metra/transitStatus";
-  const METRA_TS_URL = 'http://localhost:3000/metra/transitStatus';
+  //const STORE_URL = "https://store.transitstat.us";
+  const STORE_URL = 'http://localhost:3000';
 
   try {
     const now = new Date();
     const nowString = now.toISOString();
 
-    const metraTrains = await fetch(`${METRA_TS_URL}/trains`).then((res) => res.json());
+    const metraTrains = await fetch(`${STORE_URL}/metra/transitStatus/trains`).then((res) => res.json());
     const metraTrainIDs = Object.keys(metraTrains);
 
     for (let i = 0; i < metraTrainIDs.length; i++) {
