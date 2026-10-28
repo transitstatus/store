@@ -25,6 +25,7 @@ const update = async (updateObject) => {
 
   try {
     const now = new Date();
+    const nowString = now.toISOString();
 
     const metraTrains = await fetch(`${METRA_TS_URL}/trains`).then((res) => res.json());
     const metraTrainIDs = Object.keys(metraTrains);
@@ -54,13 +55,14 @@ const update = async (updateObject) => {
       thisFetchConsists.forEach((consist) => {
         returnObject.consists[consist] = {
           cars: consist.split("-"),
+          lastSeen: nowString,
         };
       });
 
       alreadyFetchedPairs[`${train.lineCode}-${nextToLastStop.stationID}-${lastStop.stationID}`] = true;
     }
 
-    returnObject.lastUpdated = now.toISOString();
+    returnObject.lastUpdated = nowString;
     return returnObject;
   } catch (e) {
     console.log(e);
