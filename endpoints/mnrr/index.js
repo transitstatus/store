@@ -150,7 +150,7 @@ const update = async () => {
       const isScheduled = lastUpdatedUnix + 1000 * 60 * 2 < tripStartTime.valueOf();
 
       const runNumber = trainNumber;
-      const isOutbound = parseInt(trainNumber) % 2 == 0;
+      const isOutbound = parseInt(trainNumber) % 2 == 1;
       const trainDirection = isOutbound ? "Outbound" : "Inbound";
 
       if (train.tripUpdate?.trip?.scheduleRelationship == 3) {
