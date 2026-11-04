@@ -201,7 +201,7 @@ const update = async () => {
 
         finalTrain.predictions.push({
           stationID: stop.stopId,
-          stationName: transitStatus.stations[actualStopID].stopName,
+          stationName: transitStatus.stations[actualStopID].stationName,
           actualETA: time,
           noETA: !time,
           realTime: !isScheduled
