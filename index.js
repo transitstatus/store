@@ -42,7 +42,7 @@ let topIPs = {};
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [
-    //'metra_consists'
+    //'piero_loc'
   ];
   const exclude_from_root = [
     "gtfs_sch",
@@ -300,7 +300,7 @@ fastify.after(() => {
                 ? `Not returned due to large size. Visit '/${endpoint}' for data.`
                 : initialState;
 
-              updateV3({ firstUpdate: true, lastState: config.default }).then((result) => {
+              updateV3({ firstUpdate: true, lastState: initialState }).then((result) => {
                 if (result === false) {
                   data[endpoint] = initialState;
                   data_reduced[endpoint] = exclude_from_root.includes(endpoint)

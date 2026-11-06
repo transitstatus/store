@@ -4,8 +4,11 @@ const pb = new PocketBase("https://pb.amtraker.com/");
 
 require("dotenv").config();
 
+const TIME_TO_UPDATE = 1000 * 60 * 60 * 24 * 4;
+
 const update = async () => {
   if (!process.env.pb_wheres_piero_email || !process.env.pb_wheres_piero_pw) return { functional: true };
+  console.time('piero_loc update complete status');
 
   try {
     const authData = await pb
@@ -18,7 +21,6 @@ const update = async () => {
 
     const now = new Date();
     const startOfTrip = new Date("2026-10-25T06:17:15-05:00");
-    //const startOfTrip = new Date(now.valueOf() - (1000 * 60 * 60 * 24));
 
     const deviesList = await fetch("https://traccar.pgm.sh/api/devices", {
       headers: { Authorization: process.env.traccar_auth }
@@ -42,10 +44,16 @@ const update = async () => {
       idToUid[device.id] = device.uniqueId;
     });
 
-    const positionsData = await fetch(
-      `https://traccar.pgm.sh/api/positions?deviceId=${targetDeviceIDs.slice(0, 10).join(",")}&from=${startOfTrip.toISOString()}&to=${now.toISOString()}`,
-      { headers: { Authorization: process.env.traccar_auth } }
-    ).then((res) => res.json());
+    let positionsData = [];
+
+    for (let i = startOfTrip.valueOf(); i < now.valueOf(); i += TIME_TO_UPDATE) {
+      const thisPositionsData = await fetch(
+        `https://traccar.pgm.sh/api/positions?deviceId=${targetDeviceIDs.slice(0, 10).join(",")}&from=${new Date(i).toISOString()}&to=${new Date(i + TIME_TO_UPDATE - 1).toISOString()}`,
+        { headers: { Authorization: process.env.traccar_auth } }
+      ).then((res) => res.json());
+
+      positionsData.push(...thisPositionsData);
+    };
 
     positionsData
       .map((position) => {
@@ -58,8 +66,8 @@ const update = async () => {
         devices[idToUid[position.deviceId]].positions.push({
           positionID: position.id,
           time: position.fixTime,
-          lat: position.latitude,
-          lon: position.longitude,
+          lat: parseFloat(position.latitude.toFixed(6)),
+          lon: parseFloat(position.longitude.toFixed(6)),
           alt: position.altitude,
           heading: position.course,
           acc: position.accuracy
@@ -68,8 +76,8 @@ const update = async () => {
         mostRecentPositon = {
           positionID: position.id,
           time: position.fixTime,
-          lat: position.latitude,
-          lon: position.lon,
+          lat: parseFloat(position.latitude.toFixed(6)),
+          lon: parseFloat(position.longitude.toFixed(6)),
           alt: position.altitude,
           heading: position.course,
           acc: position.accuracy
@@ -94,11 +102,13 @@ const update = async () => {
       await pb.collection("wheres_piero").delete(allRecords[i].id);
     }
 
+    console.timeEnd('piero_loc update complete status');
     return status;
   } catch (e) {
     console.log(e);
     console.log(process.version);
-    console.log(process.versions)
+    console.log(process.versions);
+    console.timeEnd('piero_loc update complete status');
     return { functional: false };
   }
 };
