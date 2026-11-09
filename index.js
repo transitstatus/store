@@ -440,6 +440,7 @@ fastify.after(() => {
     }
 
     reply.header("Access-Control-Allow-Origin", "*");
+    reply.header("Cache-Control", "public, max-age=30, must-revalidate")
     reply.send(dataToReturn);
   });
 
