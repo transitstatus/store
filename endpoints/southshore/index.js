@@ -64,6 +64,7 @@ const updateFeed = async () => {
     //adding DM trains
     (fetchedData?.southshoreExtra?.get_vehicles ?? []).forEach((vehicle) => {
       if (vehicle.inService != 0) return; // not DM
+      if (vehicle.lat == 0 || vehicle.lng == 0) return; // not actual location
 
       tsV1.trains[`DM-${vehicle.equipmentID}`] = {
         lat: vehicle.lat,
