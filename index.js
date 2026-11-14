@@ -42,8 +42,8 @@ let topIPs = {};
 //ensuring the plugin(s) load before we start registering endpoints
 fastify.after(() => {
   const only_testing = [
-    //'piero_loc'
-  ];
+    //"gtfs_sch_acc", "southshore"
+    ];
   const exclude_from_root = [
     "gtfs_sch",
     "gtfs_sch_acc",
@@ -62,16 +62,18 @@ fastify.after(() => {
 
   if (process.env.PROXY_MODE == "true") {
     const updateInProxyMode = () => {
-      fetch("https://store.transitstat.us/?showAll=true").then((res) => res.json()).then((result) => {
-        if (result !== false) {
-          data = result;
+      fetch("https://store.transitstat.us/?showAll=true")
+        .then((res) => res.json())
+        .then((result) => {
+          if (result !== false) {
+            data = result;
 
-          console.log("Finished updating in proxy mode");
+            console.log("Finished updating in proxy mode");
 
-          console.log(`Destroying /GET`);
-          fastify.lcache.reset(`/GET`);
-        }
-      });
+            console.log(`Destroying /GET`);
+            fastify.lcache.reset(`/GET`);
+          }
+        });
     };
 
     updateInProxyMode();
@@ -440,7 +442,7 @@ fastify.after(() => {
     }
 
     reply.header("Access-Control-Allow-Origin", "*");
-    reply.header("Cache-Control", "public, max-age=30, must-revalidate")
+    reply.header("Cache-Control", "public, max-age=30, must-revalidate");
     reply.send(dataToReturn);
   });
 
