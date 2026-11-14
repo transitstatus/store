@@ -61,28 +61,6 @@ const updateFeed = async () => {
       };
     });
 
-    //adding DM trains
-    (fetchedData?.southshoreExtra?.get_vehicles ?? []).forEach((vehicle) => {
-      if (vehicle.inService != 0) return; // not DM
-      if (vehicle.lat == 0 || vehicle.lng == 0) return; // not actual location
-
-      tsV1.trains[`DM-${vehicle.equipmentID}`] = {
-        lat: vehicle.lat,
-        lon: vehicle.lng,
-        heading: vehicle.h,
-        realTime: false,
-        deadMileage: true,
-        line: "NICTD",
-        lineCode: "NICTD",
-        lineColor: "111111",
-        lineTextColor: "FFFFFF",
-        dest: "Nowhere",
-        predictions: [],
-        type: "train",
-        extra: { holidayChristmas: false, cabCar: vehicle.equipmentID }
-      };
-    });
-
     //filling out the route data with our GTFS
     Object.values(fetchedData.southshoreRoutes).forEach((route) => {
       tsV1.lines[route.routeID] = {
@@ -100,6 +78,32 @@ const updateFeed = async () => {
     let vehiclePositions = {};
     fetchedData.southshorePositions.entity.forEach((position) => {
       vehiclePositions[position.vehicle.trip.tripId] = position.vehicle.position.toJSON();
+    });
+
+    //adding DM trains
+    (fetchedData?.southshoreExtra?.get_vehicles ?? []).forEach((vehicle) => {
+      if (vehicle.lat == 0 || vehicle.lng == 0) return; // not actual location
+
+      if (vehicle.inService == 0)
+        tsV1.trains[`DM-${vehicle.equipmentID}`] = {
+          lat: vehicle.lat,
+          lon: vehicle.lng,
+          heading: vehicle.h,
+          realTime: false,
+          deadMileage: true,
+          line: "NICTD",
+          lineCode: "NICTD",
+          lineColor: "111111",
+          lineTextColor: "FFFFFF",
+          dest: "Nowhere",
+          predictions: [],
+          type: "train",
+          extra: { holidayChristmas: false, cabCar: vehicle.equipmentID }
+        };
+
+      if (vehicle.inService == 1 && vehiclePositions[vehicle.tripID]) {
+        vehiclePositions[vehicle.tripID] = { latitude: vehicle.lat, longitude: vehicle.lng, bearing: vehicle.bearing };
+      }
     });
 
     //vehicle times
