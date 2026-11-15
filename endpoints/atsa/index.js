@@ -25,9 +25,9 @@ exports.update = async () => {
       trains: {},
       stations: {},
       lines: {
-        amtk: {
-          lineCode: 'amtk',
-          lineNameShort: 'amtk',
+        AMTK: {
+          lineCode: 'AMTK',
+          lineNameShort: 'AMTK',
           lineNameLong: 'Amtrak',
           routeColor: "024d77",
           routeTextColor: "FFFFFF",
@@ -62,7 +62,7 @@ exports.update = async () => {
           realTime: true,
           deadMileage: false,
           line: train.routeName,
-          lineCode: "amtk",
+          lineCode: "AMTK",
           lineColor: "024d77",
           lineTextColor: "FFFFFF",
           dest: train.destName,
