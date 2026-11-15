@@ -53,8 +53,8 @@ exports.update = async () => {
           deadMileage: false,
           line: train.routeName,
           lineCode: train.routeName,
-          lineColor: "5366c9",
-          lineTextColor: "F7F7F7",
+          lineColor: "024d77",
+          lineTextColor: "FFFFFF",
           dest: train.destName,
           predictions: train.stations
             .map((station) => {
@@ -77,8 +77,8 @@ exports.update = async () => {
           lineCode: train.routeName,
           lineNameShort: train.trainNum,
           lineNameLong: train.routeName,
-          routeColor: "5366c9",
-          routeTextColor: "F7F7F7",
+          routeColor: "024d77",
+          routeTextColor: "FFFFFF",
           stations: train.stations.map((station) => station.code),
           hasActiveTrains: true
         };
@@ -98,8 +98,8 @@ exports.update = async () => {
             realTime: prediction.realTime,
             line: train.routeName,
             lineCode: train.routeName,
-            lineColor: "5366c9",
-            lineTextColor: "F7F7F7"
+            lineColor: "024d77",
+            lineTextColor: "FFFFFF"
           });
         });
       });
