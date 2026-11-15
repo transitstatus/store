@@ -24,7 +24,17 @@ exports.update = async () => {
     let transitStatusObject = {
       trains: {},
       stations: {},
-      lines: {},
+      lines: {
+        amtk: {
+          lineCode: 'amtk',
+          lineNameShort: 'amtk',
+          lineNameLong: 'Amtrak',
+          routeColor: "024d77",
+          routeTextColor: "FFFFFF",
+          stations: Object.keys(stationsData),
+          hasActiveTrains: true
+        }
+      },
       lastUpdated: new Date(now).toISOString(),
       shitsFucked: { shitIsFucked: false, message: "" }
     };
@@ -52,7 +62,7 @@ exports.update = async () => {
           realTime: true,
           deadMileage: false,
           line: train.routeName,
-          lineCode: train.routeName,
+          lineCode: "amtk",
           lineColor: "024d77",
           lineTextColor: "FFFFFF",
           dest: train.destName,
@@ -70,17 +80,6 @@ exports.update = async () => {
               if (prediction.actualETA < now + 1000 * 60 * 5) return false; //if the train was due more than 5 mintues ago
               return true;
             })
-        };
-
-        //creating lines
-        transitStatusObject.lines[train.routeName] = {
-          lineCode: train.routeName,
-          lineNameShort: train.trainNum,
-          lineNameLong: train.routeName,
-          routeColor: "024d77",
-          routeTextColor: "FFFFFF",
-          stations: train.stations.map((station) => station.code),
-          hasActiveTrains: true
         };
 
         //adding predictions to stations
