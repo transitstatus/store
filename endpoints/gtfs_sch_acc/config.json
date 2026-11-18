@@ -5,68 +5,35 @@
   "apiVersion": 2,
   "configVersion": 1,
   "default": {
-    "metra": {
-      "scheduledVehicles": {}
-    },
-    "bart": {
-      "scheduledVehicles": {}
-    },
-    "brightline": {
-      "scheduledVehicles": {}
-    },
-    "cta": {
-      "scheduledVehicles": {}
-    },
-    "dekalb_il": {
-      "scheduledVehicles": {}
-    },
-    "southshore": {
-      "scheduledVehicles": {}
-    },
-    "lirr": {
-      "scheduledVehicles": {}
-    },
-    "mnrr": {
-      "scheduledVehicles": {}
-    },
-    "ctrail_hartford": {
-      "scheduledVehicles": {}
-    },
-    "amtrak": {
-      "scheduledVehicles": {}
-    }
+    "metra": { "scheduledVehicles": {} },
+    "bart": { "scheduledVehicles": {} },
+    "brightline": { "scheduledVehicles": {} },
+    "cta": { "scheduledVehicles": {} },
+    "dekalb_il": { "scheduledVehicles": {} },
+    "southshore": { "scheduledVehicles": {} },
+    "lirr": { "scheduledVehicles": {} },
+    "mnrr": { "scheduledVehicles": {} },
+    "ctrail_hartford": { "scheduledVehicles": {} },
+    "amtrak": { "scheduledVehicles": {} },
+    "mbta_bus": { "scheduledVehicles": {} },
+    "mbta_subway": { "scheduledVehicles": {} },
+    "mbta_cr": { "scheduledVehicles": {} },
+    "mbta_ferry": { "scheduledVehicles": {} }
   },
   "variables": [
-    [
-      "metra"
-    ],
-    [
-      "bart"
-    ],
-    [
-      "brightline"
-    ],
-    [
-      "cta",
-      60
-    ],
-    [
-      "dekalb_il"
-    ],
-    [
-      "southshore"
-    ],
-    [
-      "lirr"
-    ],
-    [
-      "mnrr"
-    ],
-    [
-      "ctrail_hartford"
-    ],
-    [
-      "amtrak"
-    ]
+    ["metra", "metra"],
+    ["bart", "bart"],
+    ["brightline", "brightline"],
+    ["cta", "cta", 60],
+    ["dekalb_il", "dekalb_il"],
+    ["southshore", "southshore"],
+    ["lirr", "lirr"],
+    ["mnrr", "mnrr"],
+    ["ctrail_hartford", "ctrail_hartford"],
+    ["amtrak", "amtrak"],
+    ["mbta_bus", "mbta", 60],
+    ["mbta_subway", "mbta", 60],
+    ["mbta_cr", "mbta"],
+    ["mbta_ferry", "mbta", 60]
   ]
 }

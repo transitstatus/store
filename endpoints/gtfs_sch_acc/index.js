@@ -1,8 +1,8 @@
 const protobuf = require("protobufjs");
 
-const updateFeed = async (feed, maxMinutes) => {
+const updateFeed = async (feed, staticFeed, maxMinutes) => {
   //if (feed != 'metra') return false;
-  //if (feed == "cta") return { scheduledVehicles: {} };
+  if (feed == "mbta_bus") return { scheduledVehicles: {} };
 
   try {
     const nowDate = new Date();
@@ -15,8 +15,8 @@ const updateFeed = async (feed, maxMinutes) => {
 
     const [staticStopsData, staticRoutesData, staticMetaData] = await Promise.all(
       [
-        `https://gtfs.piemadd.com/data/${feed}/stops.json`,
-        `https://gtfs.piemadd.com/data/${feed}/routes.json`,
+        `https://gtfs.piemadd.com/data/${staticFeed}/stops.json`,
+        `https://gtfs.piemadd.com/data/${staticFeed}/routes.json`,
         `https://gobblerstatic.transitstat.us/schedules/${feed}/metadata.json`
       ].map((url) =>
         fetch(url).then((res) => {
@@ -133,9 +133,9 @@ const updateFeed = async (feed, maxMinutes) => {
   }
 };
 
-const updateFeedInd = async (feedKey, maxMinutes = 1440) => {
+const updateFeedInd = async (feedKey, staticFeedKey, maxMinutes = 1440) => {
   console.time(`GTFS schedules for ${feedKey}`);
-  const feedData = await updateFeed(feedKey, maxMinutes);
+  const feedData = await updateFeed(feedKey, staticFeedKey, maxMinutes);
   console.timeEnd(`GTFS schedules for ${feedKey}`);
 
   return feedData;
