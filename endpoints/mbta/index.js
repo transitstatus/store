@@ -145,7 +145,7 @@ const update = async () => {
           bearing: 0,
           fake: true
         };
-        
+
         delete vehiclePositionsDict[vehicleTripToLabel[train.tripUpdate?.trip?.tripId]];
 
         const isScheduled = position.latitude == 0 && position.longitude == 0 && position.bearing == 0;
@@ -156,7 +156,7 @@ const update = async () => {
           heading: position.bearing,
           realTime: !isScheduled,
           deadMileage: isScheduled,
-          line: shouldRemoveLineFromRouteName[trainRoute.routeType] ? trainRoute.routeLongName.replace(' Line') : trainRoute.routeLongName,
+          line: shouldRemoveLineFromRouteName[trainRoute.routeType] ? trainRoute.routeLongName.replace(' Line', '') : trainRoute.routeLongName,
           lineCode: train.tripUpdate?.trip?.routeId,
           lineColor: trainRoute.routeColor,
           lineTextColor: trainRoute.routeTextColor,
