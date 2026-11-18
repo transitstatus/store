@@ -114,14 +114,12 @@ const update = async () => {
       tripUpdatesData.entity.forEach((train, i) => {
         if (train.vehicle) return; // position
 
-        console.log(train?.tripUpdate?.trip?.routeId, train?.tripUpdate?.trip?.tripId)
-
         const trainRoute = staticRoutesData[train.tripUpdate?.trip?.routeId];
 
         if (!transitStatusV1.lines[trainRoute.routeID]) return; // route doesn't exist, likely wrong type
 
         const runNumber = shouldUseTrainNumber[trainRoute.routeType]
-          ? train.tripUpdate?.trip?.tripId.split("_")[2]
+          ? train.tripUpdate?.trip?.tripId.split("-")[2]
           : (vehicleTripToLabel[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.tripId);
         if (!runNumber) return;
 
@@ -147,16 +145,10 @@ const update = async () => {
           bearing: 0,
           fake: true
         };
-
-        if (!position.fake) {
-          //console.log(trainRoute.routeType, vehicleTripToLabel[train.tripUpdate?.trip?.tripId])
-        } else {
-          //console.log('FAKE', trainRoute.routeType, vehicleTripToLabel[train.tripUpdate?.trip?.tripId])
-        }
-
+        
         delete vehiclePositionsDict[vehicleTripToLabel[train.tripUpdate?.trip?.tripId]];
 
-        const isScheduled = false; //position.latitude == 0 && position.longitude == 0 && position.bearing == 0;
+        const isScheduled = position.latitude == 0 && position.longitude == 0 && position.bearing == 0;
 
         let finalTrain = {
           lat: position.latitude,
