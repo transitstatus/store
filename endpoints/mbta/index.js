@@ -307,17 +307,18 @@ const update = async () => {
           const scheduledVehicle = scheduledVehicles[runNumber];
 
           const routeType = staticRoutesData[scheduledVehicle.lineCode].routeType;
-
           scheduledVehicle.extra.routeType = routeType;
 
-          if (transitStatusV1.trains[runNumber]) return; // train exists
-          if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
-          transitStatusV1.trains[runNumber] = scheduledVehicle;
+          const actualRunNumber = shouldUseTrainNumber[routeType] ? runNumber.split("-")[2] : runNumber;
+
+          if (transitStatusV1.trains[actualRunNumber]) return; // train exists
+          if (cancelledTrains[actualRunNumber]) return; // cancelled - TODO handle this better
+          transitStatusV1.trains[actualRunNumber] = scheduledVehicle;
 
           if (!shouldUseSchedules[routeType]) return;
 
           const trainDirection = shouldUseDirections[routeType]
-            ? parseInt(runNumber) % 2 == 0
+            ? parseInt(actualRunNumber) % 2 == 0
               ? "Inbound"
               : "Outbound"
             : scheduledVehicle.dest;
@@ -330,7 +331,7 @@ const update = async () => {
             if (transitStatusV1.stations[stop.stationID].destinations[trainDirection].trains.length > 12) return; // too much!
 
             transitStatusV1.stations[stop.stationID].destinations[trainDirection].trains.push({
-              runNumber: runNumber,
+              runNumber: actualRunNumber,
               actualETA: stop.actualETA,
               noETA: false,
               realTime: false,
