@@ -163,7 +163,7 @@ const update = async () => {
           dest: trainDestination,
           predictions: [],
           type: "train",
-          extra: { holidayChristmas: false, cabCar: null, engine: null, routeType: trainRoute.routeType }
+          extra: { holidayChristmas: false, cabCar: vehicleTripToLabel[train.tripUpdate?.trip?.tripId], engine: null, routeType: trainRoute.routeType }
         };
 
         let trainHasValidStops = false; // gauging whether we can remove noeta stops
