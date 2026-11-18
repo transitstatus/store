@@ -64,6 +64,7 @@ const update = async () => {
     const shouldUseTrainNumber = { 2: true };
     const shouldUseDirections = { 2: true };
     const shouldUseSchedules = { 2: true };
+    const shouldRemoveLineFromRouteName = { 2: true };
 
     const processFeed = (routeTypes, scheduledVehicles, disabled) => {
       let transitStatusV1 = { trains: {}, stations: {}, lines: {}, alerts: [] };
@@ -161,7 +162,7 @@ const update = async () => {
           heading: position.bearing,
           realTime: !isScheduled,
           deadMileage: isScheduled,
-          line: trainRoute.routeLongName,
+          line: shouldRemoveLineFromRouteName[trainRoute.routeType] ? trainRoute.routeLongName.replace(' Line') : trainRoute.routeLongName,
           lineCode: train.tripUpdate?.trip?.routeId,
           lineColor: trainRoute.routeColor,
           lineTextColor: trainRoute.routeTextColor,
