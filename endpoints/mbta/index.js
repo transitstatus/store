@@ -344,7 +344,7 @@ const update = async () => {
     };
 
     const [busFeed, trainFeed, ferryFeed] = feeds.map((feed) => {
-      return processFeed(feed.types, feed.scheduled, feed.name == "buses");
+      return processFeed(feed.types, feed.scheduled);
     });
 
     return { tsBusV1: busFeed, tsV1: trainFeed, tsFerryV1: ferryFeed, lastUpdated: lastUpdated };
