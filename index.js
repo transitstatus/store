@@ -43,7 +43,7 @@ let topIPs = {};
 fastify.after(() => {
   const only_testing = [
     //"gtfs_sch_acc", "southshore",
-    'gtfs_sch_acc', 'mbta'
+    //'gtfs_sch_acc', 'mbta'
     ];
   const exclude_from_root = [
     "gtfs_sch",
