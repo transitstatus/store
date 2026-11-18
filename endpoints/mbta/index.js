@@ -114,6 +114,8 @@ const update = async () => {
       tripUpdatesData.entity.forEach((train, i) => {
         if (train.vehicle) return; // position
 
+        console.log(train?.tripUpdate?.trip?.routeId, train?.tripUpdate?.trip?.tripId)
+
         const trainRoute = staticRoutesData[train.tripUpdate?.trip?.routeId];
 
         if (!transitStatusV1.lines[trainRoute.routeID]) return; // route doesn't exist, likely wrong type
@@ -154,7 +156,7 @@ const update = async () => {
 
         delete vehiclePositionsDict[vehicleTripToLabel[train.tripUpdate?.trip?.tripId]];
 
-        const isScheduled = position.latitude == 0 && position.longitude == 0 && position.bearing == 0;
+        const isScheduled = false; //position.latitude == 0 && position.longitude == 0 && position.bearing == 0;
 
         let finalTrain = {
           lat: position.latitude,
