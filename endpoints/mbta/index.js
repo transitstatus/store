@@ -7,24 +7,6 @@ const crossCheckTwoArrays = (array1, array2) => {
   return array1.some((element) => array2.includes(element));
 };
 
-const getTzOffset = () => {
-  const tzOffsets = ["-05:00", "-04:00"];
-  const now = new Date();
-  const nowYear = now.getFullYear();
-  let dst_start = new Date(nowYear, 2, 14);
-  let dst_end = new Date(nowYear, 10, 7);
-  dst_start.setDate(14 - dst_start.getDay()); // adjust date to 2nd Sunday
-  dst_end.setDate(7 - dst_end.getDay()); // adjust date to the 1st Sunday
-  const isDST = Number(now >= dst_start && now < dst_end);
-  return tzOffsets[isDST];
-};
-
-const startTimeAndDateToDate = (startDate, startTime, timeZone) => {
-  return new Date(
-    `${startDate.substring(0, 4)}-${startDate.substring(4, 6)}-${startDate.substring(6, 8)}T${startTime}${timeZone}`
-  );
-};
-
 const update = async () => {
   const gtfsRealtimeRoot = await protobuf.load("gtfs-realtime-MTARR.proto");
   const FeedMessage = gtfsRealtimeRoot.lookupType("transit_realtime.FeedMessage");
@@ -197,21 +179,23 @@ const update = async () => {
           const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
           const time = Math.max(arr, dep) * 1000;
 
+          const actualStopID = staticStopsData[stop.stopId]?.parentStation?.length > 0 ? staticStopsData[stop.stopId]?.parentStation : stop.stopId;
+
           // stops are done in reverse order, which is why we can filter as we go instead of
           // checking and then filtering later
           if (time) trainHasValidStops = true;
           else if (trainHasValidStops) return;
 
           finalTrain.predictions.push({
-            stationID: stop.stopId,
-            stationName: staticStopsData[stop.stopId].stopName,
+            stationID: actualStopID,
+            stationName: staticStopsData[actualStopID].stopName,
             actualETA: time,
             noETA: !time,
             realTime: !isScheduled
           });
 
-          if (transitStatusV1.stations[stop.stopId]) {
-            transitStatusV1.stations[stop.stopId].destinations[trainDirection].trains.push({
+          if (transitStatusV1.stations[actualStopID]) {
+            transitStatusV1.stations[actualStopID].destinations[trainDirection].trains.push({
               runNumber: runNumber,
               actualETA: time,
               noETA: !time,
@@ -304,7 +288,7 @@ const update = async () => {
             .replaceAll(/\s+/g, " ")
             .trim()
         };
-      });
+      }).filter((alert) => alert);
 
       transitStatusV1.lastUpdated = lastUpdated;
 
