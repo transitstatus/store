@@ -142,7 +142,7 @@ const update = async () => {
           latitude: 0,
           longitude: 0,
           bearing: 0,
-          fake: true,
+          fake: true
         };
 
         if (!position.fake) {
@@ -168,7 +168,7 @@ const update = async () => {
           dest: trainDestination,
           predictions: [],
           type: "train",
-          extra: { holidayChristmas: false, cabCar: null, engine: null }
+          extra: { holidayChristmas: false, cabCar: null, engine: null, routeType: trainRoute.routeType }
         };
 
         let trainHasValidStops = false; // gauging whether we can remove noeta stops
@@ -179,7 +179,10 @@ const update = async () => {
           const dep = stop.departure ? new Date(stop.departure.time?.low).valueOf() : 0;
           const time = Math.max(arr, dep) * 1000;
 
-          const actualStopID = staticStopsData[stop.stopId]?.parentStation?.length > 0 ? staticStopsData[stop.stopId]?.parentStation : stop.stopId;
+          const actualStopID =
+            staticStopsData[stop.stopId]?.parentStation?.length > 0
+              ? staticStopsData[stop.stopId]?.parentStation
+              : stop.stopId;
 
           // stops are done in reverse order, which is why we can filter as we go instead of
           // checking and then filtering later
@@ -205,7 +208,7 @@ const update = async () => {
               lineColor: finalTrain.lineColor,
               lineTextColor: finalTrain.lineTextColor,
               destination: finalTrain.dest,
-              extra: {}
+              extra: { routeType: trainRoute.routeType }
             });
           }
         });
@@ -247,48 +250,52 @@ const update = async () => {
       });
 
       // alerts
-      transitStatusV1.alerts = alertsData.entity.map((alert) => {
-        const lineCode = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
-        const runNumber =
-          alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
-        const stationID = alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
+      transitStatusV1.alerts = alertsData.entity
+        .map((alert) => {
+          const lineCode =
+            alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].routeId ?? null) : null;
+          const runNumber =
+            alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].trip?.tripId ?? null) : null;
+          const stationID =
+            alert.alert.informedEntity.length > 0 ? (alert.alert.informedEntity[0].stopId ?? null) : null;
 
-        const additionalRunNumbers = Object.keys(transitStatusV1.trains).filter((trainID) => {
-          const train = transitStatusV1.trains[trainID];
-          const stopIDs = train.predictions.map((prediction) => prediction.stationID);
-          if (lineCode == train.lineCode) return true;
-          if (stopIDs.includes(stationID)) return true;
-          return false;
-        });
-
-        const additionalStationIDs = Object.values(transitStatusV1.stations)
-          .filter((station) => {
-            const stationLines = Object.values(staticRoutesData)
-              .filter((line) => line.routeStations.includes(station.stationID))
-              .map((line) => line.routeID);
-            const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
-
-            if (stationLines.includes(lineCode)) return true;
-            if (stationTrains.includes(runNumber)) return true;
+          const additionalRunNumbers = Object.keys(transitStatusV1.trains).filter((trainID) => {
+            const train = transitStatusV1.trains[trainID];
+            const stopIDs = train.predictions.map((prediction) => prediction.stationID);
+            if (lineCode == train.lineCode) return true;
+            if (stopIDs.includes(stationID)) return true;
             return false;
-          })
-          .map((station) => station.stationID);
+          });
 
-        return {
-          id: alert.id,
-          lineCode,
-          runNumber,
-          stationID,
-          additionalRunNumbers,
-          additionalStationIDs,
-          title: alert.alert.headerText.translation[0].text,
-          message: (alert.alert.descriptionText ?? { translation: [{ text: "" }] }).translation[0].text
-            .replaceAll(/<[^>]*>/g, " ")
-            .replaceAll("&nbsp;", " ")
-            .replaceAll(/\s+/g, " ")
-            .trim()
-        };
-      }).filter((alert) => alert);
+          const additionalStationIDs = Object.values(transitStatusV1.stations)
+            .filter((station) => {
+              const stationLines = Object.values(staticRoutesData)
+                .filter((line) => line.routeStations.includes(station.stationID))
+                .map((line) => line.routeID);
+              const stationTrains = Object.values(station.destinations).flatMap((direction) => direction.trains);
+
+              if (stationLines.includes(lineCode)) return true;
+              if (stationTrains.includes(runNumber)) return true;
+              return false;
+            })
+            .map((station) => station.stationID);
+
+          return {
+            id: alert.id,
+            lineCode,
+            runNumber,
+            stationID,
+            additionalRunNumbers,
+            additionalStationIDs,
+            title: alert.alert.headerText.translation[0].text,
+            message: (alert.alert.descriptionText ?? { translation: [{ text: "" }] }).translation[0].text
+              .replaceAll(/<[^>]*>/g, " ")
+              .replaceAll("&nbsp;", " ")
+              .replaceAll(/\s+/g, " ")
+              .trim()
+          };
+        })
+        .filter((alert) => alert);
 
       transitStatusV1.lastUpdated = lastUpdated;
 
@@ -299,11 +306,13 @@ const update = async () => {
         .forEach((runNumber) => {
           const scheduledVehicle = scheduledVehicles[runNumber];
 
+          const routeType = staticRoutesData[scheduledVehicle.lineCode].routeType;
+
+          scheduledVehicle.extra.routeType = routeType;
+
           if (transitStatusV1.trains[runNumber]) return; // train exists
           if (cancelledTrains[runNumber]) return; // cancelled - TODO handle this better
           transitStatusV1.trains[runNumber] = scheduledVehicle;
-
-          const routeType = staticRoutesData[scheduledVehicle.lineCode].routeType;
 
           if (!shouldUseSchedules[routeType]) return;
 
@@ -330,7 +339,7 @@ const update = async () => {
               lineColor: scheduledVehicle.lineColor,
               lineTextColor: scheduledVehicle.lineTextColor,
               destination: scheduledVehicle.dest,
-              extra: {}
+              extra: { routeType }
             });
           });
         });
