@@ -31,15 +31,17 @@ const update = async () => {
     );
 
     let vehiclePositionsDict = {};
-    let vehicleTripToLabel = {};
+    let vehicleTripToID = {};
+    let vehicleIDToTrip = {};
     vehiclePositionsData.entity.forEach((position) => {
       if (position.vehicle) {
         if (position.vehicle.trip) {
-          vehicleTripToLabel[position.vehicle.trip.tripId] = position.vehicle.vehicle.label;
+          vehicleTripToID[position.vehicle.trip.tripId] = position.vehicle.vehicle.id;
         }
 
         if (position.vehicle.vehicle && position.vehicle.position) {
-          vehiclePositionsDict[position.vehicle.vehicle.label] = position.vehicle.position;
+          vehiclePositionsDict[position.vehicle.vehicle.id] = position.vehicle.position;
+          vehicleIDToTrip[position.vehicle.vehicle.id] = position.vehicle.vehicle.label;
         }
       }
     });
@@ -120,7 +122,7 @@ const update = async () => {
 
         const runNumber = shouldUseTrainNumber[trainRoute.routeType]
           ? train.tripUpdate?.trip?.tripId.split("-")[2]
-          : (vehicleTripToLabel[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.tripId);
+          : (vehicleTripToID[train.tripUpdate?.trip?.tripId] ?? train.tripUpdate?.trip?.tripId);
         if (!runNumber) return;
 
         const trainDestination =
@@ -139,14 +141,14 @@ const update = async () => {
           return;
         }
 
-        const position = vehiclePositionsDict[vehicleTripToLabel[train.tripUpdate?.trip?.tripId]] ?? {
+        const position = vehiclePositionsDict[vehicleTripToID[train.tripUpdate?.trip?.tripId]] ?? {
           latitude: 0,
           longitude: 0,
           bearing: 0,
           fake: true
         };
 
-        delete vehiclePositionsDict[vehicleTripToLabel[train.tripUpdate?.trip?.tripId]];
+        delete vehiclePositionsDict[vehicleTripToID[train.tripUpdate?.trip?.tripId]];
 
         const isScheduled = position.latitude == 0 && position.longitude == 0 && position.bearing == 0;
 
@@ -156,14 +158,21 @@ const update = async () => {
           heading: position.bearing,
           realTime: !isScheduled,
           deadMileage: isScheduled,
-          line: shouldRemoveLineFromRouteName[trainRoute.routeType] ? trainRoute.routeLongName.replace(' Line', '') : trainRoute.routeLongName,
+          line: shouldRemoveLineFromRouteName[trainRoute.routeType]
+            ? trainRoute.routeLongName.replace(" Line", "")
+            : trainRoute.routeLongName,
           lineCode: train.tripUpdate?.trip?.routeId,
           lineColor: trainRoute.routeColor,
           lineTextColor: trainRoute.routeTextColor,
           dest: trainDestination,
           predictions: [],
           type: "train",
-          extra: { holidayChristmas: false, cabCar: vehicleTripToLabel[train.tripUpdate?.trip?.tripId], engine: null, routeType: trainRoute.routeType }
+          extra: {
+            holidayChristmas: false,
+            cabCar: vehicleTripToID[train.tripUpdate?.trip?.tripId],
+            engine: null,
+            routeType: trainRoute.routeType
+          }
         };
 
         let trainHasValidStops = false; // gauging whether we can remove noeta stops
