@@ -75,7 +75,8 @@ const update = async () => {
 
     const feeds = [
       { name: "buses", types: ["3"], scheduled: busSchData },
-      { name: "trains_and_ferries", types: ["0", "1", "2", "4"], scheduled: { ...subwaySchData, ...crSchData, ...ferrySchData } }
+      { name: "trains", types: ["0", "1", "2"], scheduled: { ...subwaySchData, ...crSchData } },
+      { name: "ferries", types: ["4"], scheduled: ferrySchData }
     ];
 
     const shouldUseTrainNumber = { 2: true };
@@ -353,11 +354,11 @@ const update = async () => {
       return transitStatusV1;
     };
 
-    const [busFeed, nonBusFeed] = feeds.map((feed) => {
+    const [busFeed, trainFeed, ferryFeed] = feeds.map((feed) => {
       return processFeed(feed.types, feed.scheduled, feed.name == "buses");
     });
 
-    return { tsBusV1: busFeed, tsV1: nonBusFeed, lastUpdated: lastUpdated };
+    return { tsBusV1: busFeed, tsV1: trainFeed, tsFerryV1: ferryFeed, lastUpdated: lastUpdated };
   } catch (e) {
     console.log(e);
     return false;
